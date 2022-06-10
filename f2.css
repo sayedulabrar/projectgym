@@ -1,0 +1,33 @@
+tr.breakfast:hover{
+    background-color: rgb(45, 184, 140);
+}
+
+tr.lunch:hover{
+    background-color: rgb(113, 21, 210);
+}
+
+
+tr.dinner:hover{
+
+    background-color: rgb(142, 226, 32);
+}
+
+tr.preworkout:hover{
+    background-color: rgb(255, 0, 0);
+}
+
+tr.postworkout:hover{
+    background-color: rgb(13, 187, 235);
+
+}
+#diet_heading{
+    
+    color: rgb(105, 206, 207);
+    
+}
+
+
+
+h1{
+    text-align: center;
+}
