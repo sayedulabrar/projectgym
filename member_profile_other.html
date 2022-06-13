@@ -3,20 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Branch List</title>
+  <title>AdminLTE 3 | User Profile</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
-  <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
-  
+
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -54,7 +52,7 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-            
+              
               <li class="nav-item">
                 <a href="../../index2.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -64,18 +62,15 @@
               
             </ul>
           </li>
-          <li class="nav-item">
-            
-          </li>
-          
-          
-          <li class="nav-item">
-            
-          </li>
-          
          
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
+       
+          <li class="nav-item">
+            
+          </li>
+          
+          
+          <li class="nav-item">
+            <a href="#" class="nav-link">
               <i class="nav-icon far fa-envelope"></i>
               <p>
                 Mailbox
@@ -98,8 +93,8 @@
               
             </ul>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-book"></i>
               <p>
                 Pages
@@ -109,12 +104,11 @@
             <ul class="nav nav-treeview">
                  
               <li class="nav-item">
-                <a href="../examples/profile.html" class="nav-link">
+                <a href="../examples/profile.html" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Profile</p>
                 </a>
               </li>
-              
               <li class="nav-item">
                 <a href="../examples/userreg.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -127,6 +121,8 @@
                   <p>Branch</p>
                 </a>
               </li>
+
+              
               <li class="nav-item">
                 <a href="../examples/Search-Manager.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -141,7 +137,8 @@
           </li>
          
           
-         
+          
+          
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -152,79 +149,120 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style="margin-top: 0;">
     <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Profile</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">User Profile</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="roww">
+          <div class="col-md-30">
+
+            <!-- Profile Image -->
+            <div class="card card-primary card-outline">
+              <div class="card-body box-profile">
+                <div class="text-center">
+                  <img class="profile-user-img img-fluid img-circle"
+                       src="../../dist/img/user2-160x160.jpg"
+                       alt="User profile picture">
+                </div>
+
+                <h3 class="profile-username text-center">brownfalcon</h3>
+
+                <p class="text-muted text-center"></p>
+                <div class="row">
+                    <div class="col-lg-6 col-12">
+                        <h3 style="text-align: center;"><b>Personal Info</b></h3>
+                        <ul class="list-group list-group-unbordered mb-3">                    
+                            <li class="list-group-item">
+                              <b>Name</b> <a class="float-right">Saifur Khan</a>
+                            </li>
+                            <li class="list-group-item">
+                              <b>Email</b> <a class="float-right">Drew@gmail.com</a>
+                            </li>
+                            <li class="list-group-item">
+                              <b>Gender</b> <a class="float-right">Male</a>
+                            </li>
+                            <li class="list-group-item">
+                              <b>Address</b> <a class="float-right">xyz</a>
+                            </li>
+                            <li class="list-group-item">
+                              <b>Account Number</b> <a class="float-right">142454654</a>
+                            </li>
+                            <li class="list-group-item">
+                              <b>Mobile_No</b> <a class="float-right">01556629677</a>
+                            </li>  
+                            <li class="list-group-item">
+                              <b>Blood Group</b> <a class="float-right">B+</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-6 col-12">
+                      <h3 style="text-align: center;"><b>Gym Related Info</b></h3>
+                      <ul class="list-group list-group-unbordered mb-3">                    
+                          <li class="list-group-item">
+                            <b>Member ID</b> <a class="float-right">m_001</a>
+                          </li>
+                          
+                          <li class="list-group-item">
+                            <b>Height</b> <a class="float-right">150 cm</a>
+                          </li>
+                          <li class="list-group-item">
+                            <b>Weight</b> <a class="float-right">69 kg</a>
+                          </li>
+                          <li class="list-group-item">
+                            <b>BMI</b> <a class="float-right">23</a>
+                          </li>  
+                          <li class="list-group-item">
+                            <b>Branch Name</b> <a class="float-right">b_001</a>
+                          </li>  
+                          <li class="list-group-item">
+                            <b>Membership Expiry Date</b> <a class="float-right">13-Dec-2023</a>
+                          </li>  
+                          <li class="list-group-item">
+                            <b>Assigned Trainer</b> <a class="float-right">e_001</a>
+                          </li>
+                      </ul>
+                    </div>
+                </div>
+
+                
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+           
+          </div>
+          <!-- /.col -->
+         
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+      <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button onclick="window.location.href='member_list.html'" type="button" class="btn btn-primary" style="padding-left: 20px; padding-right: 20px;">Back</button>
+            </div>
+        </div>
+      </div>
+    </section>
     
-
-  
-
-
-
-
-
-
-
-
-
-
-
-  <!-- Main content -->
-  <section class="content" style="margin-bottom:50px ;">
-
-     <div class="d-flex justify-content-center" style=" padding-top:1%;text-decoration: lightslategray;"><h2>Branch Info</h2></div>
-
-    <div class="card-body"style="margin-top:1%">
-
-        
-      <table class="table table-hover table-striped">
-        <tbody style="color:#33ABF9 ;">
-            
-        <tr >
-          
-          
-          <td ><a href="../../Branchdetails.html" style="color:#A2DE9C ;">Brnch Name: MirpurDOH</a></td>
-          <td >Total Profit:500000</td>
-          <td >Total Revenue:600000</td>
-          <td >Total Cost:120000</td>
-          
-        </tr>
-
-        <tr >
-          
-          
-            <td ><a href="../../Branchdetails.html"style="color:#A2DE9C ;">Brnch Name:KolaPUR</a></td>
-            <td >Total Profit:200000</td>
-            <td >Total Revenue:300000</td>
-            <td >Total Cost:70000</td>
-            
-          </tr>
-
-
-
-          
-    
-
-
-        
-        
-        </tbody>
-      </table>
-      <!-- /.table -->
-    </div>
-
-
-
-
-  </section>
-  
-
-
-
-
-
-
-
-
-
-
+         <!-- /.content -->
     <div style="margin-bottom:30px ;"></div>
   </div>
   <!-- /.content-wrapper -->
@@ -246,7 +284,5 @@
 <script src="../../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/demo.js"></script>
-<!-- Page specific script -->
-
 </body>
 </html>
