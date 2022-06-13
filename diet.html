@@ -38,7 +38,17 @@
         <li class="nav-item d-none d-sm-inline-block">
           <a href="#" class="nav-link">Contact</a>
         </li>
+
+        
       </ul>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto navbar-right-top">
+          <li class="nav-item">
+            <a href="login.html" type="button" class="btn btn-secondary">Logout</a>
+          </li>
+        </ul>
+    </div>
 
       <!-- Right navbar links -->
      
@@ -101,6 +111,8 @@
                 </li>
 
               </ul>
+
+              
             </li>
 
 
@@ -200,6 +212,10 @@
             <div class="col-sm-6">
               <h1 class="m-0">Diet Chart</h1>
             </div><!-- /.col -->
+
+            <div class="col-sm-6">
+                <h5 class="m-0 float-right">Diet Id: D_001</h5>
+            </div><!-- /.col -->
             
           </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -225,7 +241,7 @@
 
           <div class="card" >
             <div class="card-header border-transparent"  id="day_exe">
-                <h4 class="d-flex">Protein</h4>
+                <h4 class="d-flex">Breakfast</h4>
   
                 <div class="card-tools">
                  
@@ -237,532 +253,804 @@
               <table class="table m-0">
                 <thead>
                   <tr>
-                    <th>Diet Id</th>
-                    <th>Breakfast</th>
-                    <th>Lunch</th>
-                    <th>Dinner</th>
+                    <th>Vitamin</th>
+                    <th>Protein</th>
+                    <th>Carbohydrate</th>
+                    <th>Minerals</th>
+                    <th>Fat</th>
+                    <th>Calory</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr class="mem_diet">
                     <td>
-                       D_001
+                        <form>
+                            <div class="form-group">
+                              <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                            </div>
+                        </form>
                     </td>
                     <td>
-                        30g
+                        <form>
+                            <div class="form-group">
+                              <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                            </div>
+                        </form>
                     </td>
                     <td>
-                        60g
-                    </td> 
-                    <td>
-                        70g
-                    </td> 
-                    
-                  </tr>
-
-
-                  <tr class="mem_diet">
-                    <td>
-                       D_002
-                    </td>
-                    <td>
-                        40g
-                    </td>
-                    <td>
-                        50g
-                    </td> 
-                    <td>
-                        30g
-                    </td> 
-                    
-                  </tr>
-
-                  <tr class="mem_diet">
-                    <td>
-                       D_003
-                    </td>
-                    <td>
-                        40g
-                    </td>
-                    <td>
-                        70g
-                    </td> 
-                    <td>
-                        75g
-                    </td> 
-                    
-                  </tr>
-
-
-
-
-                 
-                 
-                </tbody>
-              </table>
-
-            </div>
-            <!-- /.table-responsive -->
-
-          </div>
-
-          
-        </div>
-        <!--/. container-fluid -->
-      </section>
-
-
-
-
-      <section class="content">
-        <div class="container-fluid">
-           
-          </div>
-          <div class="card" >
-            <div class="card-header border-transparent"  id="day_exe">
-              <h4 class="d-flex">Carbohydrate</h4>
-
-              <div class="card-tools">
-               
-              </div>
-            </div>
-
-          <div class="card-body p-0">
-            <div class="table-responsive">
-              <table class="table m-0">
-                <thead>
-                    <tr>
-                        <th>Diet Id</th>
-                        <th>Breakfast</th>
-                        <th>Lunch</th>
-                        <th>Dinner</th>
-                      </tr>
-                </thead>
-                <tbody>
-                    <tr class="mem_diet">
-                        <td>
-                           D_001
-                        </td>
-                        <td>
-                            40g
-                        </td>
-                        <td>
-                            70g
-                        </td> 
-                        <td>
-                            75g
-                        </td> 
-                        
-                      </tr>
-    
-
-
-                      <tr class="mem_diet">
-                        <td>
-                           D_002
-                        </td>
-                        <td>
-                            40g
-                        </td>
-                        <td>
-                            70g
-                        </td> 
-                        <td>
-                            75g
-                        </td> 
-                        
-                      </tr>
-    
-
-                      <tr class="mem_diet">
-                        <td>
-                           D_003
-                        </td>
-                        <td>
-                            40g
-                        </td>
-                        <td>
-                            70g
-                        </td> 
-                        <td>
-                            75g
-                        </td> 
-                        
-                      </tr>
-    
-                </tbody>
-              </table>
-
-            </div>
-            <!-- /.table-responsive -->
-
-
-            
-
-
-          </div>
-
-
-
-          
-        </div>
-        <!--/. container-fluid -->
-      </section>
-
-
-
-      <section class="content">
-        <div class="container-fluid">
-           
-          </div>
-          <div class="card" >
-            <div class="card-header border-transparent"  id="day_exe">
-              <h4 class="d-flex">Fat</h4>
-
-              <div class="card-tools">
-               
-              </div>
-            </div>
-
-          <div class="card-body p-0">
-            <div class="table-responsive">
-              <table class="table m-0">
-                <thead>
-                    <tr>
-                        <th>Diet Id</th>
-                        <th>Breakfast</th>
-                        <th>Lunch</th>
-                        <th>Dinner</th>
-                      </tr>
-                </thead>
-                <tbody>
-                    <tr class="mem_diet">
-                        <td>
-                           D_001
-                        </td>
-                        <td>
-                            40g
-                        </td>
-                        <td>
-                            70g
-                        </td> 
-                        <td>
-                            75g
-                        </td> 
-                        
-                      </tr>
-    
-
-
-                      <tr class="mem_diet">
-                        <td>
-                           D_002
-                        </td>
-                        <td>
-                            40g
-                        </td>
-                        <td>
-                            70g
-                        </td> 
-                        <td>
-                            75g
-                        </td> 
-                        
-                      </tr>
-    
-
-                      <tr class="mem_diet">
-                        <td>
-                           D_003
-                        </td>
-                        <td>
-                            40g
-                        </td>
-                        <td>
-                            70g
-                        </td> 
-                        <td>
-                            75g
-                        </td> 
-                        
-                      </tr>
-    
-                </tbody>
-              </table>
-
-            </div>
-            <!-- /.table-responsive -->
-
-
-            
-
-
-          </div>
-
-
-
-          
-        </div>
-        <!--/. container-fluid -->
-      </section>
-
-
-
-
-      <section class="content">
-        <div class="container-fluid">
-           
-          </div>
-          <div class="card" >
-            <div class="card-header border-transparent"  id="day_exe">
-              <h4 class="d-flex">Minerals</h4>
-
-              <div class="card-tools">
-               
-              </div>
-            </div>
-
-          <div class="card-body p-0">
-            <div class="table-responsive">
-              <table class="table m-0">
-                <thead>
-                    <tr>
-                        <th>Diet Id</th>
-                        <th>Breakfast</th>
-                        <th>Lunch</th>
-                        <th>Dinner</th>
-                      </tr>
-                </thead>
-                <tbody>
-                    <tr class="mem_diet">
-                        <td>
-                           D_001
-                        </td>
-                        <td>
-                            40g
-                        </td>
-                        <td>
-                            70g
-                        </td> 
-                        <td>
-                            75g
-                        </td> 
-                        
-                      </tr>
-    
-
-
-                      <tr class="mem_diet">
-                        <td>
-                           D_002
-                        </td>
-                        <td>
-                            40g
-                        </td>
-                        <td>
-                            70g
-                        </td> 
-                        <td>
-                            75g
-                        </td> 
-                        
-                      </tr>
-    
-
-                      <tr class="mem_diet">
-                        <td>
-                           D_003
-                        </td>
-                        <td>
-                            40g
-                        </td>
-                        <td>
-                            70g
-                        </td> 
-                        <td>
-                            75g
-                        </td> 
-                        
-                      </tr>
-    
-                </tbody>
-              </table>
-
-            </div>
-            <!-- /.table-responsive -->
-
-
-            
-
-
-          </div>
-
-
-
-          
-        </div>
-        <!--/. container-fluid -->
-      </section>
-
-
-
-      <section class="content">
-        <div class="container-fluid">
-           
-          </div>
-          <div class="card" >
-            <div class="card-header border-transparent"  id="day_exe">
-              <h4 class="d-flex">Pre & Post Workout</h4>
-
-              <div class="card-tools">
-               
-              </div>
-            </div>
-
-          <div class="card-body p-0">
-            <div class="table-responsive">
-              <table class="table m-0">
-                <thead>
-                    <tr>
-                        <th>Diet Id</th>
-                        <th>Pre Workout Protein</th>
-                        <th>Post Workout Protein</th>
-                        <th>Pre Workout Carbohydrate</th>
-                        <th>Post Workout Carbohydrate</th>
-                      </tr>
-                </thead>
-                <tbody>
-                    <tr class="mem_diet">
-                        <td>
-                           D_001
-                        </td>
-                        <td>
-                            10g
-                        </td>
-                        <td>
-                            20g
-                        </td> 
-
-                        <td>
-                            10g
-                        </td>
-                        <td>
-                            20g
-                        </td> 
-                        
-                      </tr>
-    
-
-
-                      <tr class="mem_diet">
-                        <td>
-                           D_001
-                        </td>
-                        <td>
-                            10g
-                        </td>
-                        <td>
-                            20g
-                        </td> 
-                        <td>
-                            10g
-                        </td>
-                        <td>
-                            20g
-                        </td> 
-                        
-                      </tr>
-    
-
-                      <tr class="mem_diet">
-                        <td>
-                           D_001
-                        </td>
-                        <td>
-                            10g
-                        </td>
-                        <td>
-                            20g
-                        </td> 
-                        <td>
-                            10g
-                        </td>
-                        <td>
-                            20g
-                        </td> 
-                        
-                      </tr>
-    
-                </tbody>
-              </table>
-
-            </div>
-            <!-- /.table-responsive -->
-
-
-            
-
-
-          </div>
-
-
-
-          
-        </div>
-        <!--/. container-fluid -->
-      </section>
-
-
-      <section class="content"> 
-        <div class="container-fluid">
-           
-          </div>
-          <div class="card" >
-            <div class="card-header border-transparent"  id="mem_diet">
-             
-
-              
-            </div>
-
-          <div class="card-body p-0">
-            <div class="table-responsive">
-              <table class="table m-0">
-               
-                <tbody>
-                  <tr class="mem_diet">
-                    <td>
-                        Diet Id : 
-                    </td>
-                    
-                    <td>
-                        
                         <form>
                             <div class="form-group">
                               <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
                             </div>
                         </form>
                     </td> 
-                   
+                    <td>
+                        <form>
+                            <div class="form-group">
+                              <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                            </div>
+                        </form>
+                    </td> 
+
+                    <td>
+                        <form>
+                            <div class="form-group">
+                              <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                            </div>
+                        </form>
+                    </td> 
+                    <td>
+                        <form>
+                            <div class="form-group">
+                              <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                            </div>
+                        </form>
+                    </td> 
+                    
                   </tr>
 
+
+                  <tr class="mem_diet">
+                    <td>
+                        <form>
+                            <div class="form-group">
+                              <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                            </div>
+                        </form>
+                    </td> 
+                    <td>
+                        <form>
+                            <div class="form-group">
+                              <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                            </div>
+                        </form>
+                    </td> 
+                    <td>
+                        <form>
+                            <div class="form-group">
+                              <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                            </div>
+                        </form>
+                    </td> 
+                    <td>
+                        <form>
+                            <div class="form-group">
+                              <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                            </div>
+                        </form>
+                    </td> 
+                    <td>
+                        <form>
+                            <div class="form-group">
+                              <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                            </div>
+                        </form>
+                    </td> 
+                    <td>
+                        <form>
+                            <div class="form-group">
+                              <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                            </div>
+                        </form>
+                    </td> 
+                    
+                  </tr>
+
+                  <tr class="mem_diet">
+                    <td>
+                        <form>
+                            <div class="form-group">
+                              <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                            </div>
+                        </form>
+                    </td> 
+                    <td>
+                        <form>
+                            <div class="form-group">
+                              <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                            </div>
+                        </form>
+                    </td> 
+                    <td>
+                        <form>
+                            <div class="form-group">
+                              <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                            </div>
+                        </form>
+                    </td> 
+                    <td>
+                        <form>
+                            <div class="form-group">
+                              <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                            </div>
+                        </form>
+                    </td> 
+                    <td>
+                        <form>
+                            <div class="form-group">
+                              <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                            </div>
+                        </form>
+                    </td> 
+                    <td>
+                        <form>
+                            <div class="form-group">
+                              <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                            </div>
+                        </form>
+                    </td> 
+                    
+                  </tr>
+
+
+
+
+                 
+                 
                 </tbody>
               </table>
 
             </div>
+            <!-- /.table-responsive -->
 
           </div>
 
           
         </div>
-      </section> 
+        <!--/. container-fluid -->
+      </section>
 
 
-     
+
+
+      <section class="content">
+        <div class="container-fluid">
+           
+          </div>
+          <div class="card" >
+            <div class="card-header border-transparent"  id="day_exe">
+              <h4 class="d-flex">Lunch</h4>
+
+              <div class="card-tools">
+               
+              </div>
+            </div>
+
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table m-0">
+                <thead>
+                    <tr>
+                    <th>Vitamin</th>
+                    <th>Protein</th>
+                    <th>Carbohydrate</th>
+                    <th>Minerals</th>
+                    <th>Fat</th>
+                    <th>Calory</th>
+                      </tr>
+                </thead>
+                <tbody>
+                    <tr class="mem_diet">
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td>  
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        
+                      </tr>
+    
+
+
+                      <tr class="mem_diet">
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                      </tr>
+    
+
+                      <tr class="mem_diet">
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        
+                      </tr>
+    
+                </tbody>
+              </table>
+
+            </div>
+            <!-- /.table-responsive -->
+
+
+            
+
+
+          </div>
 
 
 
-     
+          
+        </div>
+        <!--/. container-fluid -->
+      </section>
 
+
+
+      <section class="content">
+        <div class="container-fluid">
+           
+          </div>
+          <div class="card" >
+            <div class="card-header border-transparent"  id="day_exe">
+              <h4 class="d-flex">Dinner</h4>
+
+              <div class="card-tools">
+               
+              </div>
+            </div>
+
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table m-0">
+                <thead>
+                    <tr>
+                        <th>Vitamin</th>
+                    <th>Protein</th>
+                    <th>Carbohydrate</th>
+                    <th>Minerals</th>
+                    <th>Fat</th>
+                    <th>Calory</th>
+                      </tr>
+                </thead>
+                <tbody>
+                    <tr class="mem_diet">
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        
+                      </tr>
+    
+
+
+                      <tr class="mem_diet">
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        
+                      </tr>
+    
+
+                      <tr class="mem_diet">
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        
+                      </tr>
+    
+                </tbody>
+              </table>
+
+            </div>
+            <!-- /.table-responsive -->
+
+
+            
+
+
+          </div>
+
+
+
+          
+        </div>
+        <!--/. container-fluid -->
+      </section>
+
+
+
+
+      
+
+
+      <section class="content">
+        <div class="container-fluid">
+           
+          </div>
+          <div class="card" >
+            <div class="card-header border-transparent"  id="day_exe">
+              <h4 class="d-flex">Pre Workout</h4>
+
+              <div class="card-tools">
+               
+              </div>
+            </div>
+
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table m-0">
+                <thead>
+                    <tr>
+                        <th>Protein</th>
+                        <th>Carbohydrate</th>
+                        <th>Calory</th>
+                      </tr>
+                </thead>
+                <tbody>
+                    <tr class="mem_diet">
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+
+                        
+                      </tr>
+    
+
+
+                      <tr class="mem_diet">
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        
+                      </tr>
+    
+
+                      <tr class="mem_diet">
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        
+                      </tr>
+    
+                </tbody>
+              </table>
+
+            </div>
+            <!-- /.table-responsive -->
+
+
+            
+
+
+          </div>
+
+
+
+          
+        </div>
+        <!--/. container-fluid -->
+      </section>
+
+
+
+      <section class="content">
+        <div class="container-fluid">
+           
+          </div>
+          <div class="card" >
+            <div class="card-header border-transparent"  id="day_exe">
+              <h4 class="d-flex">Post Workout</h4>
+
+              <div class="card-tools">
+               
+              </div>
+            </div>
+
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table m-0">
+                <thead>
+                    <tr>
+                        <th>Protein</th>
+                        <th>Carbohydrate</th>
+                        <th>Calory</th>
+                      </tr>
+                </thead>
+                <tbody>
+                    <tr class="mem_diet">
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+
+                        
+                      </tr>
+    
+
+
+                      <tr class="mem_diet">
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        
+                      </tr>
+    
+
+                      <tr class="mem_diet">
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        <td>
+                            <form>
+                                <div class="form-group">
+                                  <input type="text" maxlength="1" size="1" class="form-control" id="exampleInputExe1" placeholder="Diet Id">
+                                </div>
+                            </form>
+                        </td> 
+                        
+                      </tr>
+    
+                </tbody>
+              </table>
+
+            </div>
+            <!-- /.table-responsive -->
+
+
+            
+
+
+          </div>
+
+
+
+          
+        </div>
+        <!--/. container-fluid -->
+      </section>
+
+      
 
       <div class="container">
         <div class="col-md-12 text-center">
