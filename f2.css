@@ -28,6 +28,16 @@ tr.postworkout:hover{
 
 
 
-h1{
+/* h1{
     text-align: center;
+}
+ */
+
+#headingroutine{
+    color: rgb(0, 201, 174);
+   
+    font-size:2em;
+    text-align: center;
+    display: inline;
+    justify-content: center;
 }
