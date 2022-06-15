@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Manager Dashboard</title>
+  <title>Member Dashboard</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet"
@@ -36,7 +36,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto navbar-right-top">
           <li class="nav-item">
-            <button type="button" class="btn btn-secondary">Logout</button>
+            <button onclick="window.location.href='index.html'" type="button" class="btn btn-secondary">Logout</button>
           </li>
         </ul>
     </div>
@@ -52,7 +52,7 @@
       <a href="#" class="brand-link">
         <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
           style="opacity: .8">
-        <span class="brand-text font-weight-light">ChickSoManya</span>
+        <span class="brand-text font-weight-light">Fitness Mania</span>
       </a>
 
       <!-- Sidebar -->
@@ -63,7 +63,7 @@
             <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="employee_profile.html" class="d-block">Alexander Pierce</a>
+            <a href="member_profile.html" class="d-block">Alexander Pierce</a>
           </div>
         </div>
 
@@ -95,9 +95,9 @@
               <ul class="nav nav-treeview">
 
                 <li class="nav-item">
-                  <a href="manager_db.html" class="nav-link active">
+                  <a href="member_db.html" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Manager</p>
+                    <p>Member</p>
                   </a>
                 </li>
 
@@ -149,12 +149,18 @@
                     
                 </li>
                 <li class="nav-item">
-                  <a href="employee_profile.html" class="nav-link">
+                  <a href="member_profile.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Profile</p>
                   </a>
                 </li>
                 <li class="nav-item">
+                  <a href="package.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Packages</p>
+                  </a>
+                </li>
+                <!-- <li class="nav-item">
                   <a href="add_employee.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p> Add Employee</p>
@@ -165,7 +171,7 @@
                     <i class="far fa-circle nav-icon"></i>
                     <p> Add Member</p>
                   </a>
-                </li>
+                </li> -->
                 <!-- <li class="nav-item">
                   <a href="pages/examples/Branch.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
@@ -238,14 +244,14 @@
                 <!-- small box -->
                 <div class="small-box bg-info">
                   <div class="inner">
-                    <h3>Shafin</h3>
-  
-                    <p>Trainer</p>
+                    <p style="font-size: 20px; padding: 0px;margin: 0px;"><b style="font-size: 32px;padding-right: 40px;">Shafin</b>  -trainer</p>
+                    <input type="text" class="form-control" placeholder="Rate out of 5" aria-label="Username" aria-describedby="basic-addon1">
+                    <button type="button" class="btn btn-primary">Rate</button>
                   </div>
                   <div class="icon">
                     <i class="ion ion-bag"></i>
                   </div>
-                  <a href="#" class="small-box-footer"><i class="fas"></i></a>
+                  <!-- <a href="#" class="small-box-footer">Rate Trainer <i class="fas fa-arrow-circle-right"></i></a> -->
                 </div>
               </div>
             
@@ -387,7 +393,7 @@
                   <tbody>
                     <tr class="mem_routine">
                       <td>
-                        <a href="xxx.html">E_001</a>
+                        <a href="exercise_details.html">E_001</a>
                          
                       </td>
                       <td>
@@ -405,7 +411,7 @@
     
                     <tr class="mem_routine">
                       <td>
-                        <a href="xxx.html">E_001</a>
+                        <a href="exercise_details.html">E_001</a>
                        </td>
                        <td>
                            Push Up
@@ -420,7 +426,7 @@
     
                     <tr class="mem_routine">
                       <td>
-                        <a href="xxx.html">E_001</a>
+                        <a href="exercise_details.html">E_001</a>
                        </td>
                        <td>
                            Push Up
@@ -467,7 +473,7 @@
                   <tbody>
                     <tr class="mem_routine">
                       <td>
-                        <a href="xxx.html">E_001</a>
+                        <a href="exercise_details.html">E_001</a>
                          
                       </td>
                       <td>
@@ -485,7 +491,7 @@
     
                     <tr class="mem_routine">
                       <td>
-                        <a href="xxx.html">E_001</a>
+                        <a href="exercise_details.html">E_001</a>
                        </td>
                        <td>
                            Push Up
@@ -500,7 +506,7 @@
     
                     <tr class="mem_routine">
                       <td>
-                        <a href="xxx.html">E_001</a>
+                        <a href="exercise_details.html">E_001</a>
                        </td>
                        <td>
                            Push Up
@@ -547,7 +553,7 @@
                   <tbody>
                     <tr class="mem_routine">
                       <td>
-                        <a href="xxx.html">E_001</a>
+                        <a href="exercise_details.html">E_001</a>
                          
                       </td>
                       <td>
@@ -565,7 +571,7 @@
     
                     <tr class="mem_routine">
                       <td>
-                        <a href="xxx.html">E_001</a>
+                        <a href="exercise_details.html">E_001</a>
                        </td>
                        <td>
                            Push Up
@@ -580,7 +586,7 @@
     
                     <tr class="mem_routine">
                       <td>
-                        <a href="xxx.html">E_001</a>
+                        <a href="exercise_details.html">E_001</a>
                        </td>
                        <td>
                            Push Up
@@ -627,7 +633,7 @@
                   <tbody>
                     <tr class="mem_routine">
                       <td>
-                        <a href="xxx.html">E_001</a>
+                        <a href="exercise_details.html">E_001</a>
                          
                       </td>
                       <td>
@@ -645,7 +651,7 @@
     
                     <tr class="mem_routine">
                       <td>
-                        <a href="xxx.html">E_001</a>
+                        <a href="exercise_details.html">E_001</a>
                        </td>
                        <td>
                            Push Up
@@ -660,7 +666,7 @@
     
                     <tr class="mem_routine">
                       <td>
-                        <a href="xxx.html">E_001</a>
+                        <a href="exercise_details.html">E_001</a>
                        </td>
                        <td>
                            Push Up
@@ -707,7 +713,7 @@
                   <tbody>
                     <tr class="mem_routine">
                       <td>
-                        <a href="xxx.html">E_001</a>
+                        <a href="exercise_details.html">E_001</a>
                          
                       </td>
                       <td>
@@ -725,7 +731,7 @@
     
                     <tr class="mem_routine">
                       <td>
-                        <a href="xxx.html">E_001</a>
+                        <a href="exercise_details.html">E_001</a>
                        </td>
                        <td>
                            Push Up
@@ -740,7 +746,7 @@
     
                     <tr class="mem_routine">
                       <td>
-                        <a href="xxx.html">E_001</a>
+                        <a href="exercise_details.html">E_001</a>
                        </td>
                        <td>
                            Push Up
@@ -787,7 +793,7 @@
                   <tbody>
                     <tr class="mem_routine">
                       <td>
-                        <a href="xxx.html">E_001</a>
+                        <a href="exercise_details.html">E_001</a>
                          
                       </td>
                       <td>
@@ -805,7 +811,7 @@
     
                     <tr class="mem_routine">
                       <td>
-                        <a href="xxx.html">E_001</a>
+                        <a href="exercise_details.html">E_001</a>
                        </td>
                        <td>
                            Push Up
@@ -820,7 +826,7 @@
     
                     <tr class="mem_routine">
                       <td>
-                        <a href="xxx.html">E_001</a>
+                        <a href="exercise_details.html">E_001</a>
                        </td>
                        <td>
                            Push Up
@@ -867,7 +873,7 @@
                   <tbody>
                     <tr class="mem_routine">
                       <td>
-                        <a href="xxx.html">E_001</a>
+                        <a href="exercise_details.html">E_001</a>
                          
                       </td>
                       <td>
@@ -885,7 +891,7 @@
     
                     <tr class="mem_routine">
                       <td>
-                        <a href="xxx.html">E_001</a>
+                        <a href="exercise_details.html">E_001</a>
                        </td>
                        <td>
                            Push Up
@@ -900,7 +906,7 @@
     
                     <tr class="mem_routine">
                       <td>
-                        <a href="xxx.html">E_001</a>
+                        <a href="exercise_details.html">E_001</a>
                        </td>
                        <td>
                            Push Up
