@@ -1,3 +1,9 @@
+<?php
+  session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
+  $uname = $_SESSION['uname'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,7 +42,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto navbar-right-top">
           <li class="nav-item">
-            <button onclick="window.location.href='index.html'" type="button" class="btn btn-secondary">Logout</button>
+            <button onclick="window.location.href=' index.php'" type="button" class="btn btn-secondary">Logout</button>
           </li>
         </ul>
     </div>
@@ -95,7 +101,7 @@
               <ul class="nav nav-treeview">
 
                 <li class="nav-item">
-                  <a href="member_db.html" class="nav-link active">
+                  <a href="member_db.php" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Member</p>
                   </a>

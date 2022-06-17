@@ -1,10 +1,16 @@
+<?php
+  session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
+  $uname = $_SESSION['uname'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin DB</title>
+  <title>Receptionist | Dashboard </title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet"
@@ -25,7 +31,6 @@
       <img class="animation__wobble" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
     </div>
 
-
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-dark">
       <!-- Left navbar links -->
@@ -33,14 +38,14 @@
         <li class="nav-item">
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="index3.html" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="#" class="nav-link">Contact</a>
+        </li>
       </ul>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto navbar-right-top">
-          <li class="nav-item">
-            <button onclick="window.location.href='index.html'" type="button" class="btn btn-secondary">Logout</button>
-          </li>
-        </ul>
-    </div>
+
       <!-- Right navbar links -->
      
     </nav>
@@ -49,10 +54,10 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="#" class="brand-link">
+      <a href="index3.html" class="brand-link">
         <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
           style="opacity: .8">
-        <span class="brand-text font-weight-light">Fitness Mania</span>
+        <span class="brand-text font-weight-light">AdminLTE 3</span>
       </a>
 
       <!-- Sidebar -->
@@ -63,12 +68,12 @@
             <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="admin_profile.html" class="d-block">Alexander Pierce</a>
+            <a href="#" class="d-block">Alexander Pierce</a>
           </div>
         </div>
 
         <!-- SidebarSearch Form -->
-        <!-- <div class="form-inline">
+        <div class="form-inline">
           <div class="input-group" data-widget="sidebar-search">
             <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
             <div class="input-group-append">
@@ -77,7 +82,7 @@
               </button>
             </div>
           </div>
-        </div> -->
+        </div>
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -95,9 +100,9 @@
               <ul class="nav nav-treeview">
 
                 <li class="nav-item">
-                  <a href="admin_db.html" class="nav-link active">
+                  <a href="./index2.html" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Admin</p>
+                    <p>Receptionist</p>
                   </a>
                 </li>
 
@@ -145,18 +150,18 @@
                     
                 </li>
                 <li class="nav-item">
-                  <a href="admin_profile.html" class="nav-link">
+                  <a href="pages/examples/profilev2.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Profile</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="add_employee.html" class="nav-link">
+                  <a href="pages/examples/userreg.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>  Add Employee</p>
+                    <p>   Manager Add</p>
                   </a>
                 </li>
-                <!-- <li class="nav-item">
+                <li class="nav-item">
                   <a href="pages/examples/Branch.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Branch</p>
@@ -167,7 +172,7 @@
                     <i class="far fa-circle nav-icon"></i>
                     <p>Search Manager</p>
                   </a>
-                </li> -->
+                </li>
                 
                 
 
@@ -195,7 +200,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">Admin</h1>
+              <h1 class="m-0">Receptionist</h1>
             </div><!-- /.col -->
             
           </div><!-- /.row -->
@@ -209,118 +214,75 @@
           
 
           <div class="row">
-            <div class="col-lg-3 col-12">
+            <div class="col-lg-3 col-6">
               <!-- small box -->
               <div class="small-box bg-danger">
                 <div class="inner">
                   <h3>150</h3>
 
-                  <p>Managers</p>
+                  <p>Members</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="manager_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="member_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
 
-            <div class="col-lg-3 col-12">
+            <div class="col-lg-3 col-6">
               <!-- small box -->
               <div class="small-box bg-success">
                   <div class="inner">
-                  <h3>Details</h3>
+                  <h3><a href="./add_maintanance.html" style="color: white;">Repair Equipment</a></h3>
 
-                  <p>Registration Fee</p>
+                  <p><a href="./add_maintanance.html" style="color: white;">Maintenance</a></p>
                   </div>
                   <div class="icon">
                   <i class="ion ion-bag"></i>
                   </div>
-                  <a href="registrationfee_list.html" class="small-box-footer">view <i class="fas fa-arrow-circle-right"></i></a>
+                  <a href="#" class="small-box-footer">Edit <i class="fas fa-arrow-circle-right"></i></a>
               </div>
               </div>
 
-        
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-info">
+                <div class="inner">
+                  <h3>09</h3>
+
+                  <p>Packages</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
+                </div>
+                <a href="receptionist_to_package.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
             
-            <div class="col-lg-3 col-12">
+            <div class="col-lg-3 col-6">
               <!-- small box -->
               <div class="small-box bg-warning">
                 <div class="inner">
-                  <h3>44</h3>
-
-                  <p>Number of Branches</p>
+                  
+                  <h3><a href="./add_payment.html" style="color: white;">Add Payment</a></h3>
+                  
+                  <p><a href="./add_payment.html" style="color: white;">Payment</a></p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-person-add"></i>
                 </div>
-                <a href="branch_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="pages/examples/Branchlist.html" class="small-box-footer">Payment History <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
-            <div class="col-lg-3 col-12">
-              <!-- small box -->
-              <div class="small-box bg-success">
-                  <div class="inner">
-                  <h3>10015</h3>
-
-                  <p>Member Registered</p>
-                  </div>
-                  <div class="icon">
-                  <i class="ion ion-bag"></i>
-                  </div>
-                  <a href="#" class="small-box-footer"><i class="fas"></i></a>
-              </div>
-              </div>
            
           </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-header">
-                  
 
-                  
-                </div>
-                <!-- /.card-header -->
-                <!-- ./card-body -->
-                <div class="card-footer">
-                  <div class="row">
-                    <div class="col-sm-4 col-8">
-                      <div class="description-block border-right">
-                        <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 17%</span>
-                        <h5 class="description-header">$35,210.43</h5>
-                        <span class="description-text">TOTAL REVENUE</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-sm-4 col-8">
-                      <div class="description-block border-right">
-                        <span class="description-percentage text-warning"><i class="fas fa-caret-left"></i> 0%</span>
-                        <h5 class="description-header">$10,390.90</h5>
-                        <span class="description-text">TOTAL COST</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-sm-4 col-8">
-                      <div class="description-block border-right">
-                        <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 20%</span>
-                        <h5 class="description-header">$24,813.53</h5>
-                        <span class="description-text">TOTAL PROFIT</span>
-                      </div>
-                      <!-- /.description-block -->
-                    </div>
-                    <!-- /.col -->
-                    
-                  </div>
-                  <!-- /.row -->
-                </div>
-                <!-- /.card-footer -->
-              </div>
-              <!-- /.card -->
-            </div>
-            <!-- /.col -->
-          </div>
-          <!-- /.row -->          
+
+          
+
+
+
+          
         </div>
         <!--/. container-fluid -->
       </section>

@@ -1,10 +1,17 @@
+<?php
+  session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
+  $uname = $_SESSION['uname'];
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Trainer | Dashboard </title>
+  <title>Manager Dashboard</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet"
@@ -26,32 +33,30 @@
     </div>
 
     <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-dark">
+    <nav class="main-header navbar navbar-expand-lg navbar-dark fixed-top">
       <!-- Left navbar links -->
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
-        
       </ul>
-
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto navbar-right-top">
           <li class="nav-item">
-            <a href="index.html" type="button" class="btn btn-secondary">Logout</a>
+            <button onclick="window.location.href=' index.php'" type="button" class="btn btn-secondary">Logout</button>
           </li>
         </ul>
     </div>
-
-      <!-- Right navbar links -->
-     
     </nav>
+     
+    
+        
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="$" class="brand-link">
+      <a href="#" class="brand-link">
         <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
           style="opacity: .8">
         <span class="brand-text font-weight-light">Fitness Mania</span>
@@ -62,10 +67,10 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
-            <img src="dist/img/enan_pinki.jpg" class="img-circle elevation-2" alt="User Image">
+            <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="employee_profile.html" class="d-block">Boyati Enan</a>
+            <a href="employee_profile.html" class="d-block">Alexander Pierce</a>
           </div>
         </div>
 
@@ -97,9 +102,9 @@
               <ul class="nav nav-treeview">
 
                 <li class="nav-item">
-                  <a href="trainer_db.html" class="nav-link active">
+                  <a href="manager_db.php" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Trainer</p>
+                    <p>Manager</p>
                   </a>
                 </li>
 
@@ -152,8 +157,30 @@
                     <p>Profile</p>
                   </a>
                 </li>
-                
-                
+                <li class="nav-item">
+                  <a href="add_employee.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p> Add Employee</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="add_member.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p> Add Member</p>
+                  </a>
+                </li>
+                <!-- <li class="nav-item">
+                  <a href="pages/examples/Branch.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Branch</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="pages/examples/Search-Manager.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Search Manager</p>
+                  </a>
+                </li> -->
                 
                 
 
@@ -181,7 +208,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">Trainer</h1>
+              <h1 class="m-0">Manager</h1>
             </div><!-- /.col -->
             
           </div><!-- /.row -->
@@ -194,148 +221,188 @@
         <div class="container-fluid">
           
 
-          <div class="row">
-            <div class="col-lg-3 col-12">
-              <!-- small box -->
-              <div class="small-box bg-info">
+          <div class="row d-flex justify-content-around">
+           <!-- <div class="col-lg-3 col-12" style="background-color: #E74C3C; height: 142px; border-radius: 4px;">
+              <div class="bg-danger" style="font-size: 16px; padding-left: 3px; padding-top: 10px;">
                 <div class="inner">
-                  <h3>150</h3>
+                  <h3 style="font-size: 35px;"><b>1500 tk</b></h3>
 
-                  <p>Members</p>
+                  <p style="padding-top: 15px;">Registration Fee</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
               </div>
-            </div>
+            </div> -->
+            <div class="col-lg-3 col-12">
+                <!-- small box -->
+                <div class="small-box bg-danger" style="height: 142px;">
+                    <div class="inner">
+                    <h3>1500 tk</h3>
+
+                    <p>Registration Fee</p>
+                    </div>
+                    <div class="icon">
+                    <i class="ion ion-bag"></i>
+                    </div>
+                </div>
+                </div>
+
+            <div class="col-lg-3 col-12">
+                <!-- small box -->
+                <div class="small-box bg-success">
+                    <div class="inner">
+                    <h3>150</h3>
+
+                    <p>Member</p>
+                    </div>
+                    <div class="icon">
+                    <i class="ion ion-bag"></i>
+                    </div>
+                    <a href="member_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+                </div>
+
+              <div class="col-lg-3 col-12">
+                <!-- small box -->
+                <div class="small-box bg-info">
+                  <div class="inner">
+                    <h3>150</h3>
+  
+                    <p>Trainer</p>
+                  </div>
+                  <div class="icon">
+                    <i class="ion ion-bag"></i>
+                  </div>
+                  <a href="trainer_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+              </div>
             
             <div class="col-lg-3 col-12">
               <!-- small box -->
               <div class="small-box bg-warning">
                 <div class="inner">
-                  <h3>4.5</h3>
+                  <h3>44</h3>
 
-                  <p>Rating</p>
+                  <p>Receiptionist</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-person-add"></i>
                 </div>
+                <a href="receptionist_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
 
             <div class="col-lg-3 col-12">
                 <!-- small box -->
-                <div class="small-box bg-success">
-                  <div class="inner">
-                    <h3>12,000 BDT</h3>
-  
-                    <p>Salary</p>
-                  </div>
-                  <div class="icon">
-                    <i class="ion ion-person-add"></i>
-                  </div>
+                <div class="small-box bg-info">
+                    <div class="inner">
+                    <h3>150</h3>
+
+                    <p>Equipments Type</p>
+                    </div>
+                    <div class="icon">
+                    <i class="ion ion-bag"></i>
+                    </div>
+                    <a href="equipments_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
-              </div>
+                </div>
+
+                <div class="col-lg-3 col-12">
+                    <!-- small box -->
+                <div class="small-box bg-danger">
+                    <div class="inner">
+                    <h3>150</h3>
+
+                    <p>Packages</p>
+                    </div>
+                    <div class="icon">
+                    <i class="ion ion-bag"></i>
+                    </div>
+                    <a href="packages_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+                </div>
 
               <div class="col-lg-3 col-12">
                 <!-- small box -->
-                <div class="small-box bg-red">
+                <div class="small-box bg-warning">
                   <div class="inner">
-                    <h3>8.00 am</h3>
+                    <h3>150</h3>
   
-                    <p>Shift</p>
+                    <p>Expenditure</p>
                   </div>
                   <div class="icon">
-                    <i class="ion ion-person-add"></i>
+                    <i class="ion ion-bag"></i>
                   </div>
+                  <a href="expenditure_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
               </div>
-           
-          </div>
+            
+            <div class="col-lg-3 col-12">
+              <!-- small box -->
+              <div class="small-box bg-success">
+                <div class="inner">
+                  <h3>44</h3>
 
-
-        
-
-
-          <div class="card" >
-            <div class="card-header border-transparent"  id="assigned_members">
-              <h1 class="d-flex justify-content-center">Assigned Members</h1>
-
-              <div class="card-tools">
-                <!-- <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-tool" data-card-widget="remove">
-                  <i class="fas fa-times"></i>
-                </button> -->
+                  <p>Revenue</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-person-add"></i>
+                </div>
+                <a href="revenue_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
-
-          <div class="card-body p-0">
-            <div class="table-responsive">
-              <table class="table m-0">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>BMI</th>
-                    <th>Age</th>
-                    <th>Diet_Id</th>
-                    <th>Routine_Id</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="tr_as_mem">
-                    <td><a href=" member_profile.html">Abrar Faiyaz Khan</a></td>
-                    <td>17.8</td>
-                    <td>22</td> 
-                    <td>NULL &nbsp; &nbsp;<a href="diet.html" class="btn btn-success" role="button">Update</a></td>
-                    <td>NULL  &nbsp; &nbsp;<a href="routine.html" class="btn btn-success" role="button">Update</a></td>
-                    
-                    
-
-                    
-                  </tr>
-                  <tr class="tr_as_mem">
-                    <td><a href="member_profile.html">Arnab Sircar</a></td>
-                    <td>18.4</td>
-                    <td>21</td> 
-                    <td>NULL &nbsp; &nbsp;<a href="diet.html" class="btn btn-success" role="button">Update</a></td>
-                    <td>NULL &nbsp; &nbsp;<a href="routine.html" class="btn btn-success" role="button">Update</a></td>
-                    
-                    
-                  </tr>
-                  <tr class="tr_as_mem">
-                    <td><a href=" member_profile.html">Mohiuddin Bilwal Ayon</a></td>
-                    <td>20.6</td>
-                    <td>22</td> 
-                    <td>NULL &nbsp; &nbsp;<a href="diet.html" class="btn btn-success" role="button">Update</a></td>
-                    <td>NULL &nbsp; &nbsp;<a href="routine.html" class="btn btn-success" role="button">Update</a></td>
-                   
-                   
-                  </tr>
-                  <tr class="tr_as_mem">
-                    <td><a href=" member_profile.html">Sayedul Abrar</a></td>
-                    <td>20.2</td>
-                    <td>22</td> 
-                    <td>NULL &nbsp; &nbsp;<a href="diet.html" class="btn btn-success" role="button">Update</a></td>
-                    <td>NULL &nbsp; &nbsp;<a href="routine.html" class="btn btn-success" role="button">Update</a></td>
-                    
-
-                  </tr>
-                  <tr class="tr_as_mem">
-                    <td><a href=" member_profile.html">Saifur Rahman</a></td>
-                    <td>23.6</td>
-                    <td>23</td> 
-                    <td>NULL &nbsp; &nbsp;<a href="diet.html" class="btn btn-success" role="button">Update</a></td>
-                    <td>NULL &nbsp; &nbsp;<a href="routine.html" class="btn btn-success" role="button">Update</a></td>
-                   
-                  </tr>
-                 
-                </tbody>
-              </table>
-            </div>
-            <!-- /.table-responsive -->
+           
           </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header">
+                  <h5 class="card-title">Monthly Recap Report</h5>
+
+                  
+                </div>
+                <!-- ./card-body -->
+                <div class="card-footer">
+                  <div class="row">
+                    <div class="col-sm-4 col-8">
+                      <div class="description-block border-right">
+                        <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 17%</span>
+                        <h5 class="description-header">35,210 tk</h5>
+                        <span class="description-text">BRANCH REVENUE</span>
+                      </div>
+                      <!-- /.description-block -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-sm-4 col-8">
+                      <div class="description-block border-right">
+                        <span class="description-percentage text-warning"><i class="fas fa-caret-left"></i> 0%</span>
+                        <h5 class="description-header">10,390 tk</h5>
+                        <span class="description-text">BRANCH COST</span>
+                      </div>
+                      <!-- /.description-block -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-sm-4 col-8">
+                      <div class="description-block border-right">
+                        <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 20%</span>
+                        <h5 class="description-header">24,813 tk</h5>
+                        <span class="description-text">BRANCH PROFIT</span>
+                      </div>
+                      <!-- /.description-block -->
+                    </div>
+                    <!-- /.col -->
+                    
+                  </div>
+                  <!-- /.row -->
+                </div>
+                <!-- /.card-footer -->
+              </div>
+              <!-- /.card -->
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
 
 
 
@@ -368,7 +435,7 @@
 
     <!-- Main Footer -->
     <footer class="main-footer">
-      <strong>Copyright &copy; 2022 <a href="#">Gym Management System</a>.</strong>
+      <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
       All rights reserved.
       <div class="float-right d-none d-sm-inline-block">
         <b>Version</b> 3.2.0-rc
@@ -403,3 +470,5 @@
 </body>
 
 </html>
+
+

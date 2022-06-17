@@ -1,10 +1,15 @@
+<?php
+  session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
+  $uname = $_SESSION['uname'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Receptionist | Dashboard </title>
+  <title>Trainer | Dashboard </title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet"
@@ -32,13 +37,16 @@
         <li class="nav-item">
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="index3.html" class="nav-link">Home</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="#" class="nav-link">Contact</a>
-        </li>
+        
       </ul>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto navbar-right-top">
+          <li class="nav-item">
+            <a href=" index.php" type="button" class="btn btn-secondary">Logout</a>
+          </li>
+        </ul>
+    </div>
 
       <!-- Right navbar links -->
      
@@ -48,10 +56,10 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="index3.html" class="brand-link">
+      <a href="$" class="brand-link">
         <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
           style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <span class="brand-text font-weight-light">Fitness Mania</span>
       </a>
 
       <!-- Sidebar -->
@@ -59,15 +67,15 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
-            <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+            <img src="dist/img/enan_pinki.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="#" class="d-block">Alexander Pierce</a>
+            <a href="employee_profile.html" class="d-block">Boyati Enan</a>
           </div>
         </div>
 
         <!-- SidebarSearch Form -->
-        <div class="form-inline">
+        <!-- <div class="form-inline">
           <div class="input-group" data-widget="sidebar-search">
             <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
             <div class="input-group-append">
@@ -76,7 +84,7 @@
               </button>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -94,9 +102,9 @@
               <ul class="nav nav-treeview">
 
                 <li class="nav-item">
-                  <a href="./index2.html" class="nav-link active">
+                  <a href="trainer_db.php" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Receptionist</p>
+                    <p>Trainer</p>
                   </a>
                 </li>
 
@@ -144,29 +152,13 @@
                     
                 </li>
                 <li class="nav-item">
-                  <a href="pages/examples/profilev2.html" class="nav-link">
+                  <a href="employee_profile.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Profile</p>
                   </a>
                 </li>
-                <li class="nav-item">
-                  <a href="pages/examples/userreg.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>   Manager Add</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/examples/Branch.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Branch</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/examples/Search-Manager.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Search Manager</p>
-                  </a>
-                </li>
+                
+                
                 
                 
 
@@ -194,7 +186,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">Receptionist</h1>
+              <h1 class="m-0">Trainer</h1>
             </div><!-- /.col -->
             
           </div><!-- /.row -->
@@ -208,9 +200,9 @@
           
 
           <div class="row">
-            <div class="col-lg-3 col-6">
+            <div class="col-lg-3 col-12">
               <!-- small box -->
-              <div class="small-box bg-danger">
+              <div class="small-box bg-info">
                 <div class="inner">
                   <h3>150</h3>
 
@@ -219,60 +211,146 @@
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="member_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-success">
-                  <div class="inner">
-                  <h3><a href="./add_maintanance.html" style="color: white;">Repair Equipment</a></h3>
-
-                  <p><a href="./add_maintanance.html" style="color: white;">Maintenance</a></p>
-                  </div>
-                  <div class="icon">
-                  <i class="ion ion-bag"></i>
-                  </div>
-                  <a href="#" class="small-box-footer">Edit <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-              </div>
-
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-info">
-                <div class="inner">
-                  <h3>09</h3>
-
-                  <p>Packages</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-bag"></i>
-                </div>
-                <a href="receptionist_to_package.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             
-            <div class="col-lg-3 col-6">
+            <div class="col-lg-3 col-12">
               <!-- small box -->
               <div class="small-box bg-warning">
                 <div class="inner">
-                  
-                  <h3><a href="./add_payment.html" style="color: white;">Add Payment</a></h3>
-                  
-                  <p><a href="./add_payment.html" style="color: white;">Payment</a></p>
+                  <h3>4.5</h3>
+
+                  <p>Rating</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-person-add"></i>
                 </div>
-                <a href="pages/examples/Branchlist.html" class="small-box-footer">Payment History <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
+
+            <div class="col-lg-3 col-12">
+                <!-- small box -->
+                <div class="small-box bg-success">
+                  <div class="inner">
+                    <h3>12,000 BDT</h3>
+  
+                    <p>Salary</p>
+                  </div>
+                  <div class="icon">
+                    <i class="ion ion-person-add"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-12">
+                <!-- small box -->
+                <div class="small-box bg-red">
+                  <div class="inner">
+                    <h3>8.00 am</h3>
+  
+                    <p>Shift</p>
+                  </div>
+                  <div class="icon">
+                    <i class="ion ion-person-add"></i>
+                  </div>
+                </div>
+              </div>
            
           </div>
 
 
-          
+        
+
+
+          <div class="card" >
+            <div class="card-header border-transparent"  id="assigned_members">
+              <h1 class="d-flex justify-content-center">Assigned Members</h1>
+
+              <div class="card-tools">
+                <!-- <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                  <i class="fas fa-times"></i>
+                </button> -->
+              </div>
+            </div>
+
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table m-0">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>BMI</th>
+                    <th>Age</th>
+                    <th>Diet_Id</th>
+                    <th>Routine_Id</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="tr_as_mem">
+                    <td><a href=" member_profile.html">Abrar Faiyaz Khan</a></td>
+                    <td>17.8</td>
+                    <td>22</td> 
+                    <td>NULL &nbsp; &nbsp;<a href="diet.html" class="btn btn-success" role="button">Update</a></td>
+                    <td>NULL  &nbsp; &nbsp;<a href="routine.html" class="btn btn-success" role="button">Update</a></td>
+                    
+                    
+
+                    
+                  </tr>
+                  <tr class="tr_as_mem">
+                    <td><a href="member_profile.html">Arnab Sircar</a></td>
+                    <td>18.4</td>
+                    <td>21</td> 
+                    <td>NULL &nbsp; &nbsp;<a href="diet.html" class="btn btn-success" role="button">Update</a></td>
+                    <td>NULL &nbsp; &nbsp;<a href="routine.html" class="btn btn-success" role="button">Update</a></td>
+                    
+                    
+                  </tr>
+                  <tr class="tr_as_mem">
+                    <td><a href=" member_profile.html">Mohiuddin Bilwal Ayon</a></td>
+                    <td>20.6</td>
+                    <td>22</td> 
+                    <td>NULL &nbsp; &nbsp;<a href="diet.html" class="btn btn-success" role="button">Update</a></td>
+                    <td>NULL &nbsp; &nbsp;<a href="routine.html" class="btn btn-success" role="button">Update</a></td>
+                   
+                   
+                  </tr>
+                  <tr class="tr_as_mem">
+                    <td><a href=" member_profile.html">Sayedul Abrar</a></td>
+                    <td>20.2</td>
+                    <td>22</td> 
+                    <td>NULL &nbsp; &nbsp;<a href="diet.html" class="btn btn-success" role="button">Update</a></td>
+                    <td>NULL &nbsp; &nbsp;<a href="routine.html" class="btn btn-success" role="button">Update</a></td>
+                    
+
+                  </tr>
+                  <tr class="tr_as_mem">
+                    <td><a href=" member_profile.html">Saifur Rahman</a></td>
+                    <td>23.6</td>
+                    <td>23</td> 
+                    <td>NULL &nbsp; &nbsp;<a href="diet.html" class="btn btn-success" role="button">Update</a></td>
+                    <td>NULL &nbsp; &nbsp;<a href="routine.html" class="btn btn-success" role="button">Update</a></td>
+                   
+                  </tr>
+                 
+                </tbody>
+              </table>
+            </div>
+            <!-- /.table-responsive -->
+          </div>
+
+
+
+
+
+
+       
+
+
+
 
 
 
@@ -295,7 +373,7 @@
 
     <!-- Main Footer -->
     <footer class="main-footer">
-      <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+      <strong>Copyright &copy; 2022 <a href="#">Gym Management System</a>.</strong>
       All rights reserved.
       <div class="float-right d-none d-sm-inline-block">
         <b>Version</b> 3.2.0-rc

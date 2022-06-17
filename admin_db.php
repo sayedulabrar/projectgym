@@ -1,10 +1,16 @@
+<?php
+  session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
+  $uname = $_SESSION['uname'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Manager Dashboard</title>
+  <title>Admin DB</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet"
@@ -25,8 +31,9 @@
       <img class="animation__wobble" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
     </div>
 
+
     <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand-lg navbar-dark fixed-top">
+    <nav class="main-header navbar navbar-expand navbar-dark">
       <!-- Left navbar links -->
       <ul class="navbar-nav">
         <li class="nav-item">
@@ -36,14 +43,13 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto navbar-right-top">
           <li class="nav-item">
-            <button onclick="window.location.href='index.html'" type="button" class="btn btn-secondary">Logout</button>
+            <button onclick="window.location.href=' index.php'" type="button" class="btn btn-secondary">Logout</button>
           </li>
         </ul>
     </div>
-    </nav>
+      <!-- Right navbar links -->
      
-    
-        
+    </nav>
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
@@ -63,7 +69,7 @@
             <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="employee_profile.html" class="d-block">Alexander Pierce</a>
+            <a href="admin_profile.html" class="d-block">Alexander Pierce</a>
           </div>
         </div>
 
@@ -95,9 +101,9 @@
               <ul class="nav nav-treeview">
 
                 <li class="nav-item">
-                  <a href="manager_db.html" class="nav-link active">
+                  <a href="admin_db.php" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Manager</p>
+                    <p>Admin</p>
                   </a>
                 </li>
 
@@ -145,7 +151,7 @@
                     
                 </li>
                 <li class="nav-item">
-                  <a href="employee_profile.html" class="nav-link">
+                  <a href="admin_profile.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Profile</p>
                   </a>
@@ -153,13 +159,7 @@
                 <li class="nav-item">
                   <a href="add_employee.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p> Add Employee</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="add_member.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p> Add Member</p>
+                    <p>  Add Employee</p>
                   </a>
                 </li>
                 <!-- <li class="nav-item">
@@ -201,7 +201,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">Manager</h1>
+              <h1 class="m-0">Admin</h1>
             </div><!-- /.col -->
             
           </div><!-- /.row -->
@@ -214,62 +214,38 @@
         <div class="container-fluid">
           
 
-          <div class="row d-flex justify-content-around">
-           <!-- <div class="col-lg-3 col-12" style="background-color: #E74C3C; height: 142px; border-radius: 4px;">
-              <div class="bg-danger" style="font-size: 16px; padding-left: 3px; padding-top: 10px;">
+          <div class="row">
+            <div class="col-lg-3 col-12">
+              <!-- small box -->
+              <div class="small-box bg-danger">
                 <div class="inner">
-                  <h3 style="font-size: 35px;"><b>1500 tk</b></h3>
+                  <h3>150</h3>
 
-                  <p style="padding-top: 15px;">Registration Fee</p>
+                  <p>Managers</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
+                <a href="manager_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
-            </div> -->
-            <div class="col-lg-3 col-12">
-                <!-- small box -->
-                <div class="small-box bg-danger" style="height: 142px;">
-                    <div class="inner">
-                    <h3>1500 tk</h3>
-
-                    <p>Registration Fee</p>
-                    </div>
-                    <div class="icon">
-                    <i class="ion ion-bag"></i>
-                    </div>
-                </div>
-                </div>
+            </div>
 
             <div class="col-lg-3 col-12">
-                <!-- small box -->
-                <div class="small-box bg-success">
-                    <div class="inner">
-                    <h3>150</h3>
-
-                    <p>Member</p>
-                    </div>
-                    <div class="icon">
-                    <i class="ion ion-bag"></i>
-                    </div>
-                    <a href="member_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                </div>
-                </div>
-
-              <div class="col-lg-3 col-12">
-                <!-- small box -->
-                <div class="small-box bg-info">
+              <!-- small box -->
+              <div class="small-box bg-success">
                   <div class="inner">
-                    <h3>150</h3>
-  
-                    <p>Trainer</p>
+                  <h3>Details</h3>
+
+                  <p>Registration Fee</p>
                   </div>
                   <div class="icon">
-                    <i class="ion ion-bag"></i>
+                  <i class="ion ion-bag"></i>
                   </div>
-                  <a href="trainer_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                </div>
+                  <a href="registrationfee_list.html" class="small-box-footer">view <i class="fas fa-arrow-circle-right"></i></a>
               </div>
+              </div>
+
+        
             
             <div class="col-lg-3 col-12">
               <!-- small box -->
@@ -277,92 +253,47 @@
                 <div class="inner">
                   <h3>44</h3>
 
-                  <p>Receiptionist</p>
+                  <p>Number of Branches</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-person-add"></i>
                 </div>
-                <a href="receptionist_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="branch_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
-
-            <div class="col-lg-3 col-12">
-                <!-- small box -->
-                <div class="small-box bg-info">
-                    <div class="inner">
-                    <h3>150</h3>
-
-                    <p>Equipments Type</p>
-                    </div>
-                    <div class="icon">
-                    <i class="ion ion-bag"></i>
-                    </div>
-                    <a href="equipments_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                </div>
-                </div>
-
-                <div class="col-lg-3 col-12">
-                    <!-- small box -->
-                <div class="small-box bg-danger">
-                    <div class="inner">
-                    <h3>150</h3>
-
-                    <p>Packages</p>
-                    </div>
-                    <div class="icon">
-                    <i class="ion ion-bag"></i>
-                    </div>
-                    <a href="packages_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                </div>
-                </div>
-
-              <div class="col-lg-3 col-12">
-                <!-- small box -->
-                <div class="small-box bg-warning">
-                  <div class="inner">
-                    <h3>150</h3>
-  
-                    <p>Expenditure</p>
-                  </div>
-                  <div class="icon">
-                    <i class="ion ion-bag"></i>
-                  </div>
-                  <a href="expenditure_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                </div>
-              </div>
-            
             <div class="col-lg-3 col-12">
               <!-- small box -->
               <div class="small-box bg-success">
-                <div class="inner">
-                  <h3>44</h3>
+                  <div class="inner">
+                  <h3>10015</h3>
 
-                  <p>Revenue</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-person-add"></i>
-                </div>
-                <a href="revenue_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                  <p>Member Registered</p>
+                  </div>
+                  <div class="icon">
+                  <i class="ion ion-bag"></i>
+                  </div>
+                  <a href="#" class="small-box-footer"><i class="fas"></i></a>
               </div>
-            </div>
+              </div>
            
           </div>
           <div class="row">
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header">
-                  <h5 class="card-title">Monthly Recap Report</h5>
+                  
 
                   
                 </div>
+                <!-- /.card-header -->
                 <!-- ./card-body -->
                 <div class="card-footer">
                   <div class="row">
                     <div class="col-sm-4 col-8">
                       <div class="description-block border-right">
                         <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 17%</span>
-                        <h5 class="description-header">35,210 tk</h5>
-                        <span class="description-text">BRANCH REVENUE</span>
+                        <h5 class="description-header">$35,210.43</h5>
+                        <span class="description-text">TOTAL REVENUE</span>
                       </div>
                       <!-- /.description-block -->
                     </div>
@@ -370,8 +301,8 @@
                     <div class="col-sm-4 col-8">
                       <div class="description-block border-right">
                         <span class="description-percentage text-warning"><i class="fas fa-caret-left"></i> 0%</span>
-                        <h5 class="description-header">10,390 tk</h5>
-                        <span class="description-text">BRANCH COST</span>
+                        <h5 class="description-header">$10,390.90</h5>
+                        <span class="description-text">TOTAL COST</span>
                       </div>
                       <!-- /.description-block -->
                     </div>
@@ -379,8 +310,8 @@
                     <div class="col-sm-4 col-8">
                       <div class="description-block border-right">
                         <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 20%</span>
-                        <h5 class="description-header">24,813 tk</h5>
-                        <span class="description-text">BRANCH PROFIT</span>
+                        <h5 class="description-header">$24,813.53</h5>
+                        <span class="description-text">TOTAL PROFIT</span>
                       </div>
                       <!-- /.description-block -->
                     </div>
@@ -395,21 +326,7 @@
             </div>
             <!-- /.col -->
           </div>
-          <!-- /.row -->
-
-
-
-
-
-
-       
-
-
-
-
-
-
-          
+          <!-- /.row -->          
         </div>
         <!--/. container-fluid -->
       </section>
@@ -463,5 +380,3 @@
 </body>
 
 </html>
-
-

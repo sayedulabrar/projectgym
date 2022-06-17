@@ -1,0 +1,33 @@
+login 
+
+select username from users where username = $uname and password = $pass;
+
+manager_db
+
+reg fee
+select reg_fee from users natural join branch where username = 'mg_001';
+
+num of members
+select * form member natural join users where br_name = 'br_001';
+-- ei table er row num
+
+num of trainers
+select * from employee where designation = 'trainer';
+-- ei table er row num
+-- same way te trainer, receptionist, equipment type, packages, expenditure, revenue o ber kora jabe
+
+branch revenue, branch expenditure, branch profit
+select br_revenue, br_expenditure, br_profit from branch where br_id = 'br_001';
+
+member list
+select * form member natural join users where br_name = 'br_001';
+-- same way te other list
+
+add member
+
+
+
+
+
+
+
