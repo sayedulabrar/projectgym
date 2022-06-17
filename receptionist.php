@@ -1,6 +1,6 @@
 <?php
-  session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
-  $uname = $_SESSION['uname'];
+session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
+$uname = $_SESSION['uname'];
 
 ?>
 
@@ -13,8 +13,7 @@
   <title>Receptionist | Dashboard </title>
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- overlayScrollbars -->
@@ -47,7 +46,7 @@
       </ul>
 
       <!-- Right navbar links -->
-     
+
     </nav>
     <!-- /.navbar -->
 
@@ -55,8 +54,7 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="index3.html" class="brand-link">
-        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-          style="opacity: .8">
+        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">AdminLTE 3</span>
       </a>
 
@@ -68,7 +66,7 @@
             <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="#" class="d-block">Alexander Pierce</a>
+            <a href="employee_profile.php" class="d-block">Alexander Pierce</a>
           </div>
         </div>
 
@@ -110,8 +108,8 @@
             </li>
 
 
-         
-             
+
+
 
             <li class="nav-item">
               <a href="#" class="nav-link">
@@ -134,7 +132,7 @@
                     <p>Compose</p>
                   </a>
                 </li>
-                
+
               </ul>
             </li>
             <li class="nav-item">
@@ -147,7 +145,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    
+
                 </li>
                 <li class="nav-item">
                   <a href="pages/examples/profilev2.html" class="nav-link">
@@ -158,7 +156,7 @@
                 <li class="nav-item">
                   <a href="pages/examples/userreg.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>   Manager Add</p>
+                    <p> Manager Add</p>
                   </a>
                 </li>
                 <li class="nav-item">
@@ -173,19 +171,19 @@
                     <p>Search Manager</p>
                   </a>
                 </li>
-                
-                
 
-                
+
+
+
               </ul>
             </li>
-            
 
-            
+
+
 
           </ul>
           </li>
-         
+
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
@@ -202,7 +200,7 @@
             <div class="col-sm-6">
               <h1 class="m-0">Receptionist</h1>
             </div><!-- /.col -->
-            
+
           </div><!-- /.row -->
         </div><!-- /.container-fluid -->
       </div>
@@ -211,7 +209,7 @@
       <!-- Main content -->
       <section class="content">
         <div class="container-fluid">
-          
+
 
           <div class="row">
             <div class="col-lg-3 col-6">
@@ -225,24 +223,24 @@
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="member_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="member_list.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
 
             <div class="col-lg-3 col-6">
               <!-- small box -->
               <div class="small-box bg-success">
-                  <div class="inner">
+                <div class="inner">
                   <h3><a href="./add_maintanance.html" style="color: white;">Repair Equipment</a></h3>
 
                   <p><a href="./add_maintanance.html" style="color: white;">Maintenance</a></p>
-                  </div>
-                  <div class="icon">
+                </div>
+                <div class="icon">
                   <i class="ion ion-bag"></i>
-                  </div>
-                  <a href="#" class="small-box-footer">Edit <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+                <a href="#" class="small-box-footer">Edit <i class="fas fa-arrow-circle-right"></i></a>
               </div>
-              </div>
+            </div>
 
             <div class="col-lg-3 col-6">
               <!-- small box -->
@@ -258,14 +256,14 @@
                 <a href="receptionist_to_package.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
-            
+
             <div class="col-lg-3 col-6">
               <!-- small box -->
               <div class="small-box bg-warning">
                 <div class="inner">
-                  
+
                   <h3><a href="./add_payment.html" style="color: white;">Add Payment</a></h3>
-                  
+
                   <p><a href="./add_payment.html" style="color: white;">Payment</a></p>
                 </div>
                 <div class="icon">
@@ -274,20 +272,20 @@
                 <a href="pages/examples/Branchlist.html" class="small-box-footer">Payment History <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
-           
+
           </div>
 
 
-          
 
 
 
-          
+
+
         </div>
         <!--/. container-fluid -->
       </section>
-           <!-- /.content -->
-    <div style="margin-bottom:30px ;"></div>
+      <!-- /.content -->
+      <div style="margin-bottom:30px ;"></div>
     </div>
     <!-- /.content-wrapper -->
 

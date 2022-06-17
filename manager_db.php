@@ -1,19 +1,19 @@
 <?php
-  session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
-  $uname = $_SESSION['uname'];
-  $branchExpenditure = 0;
-  $branchRevenue = 0;
+session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
+$uname = $_SESSION['uname'];
+$branchExpenditure = 0;
+$branchRevenue = 0;
 
-  $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
-    or die(oci_error());
-  if (!$conn) {
-    echo "sorry";
-  } else {
-    $sql = "select *from branch natural join users where username = '$uname'";
-    $stid = oci_parse($conn, $sql);
-    $r = oci_execute($stid);
-    $userJoinBranch = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-  }
+$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
+  or die(oci_error());
+if (!$conn) {
+  echo "sorry";
+} else {
+  $sql = "select *from branch natural join users where username = '$uname'";
+  $stid = oci_parse($conn, $sql);
+  $r = oci_execute($stid);
+  $userJoinBranch = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+}
 
 ?>
 
@@ -27,8 +27,7 @@
   <title>Manager Dashboard</title>
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- overlayScrollbars -->
@@ -59,19 +58,18 @@
             <button onclick="window.location.href=' index.php'" type="button" class="btn btn-secondary">Logout</button>
           </li>
         </ul>
-    </div>
+      </div>
     </nav>
-     
-    
-        
+
+
+
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="#" class="brand-link">
-        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-          style="opacity: .8">
+        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Fitness Mania</span>
       </a>
 
@@ -83,8 +81,8 @@
             <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="employee_profile.html" class="d-block">
-              <?php echo $uname;?>
+            <a href="employee_profile.php" class="d-block">
+              <?php echo $uname; ?>
             </a>
           </div>
         </div>
@@ -127,8 +125,8 @@
             </li>
 
 
-         
-             
+
+
 
             <li class="nav-item">
               <a href="#" class="nav-link">
@@ -151,7 +149,7 @@
                     <p>Compose</p>
                   </a>
                 </li>
-                
+
               </ul>
             </li>
             <li class="nav-item">
@@ -164,10 +162,10 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    
+
                 </li>
                 <li class="nav-item">
-                  <a href="employee_profile.html" class="nav-link">
+                  <a href="employee_profile.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Profile</p>
                   </a>
@@ -196,19 +194,19 @@
                     <p>Search Manager</p>
                   </a>
                 </li> -->
-                
-                
 
-                
+
+
+
               </ul>
             </li>
-            
 
-            
+
+
 
           </ul>
           </li>
-         
+
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
@@ -225,7 +223,7 @@
             <div class="col-sm-6">
               <h1 class="m-0">Manager</h1>
             </div><!-- /.col -->
-            
+
           </div><!-- /.row -->
         </div><!-- /.container-fluid -->
       </div>
@@ -234,10 +232,10 @@
       <!-- Main content -->
       <section class="content">
         <div class="container-fluid">
-          
+
 
           <div class="row d-flex justify-content-around">
-           <!-- <div class="col-lg-3 col-12" style="background-color: #E74C3C; height: 142px; border-radius: 4px;">
+            <!-- <div class="col-lg-3 col-12" style="background-color: #E74C3C; height: 142px; border-radius: 4px;">
               <div class="bg-danger" style="font-size: 16px; padding-left: 3px; padding-top: 10px;">
                 <div class="inner">
                   <h3 style="font-size: 35px;"><b>1500 tk</b></h3>
@@ -250,97 +248,97 @@
               </div>
             </div> -->
             <div class="col-lg-3 col-12">
-                <!-- small box -->
-                <div class="small-box bg-danger" style="height: 142px;">
-                    <div class="inner">
-                    <h3>
-                      <?php echo $userJoinBranch["REG_FEE"]?>
-                    </h3>
+              <!-- small box -->
+              <div class="small-box bg-danger" style="height: 142px;">
+                <div class="inner">
+                  <h3>
+                    <?php echo $userJoinBranch["REG_FEE"] ?>
+                  </h3>
 
-                    <p>Registration Fee</p>
-                    </div>
-                    <div class="icon">
-                    <i class="ion ion-bag"></i>
-                    </div>
+                  <p>Registration Fee</p>
                 </div>
-                </div>
-
-            <div class="col-lg-3 col-12">
-                <!-- small box -->
-                <div class="small-box bg-success">
-                    <div class="inner">
-                    <h3>
-                      <?php
-                        $br_name = $userJoinBranch["BR_NAME"];
-                        $sql = "select *from users natural join member where br_name in('$br_name')";
-                        $stid = oci_parse($conn, $sql);
-                        $r = oci_execute($stid);
-      
-                        $num = 0;
-                        while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-                          $num = $num + 1;
-                        }
-                        echo $num;
-
-                      ?>
-                    </h3>
-
-                    <p>Member</p>
-                    </div>
-                    <div class="icon">
-                    <i class="ion ion-bag"></i>
-                    </div>
-                    <a href="member_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                </div>
-                </div>
-
-              <div class="col-lg-3 col-12">
-                <!-- small box -->
-                <div class="small-box bg-info">
-                  <div class="inner">
-                    <h3>
-                      <?php
-                        $br_name = $userJoinBranch["BR_NAME"];
-                        $sql = "select *from users natural join employee where br_name in('$br_name') and designation = 'T'";
-                        $stid = oci_parse($conn, $sql);
-                        $r = oci_execute($stid);
-                        
-                        $num = 0;
-                        while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-                          $num = $num + 1;
-                        }
-                        echo $num;
-
-                      ?>
-                    </h3>
-  
-                    <p>Trainer</p>
-                  </div>
-                  <div class="icon">
-                    <i class="ion ion-bag"></i>
-                  </div>
-                  <a href="trainer_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
                 </div>
               </div>
-            
+            </div>
+
+            <div class="col-lg-3 col-12">
+              <!-- small box -->
+              <div class="small-box bg-success">
+                <div class="inner">
+                  <h3>
+                    <?php
+                    $br_name = $userJoinBranch["BR_NAME"];
+                    $sql = "select *from users natural join member where br_name in('$br_name')";
+                    $stid = oci_parse($conn, $sql);
+                    $r = oci_execute($stid);
+
+                    $num = 0;
+                    while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                      $num = $num + 1;
+                    }
+                    echo $num;
+
+                    ?>
+                  </h3>
+
+                  <p>Member</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
+                </div>
+                <a href="member_list.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-12">
+              <!-- small box -->
+              <div class="small-box bg-info">
+                <div class="inner">
+                  <h3>
+                    <?php
+                    $br_name = $userJoinBranch["BR_NAME"];
+                    $sql = "select *from users natural join employee where br_name in('$br_name') and designation = 'Trainer'";
+                    $stid = oci_parse($conn, $sql);
+                    $r = oci_execute($stid);
+
+                    $num = 0;
+                    while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                      $num = $num + 1;
+                    }
+                    echo $num;
+
+                    ?>
+                  </h3>
+
+                  <p>Trainer</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
+                </div>
+                <a href="trainer_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+
             <div class="col-lg-3 col-12">
               <!-- small box -->
               <div class="small-box bg-warning">
                 <div class="inner">
                   <h3>
                     <?php
-                        $br_name = $userJoinBranch["BR_NAME"];
-                        $sql = "select *from users natural join employee where br_name in('$br_name') and designation = 'R'";
-                        $stid = oci_parse($conn, $sql);
-                        $r = oci_execute($stid);
-                        
-                        $num = 0;
-                        while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-                          $num = $num + 1;
-                        }
-                        echo $num;
+                    $br_name = $userJoinBranch["BR_NAME"];
+                    $sql = "select *from users natural join employee where br_name in('$br_name') and designation = 'Receptionist'";
+                    $stid = oci_parse($conn, $sql);
+                    $r = oci_execute($stid);
 
-                      ?>
+                    $num = 0;
+                    while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                      $num = $num + 1;
+                    }
+                    echo $num;
+
+                    ?>
                   </h3>
 
                   <p>Receiptionist</p>
@@ -353,111 +351,111 @@
             </div>
 
             <div class="col-lg-3 col-12">
-                <!-- small box -->
-                <div class="small-box bg-info">
-                    <div class="inner">
-                    <h3>
-                      <?php
-                        $br_name = $userJoinBranch["BR_NAME"];
-                        $sql = "select *from equipment where br_name in('$br_name')";
-                        $stid = oci_parse($conn, $sql);
-                        $r = oci_execute($stid);
-                        
-                        $num = 0;
-                        while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-                          $num = $num + 1;
-                        }
-                        echo $num;
+              <!-- small box -->
+              <div class="small-box bg-info">
+                <div class="inner">
+                  <h3>
+                    <?php
+                    $br_name = $userJoinBranch["BR_NAME"];
+                    $sql = "select *from equipment where br_name in('$br_name')";
+                    $stid = oci_parse($conn, $sql);
+                    $r = oci_execute($stid);
 
-                      ?>
+                    $num = 0;
+                    while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                      $num = $num + 1;
+                    }
+                    echo $num;
 
-                    </h3>
+                    ?>
 
-                    <p>Equipments Type</p>
-                    </div>
-                    <div class="icon">
-                    <i class="ion ion-bag"></i>
-                    </div>
-                    <a href="equipments_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                  </h3>
+
+                  <p>Equipments Type</p>
                 </div>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
                 </div>
-
-                <div class="col-lg-3 col-12">
-                    <!-- small box -->
-                <div class="small-box bg-danger">
-                    <div class="inner">
-                    <h3>
-                      <?php
-                        $br_name = $userJoinBranch["BR_NAME"];
-                        $sql = "select *from br_pkg where br_name in('$br_name')";
-                        $stid = oci_parse($conn, $sql);
-                        $r = oci_execute($stid);
-                        
-                        $num = 0;
-                        while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-                          $num = $num + 1;
-                        }
-                        echo $num;
-
-                      ?>
-                    </h3>
-
-                    <p>Packages</p>
-                    </div>
-                    <div class="icon">
-                    <i class="ion ion-bag"></i>
-                    </div>
-                    <a href="packages_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                </div>
-                </div>
-
-              <div class="col-lg-3 col-12">
-                <!-- small box -->
-                <div class="small-box bg-warning">
-                  <div class="inner">
-                    <h3>
-                      <?php
-                        $br_name = $userJoinBranch["BR_NAME"];
-                        $sql = "select *from expenditure where br_name in('$br_name')";
-                        $stid = oci_parse($conn, $sql);
-                        $r = oci_execute($stid);
-                        
-                        $num = 0;
-                        while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-                          $num = $num + 1;
-                        }
-                        echo $num;
-
-                      ?>
-                    </h3>
-  
-                    <p>Expenditure</p>
-                  </div>
-                  <div class="icon">
-                    <i class="ion ion-bag"></i>
-                  </div>
-                  <a href="expenditure_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                </div>
+                <a href="equipments_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
-            
+            </div>
+
+            <div class="col-lg-3 col-12">
+              <!-- small box -->
+              <div class="small-box bg-danger">
+                <div class="inner">
+                  <h3>
+                    <?php
+                    $br_name = $userJoinBranch["BR_NAME"];
+                    $sql = "select *from br_pkg where br_name in('$br_name')";
+                    $stid = oci_parse($conn, $sql);
+                    $r = oci_execute($stid);
+
+                    $num = 0;
+                    while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                      $num = $num + 1;
+                    }
+                    echo $num;
+
+                    ?>
+                  </h3>
+
+                  <p>Packages</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
+                </div>
+                <a href="packages_list.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-12">
+              <!-- small box -->
+              <div class="small-box bg-warning">
+                <div class="inner">
+                  <h3>
+                    <?php
+                    $br_name = $userJoinBranch["BR_NAME"];
+                    $sql = "select *from expenditure where br_name in('$br_name')";
+                    $stid = oci_parse($conn, $sql);
+                    $r = oci_execute($stid);
+
+                    $num = 0;
+                    while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                      $num = $num + 1;
+                    }
+                    echo $num;
+
+                    ?>
+                  </h3>
+
+                  <p>Expenditure</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
+                </div>
+                <a href="expenditure_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+
             <div class="col-lg-3 col-12">
               <!-- small box -->
               <div class="small-box bg-success">
                 <div class="inner">
                   <h3>
                     <?php
-                        $br_name = $userJoinBranch["BR_NAME"];
-                        $sql = "select *from income where br_name in('$br_name')";
-                        $stid = oci_parse($conn, $sql);
-                        $r = oci_execute($stid);
-                        
-                        $num = 0;
-                        while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-                          $num = $num + 1;
-                        }
-                        echo $num;
+                    $br_name = $userJoinBranch["BR_NAME"];
+                    $sql = "select *from income where br_name in('$br_name')";
+                    $stid = oci_parse($conn, $sql);
+                    $r = oci_execute($stid);
 
-                      ?>
+                    $num = 0;
+                    while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                      $num = $num + 1;
+                    }
+                    echo $num;
+
+                    ?>
                   </h3>
 
                   <p>Revenue</p>
@@ -468,7 +466,7 @@
                 <a href="revenue_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
-           
+
           </div>
           <div class="row">
             <div class="col-md-12">
@@ -476,7 +474,7 @@
                 <div class="card-header">
                   <h5 class="card-title">Monthly Recap Report</h5>
 
-                  
+
                 </div>
                 <!-- ./card-body -->
                 <div class="card-footer">
@@ -486,21 +484,21 @@
                         <!-- <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 17%</span> -->
                         <h5 class="description-header">
                           <?php
-                            $sql = 'select inc_amount, CURRENT_TIMESTAMP-inc_dateandtime "differ" from income';
-                            $stid = oci_parse($conn, $sql);
-                            $r = oci_execute($stid);
-                            $ans = 0;
-                            while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-                              $array = explode(" ",$row["differ"]);
-                              $diff = $array[0];
-                              $num = (int)$diff;
-                              if($num <=30) {
-                                $ans = $ans +  $row["INC_AMOUNT"];
-                              }
+                          $sql = 'select inc_amount, CURRENT_TIMESTAMP-inc_dateandtime "differ" from income';
+                          $stid = oci_parse($conn, $sql);
+                          $r = oci_execute($stid);
+                          $ans = 0;
+                          while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                            $array = explode(" ", $row["differ"]);
+                            $diff = $array[0];
+                            $num = (int)$diff;
+                            if ($num <= 30) {
+                              $ans = $ans +  $row["INC_AMOUNT"];
                             }
-                            echo $ans . " tk";
-                            $branchRevenue = $ans;
-                              // $x = EXTRACT( YEAR FROM TO_DATE( '31-Dec-1999 15:30:20 ',  'DD-Mon-YYYY HH24:MI:SS' ) ) YEAR;
+                          }
+                          echo $ans . " tk";
+                          $branchRevenue = $ans;
+                          // $x = EXTRACT( YEAR FROM TO_DATE( '31-Dec-1999 15:30:20 ',  'DD-Mon-YYYY HH24:MI:SS' ) ) YEAR;
 
                           ?>
 
@@ -514,25 +512,23 @@
                       <div class="description-block border-right">
                         <h5 class="description-header">
                           <?php
-                            $sql = 'select amount, CURRENT_TIMESTAMP-exp_dateandtime "differ" from expenditure';
-                            $stid = oci_parse($conn, $sql);
-                            $r = oci_execute($stid);
-                            $thisMonth = 0;
-                            $prevMonth = 0;
-                            while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-                              $array = explode(" ",$row["differ"]);
-                              $diff = $array[0];
-                              $num = (int)$diff;
-                              if($num <=30) {
-                                $thisMonth = $thisMonth +  $row["AMOUNT"];
-                              }
-                              else if($num<=60) {
-                                $prevMonth = $prevMonth + $row["AMOUNT"];
-                              }
-                              
+                          $sql = 'select amount, CURRENT_TIMESTAMP-exp_dateandtime "differ" from expenditure';
+                          $stid = oci_parse($conn, $sql);
+                          $r = oci_execute($stid);
+                          $thisMonth = 0;
+                          $prevMonth = 0;
+                          while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                            $array = explode(" ", $row["differ"]);
+                            $diff = $array[0];
+                            $num = (int)$diff;
+                            if ($num <= 30) {
+                              $thisMonth = $thisMonth +  $row["AMOUNT"];
+                            } else if ($num <= 60) {
+                              $prevMonth = $prevMonth + $row["AMOUNT"];
                             }
-                            echo $thisMonth. " tk";
-                            $branchExpenditure = $thisMonth;
+                          }
+                          echo $thisMonth . " tk";
+                          $branchExpenditure = $thisMonth;
                           ?>
                         </h5>
                         <span class="description-text">BRANCH EXPENDITURE</span>
@@ -545,7 +541,7 @@
                         <!-- <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 20%</span> -->
                         <h5 class="description-header">
                           <?php
-                            echo $branchRevenue - $branchExpenditure;
+                          echo $branchRevenue - $branchExpenditure;
                           ?>
                         </h5>
                         <span class="description-text">BRANCH PROFIT</span>
@@ -553,7 +549,7 @@
                       <!-- /.description-block -->
                     </div>
                     <!-- /.col -->
-                    
+
                   </div>
                   <!-- /.row -->
                 </div>
@@ -565,24 +561,11 @@
           </div>
           <!-- /.row -->
 
-
-
-
-
-
-       
-
-
-
-
-
-
-          
         </div>
         <!--/. container-fluid -->
       </section>
-           <!-- /.content -->
-    <div style="margin-bottom:30px ;"></div>
+      <!-- /.content -->
+      <div style="margin-bottom:30px ;"></div>
     </div>
     <!-- /.content-wrapper -->
 
@@ -631,5 +614,3 @@
 </body>
 
 </html>
-
-

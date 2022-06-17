@@ -1,6 +1,6 @@
 <?php
-  session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
-  $uname = $_SESSION['uname'];
+session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
+$uname = $_SESSION['uname'];
 ?>
 
 <!DOCTYPE html>
@@ -12,8 +12,7 @@
   <title>Trainer | Dashboard </title>
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- overlayScrollbars -->
@@ -37,7 +36,7 @@
         <li class="nav-item">
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
-        
+
       </ul>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -46,10 +45,10 @@
             <a href=" index.php" type="button" class="btn btn-secondary">Logout</a>
           </li>
         </ul>
-    </div>
+      </div>
 
       <!-- Right navbar links -->
-     
+
     </nav>
     <!-- /.navbar -->
 
@@ -57,8 +56,7 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="$" class="brand-link">
-        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-          style="opacity: .8">
+        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Fitness Mania</span>
       </a>
 
@@ -70,7 +68,7 @@
             <img src="dist/img/enan_pinki.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="employee_profile.html" class="d-block">Boyati Enan</a>
+            <a href="employee_profile.php" class="d-block">Boyati Enan</a>
           </div>
         </div>
 
@@ -112,8 +110,8 @@
             </li>
 
 
-         
-             
+
+
 
             <li class="nav-item">
               <a href="#" class="nav-link">
@@ -136,7 +134,7 @@
                     <p>Compose</p>
                   </a>
                 </li>
-                
+
               </ul>
             </li>
             <li class="nav-item">
@@ -149,29 +147,29 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    
+
                 </li>
                 <li class="nav-item">
-                  <a href="employee_profile.html" class="nav-link">
+                  <a href="employee_profile.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Profile</p>
                   </a>
                 </li>
-                
-                
-                
-                
 
-                
+
+
+
+
+
               </ul>
             </li>
-            
 
-            
+
+
 
           </ul>
           </li>
-         
+
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
@@ -188,7 +186,7 @@
             <div class="col-sm-6">
               <h1 class="m-0">Trainer</h1>
             </div><!-- /.col -->
-            
+
           </div><!-- /.row -->
         </div><!-- /.container-fluid -->
       </div>
@@ -197,7 +195,7 @@
       <!-- Main content -->
       <section class="content">
         <div class="container-fluid">
-          
+
 
           <div class="row">
             <div class="col-lg-3 col-12">
@@ -213,7 +211,7 @@
                 </div>
               </div>
             </div>
-            
+
             <div class="col-lg-3 col-12">
               <!-- small box -->
               <div class="small-box bg-warning">
@@ -229,41 +227,41 @@
             </div>
 
             <div class="col-lg-3 col-12">
-                <!-- small box -->
-                <div class="small-box bg-success">
-                  <div class="inner">
-                    <h3>12,000 BDT</h3>
-  
-                    <p>Salary</p>
-                  </div>
-                  <div class="icon">
-                    <i class="ion ion-person-add"></i>
-                  </div>
-                </div>
-              </div>
+              <!-- small box -->
+              <div class="small-box bg-success">
+                <div class="inner">
+                  <h3>12,000 BDT</h3>
 
-              <div class="col-lg-3 col-12">
-                <!-- small box -->
-                <div class="small-box bg-red">
-                  <div class="inner">
-                    <h3>8.00 am</h3>
-  
-                    <p>Shift</p>
-                  </div>
-                  <div class="icon">
-                    <i class="ion ion-person-add"></i>
-                  </div>
+                  <p>Salary</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-person-add"></i>
                 </div>
               </div>
-           
+            </div>
+
+            <div class="col-lg-3 col-12">
+              <!-- small box -->
+              <div class="small-box bg-red">
+                <div class="inner">
+                  <h3>8.00 am</h3>
+
+                  <p>Shift</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-person-add"></i>
+                </div>
+              </div>
+            </div>
+
           </div>
 
 
-        
 
 
-          <div class="card" >
-            <div class="card-header border-transparent"  id="assigned_members">
+
+          <div class="card">
+            <div class="card-header border-transparent" id="assigned_members">
               <h1 class="d-flex justify-content-center">Assigned Members</h1>
 
               <div class="card-tools">
@@ -276,90 +274,90 @@
               </div>
             </div>
 
-          <div class="card-body p-0">
-            <div class="table-responsive">
-              <table class="table m-0">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>BMI</th>
-                    <th>Age</th>
-                    <th>Diet_Id</th>
-                    <th>Routine_Id</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="tr_as_mem">
-                    <td><a href=" member_profile.html">Abrar Faiyaz Khan</a></td>
-                    <td>17.8</td>
-                    <td>22</td> 
-                    <td>NULL &nbsp; &nbsp;<a href="diet.html" class="btn btn-success" role="button">Update</a></td>
-                    <td>NULL  &nbsp; &nbsp;<a href="routine.html" class="btn btn-success" role="button">Update</a></td>
-                    
-                    
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table m-0">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>BMI</th>
+                      <th>Age</th>
+                      <th>Diet_Id</th>
+                      <th>Routine_Id</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="tr_as_mem">
+                      <td><a href=" member_profile.php">Abrar Faiyaz Khan</a></td>
+                      <td>17.8</td>
+                      <td>22</td>
+                      <td>NULL &nbsp; &nbsp;<a href="diet.html" class="btn btn-success" role="button">Update</a></td>
+                      <td>NULL &nbsp; &nbsp;<a href="routine.html" class="btn btn-success" role="button">Update</a></td>
 
-                    
-                  </tr>
-                  <tr class="tr_as_mem">
-                    <td><a href="member_profile.html">Arnab Sircar</a></td>
-                    <td>18.4</td>
-                    <td>21</td> 
-                    <td>NULL &nbsp; &nbsp;<a href="diet.html" class="btn btn-success" role="button">Update</a></td>
-                    <td>NULL &nbsp; &nbsp;<a href="routine.html" class="btn btn-success" role="button">Update</a></td>
-                    
-                    
-                  </tr>
-                  <tr class="tr_as_mem">
-                    <td><a href=" member_profile.html">Mohiuddin Bilwal Ayon</a></td>
-                    <td>20.6</td>
-                    <td>22</td> 
-                    <td>NULL &nbsp; &nbsp;<a href="diet.html" class="btn btn-success" role="button">Update</a></td>
-                    <td>NULL &nbsp; &nbsp;<a href="routine.html" class="btn btn-success" role="button">Update</a></td>
-                   
-                   
-                  </tr>
-                  <tr class="tr_as_mem">
-                    <td><a href=" member_profile.html">Sayedul Abrar</a></td>
-                    <td>20.2</td>
-                    <td>22</td> 
-                    <td>NULL &nbsp; &nbsp;<a href="diet.html" class="btn btn-success" role="button">Update</a></td>
-                    <td>NULL &nbsp; &nbsp;<a href="routine.html" class="btn btn-success" role="button">Update</a></td>
-                    
 
-                  </tr>
-                  <tr class="tr_as_mem">
-                    <td><a href=" member_profile.html">Saifur Rahman</a></td>
-                    <td>23.6</td>
-                    <td>23</td> 
-                    <td>NULL &nbsp; &nbsp;<a href="diet.html" class="btn btn-success" role="button">Update</a></td>
-                    <td>NULL &nbsp; &nbsp;<a href="routine.html" class="btn btn-success" role="button">Update</a></td>
-                   
-                  </tr>
-                 
-                </tbody>
-              </table>
+
+
+                    </tr>
+                    <tr class="tr_as_mem">
+                      <td><a href="member_profile.php">Arnab Sircar</a></td>
+                      <td>18.4</td>
+                      <td>21</td>
+                      <td>NULL &nbsp; &nbsp;<a href="diet.html" class="btn btn-success" role="button">Update</a></td>
+                      <td>NULL &nbsp; &nbsp;<a href="routine.html" class="btn btn-success" role="button">Update</a></td>
+
+
+                    </tr>
+                    <tr class="tr_as_mem">
+                      <td><a href=" member_profile.php">Mohiuddin Bilwal Ayon</a></td>
+                      <td>20.6</td>
+                      <td>22</td>
+                      <td>NULL &nbsp; &nbsp;<a href="diet.html" class="btn btn-success" role="button">Update</a></td>
+                      <td>NULL &nbsp; &nbsp;<a href="routine.html" class="btn btn-success" role="button">Update</a></td>
+
+
+                    </tr>
+                    <tr class="tr_as_mem">
+                      <td><a href=" member_profile.php">Sayedul Abrar</a></td>
+                      <td>20.2</td>
+                      <td>22</td>
+                      <td>NULL &nbsp; &nbsp;<a href="diet.html" class="btn btn-success" role="button">Update</a></td>
+                      <td>NULL &nbsp; &nbsp;<a href="routine.html" class="btn btn-success" role="button">Update</a></td>
+
+
+                    </tr>
+                    <tr class="tr_as_mem">
+                      <td><a href=" member_profile.php">Saifur Rahman</a></td>
+                      <td>23.6</td>
+                      <td>23</td>
+                      <td>NULL &nbsp; &nbsp;<a href="diet.html" class="btn btn-success" role="button">Update</a></td>
+                      <td>NULL &nbsp; &nbsp;<a href="routine.html" class="btn btn-success" role="button">Update</a></td>
+
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.table-responsive -->
             </div>
-            <!-- /.table-responsive -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           </div>
-
-
-
-
-
-
-       
-
-
-
-
-
-
-          
-        </div>
-        <!--/. container-fluid -->
+          <!--/. container-fluid -->
       </section>
-           <!-- /.content -->
-    <div style="margin-bottom:30px ;"></div>
+      <!-- /.content -->
+      <div style="margin-bottom:30px ;"></div>
     </div>
     <!-- /.content-wrapper -->
 

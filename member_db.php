@@ -1,6 +1,6 @@
 <?php
-  session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
-  $uname = $_SESSION['uname'];
+session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
+$uname = $_SESSION['uname'];
 
 ?>
 
@@ -13,8 +13,7 @@
   <title>Member Dashboard</title>
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- overlayScrollbars -->
@@ -45,19 +44,18 @@
             <button onclick="window.location.href=' index.php'" type="button" class="btn btn-secondary">Logout</button>
           </li>
         </ul>
-    </div>
+      </div>
     </nav>
-     
-    
-        
+
+
+
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="#" class="brand-link">
-        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-          style="opacity: .8">
+        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Fitness Mania</span>
       </a>
 
@@ -69,7 +67,7 @@
             <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="member_profile.html" class="d-block">Alexander Pierce</a>
+            <a href="member_profile.php" class="d-block">Alexander Pierce</a>
           </div>
         </div>
 
@@ -111,8 +109,8 @@
             </li>
 
 
-         
-             
+
+
 
             <li class="nav-item">
               <a href="#" class="nav-link">
@@ -135,7 +133,7 @@
                     <p>Compose</p>
                   </a>
                 </li>
-                
+
               </ul>
             </li>
             <li class="nav-item">
@@ -148,10 +146,10 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    
+
                 </li>
                 <li class="nav-item">
-                  <a href="member_profile.html" class="nav-link">
+                  <a href="member_profile.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Profile</p>
                   </a>
@@ -186,19 +184,19 @@
                     <p>Search Manager</p>
                   </a>
                 </li> -->
-                
-                
 
-                
+
+
+
               </ul>
             </li>
-            
 
-            
+
+
 
           </ul>
           </li>
-         
+
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
@@ -215,7 +213,7 @@
             <div class="col-sm-6">
               <h1 class="m-0">Member</h1>
             </div><!-- /.col -->
-            
+
           </div><!-- /.row -->
         </div><!-- /.container-fluid -->
       </div>
@@ -224,39 +222,39 @@
       <!-- Main content -->
       <section class="content">
         <div class="container-fluid">
-          
+
 
           <div class="row d-flex justify-content-around">
             <div class="col-lg-3 col-12">
-                <!-- small box -->
-                <div class="small-box bg-success">
-                    <div class="inner">
-                    <h3>50kg</h3>
+              <!-- small box -->
+              <div class="small-box bg-success">
+                <div class="inner">
+                  <h3>50kg</h3>
 
-                    <p>Weight</p>
-                    </div>
-                    <div class="icon">
-                    <i class="ion ion-bag"></i>
-                    </div>
-                    <a href="#" class="small-box-footer"> <i class="fas"></i></a>
+                  <p>Weight</p>
                 </div>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
+                </div>
+                <a href="#" class="small-box-footer"> <i class="fas"></i></a>
               </div>
+            </div>
 
-              <div class="col-lg-3 col-12">
-                <!-- small box -->
-                <div class="small-box bg-info">
-                  <div class="inner">
-                    <p style="font-size: 20px; padding: 0px;margin: 0px;"><b style="font-size: 32px;padding-right: 40px;">Shafin</b>  -trainer</p>
-                    <input type="text" class="form-control" placeholder="Rate out of 5" aria-label="Username" aria-describedby="basic-addon1">
-                    <button type="button" class="btn btn-primary">Rate</button>
-                  </div>
-                  <div class="icon">
-                    <i class="ion ion-bag"></i>
-                  </div>
-                  <!-- <a href="#" class="small-box-footer">Rate Trainer <i class="fas fa-arrow-circle-right"></i></a> -->
+            <div class="col-lg-3 col-12">
+              <!-- small box -->
+              <div class="small-box bg-info">
+                <div class="inner">
+                  <p style="font-size: 20px; padding: 0px;margin: 0px;"><b style="font-size: 32px;padding-right: 40px;">Shafin</b> -trainer</p>
+                  <input type="text" class="form-control" placeholder="Rate out of 5" aria-label="Username" aria-describedby="basic-addon1">
+                  <button type="button" class="btn btn-primary">Rate</button>
                 </div>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
+                </div>
+                <!-- <a href="#" class="small-box-footer">Rate Trainer <i class="fas fa-arrow-circle-right"></i></a> -->
               </div>
-            
+            </div>
+
             <div class="col-lg-3 col-12">
               <!-- small box -->
               <div class="small-box bg-warning">
@@ -273,25 +271,25 @@
             </div>
 
             <div class="col-lg-3 col-12">
-                <!-- small box -->
-                <div class="small-box bg-danger">
-                    <div class="inner">
-                    <h3>23</h3>
+              <!-- small box -->
+              <div class="small-box bg-danger">
+                <div class="inner">
+                  <h3>23</h3>
 
-                    <p>BMI</p>
-                    </div>
-                    <div class="icon">
-                    <i class="ion ion-bag"></i>
-                    </div>
-                    <a href="#" class="small-box-footer"><i class="fas"></i></a>
+                  <p>BMI</p>
                 </div>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
+                </div>
+                <a href="#" class="small-box-footer"><i class="fas"></i></a>
               </div>
-           
+            </div>
+
           </div>
 
-          
-          <div class="card" >
-            <div class="card-header border-transparent"  id="diet_heading">
+
+          <div class="card">
+            <div class="card-header border-transparent" id="diet_heading">
               <h1 class="d-flex justify-content-center">Diet Chart</h1>
             </div>
             <!-- /.card-header -->
@@ -307,47 +305,47 @@
                       <th>Mineral</th>
                       <th>Carbohydrate</th>
                       <th>Calories</th>
-                      
-                      
+
+
                     </tr>
                   </thead>
                   <tbody>
                     <tr class="breakfast">
                       <td>Breakfat</td>
                       <td>1g</td>
-                      <td>1g</td> 
+                      <td>1g</td>
                       <td>1g</td>
                       <td>1g</td>
                       <td>1g</td>
                       <td>10</td>
-                      
 
-                      
+
+
                     </tr>
                     <tr class="lunch">
                       <td>Lunch</a></td>
                       <td>1g</td>
-                      <td>1g</td> 
+                      <td>1g</td>
                       <td>1g</td>
                       <td>1g</td>
                       <td>1g</td>
                       <td>10</td>
-                      
+
                     </tr>
                     <tr class="dinner">
                       <td>Dinner</td>
                       <td>1g</td>
-                      <td>1g</td> 
+                      <td>1g</td>
                       <td>1g</td>
                       <td>1g</td>
                       <td>1g</td>
                       <td>10</td>
-                     
+
                     </tr>
                     <tr class="preworkout">
                       <td>Preworkout</td>
                       <td>1g</td>
-                      <td>1g</td> 
+                      <td>1g</td>
                       <td>1g</td>
                       <td>1g</td>
                       <td>1g</td>
@@ -357,29 +355,29 @@
                     <tr class="postworkout">
                       <td>Postworkout</td>
                       <td>1g</td>
-                      <td>1g</td> 
+                      <td>1g</td>
                       <td>1g</td>
                       <td>1g</td>
                       <td>1g</td>
                       <td>10</td>
-                     
+
                     </tr>
-                   
+
                   </tbody>
                 </table>
               </div>
               <!-- /.table-responsive -->
             </div>
             <!-- /.card-body -->
-            
+
             <!-- /.card-footer -->
           </div>
           <h1 style="text-align: center;">Routine</h1>
-          <div class="card" >
-            <div class="card-header border-transparent"  id="day_exe">
+          <div class="card">
+            <div class="card-header border-transparent" id="day_exe">
               <h4 class="d-flex">Saturday</h4>
             </div>
-    
+
             <div class="card-body p-0">
               <div class="table-responsive">
                 <table class="table m-0">
@@ -389,77 +387,77 @@
                       <th>Exercise Name</th>
                       <th>Exercise Type</th>
                       <!-- <th></th> -->
-                      
+
                     </tr>
                   </thead>
                   <tbody>
                     <tr class="mem_routine">
                       <td>
                         <a href="exercise_details.html">E_001</a>
-                         
+
                       </td>
                       <td>
-                          Push Up
+                        Push Up
                       </td>
                       <td>
-                          Fitness
-                      </td> 
-                    <!-- <td>
+                        Fitness
+                      </td>
+                      <!-- <td>
                       <a href="routine.html" class="btn btn-success" role="button">Delete</a>
                     </td>
                        -->
                     </tr>
-    
-    
+
+
                     <tr class="mem_routine">
                       <td>
                         <a href="exercise_details.html">E_001</a>
-                       </td>
-                       <td>
-                           Push Up
-                       </td>
-                       <td>
-                           Body Building
-                       </td> 
-                       <!-- <td>
+                      </td>
+                      <td>
+                        Push Up
+                      </td>
+                      <td>
+                        Body Building
+                      </td>
+                      <!-- <td>
                         <a href="routine.html" class="btn btn-success" role="button">Delete</a>
                       </td> -->
                     </tr>
-    
+
                     <tr class="mem_routine">
                       <td>
                         <a href="exercise_details.html">E_001</a>
-                       </td>
-                       <td>
-                           Push Up
-                       </td>
-                       <td>
-                           Jumping
-                       </td> 
-                      
+                      </td>
+                      <td>
+                        Push Up
+                      </td>
+                      <td>
+                        Jumping
+                      </td>
+
                     </tr>
-    
-    
-    
-    
-                   
-                   
+
+
+
+
+
+
                   </tbody>
                 </table>
-    
+
               </div>
               <!-- /.table-responsive -->
-    
-            </div>
-    
-            
-          <!-- </div> -->
 
-          <!-- <div class="card" > -->
-            <div class="card-header border-transparent"  id="day_exe">
+            </div>
+
+
+            <!-- </div> -->
+
+            <!-- <div class="card" > -->
+            <div class="card-header border-transparent" id="day_exe">
               <h4 class="d-flex">Sunday</h4>
             </div>
-    
+
             <div class="card-body p-0">
               <div class="table-responsive">
                 <table class="table m-0">
@@ -469,77 +467,77 @@
                       <th>Exercise Name</th>
                       <th>Exercise Type</th>
                       <!-- <th></th> -->
-                      
+
                     </tr>
                   </thead>
                   <tbody>
                     <tr class="mem_routine">
                       <td>
                         <a href="exercise_details.html">E_001</a>
-                         
+
                       </td>
                       <td>
-                          Push Up
+                        Push Up
                       </td>
                       <td>
-                          Fitness
-                      </td> 
-                    <!-- <td>
+                        Fitness
+                      </td>
+                      <!-- <td>
                       <a href="routine.html" class="btn btn-success" role="button">Delete</a>
                     </td>
                        -->
                     </tr>
-    
-    
+
+
                     <tr class="mem_routine">
                       <td>
                         <a href="exercise_details.html">E_001</a>
-                       </td>
-                       <td>
-                           Push Up
-                       </td>
-                       <td>
-                           Body Building
-                       </td> 
-                       <!-- <td>
+                      </td>
+                      <td>
+                        Push Up
+                      </td>
+                      <td>
+                        Body Building
+                      </td>
+                      <!-- <td>
                         <a href="routine.html" class="btn btn-success" role="button">Delete</a>
                       </td> -->
                     </tr>
-    
+
                     <tr class="mem_routine">
                       <td>
                         <a href="exercise_details.html">E_001</a>
-                       </td>
-                       <td>
-                           Push Up
-                       </td>
-                       <td>
-                           Jumping
-                       </td> 
-                      
+                      </td>
+                      <td>
+                        Push Up
+                      </td>
+                      <td>
+                        Jumping
+                      </td>
+
                     </tr>
-    
-    
-    
-    
-                   
-                   
+
+
+
+
+
+
                   </tbody>
                 </table>
-    
+
               </div>
               <!-- /.table-responsive -->
-    
-            </div>
-    
-            
-          <!-- </div> -->
 
-          <!-- <div class="card" > -->
-            <div class="card-header border-transparent"  id="day_exe">
+            </div>
+
+
+            <!-- </div> -->
+
+            <!-- <div class="card" > -->
+            <div class="card-header border-transparent" id="day_exe">
               <h4 class="d-flex">Monday</h4>
             </div>
-    
+
             <div class="card-body p-0">
               <div class="table-responsive">
                 <table class="table m-0">
@@ -549,77 +547,77 @@
                       <th>Exercise Name</th>
                       <th>Exercise Type</th>
                       <!-- <th></th> -->
-                      
+
                     </tr>
                   </thead>
                   <tbody>
                     <tr class="mem_routine">
                       <td>
                         <a href="exercise_details.html">E_001</a>
-                         
+
                       </td>
                       <td>
-                          Push Up
+                        Push Up
                       </td>
                       <td>
-                          Fitness
-                      </td> 
-                    <!-- <td>
+                        Fitness
+                      </td>
+                      <!-- <td>
                       <a href="routine.html" class="btn btn-success" role="button">Delete</a>
                     </td>
                        -->
                     </tr>
-    
-    
+
+
                     <tr class="mem_routine">
                       <td>
                         <a href="exercise_details.html">E_001</a>
-                       </td>
-                       <td>
-                           Push Up
-                       </td>
-                       <td>
-                           Body Building
-                       </td> 
-                       <!-- <td>
+                      </td>
+                      <td>
+                        Push Up
+                      </td>
+                      <td>
+                        Body Building
+                      </td>
+                      <!-- <td>
                         <a href="routine.html" class="btn btn-success" role="button">Delete</a>
                       </td> -->
                     </tr>
-    
+
                     <tr class="mem_routine">
                       <td>
                         <a href="exercise_details.html">E_001</a>
-                       </td>
-                       <td>
-                           Push Up
-                       </td>
-                       <td>
-                           Jumping
-                       </td> 
-                      
+                      </td>
+                      <td>
+                        Push Up
+                      </td>
+                      <td>
+                        Jumping
+                      </td>
+
                     </tr>
-    
-    
-    
-    
-                   
-                   
+
+
+
+
+
+
                   </tbody>
                 </table>
-    
+
               </div>
               <!-- /.table-responsive -->
-    
-            </div>
-    
-            
-          <!-- </div> -->
 
-          <!-- <div class="card" > -->
-            <div class="card-header border-transparent"  id="day_exe">
+            </div>
+
+
+            <!-- </div> -->
+
+            <!-- <div class="card" > -->
+            <div class="card-header border-transparent" id="day_exe">
               <h4 class="d-flex">Tuesday</h4>
             </div>
-    
+
             <div class="card-body p-0">
               <div class="table-responsive">
                 <table class="table m-0">
@@ -629,77 +627,77 @@
                       <th>Exercise Name</th>
                       <th>Exercise Type</th>
                       <!-- <th></th> -->
-                      
+
                     </tr>
                   </thead>
                   <tbody>
                     <tr class="mem_routine">
                       <td>
                         <a href="exercise_details.html">E_001</a>
-                         
+
                       </td>
                       <td>
-                          Push Up
+                        Push Up
                       </td>
                       <td>
-                          Fitness
-                      </td> 
-                    <!-- <td>
+                        Fitness
+                      </td>
+                      <!-- <td>
                       <a href="routine.html" class="btn btn-success" role="button">Delete</a>
                     </td>
                        -->
                     </tr>
-    
-    
+
+
                     <tr class="mem_routine">
                       <td>
                         <a href="exercise_details.html">E_001</a>
-                       </td>
-                       <td>
-                           Push Up
-                       </td>
-                       <td>
-                           Body Building
-                       </td> 
-                       <!-- <td>
+                      </td>
+                      <td>
+                        Push Up
+                      </td>
+                      <td>
+                        Body Building
+                      </td>
+                      <!-- <td>
                         <a href="routine.html" class="btn btn-success" role="button">Delete</a>
                       </td> -->
                     </tr>
-    
+
                     <tr class="mem_routine">
                       <td>
                         <a href="exercise_details.html">E_001</a>
-                       </td>
-                       <td>
-                           Push Up
-                       </td>
-                       <td>
-                           Jumping
-                       </td> 
-                      
+                      </td>
+                      <td>
+                        Push Up
+                      </td>
+                      <td>
+                        Jumping
+                      </td>
+
                     </tr>
-    
-    
-    
-    
-                   
-                   
+
+
+
+
+
+
                   </tbody>
                 </table>
-    
+
               </div>
               <!-- /.table-responsive -->
-    
-            </div>
-    
-            
-          <!-- </div> -->
 
-          <!-- <div class="card" > -->
-            <div class="card-header border-transparent"  id="day_exe">
+            </div>
+
+
+            <!-- </div> -->
+
+            <!-- <div class="card" > -->
+            <div class="card-header border-transparent" id="day_exe">
               <h4 class="d-flex">Wednesday</h4>
             </div>
-    
+
             <div class="card-body p-0">
               <div class="table-responsive">
                 <table class="table m-0">
@@ -709,77 +707,77 @@
                       <th>Exercise Name</th>
                       <th>Exercise Type</th>
                       <!-- <th></th> -->
-                      
+
                     </tr>
                   </thead>
                   <tbody>
                     <tr class="mem_routine">
                       <td>
                         <a href="exercise_details.html">E_001</a>
-                         
+
                       </td>
                       <td>
-                          Push Up
+                        Push Up
                       </td>
                       <td>
-                          Fitness
-                      </td> 
-                    <!-- <td>
+                        Fitness
+                      </td>
+                      <!-- <td>
                       <a href="routine.html" class="btn btn-success" role="button">Delete</a>
                     </td>
                        -->
                     </tr>
-    
-    
+
+
                     <tr class="mem_routine">
                       <td>
                         <a href="exercise_details.html">E_001</a>
-                       </td>
-                       <td>
-                           Push Up
-                       </td>
-                       <td>
-                           Body Building
-                       </td> 
-                       <!-- <td>
+                      </td>
+                      <td>
+                        Push Up
+                      </td>
+                      <td>
+                        Body Building
+                      </td>
+                      <!-- <td>
                         <a href="routine.html" class="btn btn-success" role="button">Delete</a>
                       </td> -->
                     </tr>
-    
+
                     <tr class="mem_routine">
                       <td>
                         <a href="exercise_details.html">E_001</a>
-                       </td>
-                       <td>
-                           Push Up
-                       </td>
-                       <td>
-                           Jumping
-                       </td> 
-                      
+                      </td>
+                      <td>
+                        Push Up
+                      </td>
+                      <td>
+                        Jumping
+                      </td>
+
                     </tr>
-    
-    
-    
-    
-                   
-                   
+
+
+
+
+
+
                   </tbody>
                 </table>
-    
+
               </div>
               <!-- /.table-responsive -->
-    
-            </div>
-    
-            
-          <!-- </div> -->
 
-          <!-- <div class="card" > -->
-            <div class="card-header border-transparent"  id="day_exe">
+            </div>
+
+
+            <!-- </div> -->
+
+            <!-- <div class="card" > -->
+            <div class="card-header border-transparent" id="day_exe">
               <h4 class="d-flex">Thursday</h4>
             </div>
-    
+
             <div class="card-body p-0">
               <div class="table-responsive">
                 <table class="table m-0">
@@ -789,77 +787,77 @@
                       <th>Exercise Name</th>
                       <th>Exercise Type</th>
                       <!-- <th></th> -->
-                      
+
                     </tr>
                   </thead>
                   <tbody>
                     <tr class="mem_routine">
                       <td>
                         <a href="exercise_details.html">E_001</a>
-                         
+
                       </td>
                       <td>
-                          Push Up
+                        Push Up
                       </td>
                       <td>
-                          Fitness
-                      </td> 
-                    <!-- <td>
+                        Fitness
+                      </td>
+                      <!-- <td>
                       <a href="routine.html" class="btn btn-success" role="button">Delete</a>
                     </td>
                        -->
                     </tr>
-    
-    
+
+
                     <tr class="mem_routine">
                       <td>
                         <a href="exercise_details.html">E_001</a>
-                       </td>
-                       <td>
-                           Push Up
-                       </td>
-                       <td>
-                           Body Building
-                       </td> 
-                       <!-- <td>
+                      </td>
+                      <td>
+                        Push Up
+                      </td>
+                      <td>
+                        Body Building
+                      </td>
+                      <!-- <td>
                         <a href="routine.html" class="btn btn-success" role="button">Delete</a>
                       </td> -->
                     </tr>
-    
+
                     <tr class="mem_routine">
                       <td>
                         <a href="exercise_details.html">E_001</a>
-                       </td>
-                       <td>
-                           Push Up
-                       </td>
-                       <td>
-                           Jumping
-                       </td> 
-                      
+                      </td>
+                      <td>
+                        Push Up
+                      </td>
+                      <td>
+                        Jumping
+                      </td>
+
                     </tr>
-    
-    
-    
-    
-                   
-                   
+
+
+
+
+
+
                   </tbody>
                 </table>
-    
+
               </div>
               <!-- /.table-responsive -->
-    
-            </div>
-    
-            
-          <!-- </div> -->
 
-          <!-- <div class="card" > -->
-            <div class="card-header border-transparent"  id="day_exe">
+            </div>
+
+
+            <!-- </div> -->
+
+            <!-- <div class="card" > -->
+            <div class="card-header border-transparent" id="day_exe">
               <h4 class="d-flex">Friday</h4>
             </div>
-    
+
             <div class="card-body p-0">
               <div class="table-responsive">
                 <table class="table m-0">
@@ -869,70 +867,70 @@
                       <th>Exercise Name</th>
                       <th>Exercise Type</th>
                       <!-- <th></th> -->
-                      
+
                     </tr>
                   </thead>
                   <tbody>
                     <tr class="mem_routine">
                       <td>
                         <a href="exercise_details.html">E_001</a>
-                         
+
                       </td>
                       <td>
-                          Push Up
+                        Push Up
                       </td>
                       <td>
-                          Fitness
-                      </td> 
-                    <!-- <td>
+                        Fitness
+                      </td>
+                      <!-- <td>
                       <a href="routine.html" class="btn btn-success" role="button">Delete</a>
                     </td>
                        -->
                     </tr>
-    
-    
+
+
                     <tr class="mem_routine">
                       <td>
                         <a href="exercise_details.html">E_001</a>
-                       </td>
-                       <td>
-                           Push Up
-                       </td>
-                       <td>
-                           Body Building
-                       </td> 
-                       <!-- <td>
+                      </td>
+                      <td>
+                        Push Up
+                      </td>
+                      <td>
+                        Body Building
+                      </td>
+                      <!-- <td>
                         <a href="routine.html" class="btn btn-success" role="button">Delete</a>
                       </td> -->
                     </tr>
-    
+
                     <tr class="mem_routine">
                       <td>
                         <a href="exercise_details.html">E_001</a>
-                       </td>
-                       <td>
-                           Push Up
-                       </td>
-                       <td>
-                           Jumping
-                       </td> 
-                      
+                      </td>
+                      <td>
+                        Push Up
+                      </td>
+                      <td>
+                        Jumping
+                      </td>
+
                     </tr>
-    
-    
-    
-    
-                   
-                   
+
+
+
+
+
+
                   </tbody>
                 </table>
-    
+
               </div>
               <!-- /.table-responsive -->
-    
+
             </div>
-    
-            
+
+
           </div>
 
 
@@ -942,19 +940,19 @@
 
 
 
-       
 
 
 
 
 
 
-          
+
+
         </div>
         <!--/. container-fluid -->
       </section>
-           <!-- /.content -->
-    <div style="margin-bottom:30px ;"></div>
+      <!-- /.content -->
+      <div style="margin-bottom:30px ;"></div>
     </div>
     <!-- /.content-wrapper -->
 
@@ -1003,5 +1001,3 @@
 </body>
 
 </html>
-
-

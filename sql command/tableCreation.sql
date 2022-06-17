@@ -101,7 +101,7 @@ create table Employee
 Username varchar2(50),
 Emp_Id NUMBER NOT NULL,    
 Salary NUMBER,
-Shift DATE,
+Shift NUMBER,
 Experience NUMBER,
 Education varchar2(50),
 Num_Of_Rating Number,

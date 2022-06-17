@@ -34,9 +34,9 @@ if (!$conn) {
           header("Location: member_db.php");
         }
       } else {
-        if ($row['DESIGNATION'] == 'M') {
+        if ($row['DESIGNATION'] == 'Manager') {
           header("Location: manager_db.php");
-        } else if ($row['DESIGNATION'] == 'T') {
+        } else if ($row['DESIGNATION'] == 'Trainer') {
           header("Location: trainer_db.php");
         } else {
           header("Location: receptionist.php");

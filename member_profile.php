@@ -9,7 +9,6 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
 </head>
@@ -30,10 +29,10 @@
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="dist/img/enan_pinki.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="employee_profile.html" class="d-block">Alexander Pierce</a>
+          <a href="employee_profile.php" class="d-block">Alexander Pierce</a>
         </div>
       </div>
 
@@ -80,13 +79,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/mailbox/mailbox.html" class="nav-link">
+                <a href=" pages/mailbox/mailbox.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Inbox</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/mailbox/compose.html" class="nav-link">
+                <a href=" pages/mailbox/compose.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Compose</p>
                 </a>
@@ -105,7 +104,7 @@
             <ul class="nav nav-treeview">
                  
               <li class="nav-item">
-                <a href="employee_profile.html" class="nav-link active">
+                <a href="employee_profile.php" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Profile</p>
                 </a>
@@ -164,7 +163,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="manager_db.php">Home</a></li>
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
               <li class="breadcrumb-item active">User Profile</li>
             </ol>
           </div>
@@ -183,11 +182,11 @@
               <div class="card-body box-profile">
                 <div class="text-center">
                   <img class="profile-user-img img-fluid img-circle"
-                       src="dist/img/enan_pinki.jpg"
+                       src="dist/img/user2-160x160.jpg"
                        alt="User profile picture">
                 </div>
 
-                <h3 class="profile-username text-center">Bhabi</h3>
+                <h3 class="profile-username text-center">brownfalcon</h3>
 
                 <p class="text-muted text-center"></p>
                 <div class="row">
@@ -195,13 +194,13 @@
                         <h3 style="text-align: center;"><b>Personal Info</b></h3>
                         <ul class="list-group list-group-unbordered mb-3">                    
                             <li class="list-group-item">
-                              <b>Name</b> <a class="float-right">Enan Abdullah Khan</a>
+                              <b>Name</b> <a class="float-right">Saifur Khan</a>
                             </li>
                             <li class="list-group-item">
-                              <b>Email</b> <a class="float-right">xyz@gmail.com</a>
+                              <b>Email</b> <a class="float-right">Drew@gmail.com</a>
                             </li>
                             <li class="list-group-item">
-                              <b>Gender</b> <a class="float-right">Female</a>
+                              <b>Gender</b> <a class="float-right">Male</a>
                             </li>
                             <li class="list-group-item">
                               <b>Address</b> <a class="float-right">xyz</a>
@@ -219,26 +218,29 @@
                     </div>
                     <div class="col-lg-6 col-12">
                       <h3 style="text-align: center;"><b>Gym Related Info</b></h3>
-                      <ul class="list-group list-group-unbordered mb-3">
-                        <li class="list-group-item">
-                            <b>Branch Name</b> <a class="float-right">b_001</a>
-                        </li>                    
+                      <ul class="list-group list-group-unbordered mb-3">                    
                           <li class="list-group-item">
-                            <b>Employee ID</b> <a class="float-right">e_001</a>
+                            <b>Member ID</b> <a class="float-right">m_001</a>
                           </li>
                           
                           <li class="list-group-item">
-                            <b>Salary</b> <a class="float-right">25000</a>
+                            <b>Height</b> <a class="float-right">150 cm</a>
                           </li>
                           <li class="list-group-item">
-                            <b>Shift</b> <a class="float-right">Day</a>
+                            <b>Weight</b> <a class="float-right">69 kg</a>
                           </li>
                           <li class="list-group-item">
-                            <b>Rating</b> <a class="float-right">4.8</a>
-                          </li>
+                            <b>BMI</b> <a class="float-right">23</a>
+                          </li>  
                           <li class="list-group-item">
-                            <b>Designation</b> <a class="float-right">Manager</a>
-                          </li> 
+                            <b>Branch Name</b> <a class="float-right">b_001</a>
+                          </li>  
+                          <li class="list-group-item">
+                            <b>Membership Expiry Date</b> <a class="float-right">13-Dec-2023</a>
+                          </li>  
+                          <li class="list-group-item">
+                            <b>Assigned Trainer</b> <a class="float-right">e_001</a>
+                          </li>
                       </ul>
                     </div>
                 </div>
@@ -260,17 +262,10 @@
       <!-- <div class="container">
         <div class="row">
             <div class="col-md-12 text-right">
-                <button onclick="window.location.href='trainer_list.html'" type="button" class="btn btn-primary" style="padding-left: 20px; padding-right: 20px;">Back</button>
+                <button onclick="window.location.href='member_list.php'" type="button" class="btn btn-primary" style="padding-left: 20px; padding-right: 20px;">Back</button>
             </div>
         </div>
       </div> -->
-      <div class="card-footer">
-        <div class="float-right">
-          <a href="profile_edit.html">
-          <button type="submit" class="btn btn-primary"><i class="fa-solid fa-user-pen"></i> Edit</button></a>
-        </div>
-        
-      </div>
     </section>
     
          <!-- /.content -->
