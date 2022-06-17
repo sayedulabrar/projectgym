@@ -1,0 +1,118 @@
+INSERT INTO USERS (
+  USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB, Mobile_No
+) VALUES (
+  'afk999', 'mathanoshto', 'Abrar Khan', 'Male', 'afk@gmail.com', 'Mirpur', 'B+', 12354648, 'br_001', TO_DATE('09/08/1995','dd/mm/yyyy'), '0123232'
+);  
+INSERT INTO USERS (
+  USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
+) VALUES (
+  'billu037', 'missingbilli', 'Ayon Bilwal', 'Male', 'mr.bill@gmail.com', 'Jatrabari', 'A+', 1549841, 'br_001', TO_DATE('08/09/1993','dd/mm/yyyy')
+);
+INSERT INTO USERS (
+  USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
+) VALUES (
+  'brownFalcon', 'spifu', 'Saifur Kacchi', 'Male', '@gmail.com', 'Mirpur', 'B+', 12354648, 'br_001', TO_DATE('','dd/mm/yyyy')
+);
+INSERT INTO USERS (
+  USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
+) VALUES (
+  'modasayedul', 'rapking', 'Sayedul Eminem', 'Male', 'eminem@gmail.com', 'ECB', 'AB-', 789456, 'br_001', TO_DATE('05/07/1991','dd/mm/yyyy')
+);
+INSERT INTO USERS (
+  USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
+) VALUES (
+  'arnab007', 'sirca', 'Arnab Src', 'Male', 'sircar@gmail.com', 'Tikatuli', 'B-', 45685241, 'br_001', TO_DATE('05/03/1995','dd/mm/yyyy')
+);
+
+INSERT INTO USERS (
+  USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
+) VALUES (
+  'harun', 'harun123', 'Mohammad Harun', 'Male', 'harun.gorib@gmail.com', 'Mirpur', 'AB-',11234568, 'br_002', TO_DATE('12/05/1996','dd/mm/yyyy')
+);
+
+INSERT INTO USERS (
+  USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
+) VALUES (
+  'karim', 'karimpack', 'Karimul Islam', 'Male', 'karim.fakir@gmail.com', 'Mohakhali', 'O-',54123548, 'br_001', TO_DATE('20/04/1997','dd/mm/yyyy')
+);
+
+INSERT INTO USERS (
+  USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
+) VALUES (
+  'khaled', 'khaled19', 'Khaled Hasan Irfan', 'Male', 'khaled.mist@gmail.com', 'Wari', 'O+',12345678, 'br_003', TO_DATE('14/11/1999','dd/mm/yyyy')
+);
+
+INSERT INTO USERS (
+  USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
+) VALUES (
+  'enan', 'sabita vabi', 'Enan Abdullah Khan', 'Male', 'enan13.mist@yahoo.com', 'Firmgate', 'O+',74820153, 'br_003', TO_DATE('12/05/1999','dd/mm/yyyy')
+);
+
+INSERT INTO USERS (
+  USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
+) VALUES (
+  'shakira', 'shakira_pique', 'Shakira Gonzalez', 'Female', 'shakira.spain@gmail.com', 'Keranigonj', 'B-',14789632, 'br_003', TO_DATE('14/01/1989','dd/mm/yyyy')
+);
+
+INSERT INTO USERS (
+  USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
+) VALUES (
+  'mayesha', 'mayesha_shrishti', 'Mayesha Mehjabin Shristi', 'Female', 'mayesha.12456@hotmail.com', 'Savar', 'A-',87412364, 'br_003', TO_DATE('10/11/2001','dd/mm/yyyy')
+);
+
+INSERT INTO USERS (
+  USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
+) VALUES (
+  'astha', 'astha_ikra', 'Faizoon Noor Astha', 'Female', 'astha.urbt@yahoo.com', 'Lalmatia', 'O+',9785412364, 'br_003', TO_DATE('23/02/2002','dd/mm/yyyy')
+);
+
+INSERT INTO USERS (
+  USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
+) VALUES (
+  'tariq', 'tariqanans', 'Tariq Hasan Rizu', 'Male', 'tariq.js@hotmail.com', 'Uttara', 'O+',5478514668, 'br_003', TO_DATE('17/03/2000','dd/mm/yyyy')
+);
+
+INSERT INTO USERS (
+  USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
+) VALUES (
+  'faisal', 'chotto_faisal', 'Rayhan Ferdous Faisal', 'Male', 'faisal.kipta@gmail.com', 'ECB', 'AB-',112112112, 'br_002', TO_DATE('05/11/1998','dd/mm/yyyy')
+);
+
+INSERT INTO USERS (
+  USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
+) VALUES (
+  'arafat', 'grande_arafat', 'Sheikh Easin Arafat', 'Male', 'arafat.kyanat.lovebirds@yahoo.com', 'ECB', 'O+',147147147, 'br_002', TO_DATE('25/11/2000','dd/mm/yyyy')
+);
+
+INSERT INTO USERS (
+  USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
+) VALUES (
+  'sowmik', 'alam_loves_many', 'MN Alam Siddiqui', 'Male', 'alam.mist@gmail.com', 'Osmany Hall', 'O+',118987321, 'br_001', TO_DATE('30/01/1999','dd/mm/yyyy')
+);
+
+INSERT INTO USERS (
+  USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
+) VALUES (
+  'rashid', 'petuk_rashid', 'Rashid Ul Islam', 'Male', 'rashid.@yahoo.com', 'DOHS', 'O+',564564564, 'br_001', TO_DATE('14/02/2000','dd/mm/yyyy')
+);
+
+INSERT INTO USERS (
+  USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
+) VALUES (
+  'meher', 'meher_futlo_bole', 'Antul Nahar Meher', 'Female', 'anm.mna@yahoo.com', 'DOHS', 'B-',202000300, 'br_001', TO_DATE('05/11/2006','dd/mm/yyyy')
+);
+
+INSERT INTO USERS (
+  USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
+) VALUES (
+  'naima', 'naima_naimoon', 'Afia Makhtoor Naima', 'Female', 'naima.mist@gmail.com', 'BanglaMotor', 'A-',123547698, 'br_003', TO_DATE('14/03/2002','dd/mm/yyyy')
+);
+
+INSERT INTO USERS (
+  USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
+) VALUES (
+  'akash', 'akash_file', 'Mofizur Hasan Akash', 'Male', 'mohiakash@yahoo.com', 'Shonir Akhra', 'O+',22142233, 'br_002', TO_DATE('05/11/1998','dd/mm/yyyy')
+);
+
+
+
