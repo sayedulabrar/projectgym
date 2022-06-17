@@ -1,6 +1,19 @@
 <?php
   session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
   $uname = $_SESSION['uname'];
+  $branchExpenditure = 0;
+  $branchRevenue = 0;
+
+  $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
+    or die(oci_error());
+  if (!$conn) {
+    echo "sorry";
+  } else {
+    $sql = "select *from branch natural join users where username = '$uname'";
+    $stid = oci_parse($conn, $sql);
+    $r = oci_execute($stid);
+    $userJoinBranch = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+  }
 
 ?>
 
@@ -70,7 +83,9 @@
             <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="employee_profile.html" class="d-block">Alexander Pierce</a>
+            <a href="employee_profile.html" class="d-block">
+              <?php echo $uname;?>
+            </a>
           </div>
         </div>
 
@@ -238,7 +253,9 @@
                 <!-- small box -->
                 <div class="small-box bg-danger" style="height: 142px;">
                     <div class="inner">
-                    <h3>1500 tk</h3>
+                    <h3>
+                      <?php echo $userJoinBranch["REG_FEE"]?>
+                    </h3>
 
                     <p>Registration Fee</p>
                     </div>
@@ -252,7 +269,21 @@
                 <!-- small box -->
                 <div class="small-box bg-success">
                     <div class="inner">
-                    <h3>150</h3>
+                    <h3>
+                      <?php
+                        $br_name = $userJoinBranch["BR_NAME"];
+                        $sql = "select *from users natural join member where br_name in('$br_name')";
+                        $stid = oci_parse($conn, $sql);
+                        $r = oci_execute($stid);
+      
+                        $num = 0;
+                        while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                          $num = $num + 1;
+                        }
+                        echo $num;
+
+                      ?>
+                    </h3>
 
                     <p>Member</p>
                     </div>
@@ -267,7 +298,21 @@
                 <!-- small box -->
                 <div class="small-box bg-info">
                   <div class="inner">
-                    <h3>150</h3>
+                    <h3>
+                      <?php
+                        $br_name = $userJoinBranch["BR_NAME"];
+                        $sql = "select *from users natural join employee where br_name in('$br_name') and designation = 'T'";
+                        $stid = oci_parse($conn, $sql);
+                        $r = oci_execute($stid);
+                        
+                        $num = 0;
+                        while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                          $num = $num + 1;
+                        }
+                        echo $num;
+
+                      ?>
+                    </h3>
   
                     <p>Trainer</p>
                   </div>
@@ -282,7 +327,21 @@
               <!-- small box -->
               <div class="small-box bg-warning">
                 <div class="inner">
-                  <h3>44</h3>
+                  <h3>
+                    <?php
+                        $br_name = $userJoinBranch["BR_NAME"];
+                        $sql = "select *from users natural join employee where br_name in('$br_name') and designation = 'R'";
+                        $stid = oci_parse($conn, $sql);
+                        $r = oci_execute($stid);
+                        
+                        $num = 0;
+                        while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                          $num = $num + 1;
+                        }
+                        echo $num;
+
+                      ?>
+                  </h3>
 
                   <p>Receiptionist</p>
                 </div>
@@ -297,7 +356,22 @@
                 <!-- small box -->
                 <div class="small-box bg-info">
                     <div class="inner">
-                    <h3>150</h3>
+                    <h3>
+                      <?php
+                        $br_name = $userJoinBranch["BR_NAME"];
+                        $sql = "select *from equipment where br_name in('$br_name')";
+                        $stid = oci_parse($conn, $sql);
+                        $r = oci_execute($stid);
+                        
+                        $num = 0;
+                        while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                          $num = $num + 1;
+                        }
+                        echo $num;
+
+                      ?>
+
+                    </h3>
 
                     <p>Equipments Type</p>
                     </div>
@@ -312,7 +386,21 @@
                     <!-- small box -->
                 <div class="small-box bg-danger">
                     <div class="inner">
-                    <h3>150</h3>
+                    <h3>
+                      <?php
+                        $br_name = $userJoinBranch["BR_NAME"];
+                        $sql = "select *from br_pkg where br_name in('$br_name')";
+                        $stid = oci_parse($conn, $sql);
+                        $r = oci_execute($stid);
+                        
+                        $num = 0;
+                        while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                          $num = $num + 1;
+                        }
+                        echo $num;
+
+                      ?>
+                    </h3>
 
                     <p>Packages</p>
                     </div>
@@ -327,7 +415,21 @@
                 <!-- small box -->
                 <div class="small-box bg-warning">
                   <div class="inner">
-                    <h3>150</h3>
+                    <h3>
+                      <?php
+                        $br_name = $userJoinBranch["BR_NAME"];
+                        $sql = "select *from expenditure where br_name in('$br_name')";
+                        $stid = oci_parse($conn, $sql);
+                        $r = oci_execute($stid);
+                        
+                        $num = 0;
+                        while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                          $num = $num + 1;
+                        }
+                        echo $num;
+
+                      ?>
+                    </h3>
   
                     <p>Expenditure</p>
                   </div>
@@ -342,7 +444,21 @@
               <!-- small box -->
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3>44</h3>
+                  <h3>
+                    <?php
+                        $br_name = $userJoinBranch["BR_NAME"];
+                        $sql = "select *from income where br_name in('$br_name')";
+                        $stid = oci_parse($conn, $sql);
+                        $r = oci_execute($stid);
+                        
+                        $num = 0;
+                        while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                          $num = $num + 1;
+                        }
+                        echo $num;
+
+                      ?>
+                  </h3>
 
                   <p>Revenue</p>
                 </div>
@@ -367,8 +483,28 @@
                   <div class="row">
                     <div class="col-sm-4 col-8">
                       <div class="description-block border-right">
-                        <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 17%</span>
-                        <h5 class="description-header">35,210 tk</h5>
+                        <!-- <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 17%</span> -->
+                        <h5 class="description-header">
+                          <?php
+                            $sql = 'select inc_amount, CURRENT_TIMESTAMP-inc_dateandtime "differ" from income';
+                            $stid = oci_parse($conn, $sql);
+                            $r = oci_execute($stid);
+                            $ans = 0;
+                            while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                              $array = explode(" ",$row["differ"]);
+                              $diff = $array[0];
+                              $num = (int)$diff;
+                              if($num <=30) {
+                                $ans = $ans +  $row["INC_AMOUNT"];
+                              }
+                            }
+                            echo $ans . " tk";
+                            $branchRevenue = $ans;
+                              // $x = EXTRACT( YEAR FROM TO_DATE( '31-Dec-1999 15:30:20 ',  'DD-Mon-YYYY HH24:MI:SS' ) ) YEAR;
+
+                          ?>
+
+                        </h5>
                         <span class="description-text">BRANCH REVENUE</span>
                       </div>
                       <!-- /.description-block -->
@@ -376,17 +512,42 @@
                     <!-- /.col -->
                     <div class="col-sm-4 col-8">
                       <div class="description-block border-right">
-                        <span class="description-percentage text-warning"><i class="fas fa-caret-left"></i> 0%</span>
-                        <h5 class="description-header">10,390 tk</h5>
-                        <span class="description-text">BRANCH COST</span>
+                        <h5 class="description-header">
+                          <?php
+                            $sql = 'select amount, CURRENT_TIMESTAMP-exp_dateandtime "differ" from expenditure';
+                            $stid = oci_parse($conn, $sql);
+                            $r = oci_execute($stid);
+                            $thisMonth = 0;
+                            $prevMonth = 0;
+                            while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                              $array = explode(" ",$row["differ"]);
+                              $diff = $array[0];
+                              $num = (int)$diff;
+                              if($num <=30) {
+                                $thisMonth = $thisMonth +  $row["AMOUNT"];
+                              }
+                              else if($num<=60) {
+                                $prevMonth = $prevMonth + $row["AMOUNT"];
+                              }
+                              
+                            }
+                            echo $thisMonth. " tk";
+                            $branchExpenditure = $thisMonth;
+                          ?>
+                        </h5>
+                        <span class="description-text">BRANCH EXPENDITURE</span>
                       </div>
                       <!-- /.description-block -->
                     </div>
                     <!-- /.col -->
                     <div class="col-sm-4 col-8">
                       <div class="description-block border-right">
-                        <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 20%</span>
-                        <h5 class="description-header">24,813 tk</h5>
+                        <!-- <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 20%</span> -->
+                        <h5 class="description-header">
+                          <?php
+                            echo $branchRevenue - $branchExpenditure;
+                          ?>
+                        </h5>
                         <span class="description-text">BRANCH PROFIT</span>
                       </div>
                       <!-- /.description-block -->

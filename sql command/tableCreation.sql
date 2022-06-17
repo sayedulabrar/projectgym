@@ -135,7 +135,7 @@ Create Table Income
 Trx_Id NUMBER NOT NULL,
 Inc_Status varchar2(50),
 Inc_Amount NUMBER,
-Inc_DateAndTime DATE,
+Inc_DateAndTime TIMESTAMP WITH TIME ZONE,
 Inc_Type varchar2(50),
 Inc_Details varchar2(50),
 Username varchar2(50),
@@ -175,7 +175,7 @@ create table Expenditure
 (
 Exp_Id NUMBER NOT NULL,
 Amount NUMBER,
-Exp_DateAndTime Date,
+Exp_DateAndTime TIMESTAMP WITH TIME ZONE,
 Exp_Reason varchar2(50),
 Br_Name varchar2(50)
 );
@@ -296,3 +296,5 @@ FOREIGN KEY(Username) REFERENCES Users(Username) ON DELETE CASCADE;
 ALTER TABLE M_Pkg
 ADD CONSTRAINT M_Pkg_pkg_Id_fk
 FOREIGN KEY(Pkg_Id) REFERENCES Package(Pkg_Id) ON DELETE CASCADE;
+
+

@@ -52,22 +52,10 @@
     <!-- /.navbar -->
 
     <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Navbar Search -->
-      <li class="nav-item float-right">
-        <button  type="button" class="btn btn-primary">Logout</button>
-      </li>
-
-      
-      
-    </ul>
   </nav>
   <!-- /.navbar -->
 
-    
-
-    
-  <!-- Main Sidebar Container -->
+    Main Sidebar Container
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
@@ -196,6 +184,9 @@
     <!-- /.sidebar -->
   </aside>
 
+
+    
+  
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
