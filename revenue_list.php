@@ -1,3 +1,18 @@
+<?php
+session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
+$uname = $_SESSION['uname'];
+
+$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
+  or die(oci_error());
+if (!$conn) {
+  echo "sorry";
+} else {
+
+  
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,17 +22,17 @@
   <title>Revenue List</title>
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 </head>
 
-<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
   <div class="wrapper">
 
     <!-- Preloader -->
@@ -39,19 +54,18 @@
             <button onclick="window.location.href=' index.php'" type="button" class="btn btn-secondary">Logout</button>
           </li>
         </ul>
-    </div>
+      </div>
     </nav>
-     
-    
-        
+
+
+
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="#" class="brand-link">
-        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-          style="opacity: .8">
+        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Fitness Mania</span>
       </a>
 
@@ -63,7 +77,9 @@
             <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="employee_profile.php" class="d-block">Alexander Pierce</a>
+            <a href="employee_profile.php" class="d-block">
+              <?php echo $uname ?>
+            </a>
           </div>
         </div>
 
@@ -105,8 +121,8 @@
             </li>
 
 
-         
-             
+
+
 
             <li class="nav-item">
               <a href="#" class="nav-link">
@@ -129,7 +145,7 @@
                     <p>Compose</p>
                   </a>
                 </li>
-                
+
               </ul>
             </li>
             <li class="nav-item">
@@ -142,7 +158,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    
+
                 </li>
                 <li class="nav-item">
                   <a href="employee_profile.php" class="nav-link">
@@ -174,19 +190,19 @@
                     <p>Search Manager</p>
                   </a>
                 </li> -->
-                
-                
 
-                
+
+
+
               </ul>
             </li>
-            
 
-            
+
+
 
           </ul>
           </li>
-         
+
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
@@ -196,67 +212,108 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-      <section class="content" style="margin-bottom:50px ;">
+      <!-- <section class="content" style="margin-bottom:50px ;">
+        <form>
+          <div class="row">
+            <div class="col-lg-1 col-md-12">
 
-     
-        <div class="d-flex justify-content-center" style=" padding-top:1%;text-decoration: lightslategray;"><h2>Revenue Info</h2></div>
-        <div class="card-body"style="margin-top:1%">
-    
-        
-            <table class="table table-hover table-striped">
-                <tbody style="color:#33ABF9 ;">
-                
-                <tr>
-                    <th>Trx_ID</th>
-                    <th>Amount</th>
-                    <th>Type</th>
-                    <th>Details</th>
-                    <th>Time</th>
-                    <th>Date</th>
-                </tr>
-        
-        
-                <tr >
-                
-                    <td >exp_01</td>
-                    <td >1000</td>
-                    <td >xyz</td>
-                    <td >xyz</td>
-                    <td >12:30</td>
-                    <td>13-dec-2023</td>
-
-                </tr>
-                <tr >
-                
-                    <td >exp_01</td>
-                    <td >100</td>
-                    <td >xyz</td>
-                    <td >xyz</td>
-                    <td >12:30</td>
-                    <td>13-dec-2023</td>
-
-                </tr>
-                </tbody>
-            </table>
-            <!-- /.table -->
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-right">
-                    <button onclick="window.location.href='add_revenue.html'" type="button" class="btn btn-success" style="padding-left: 20px; padding-right: 20px;">Add New</button>
-                    <!-- <button onclick="window.location.href='manager_db.php'" type="button" class="btn btn-primary" style="padding-left: 20px; padding-right: 20px;">Back</button> -->
-                </div>
             </div>
+            <div class="col-lg-4 col-md-12">
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Sender Username</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">      
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Amount</label>
+                <input type="password" class="form-control" id="exampleInputPassword1">
+              </div>
+            </div>
+            <div class="col-lg-1 col-md-12">
+
+            </div>
+            <div class="col-lg-4 col-md-12">
+              <div class="input-group mb-3">
+                <label for="exampleSelect1" class="form-label">Income Type</label>
+                <select class="form-select" aria-label="Default select example" style="width: 490px;height:40px" id="exampleSelect1">
+                  <option value = "Payment of Package" selected>Payment of Package</option>
+                  <option value="Investment of Member">Investment from Member</option>
+                  <option value="Investment of Employee">Investment from Employee</option>
+                  <option value="For Advertising">For Advertising</option>
+                  <option value="Others">Others</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Details</label>
+                <input type="password" class="form-control" id="exampleInputPassword1">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-10 col-md-12">
+            
+            </div>
+            <div class="col-lg-2 col-md-12">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+             
+          </div>
+          
+        </form>
+      </section> -->
+      <section class="content" style="margin-bottom:50px ;">
+        <div class="d-flex justify-content-center" style=" padding-top:1%;text-decoration: lightslategray;">
+          <h2>Revenue Info</h2>
         </div>
-    
-    
-    
+        <div class="card-body" style="margin-top:1%">
+
+          <table class="table table-hover table-striped" id='myTable'>
+            <thead>
+              <tr>
+                <th scope="col">Trx ID</th>
+                <th scope="col">Sender Username</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Time</th>
+                <th scope="col">Date</th>
+                <th scope="col">Income Type</th>
+                <th scope="col">Income Details</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              $sql = "select * from income where br_name = (select br_name from users where username = '$uname')";
+              $stid = oci_parse($conn, $sql);
+              $r = oci_execute($stid);
+              while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                $array = explode(" ",$row['INC_DATEANDTIME']);
+                echo "
+              <tr>
+              <th scope='row'>" . $row['TRX_ID'] . "</th>
+              <td>" . $row["USERNAME"] . " </td>
+              <td>" . $row["INC_AMOUNT"] . " </td>
+              <td>" .  $array[1]. "</td>
+              <td>" .  $array[0]. "</td>
+              <td>" . $row["INC_TYPE"] . "</td>
+              <td>" . $row["INC_DETAILS"] . "</td>
+              </tr>
+              ";
+              // ECHO var_dump($row);
+              }
+
+
+              ?>
+
+            </tbody>
+          </table>
+
+
+
       </section>
-      
 
 
-           <!-- /.content -->
-    <div style="margin-bottom:30px ;"></div>
+
+      <!-- /.content -->
+      <div style="margin-bottom:30px ;"></div>
     </div>
     <!-- /.content-wrapper -->
 
@@ -269,7 +326,7 @@
     <!-- /.control-sidebar -->
 
     <!-- Main Footer -->
-    <footer class="main-footer">
+    <footer class="main-footer dark-mode" style="color: #869099">
       <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
       All rights reserved.
       <div class="float-right d-none d-sm-inline-block">
@@ -302,6 +359,14 @@
   <script src="dist/js/demo.js"></script>
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   <script src="dist/js/pages/dashboard2.js"></script>
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#myTable').DataTable();
+    });
+  </script>
 </body>
 
 </html>

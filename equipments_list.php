@@ -1,3 +1,18 @@
+<?php
+session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
+$uname = $_SESSION['uname'];
+
+$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
+  or die(oci_error());
+if (!$conn) {
+  echo "sorry";
+} else {
+
+  
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,17 +22,17 @@
   <title>Equipments List</title>
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 </head>
 
-<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
   <div class="wrapper">
 
     <!-- Preloader -->
@@ -39,19 +54,18 @@
             <button onclick="window.location.href=' index.php'" type="button" class="btn btn-secondary">Logout</button>
           </li>
         </ul>
-    </div>
+      </div>
     </nav>
-     
-    
-        
+
+
+
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="#" class="brand-link">
-        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-          style="opacity: .8">
+        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Fitness Mania</span>
       </a>
 
@@ -63,7 +77,9 @@
             <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="employee_profile.php" class="d-block">Alexander Pierce</a>
+            <a href="employee_profile.php" class="d-block">
+              <?php echo $uname ?>
+            </a>
           </div>
         </div>
 
@@ -105,8 +121,8 @@
             </li>
 
 
-         
-             
+
+
 
             <li class="nav-item">
               <a href="#" class="nav-link">
@@ -129,7 +145,7 @@
                     <p>Compose</p>
                   </a>
                 </li>
-                
+
               </ul>
             </li>
             <li class="nav-item">
@@ -142,7 +158,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    
+
                 </li>
                 <li class="nav-item">
                   <a href="employee_profile.php" class="nav-link">
@@ -173,20 +189,20 @@
                     <i class="far fa-circle nav-icon"></i>
                     <p>Search Manager</p>
                   </a>
-                </li>
-                 -->
-                
+                </li> -->
 
-                
+
+
+
               </ul>
             </li>
-            
 
-            
+
+
 
           </ul>
           </li>
-         
+
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
@@ -197,76 +213,58 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <section class="content" style="margin-bottom:50px ;">
-
-     
-        <div class="d-flex justify-content-center" style=" padding-top:1%;text-decoration: lightslategray;"><h2>Equipments Info</h2></div>
-        <div class="card-body"style="margin-top:1%">
-    
-        
-            <table class="table table-hover table-striped">
-                <tbody style="color:#33ABF9 ;">
-                
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Brand</th>
-                    <th>Model</th>
-                    <th>Quantity</th>
-                    <th>Available Pieces</th>
-                    <th>Pieces Under Maintenance</th>
-                    <th>Delete</th>
-                </tr>
-        
-        
-                <tr >
-                
-                    <td >eq_01</td>
-                    <td >Bumble</td>
-                    <td >xyz</td>
-                    <td >123</td>
-                    <td>50</td>
-                    <td>40</td>
-                    <td>10</td>
-                    <td><button class="btn btn-sm btn-outline-light">
-                      <i class="far fa-trash-alt"></i>
-                  </button></td>
-
-                </tr>
-                <tr >
-                
-                    <td >eq_01</td>
-                    <td >Bumble</td>
-                    <td >xyz</td>
-                    <td >123</td>
-                    <td>50</td>
-                    <td>40</td>
-                    <td>10</td>
-                    <td><button class="btn btn-sm btn-outline-light">
-                      <i class="far fa-trash-alt"></i>
-                  </button></td>
-
-                </tr>
-                </tbody>
-            </table>
-            <!-- /.table -->
+        <div class="d-flex justify-content-center" style=" padding-top:1%;text-decoration: lightslategray;">
+          <h2>Equipments Info</h2>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-right">
-                    <button onclick="window.location.href='add_equipment.html'" type="button" class="btn btn-success" style="padding-left: 20px; padding-right: 20px;">Add New</button>
-                    <!-- <button onclick="window.location.href='manager_db.php'" type="button" class="btn btn-primary" style="padding-left: 20px; padding-right: 20px;">Back</button> -->
-                </div>
-            </div>
-        </div>
-    
-    
-    
+        <div class="card-body" style="margin-top:1%">
+
+          <table class="table table-hover table-striped" id='myTable'>
+            <thead>
+              <tr>
+                <th scope="col">Equipment ID</th>
+                <th scope="col">Equipment Name</th>
+                <th scope="col">Brand</th>
+                <th scope="col">Model</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Available</th>
+
+                
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              $sql = "select * from equipment where br_name = (select br_name from users where username = '$uname')";
+              $stid = oci_parse($conn, $sql);
+              $r = oci_execute($stid);
+              while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                echo "
+              <tr>
+              <th scope='row'>" . $row['EQUIPMENT_ID'] . "</th>
+              <td>" . $row["EQUIPMENT_NAME"] . " </td>
+              <td>" . $row["EQUIPMENT_BRAND"] . "</td>
+              <td>" . $row["EQUIPMENT_MODEL"] . "</td>
+              <td>" . $row["EQUIPMENT_QUANTITY"] . "</td>
+              <td>" . $row["EQUIPMENT_AVAILABLE"] . "</td>
+
+              </tr>
+              ";
+              // ECHO var_dump($row);
+              }
+
+
+              ?>
+
+            </tbody>
+          </table>
+
+
+
       </section>
-      
 
 
-           <!-- /.content -->
-    <div style="margin-bottom:30px ;"></div>
+
+      <!-- /.content -->
+      <div style="margin-bottom:30px ;"></div>
     </div>
     <!-- /.content-wrapper -->
 
@@ -279,7 +277,7 @@
     <!-- /.control-sidebar -->
 
     <!-- Main Footer -->
-    <footer class="main-footer">
+    <footer class="main-footer dark-mode" style="color: #869099">
       <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
       All rights reserved.
       <div class="float-right d-none d-sm-inline-block">
@@ -312,6 +310,13 @@
   <script src="dist/js/demo.js"></script>
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   <script src="dist/js/pages/dashboard2.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#myTable').DataTable();
+    });
+  </script>
 </body>
 
 </html>

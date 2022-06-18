@@ -266,7 +266,7 @@ $uname = $_SESSION['uname'];
                 <div class="icon">
                   <i class="ion ion-person-add"></i>
                 </div>
-                <a href="receptionist_list.html" class="small-box-footer"><i class="fas"></i></a>
+                <a href="receptionist_list.php" class="small-box-footer"><i class="fas"></i></a>
               </div>
             </div>
 
