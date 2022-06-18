@@ -1,13 +1,22 @@
+--comments gula kheyal korish shobai
+--member gular upore member likhe dicchi, apatoto ei user gulakei member vabish, pore lagle aro add korbo
+
+
+--member
 INSERT INTO USERS (
   USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
 ) VALUES (
   'afk999', 'mathanoshto', 'Abrar Khan', 'Male', 'afk@gmail.com', 'Mirpur', 'B+', 12354648, 'br_001', TO_DATE('09/08/1995','dd/mm/yyyy')
 );  
+
+--member
 INSERT INTO USERS (
   USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
 ) VALUES (
   'Ayon037', 'ayon_mist', 'Mohiuddin Bilwal Ayon', 'Male', 'mr.bill@gmail.com', 'Jatrabari', 'A+', 1549841, 'br_002', TO_DATE('08/09/1993','dd/mm/yyyy')
 );
+
+
 INSERT INTO USERS (
   USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
 ) VALUES (
@@ -42,11 +51,6 @@ INSERT INTO USERS (
   'khaled', 'khaled19', 'Khaled Hasan Irfan', 'Male', 'khaled.mist@gmail.com', 'Wari', 'O+',12345678, 'br_003', TO_DATE('14/11/1999','dd/mm/yyyy')
 );
 
-INSERT INTO USERS (
-  USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
-) VALUES (
-  'enan', 'sabita vabi', 'Enan Abdullah Khan', 'Male', 'enan13.mist@yahoo.com', 'Firmgate', 'O+',74820153, 'br_003', TO_DATE('12/05/1999','dd/mm/yyyy')
-);
 
 INSERT INTO USERS (
   USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
@@ -78,6 +82,7 @@ INSERT INTO USERS (
   'faisal', 'chotto_faisal', 'Rayhan Ferdous Faisal', 'Male', 'faisal.kipta@gmail.com', 'ECB', 'AB-',112112112, 'br_002', TO_DATE('05/11/1998','dd/mm/yyyy')
 );
 
+--member
 INSERT INTO USERS (
   USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
 ) VALUES (
@@ -90,18 +95,22 @@ INSERT INTO USERS (
   'sowmik', 'alam_loves_many', 'MN Alam Siddiqui', 'Male', 'alam.mist@gmail.com', 'Osmany Hall', 'O+',118987321, 'br_001', TO_DATE('30/01/1999','dd/mm/yyyy')
 );
 
+
+--member
 INSERT INTO USERS (
   USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
 ) VALUES (
   'rashid', 'petuk_rashid', 'Rashid Ul Islam', 'Male', 'rashid.@yahoo.com', 'DOHS', 'O+',564564564, 'br_001', TO_DATE('14/02/2000','dd/mm/yyyy')
 );
 
+--member
 INSERT INTO USERS (
   USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
 ) VALUES (
   'meher', 'meher_futlo_bole', 'Antul Nahar Meher', 'Female', 'anm.mna@yahoo.com', 'DOHS', 'B-',202000300, 'br_001', TO_DATE('05/11/2006','dd/mm/yyyy')
 );
 
+--member
 INSERT INTO USERS (
   USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
 ) VALUES (
@@ -120,30 +129,39 @@ INSERT INTO USERS (
   'hasim', 'hasim_bot', 'Hasim Molla', 'Male', 'hasim_boka@yahoo.com', 'Mawa', 'O+',124577963, 'br_001', TO_DATE('14/02/2004','dd/mm/yyyy')
 );
 
+
+--member
 INSERT INTO USERS (
   USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
 ) VALUES (
   'rahat', 'rahaitttaa', 'Ahsan Rahat', 'Male', 'rahat.mist.37@gmail.com', 'Mirpur', 'O+',148974897, 'br_002', TO_DATE('12/03/1999','dd/mm/yyyy')
 );
 
+
+--member
 INSERT INTO USERS (
   USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
 ) VALUES (
   'adrito', 'rafat_adrito', 'Rafatuzzaman Khan', 'Male', 'rafat_loves_anime@gmail.com', 'Mirpur', 'O+',2547893114, 'br_002', TO_DATE('22/04/2000','dd/mm/yyyy')
 );
 
+
+--member
 INSERT INTO USERS (
   USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
 ) VALUES (
   'naiem', 'the_boka', 'Solaiman Islam Naiem', 'Male', 'naiem@hotmail.com', 'Osmany Hall', 'AB+',2536987412, 'br_003', TO_DATE('14/10/2000','dd/mm/yyyy')
 );
 
+--member
 INSERT INTO USERS (
   USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
 ) VALUES (
   'hasnat', 'oishwee_hasnat', 'Oishwee Jahan Hasnat', 'Female', 'oishwee1999@gmail.com', 'Sagupta', 'B+',9587452364, 'br_003', TO_DATE('27/14/2001','dd/mm/yyyy')
 );
 
+
+--member
 INSERT INTO USERS (
   USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
 ) VALUES (
@@ -153,6 +171,8 @@ INSERT INTO USERS (
 
 
 --Nicher shob User gulake Trainer hishebe vabish shobai
+
+
 INSERT INTO USERS (
   USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
 ) VALUES (
@@ -174,6 +194,12 @@ INSERT INTO USERS (
 INSERT INTO USERS (
   USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
 ) VALUES (
+  'adib', 'mascular_adib', 'Adib Hossain', 'Male', 'adib.hossain@gmail.com', 'Motijheel', 'AB-',323232323, 'br_001', TO_DATE('01/01/1999','dd/mm/yyyy')
+);
+
+INSERT INTO USERS (
+  USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
+) VALUES (
   'nizami', 'chatur_farhan', 'Farhan Nasif Nizami', 'Male', 'farhan.mist@gmail.com', 'Mirpur', 'O-',987987987, 'br_002', TO_DATE('22/12/2000','dd/mm/yyyy')
 );
 INSERT INTO USERS (
@@ -188,11 +214,6 @@ INSERT INTO USERS (
   'rafid147', 'rafid_trai', 'Rafid Mustakim', 'Male', 'rafid147@gmail.com', 'Mirpur', 'B+',1474444444, 'br_002', TO_DATE('08/04/1996','dd/mm/yyyy')
 );
 
-INSERT INTO USERS (
-  USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
-) VALUES (
-  'adib', 'mascular_adib', 'Adib Hossain', 'Male', 'adib.hossain@gmail.com', 'Motijheel', 'AB-',323232323, 'br_001', TO_DATE('01/01/1999','dd/mm/yyyy')
-);
 
 
 INSERT INTO USERS (
@@ -208,5 +229,10 @@ INSERT INTO USERS (
   'mahmud', 'mahmud_slasher', 'Mahmud Hasan', 'Male', 'mahmud.mist@gmail.com', 'Mirpur', 'O+',7896540012, 'br_003', TO_DATE('12/03/1992','dd/mm/yyyy')
 );
 
+INSERT INTO USERS (
+  USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
+) VALUES (
+  'enan', 'sabita vabi', 'Enan Abdullah Khan', 'Male', 'enan13.mist@yahoo.com', 'Firmgate', 'O+',74820153, 'br_003', TO_DATE('12/05/1999','dd/mm/yyyy')
+);
 
 
