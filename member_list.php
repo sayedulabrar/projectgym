@@ -1,17 +1,14 @@
 <?php
-  session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
-  $uname = $_SESSION['uname'];
-  
-  $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
+session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
+$uname = $_SESSION['uname'];
+
+$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
   echo "sorry";
 } else {
+
   
-  $sql = "select *from users natural join member where br_name = (select br_name from users where username = '$uname')";
-  $stid = oci_parse($conn, $sql);
-  $r = oci_execute($stid);
-  $userInfo = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
 }
 
 ?>
@@ -25,8 +22,7 @@ if (!$conn) {
   <title>Member List</title>
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- overlayScrollbars -->
@@ -58,19 +54,18 @@ if (!$conn) {
             <button onclick="window.location.href=' index.php'" type="button" class="btn btn-secondary">Logout</button>
           </li>
         </ul>
-    </div>
+      </div>
     </nav>
-     
-    
-        
+
+
+
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="#" class="brand-link">
-        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-          style="opacity: .8">
+        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Fitness Mania</span>
       </a>
 
@@ -82,7 +77,7 @@ if (!$conn) {
             <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="employee_profile.html" class="d-block">
+            <a href="employee_profile.php" class="d-block">
               <?php echo $uname ?>
             </a>
           </div>
@@ -126,8 +121,8 @@ if (!$conn) {
             </li>
 
 
-         
-             
+
+
 
             <li class="nav-item">
               <a href="#" class="nav-link">
@@ -150,7 +145,7 @@ if (!$conn) {
                     <p>Compose</p>
                   </a>
                 </li>
-                
+
               </ul>
             </li>
             <li class="nav-item">
@@ -163,10 +158,10 @@ if (!$conn) {
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    
+
                 </li>
                 <li class="nav-item">
-                  <a href="employee_profile.html" class="nav-link">
+                  <a href="employee_profile.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Profile</p>
                   </a>
@@ -195,19 +190,19 @@ if (!$conn) {
                     <p>Search Manager</p>
                   </a>
                 </li> -->
-                
-                
 
-                
+
+
+
               </ul>
             </li>
-            
 
-            
+
+
 
           </ul>
           </li>
-         
+
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
@@ -217,53 +212,53 @@ if (!$conn) {
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-      <section class="content" style="margin-bottom:50px ;" >
-      <div class="d-flex justify-content-center" style=" padding-top:1%;text-decoration: lightslategray;"><h2>Members Info</h2></div>
-        <div class="card-body"style="margin-top:1%">
-     
-        <table class="table table-hover table-striped" id='myTable'>
-          <thead>
-            <tr>
-              <th scope="col">Membership ID</th>
-              <th scope="col">Name</th>
-              <th scope="col">Gender</th>
-              <th scope="col">Trainer Name</th>
-              <th scope="col">Membership Expiry Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php      
-              $br_name = $userInfo["BR_NAME"];             
-              $sql = "select *from member natural join users where br_name = '$br_name'";
+      <section class="content" style="margin-bottom:50px ;">
+        <div class="d-flex justify-content-center" style=" padding-top:1%;text-decoration: lightslategray;">
+          <h2>Members Info</h2>
+        </div>
+        <div class="card-body" style="margin-top:1%">
+
+          <table class="table table-hover table-striped" id='myTable'>
+            <thead>
+              <tr>
+                <th scope="col">Membership ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Trainer Name</th>
+                <th scope="col">Membership Expiry Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              $sql = "select *from users natural join member where br_name = (select br_name from users where username = '$uname')";
               $stid = oci_parse($conn, $sql);
               $r = oci_execute($stid);
-              
-              while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+              while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
                 echo "
               <tr>
-              <th scope='row'>".$row["MEM_ID"]."</th>
-              <td><a href='member_profile.php'>".$row["NAME"]."</a></td>
-              <td>".$row["GENDER"]."</td>
-              <td>".$row["TRAINER"]."</td>
-              <td>".$row["MEMBERSHIP_EXPIRY"]."</td>
+              <th scope='row'>" . $row["MEM_ID"] . "</th>
+              <td><a href='member_profile.php'>" . $row["NAME"] . "</a></td>
+              <td>" . $row["GENDER"] . "</td>
+              <td>" . $row["TRAINER"] . "</td>
+              <td>" . $row["MEMBERSHIP_EXPIRY"] . "</td>
               </tr>
               ";
               }
- 
-              
-            ?>
-            
-          </tbody>
-        </table>
-    
-    
-    
+
+
+              ?>
+
+            </tbody>
+          </table>
+
+
+
       </section>
-      
 
 
-           <!-- /.content -->
-    <div style="margin-bottom:30px ;"></div>
+
+      <!-- /.content -->
+      <div style="margin-bottom:30px ;"></div>
     </div>
     <!-- /.content-wrapper -->
 
@@ -312,9 +307,9 @@ if (!$conn) {
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
   <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
   <script>
-    $(document).ready( function () {
-    $('#myTable').DataTable();
-} );
+    $(document).ready(function() {
+      $('#myTable').DataTable();
+    });
   </script>
 </body>
 
