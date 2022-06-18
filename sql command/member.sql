@@ -2,77 +2,77 @@ INSERT INTO MEMBER (
   USERNAME, MEM_ID, MEM_HEIGHT, MEM_WEIGHT, MEMBERSHIP_EXPIRY, EXPECTED_OUTCOME, TRAINER
 )
   VALUES (
-  'afk999', 'M_001', 161, 59,TO_DATE('07/07/2022','dd/mm/yyyy'), 'Reduce Weight','shafin'
+  'afk999', 01, 161, 59,TO_DATE('07/07/2022','dd/mm/yyyy'), 'Reduce Weight','shafin'
 );
 
 INSERT INTO MEMBER (
   USERNAME, MEM_ID, MEM_HEIGHT, MEM_WEIGHT, MEMBERSHIP_EXPIRY, EXPECTED_OUTCOME, TRAINER
 )
   VALUES (
-  'Ayon037', 'M_002', 165, 75,TO_DATE('20/08/2022','dd/mm/yyyy'), 'Increase Muscle','nizami'
+  'Ayon037', 02, 165, 75,TO_DATE('20/08/2022','dd/mm/yyyy'), 'Increase Muscle','nizami'
 );
 
 INSERT INTO MEMBER (
   USERNAME, MEM_ID, MEM_HEIGHT, MEM_WEIGHT, MEMBERSHIP_EXPIRY, EXPECTED_OUTCOME, TRAINER
 )
   VALUES (
-  'hasnat', 'M_003', 162, 75,TO_DATE('20/08/2022','dd/mm/yyyy'), 'Reduce Weight','enan'
+  'hasnat', 03, 162, 75,TO_DATE('20/08/2022','dd/mm/yyyy'), 'Reduce Weight','enan'
 );
 
 INSERT INTO MEMBER (
   USERNAME, MEM_ID, MEM_HEIGHT, MEM_WEIGHT, MEMBERSHIP_EXPIRY, EXPECTED_OUTCOME, TRAINER
 )
   VALUES (
-  'rashid', 'M_004', 160, 90,TO_DATE('12/09/2022','dd/mm/yyyy'), 'Reduce Weight','adib'
+  'rashid', 04, 160, 90,TO_DATE('12/09/2022','dd/mm/yyyy'), 'Reduce Weight','adib'
 );
 
 INSERT INTO MEMBER (
   USERNAME, MEM_ID, MEM_HEIGHT, MEM_WEIGHT, MEMBERSHIP_EXPIRY, EXPECTED_OUTCOME, TRAINER
 )
   VALUES (
-  'meher', 'M_005', 164,55,TO_DATE('12/09/2022','dd/mm/yyyy'), 'Increase Weight','sakib'
+  'meher', 05, 164,55,TO_DATE('12/09/2022','dd/mm/yyyy'), 'Increase Weight','sakib'
 );
 
 INSERT INTO MEMBER (
   USERNAME, MEM_ID, MEM_HEIGHT, MEM_WEIGHT, MEMBERSHIP_EXPIRY, EXPECTED_OUTCOME, TRAINER
 )
   VALUES (
-  'rahat', 'M_006', 167,71,TO_DATE('25/08/2022','dd/mm/yyyy'), 'Reduce Weight','nizami'
+  'rahat', 06, 167,71,TO_DATE('25/08/2022','dd/mm/yyyy'), 'Reduce Weight','nizami'
 );
 
 INSERT INTO MEMBER (
   USERNAME, MEM_ID, MEM_HEIGHT, MEM_WEIGHT, MEMBERSHIP_EXPIRY, EXPECTED_OUTCOME, TRAINER
 )
   VALUES (
-  'arafat', 'M_007', 168,76,TO_DATE('22/08/2022','dd/mm/yyyy'), 'Reduce Weight','rakib'
+  'arafat', 07, 168,76,TO_DATE('22/08/2022','dd/mm/yyyy'), 'Reduce Weight','rakib'
 );
 
 INSERT INTO MEMBER (
   USERNAME, MEM_ID, MEM_HEIGHT, MEM_WEIGHT, MEMBERSHIP_EXPIRY, EXPECTED_OUTCOME, TRAINER
 )
   VALUES (
-  'adrito', 'M_008', 170,92,TO_DATE('22/08/2022','dd/mm/yyyy'), 'Reduce Weight','rafid147'
+  'adrito', 08, 170,92,TO_DATE('22/08/2022','dd/mm/yyyy'), 'Reduce Weight','rafid147'
 );
 
 INSERT INTO MEMBER (
   USERNAME, MEM_ID, MEM_HEIGHT, MEM_WEIGHT, MEMBERSHIP_EXPIRY, EXPECTED_OUTCOME, TRAINER
 )
   VALUES (
-  'naiem', 'M_009', 171,62,TO_DATE('22/07/2022','dd/mm/yyyy'), 'Increase Weight','ishraq'
+  'naiem', 09, 171,62,TO_DATE('22/07/2022','dd/mm/yyyy'), 'Increase Weight','ishraq'
 );
 
 INSERT INTO MEMBER (
   USERNAME, MEM_ID, MEM_HEIGHT, MEM_WEIGHT, MEMBERSHIP_EXPIRY, EXPECTED_OUTCOME, TRAINER
 )
   VALUES (
-  'naima', 'M_010', 161,58,TO_DATE('22/07/2022','dd/mm/yyyy'), 'Increase Height','mahmud'
+  'naima', 10, 161,58,TO_DATE('22/07/2022','dd/mm/yyyy'), 'Increase Height','mahmud'
 );
 
 INSERT INTO MEMBER (
   USERNAME, MEM_ID, MEM_HEIGHT, MEM_WEIGHT, MEMBERSHIP_EXPIRY, EXPECTED_OUTCOME, TRAINER
 )
   VALUES (
-  'megh', 'M_011', 166,71,TO_DATE('18/07/2022','dd/mm/yyyy'), 'Reduce Weight','mahmud'
+  'megh',11, 166,71,TO_DATE('18/07/2022','dd/mm/yyyy'), 'Reduce Weight','mahmud'
 );
 
 
