@@ -1,5 +1,5 @@
 --comments gula kheyal korish shobai
---member gular upore member likhe dicchi, apatoto ei user gulakei member vabish, pore lagle aro add korbo
+--member gular upore member likhe dicchi, apatoto ei user gulakei member vabish, pore mone korle aro add korish
 
 
 --member
@@ -13,30 +13,30 @@ INSERT INTO USERS (
 INSERT INTO USERS (
   USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
 ) VALUES (
-  'Ayon037', 'ayon_mist', 'Mohiuddin Bilwal Ayon', 'Male', 'mr.bill@gmail.com', 'Jatrabari', 'A+', 1549841, 'br_002', TO_DATE('08/09/1993','dd/mm/yyyy')
+  'Ayon037', 'ayon_mist', 'Mohiuddin Bilwal Ayon', 'Male', 'ayon@gmail.com', 'Mirpur', 'O+', 15498410000, 'br_002', TO_DATE('08/09/1993','dd/mm/yyyy')
 );
 
 
 INSERT INTO USERS (
   USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
 ) VALUES (
-  'brownFalcon', 'spifu', 'Saifur Kacchi', 'Male', '@gmail.com', 'Mirpur', 'B+', 12354648, 'br_001', TO_DATE('','dd/mm/yyyy')
+  'brownFalcon', 'spifu', 'Saifur Kacchi', 'Male', 'saifur@gmail.com', 'Mirpur', 'B+', 12354648109, 'br_001', TO_DATE('','dd/mm/yyyy')
 );
 INSERT INTO USERS (
   USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
 ) VALUES (
-  'modasayedul', 'rapking', 'Sayedul Eminem', 'Male', 'eminem@gmail.com', 'ECB', 'AB-', 789456, 'br_001', TO_DATE('05/07/1991','dd/mm/yyyy')
+  'modasayedul', 'rapking', 'Sayedul Eminem', 'Male', 'eminem@gmail.com', 'ECB', 'AB-', 78945610314, 'br_001', TO_DATE('05/07/1991','dd/mm/yyyy')
 );
 INSERT INTO USERS (
   USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
 ) VALUES (
-  'arnab007', 'sirca', 'Arnab Src', 'Male', 'sircar@gmail.com', 'Tikatuli', 'B-', 45685241, 'br_001', TO_DATE('05/03/1995','dd/mm/yyyy')
+  'arnab007', 'sirca', 'Arnab Src', 'Male', 'sircar@gmail.com', 'Tikatuli', 'B-', 45685241999, 'br_001', TO_DATE('05/03/1995','dd/mm/yyyy')
 );
 
 INSERT INTO USERS (
   USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
 ) VALUES (
-  'harun', 'harun123', 'Mohammad Harun', 'Male', 'harun.gorib@gmail.com', 'Mirpur', 'AB-',11234568, 'br_002', TO_DATE('12/05/1996','dd/mm/yyyy')
+  'harun', 'harun123', 'Mohammad Harun', 'Male', 'harun.gorib@gmail.com', 'Mirpur', 'AB-',11234568777, 'br_002', TO_DATE('12/05/1996','dd/mm/yyyy')
 );
 
 INSERT INTO USERS (
