@@ -1,14 +1,28 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $uname = $_SESSION['uname'];
-
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
   echo "sorry";
 } else {
-
-  
+  if (isset($_POST['amount']) && isset($_POST['details'])) {
+    $sql = "select *from expenditure order by exp_id desc";
+    $stid = oci_parse($conn, $sql);
+    $r = oci_execute($stid);
+    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+    $exp_id = $row['EXP_ID'] + 1;
+    $amount = $_POST['amount'];
+    $details = $_POST['details'];
+    $sql = "select *from users where username='$uname'";
+    $stid = oci_parse($conn, $sql);
+    $r = oci_execute($stid);
+    $roww = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+    $br_name = $roww['BR_NAME'];
+    $sql = "insert into expenditure (exp_id, amount, exp_reason, br_name, exp_dateandtime) values($exp_id, $amount, '$details', '$br_name', SYSTIMESTAMP)";
+    $stid = oci_parse($conn, $sql);
+    $r = oci_execute($stid);
+  }
 }
 
 ?>
@@ -167,13 +181,13 @@ if (!$conn) {
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="add_employee.html" class="nav-link">
+                  <a href="add_employee.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p> Add Employee</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="add_member.html" class="nav-link">
+                  <a href="add_member.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p> Add Member</p>
                   </a>
@@ -213,11 +227,64 @@ if (!$conn) {
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <section class="content" style="margin-bottom:50px ;">
-        <div class="d-flex justify-content-center" style=" padding-top:1%;text-decoration: lightslategray;">
-          <h2>Expenditure Info</h2>
-        </div>
-        <div class="card-body" style="margin-top:1%">
 
+
+
+        <div class="bg-light clearfix">
+          <div class="row" style="padding-top: 30px;">
+            <div class="col-lg-6 col-md-12">
+              <h2 style="margin-left: 25px;">Expenditure Info</h2>
+            </div>
+            <div class="col-lg-6 col-md-12" style="padding-top: 15px;padding-right:40px;">
+              <!-- Insert Modal -->
+              <button type="button" class="insert btn btn-success float-right" data-toggle="modal" data-target="#exampleModal">Add New</button>
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Add New Expenditure</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form action="expenditure_list.php" method="POST">
+                        <div class="modal-body">
+
+                          <input type="hidden" name="snoEdit" id="snoEdit">
+                          <div class="form-group">
+                            <label for="amount">Amount</label>
+                            <input type="text" class="form-control" id="amount" name="amount" aria-describedby="emailHelp">
+                          </div>
+
+                          <div class="form-group">
+                            <label for="details">Expenditure Reason</label>
+                            <textarea class="form-control" id="details" name="details" rows="3"></textarea>
+
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary">Add Revenue</button>
+                        </div>
+                      </form>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <!-- /Insert Modal -->
+
+
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <div class="card-body" style="margin-top:1%">
           <table class="table table-hover table-striped" id='myTable'>
             <thead>
               <tr>
@@ -226,7 +293,7 @@ if (!$conn) {
                 <th scope="col">Time</th>
                 <th scope="col">Date</th>
                 <th scope="col">Expenditure Reason</th>
-                
+
               </tr>
             </thead>
             <tbody>
@@ -235,17 +302,17 @@ if (!$conn) {
               $stid = oci_parse($conn, $sql);
               $r = oci_execute($stid);
               while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-                $array = explode(" ",$row['EXP_DATEANDTIME']);
+                $array = explode(" ", $row['EXP_DATEANDTIME']);
                 echo "
               <tr>
               <th scope='row'>" . $row['EXP_ID'] . "</th>
               <td>" . $row["AMOUNT"] . " </td>
-              <td>" .  $array[1]. "</td>
-              <td>" .  $array[0]. "</td>
+              <td>" .  $array[1] . "</td>
+              <td>" .  $array[0] . "</td>
               <td>" . $row["EXP_REASON"] . "</td>
               </tr>
               ";
-              // ECHO var_dump($row);
+                // ECHO var_dump($row);
               }
 
 
@@ -313,6 +380,15 @@ if (!$conn) {
     $(document).ready(function() {
       $('#myTable').DataTable();
     });
+  </script>
+  <script>
+    inserts = document.getElementsByClassName('insert');
+    Array.from(inserts).forEach((element) => {
+      element.addEventListener("click", (e) => {
+        console.log("insert ", e.target);
+        // $('#exampleModal').modal('toggle');
+      })
+    })
   </script>
 </body>
 

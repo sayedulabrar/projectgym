@@ -7,8 +7,6 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
 if (!$conn) {
   echo "sorry";
 } else {
-
-  
 }
 
 ?>
@@ -167,13 +165,13 @@ if (!$conn) {
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="add_employee.html" class="nav-link">
+                  <a href="add_employee.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p> Add Employee</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="add_member.html" class="nav-link">
+                  <a href="add_member.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p> Add Member</p>
                   </a>
@@ -213,9 +211,21 @@ if (!$conn) {
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <section class="content" style="margin-bottom:50px ;">
-        <div class="d-flex justify-content-center" style=" padding-top:1%;text-decoration: lightslategray;">
-          <h2>Trainers Info</h2>
+
+        <div class="bg-light clearfix">
+          <div class="row" style="padding-top: 30px;">
+            <div class="col-lg-6 col-md-12">
+              <h2 style="margin-left: 25px;">Trainer Info</h2>
+            </div>
+            <div class="col-lg-6 col-md-12" style="padding-top: 15px;padding-right:40px;">
+              <!-- Insert Modal -->
+              <button type="button" class="insert btn btn-success float-right" data-toggle="modal" data-target="#exampleModal" onclick="window.location.href='add_employee.php'">Add New</button>
+
+
+            </div>
+          </div>
         </div>
+
         <div class="card-body" style="margin-top:1%">
 
           <table class="table table-hover table-striped" id='myTable'>
@@ -227,7 +237,7 @@ if (!$conn) {
                 <th scope="col">Rating</th>
                 <th scope="col">Age</th>
                 <th scope="col">Salary</th>
-                
+
               </tr>
             </thead>
             <tbody>
@@ -242,11 +252,11 @@ if (!$conn) {
               <td><a href='employee_profile.php'>" . $row["NAME"] . "</a></td>
               <td>" . $row["GENDER"] . "</td>
               <td>" . $row["RATING_VALUE"] . "</td>
-              <td>" . floor($row["SYSDATE-DOB"]/365) . "</td>
+              <td>" . floor($row["SYSDATE-DOB"] / 365) . "</td>
               <td>" . $row["SALARY"] . "</td>
               </tr>
               ";
-              // ECHO var_dump($row);
+                // ECHO var_dump($row);
               }
 
 

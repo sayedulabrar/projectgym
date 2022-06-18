@@ -171,13 +171,13 @@ if (!$conn) {
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="add_employee.html" class="nav-link">
+                  <a href="add_employee.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p> Add Employee</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="add_member.html" class="nav-link">
+                  <a href="add_member.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p> Add Member</p>
                   </a>
@@ -376,7 +376,7 @@ if (!$conn) {
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="equipments_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="equipments_list.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
 

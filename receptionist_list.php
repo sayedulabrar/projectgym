@@ -7,8 +7,6 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
 if (!$conn) {
   echo "sorry";
 } else {
-
-  
 }
 
 ?>
@@ -167,13 +165,13 @@ if (!$conn) {
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="add_employee.html" class="nav-link">
+                  <a href="add_employee.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p> Add Employee</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="add_member.html" class="nav-link">
+                  <a href="add_member.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p> Add Member</p>
                   </a>
@@ -226,7 +224,7 @@ if (!$conn) {
                 <th scope="col">Gender</th>
                 <th scope="col">Age</th>
                 <th scope="col">Salary</th>
-                
+
               </tr>
             </thead>
             <tbody>
@@ -240,11 +238,11 @@ if (!$conn) {
               <th scope='row'>" . $row['EMP_ID'] . "</th>
               <td><a href='employee_profile.php'>" . $row["NAME"] . "</a></td>
               <td>" . $row["GENDER"] . "</td>
-              <td>" . floor($row["SYSDATE-DOB"]/365) . "</td>
+              <td>" . floor($row["SYSDATE-DOB"] / 365) . "</td>
               <td>" . $row["SALARY"] . "</td>
               </tr>
               ";
-              // ECHO var_dump($row);
+                // ECHO var_dump($row);
               }
 
 
