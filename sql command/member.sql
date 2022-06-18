@@ -75,6 +75,20 @@ INSERT INTO MEMBER (
   'megh',11, 166,71,TO_DATE('18/07/2022','dd/mm/yyyy'), 'Reduce Weight','mahmud'
 );
 
+INSERT INTO MEMBER (
+  USERNAME, MEM_ID, MEM_HEIGHT, MEM_WEIGHT, MEMBERSHIP_EXPIRY, EXPECTED_OUTCOME, TRAINER
+)
+  VALUES (
+  'ruposhi', 12, 164, 63,TO_DATE('12/07/2022','dd/mm/yyyy'), 'Increase Height','shafin'
+);
+
+
+INSERT INTO MEMBER (
+  USERNAME, MEM_ID, MEM_HEIGHT, MEM_WEIGHT, MEMBERSHIP_EXPIRY, EXPECTED_OUTCOME, TRAINER
+)
+  VALUES (
+  'pant', 13, 170, 78,TO_DATE('21/04/2022','dd/mm/yyyy'), 'Increase Muscle','shafin'
+);
 
 
 

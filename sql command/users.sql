@@ -22,6 +22,7 @@ INSERT INTO USERS (
 ) VALUES (
   'brownFalcon', 'spifu', 'Saifur Kacchi', 'Male', 'saifur@gmail.com', 'Mirpur', 'B+', 12354648109, 'br_001', TO_DATE('','dd/mm/yyyy')
 );
+
 INSERT INTO USERS (
   USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
 ) VALUES (
@@ -160,12 +161,31 @@ INSERT INTO USERS (
   'hasnat', 'oishwee_hasnat', 'Oishwee Jahan Hasnat', 'Female', 'oishwee1999@gmail.com', 'Sagupta', 'B+',9587452364, 'br_003', TO_DATE('27/14/2001','dd/mm/yyyy')
 );
 
+INSERT INTO USERS (
+  USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
+) VALUES (
+  'bibhor', 'bibhor_arsenal', 'Tanjim Sakib Bibhor', 'Male', 'bibhor_sakib@gmail.com', 'Mohammadpur', 'O+',100010001, 'br_003', TO_DATE('02/02/1998','dd/mm/yyyy')
+);
 
 --member
 INSERT INTO USERS (
   USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
 ) VALUES (
   'megh', 'megh_clear', 'Naima Islam Megh', 'Female', 'naima@gmail.com', 'Firmgate', 'AB+',5463214569, 'br_003', TO_DATE('31/07/1999','dd/mm/yyyy')
+);
+
+--member
+INSERT INTO USERS (
+  USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
+) VALUES (
+  'ruposhi', 'ruposhi_halder', 'Ruposhi Halder', 'Female', 'ruposhi@gmail.com', 'Asadgate', 'B+',15975348624, 'br_003', TO_DATE('31/09/2001','dd/mm/yyyy')
+);
+
+--member
+INSERT INTO USERS (
+  USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
+) VALUES (
+  'pant', 'rishabh', 'Rishabh Pant', 'Male', 'rishabh@gmail.com', 'Agargao', 'O+',203023002, 'br_001', TO_DATE('31/09/1996','dd/mm/yyyy')
 );
 
 
@@ -179,11 +199,6 @@ INSERT INTO USERS (
   'shafin', 'shafin_loves_mancity', 'Mushfique Hossain Shafin', 'Male', 'shafin.123@gmail.com', 'Mohammadpur', 'O+',5463214569, 'br_001', TO_DATE('31/07/1990','dd/mm/yyyy')
 );
 
-INSERT INTO USERS (
-  USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
-) VALUES (
-  'bibhor', 'bibhor_arsenal', 'Tanjim Sakib Bibhor', 'Male', 'bibhor_sakib@gmail.com', 'Mohammadpur', 'O+',100010001, 'br_001', TO_DATE('02/02/1998','dd/mm/yyyy')
-);
 
 INSERT INTO USERS (
   USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
