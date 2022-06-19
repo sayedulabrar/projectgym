@@ -1,7 +1,18 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $uname = $_SESSION['uname'];
+$designation= $_SESSION['designation'];
 $test = NULL;
+$link = NULL;
+if($designation == 'Trainer'){
+  $link='trainer_list.php';
+}
+if($designation == 'Receptionist'){
+  $link='receptionist_list.php';
+}
+if($designation == 'Manager'){
+  $link='manager_list.php';
+}
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
@@ -24,7 +35,7 @@ if (!$conn) {
     $experience = $_POST['experience'];
     $bloodgrp = $_POST['bloodgrp'];
     $education = $_POST['education'];
-    $designation = 'Trainer';
+    // $designation = 'Trainer';
     $password = $name;
 
     $sql = "select *from users";
@@ -64,7 +75,15 @@ if (!$conn) {
       $r = oci_execute($stid);
       $i = $i + 1;
     }
-    header("Location: trainer_list.php");
+    if($designation == 'Trainer') {
+      header("Location: trainer_list.php");
+    }
+    elseif($designation == 'Receptionist') {
+      header("Location: receptionist_list.php");
+    }
+    elseif($designation == 'Manager') {
+      header("Location: manager_list.php");
+    }
   }
 }
 
@@ -212,7 +231,7 @@ if (!$conn) {
                   <i class="far fa-circle nav-icon"></i>
                   <p>Search Manager</p>
                 </a>
-              </li> -->
+              </li>-->
 
 
 
@@ -250,6 +269,7 @@ if (!$conn) {
 
       <!-- Main content -->
       <section class="content" style="margin-bottom:50px ;">
+        
         <form action="add_employee.php" method="POST">
           <div class="row">
             <div class="col-lg-6 col-md-12">
@@ -329,7 +349,7 @@ if (!$conn) {
           </div>
           <div class="row">
             <div class="col-12">
-              <a href="trainer_list.php" class="btn btn-secondary">Cancel</a>
+              <a href="<?php echo $link ?>" class="btn btn-secondary">Cancel</a>
               <input type="submit" value="Create new Employee" class="btn btn-success float-right">
             </div>
           </div>

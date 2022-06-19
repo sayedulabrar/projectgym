@@ -1,3 +1,27 @@
+<?php
+session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
+
+if($_GET == NULL) {
+  $uname = $_SESSION['uname'];
+}
+else {
+  $uname = $_GET['un'] ;
+}
+
+// echo var_dump($_GET);
+$showuname = $_SESSION['uname'];
+$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
+  or die(oci_error());
+if (!$conn) {
+  echo "sorry";
+} else {
+  $sql = "select *from MEMBER natural join users where username = '$uname'";
+  $stid = oci_parse($conn, $sql);
+  $r = oci_execute($stid);
+  $userJoinMember = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,7 +58,7 @@
             <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="employee_profile.php" class="d-block">Alexander Pierce</a>
+            <a href="employee_profile.php" class="d-block"><?php echo $_SESSION['uname'] ?></a>
           </div>
         </div>
 
@@ -186,7 +210,11 @@
                     <img class="profile-user-img img-fluid img-circle" src="dist/img/user2-160x160.jpg" alt="User profile picture">
                   </div>
 
-                  <h3 class="profile-username text-center">brownfalcon</h3>
+                  <h3 class="profile-username text-center">
+                    <?php
+                      echo $userJoinMember["USERNAME"]
+                    ?>
+                  </h3>
 
                   <p class="text-muted text-center"></p>
                   <div class="row">
@@ -194,22 +222,46 @@
                       <h3 style="text-align: center;"><b>Personal Info</b></h3>
                       <ul class="list-group list-group-unbordered mb-3">
                         <li class="list-group-item">
-                          <b>Name</b> <a class="float-right">Saifur Khan</a>
+                          <b>Name</b> <a class="float-right">
+                            <?php
+                              echo $userJoinMember["NAME"];
+                            ?>
+                          </a>
                         </li>
                         <li class="list-group-item">
-                          <b>Email</b> <a class="float-right">Drew@gmail.com</a>
+                          <b>Email</b> <a class="float-right">
+                          <?php
+                              echo $userJoinMember["EMAIL"];
+                            ?>
+                          </a>
                         </li>
                         <li class="list-group-item">
-                          <b>Gender</b> <a class="float-right">Male</a>
+                          <b>Gender</b> <a class="float-right">
+                          <?php
+                              echo $userJoinMember["GENDER"];
+                            ?>
+                          </a>
                         </li>
                         <li class="list-group-item">
-                          <b>Address</b> <a class="float-right">xyz</a>
+                          <b>Address</b> <a class="float-right">
+                          <?php
+                              echo $userJoinMember["ADDRESS"];
+                            ?>
+                          </a>
                         </li>
                         <li class="list-group-item">
-                          <b>Account Number</b> <a class="float-right">142454654</a>
+                          <b>Account Number</b> <a class="float-right">
+                          <?php
+                              echo $userJoinMember["ACCOUNT_NO"];
+                            ?>
+                          </a>
                         </li>
                         <li class="list-group-item">
-                          <b>Mobile_No</b> <a class="float-right">01556629677</a>
+                          <b>Mobile_No</b> <a class="float-right">
+                          <?php
+                              echo $userJoinMember["BLOOD_GRP"];
+                            ?>
+                          </a>
                         </li>
                         <li class="list-group-item">
                           <b>Blood Group</b> <a class="float-right">B+</a>
@@ -220,26 +272,54 @@
                       <h3 style="text-align: center;"><b>Gym Related Info</b></h3>
                       <ul class="list-group list-group-unbordered mb-3">
                         <li class="list-group-item">
-                          <b>Member ID</b> <a class="float-right">m_001</a>
+                          <b>Member ID</b> <a class="float-right">
+                          <?php
+                              echo $userJoinMember["MEM_ID"];
+                            ?>
+                          </a>
                         </li>
 
                         <li class="list-group-item">
-                          <b>Height</b> <a class="float-right">150 cm</a>
+                          <b>Height</b> <a class="float-right">
+                          <?php
+                              echo $userJoinMember["MEM_HEIGHT"];
+                            ?>
+                          </a>
                         </li>
                         <li class="list-group-item">
-                          <b>Weight</b> <a class="float-right">69 kg</a>
+                          <b>Weight</b> <a class="float-right">
+                          <?php
+                              echo $userJoinMember["MEM_WEIGHT"];
+                            ?>
+                          </a>
                         </li>
                         <li class="list-group-item">
-                          <b>BMI</b> <a class="float-right">23</a>
+                          <b>BMI</b> <a class="float-right">
+                          <?php
+                              echo $userJoinMember["MEMB_BMI"];
+                            ?>
+                          </a>
                         </li>
                         <li class="list-group-item">
-                          <b>Branch Name</b> <a class="float-right">b_001</a>
+                          <b>Branch Name</b> <a class="float-right">
+                          <?php
+                              echo $userJoinMember["BR_NAME"];
+                            ?>
+                          </a>
                         </li>
                         <li class="list-group-item">
-                          <b>Membership Expiry Date</b> <a class="float-right">13-Dec-2023</a>
+                          <b>Membership Expiry Date</b> <a class="float-right">
+                          <?php
+                              echo $userJoinMember["MEMBERSHIP_EXPIRY"];
+                            ?>
+                          </a>
                         </li>
                         <li class="list-group-item">
-                          <b>Assigned Trainer</b> <a class="float-right">e_001</a>
+                          <b>Assigned Trainer</b> <a class="float-right">
+                          <?php
+                              echo $userJoinMember["TRAINER"];
+                            ?>
+                          </a>
                         </li>
                       </ul>
                     </div>

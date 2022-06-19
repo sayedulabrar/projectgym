@@ -249,7 +249,7 @@ if (!$conn) {
             </div> -->
             <div class="col-lg-3 col-12">
               <!-- small box -->
-              <div class="small-box bg-danger" style="height: 142px;">
+              <div class="small-box bg-danger">
                 <div class="inner">
                   <h3>
                     <?php echo $userJoinBranch["REG_FEE"] ?>
@@ -260,6 +260,7 @@ if (!$conn) {
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
+                <a href="#" class="small-box-footer"> <i class="fas"></i></a>
               </div>
             </div>
 

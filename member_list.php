@@ -1,7 +1,6 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $uname = $_SESSION['uname'];
-
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
@@ -248,10 +247,11 @@ if (!$conn) {
               $stid = oci_parse($conn, $sql);
               $r = oci_execute($stid);
               while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                $un = $row['USERNAME'];
                 echo "
               <tr>
               <th scope='row'>" . $row["MEM_ID"] . "</th>
-              <td><a href='member_profile.php'>" . $row["NAME"] . "</a></td>
+              <td><a href='member_profile.php?un=".$un."'>" . $row["NAME"] . "</a></td>
               <td>" . $row["GENDER"] . "</td>
               <td>" . $row["TRAINER"] . "</td>
               <td>" . $row["MEMBERSHIP_EXPIRY"] . "</td>

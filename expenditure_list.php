@@ -12,16 +12,22 @@ if (!$conn) {
     $r = oci_execute($stid);
     $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
     $exp_id = $row['EXP_ID'] + 1;
+
+
     $amount = $_POST['amount'];
     $details = $_POST['details'];
+
     $sql = "select *from users where username='$uname'";
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
     $roww = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
     $br_name = $roww['BR_NAME'];
+
+
     $sql = "insert into expenditure (exp_id, amount, exp_reason, br_name, exp_dateandtime) values($exp_id, $amount, '$details', '$br_name', SYSTIMESTAMP)";
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
+    
   }
 }
 
@@ -266,7 +272,7 @@ if (!$conn) {
                         </div>
                         <div class="modal-footer">
                           <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-primary">Add Revenue</button>
+                          <button type="submit" class="btn btn-primary">Add Expenditure</button>
                         </div>
                       </form>
                     </div>

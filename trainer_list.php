@@ -1,7 +1,7 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $uname = $_SESSION['uname'];
-
+$_SESSION['designation'] = 'Trainer'; 
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
@@ -76,7 +76,9 @@ if (!$conn) {
           </div>
           <div class="info">
             <a href="employee_profile.php" class="d-block">
-              <?php echo $uname ?>
+              <?php 
+                echo $uname; 
+              ?>
             </a>
           </div>
         </div>
@@ -242,14 +244,15 @@ if (!$conn) {
             </thead>
             <tbody>
               <?php
-              $sql = "select EMP_ID, NAME, GENDER, RATING_VALUE, SALARY, SYSDATE - DOB from users natural join employee where br_name = (select br_name from users where username = '$uname') and designation = 'Trainer'";
+              $sql = "select EMP_ID, NAME, GENDER, RATING_VALUE, SALARY, SYSDATE - DOB, USERNAME from users natural join employee where br_name = (select br_name from users where username = '$uname') and designation = 'Trainer'";
               $stid = oci_parse($conn, $sql);
               $r = oci_execute($stid);
               while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                $un = $row['USERNAME'];
                 echo "
               <tr>
               <th scope='row'>" . $row['EMP_ID'] . "</th>
-              <td><a href='employee_profile.php'>" . $row["NAME"] . "</a></td>
+              <td><a href='employee_profile.php?un =".$un." '>" . $row["NAME"] . "</a></td>
               <td>" . $row["GENDER"] . "</td>
               <td>" . $row["RATING_VALUE"] . "</td>
               <td>" . floor($row["SYSDATE-DOB"] / 365) . "</td>

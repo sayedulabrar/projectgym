@@ -283,7 +283,7 @@ if (!$conn) {
                         </div>
                         <div class="modal-footer">
                           <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-primary">Add Revenue</button>
+                          <button type="submit" class="btn btn-primary">Add Equipment</button>
                         </div>
                       </form>
                     </div>

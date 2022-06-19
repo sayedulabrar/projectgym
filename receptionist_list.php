@@ -1,7 +1,7 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $uname = $_SESSION['uname'];
-
+$_SESSION['designation'] = "Receptionist";
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
@@ -211,8 +211,18 @@ if (!$conn) {
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <section class="content" style="margin-bottom:50px ;">
-        <div class="d-flex justify-content-center" style=" padding-top:1%;text-decoration: lightslategray;">
-          <h2>Receptionists Info</h2>
+      <div class="bg-light clearfix">
+          <div class="row" style="padding-top: 30px;">
+            <div class="col-lg-6 col-md-12">
+              <h2 style="margin-left: 25px;">Receptionists Info</h2>
+            </div>
+            <div class="col-lg-6 col-md-12" style="padding-top: 15px;padding-right:40px;">
+              <!-- Insert Modal -->
+              <button type="button" class="insert btn btn-success float-right" data-toggle="modal" data-target="#exampleModal" onclick="window.location.href='add_employee.php'">Add New</button>
+
+
+            </div>
+          </div>
         </div>
         <div class="card-body" style="margin-top:1%">
 
@@ -229,14 +239,15 @@ if (!$conn) {
             </thead>
             <tbody>
               <?php
-              $sql = "select EMP_ID, NAME, GENDER, SALARY, SYSDATE - DOB from users natural join employee where br_name = (select br_name from users where username = '$uname') and designation = 'Receptionist'";
+              $sql = "select EMP_ID, NAME, GENDER, SALARY, SYSDATE - DOB, USERNAME from users natural join employee where br_name = (select br_name from users where username = '$uname') and designation = 'Receptionist'";
               $stid = oci_parse($conn, $sql);
               $r = oci_execute($stid);
               while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                $un = $row['USERNAME'];
                 echo "
               <tr>
               <th scope='row'>" . $row['EMP_ID'] . "</th>
-              <td><a href='employee_profile.php'>" . $row["NAME"] . "</a></td>
+              <td><a href='employee_profile.php?un =".$un."'>" . $row["NAME"] . "</a></td>
               <td>" . $row["GENDER"] . "</td>
               <td>" . floor($row["SYSDATE-DOB"] / 365) . "</td>
               <td>" . $row["SALARY"] . "</td>
