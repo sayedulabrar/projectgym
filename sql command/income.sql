@@ -1,0 +1,14 @@
+INSERT INTO INCOME(
+    TRX_ID,
+    INC_STATUS,
+    INC_AMOUNT,
+    INC_DATEANDTIME,
+    INC_TYPE,
+    INC_DETAILS,
+    USERNAME,
+    BR_NAME
+  )
+VALUES
+  (
+    
+  );

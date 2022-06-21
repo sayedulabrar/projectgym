@@ -247,7 +247,7 @@ INSERT INTO USERS (
 INSERT INTO USERS (
   USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
 ) VALUES (
-  'enan', 'sabita vabi', 'Enan Abdullah Khan', 'Male', 'enan13.mist@yahoo.com', 'Firmgate', 'O+',74820153, 'br_003', TO_DATE('12/05/1999','dd/mm/yyyy')
+  'enan', 'boyati_enan', 'Enan Abdullah Khan', 'Male', 'enan13.mist@yahoo.com', 'Firmgate', 'O+',74820153, 'br_003', TO_DATE('12/05/1999','dd/mm/yyyy')
 );
 
 

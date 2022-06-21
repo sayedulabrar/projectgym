@@ -1,0 +1,15 @@
+drop table user;
+drop table employee;
+drop table member;
+drop table branch;
+drop table routine;
+drop table message;
+drop table user_mobile_no;
+drop table exercises_list;
+drop table package;
+drop table income;
+drop table expenditure;
+drop table equipment;
+drop table maintenance;
+drop table br_pkg;
+drop table diet_chart;
