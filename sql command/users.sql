@@ -20,7 +20,7 @@ INSERT INTO USERS (
 INSERT INTO USERS (
   USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
 ) VALUES (
-  'brownFalcon', 'spifu', 'Saifur Kacchi', 'Male', 'saifur@gmail.com', 'Mirpur', 'B+', 12354648109, 'br_001', TO_DATE('','dd/mm/yyyy')
+  'brownFalcon', 'spifu', 'Saifur Kacchi', 'Male', 'saifur@gmail.com', 'Mirpur', 'B+', 12354648109, 'br_001', TO_DATE('08/07/1996','dd/mm/yyyy')
 );
 
 INSERT INTO USERS (
