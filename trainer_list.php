@@ -1,7 +1,7 @@
 <?php
-session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
+session_start(); // this NEEDS TO BE AT THE TOP of the page before any output et
 $uname = $_SESSION['uname'];
-$x = NULL;
+
 $_SESSION['designation'] = 'Trainer'; 
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
@@ -9,22 +9,47 @@ if (!$conn) {
   echo "sorry";
 } else {
   if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
-    $sql = "DELETE FROM message WHERE username = '$username'";
-    $stid = oci_parse($conn, $sql);
-    $r = oci_execute($stid);
-    $sql = "DELETE FROM user_mobileno WHERE username = '$username'";
-    $stid = oci_parse($conn, $sql);
-    $r = oci_execute($stid);
-    $sql = "DELETE FROM employee WHERE username = '$username'";
-    $stid = oci_parse($conn, $sql);
-    $r = oci_execute($stid);
-    $sql = "DELETE FROM users WHERE username = '$username'";
-    $stid = oci_parse($conn, $sql);
-    $r = oci_execute($stid);
+    if(isset($_POST['username'])) {
+      $username = $_POST['username'];
+      $sql = "DELETE FROM message WHERE username = '$username'";
+      $stid = oci_parse($conn, $sql);
+      $r = oci_execute($stid);
+      $sql = "DELETE FROM user_mobileno WHERE username = '$username'";
+      $stid = oci_parse($conn, $sql);
+      $r = oci_execute($stid);
+      $sql = "DELETE FROM employee WHERE username = '$username'";
+      $stid = oci_parse($conn, $sql);
+      $r = oci_execute($stid);
+      $sql = "DELETE FROM users WHERE username = '$username'";
+      $stid = oci_parse($conn, $sql);
+      $r = oci_execute($stid);
+    }
+
+    if(isset($_POST['uname']) && isset($_POST['emp_id'])) {
+      $br_name = $_POST['uname'];
+      $salary = $_POST['salary'];
+      $emp_id = $_POST['emp_id'];
+      $designation = $_POST['designation'];
+      $shift = $_POST['shift'];
+      $sql = "update employee set salary = $salary, shift = $shift, designation = '$designation'  where emp_id = $emp_id";
+      $stid = oci_parse($conn, $sql);
+      $r = oci_execute($stid);
+      $sql = "select * from employee where emp_id = $emp_id";
+      $stid = oci_parse($conn, $sql);
+      $r = oci_execute($stid);
+      $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+      $username = $row['USERNAME'];
+      $sql = "update users set br_name = '$br_name' where username = '$username'";
+      $stid = oci_parse($conn, $sql);
+      $r = oci_execute($stid);
+      
+    }
     
   }
+  
+  
 }
+
 
 ?>
 
@@ -246,7 +271,7 @@ if (!$conn) {
                 <form action="trainer_list.php" method="POST">
                   <input type="hidden" name="username" id="username">
                   <div class="modal-body" style="float: right;">
-                    <button type="submit" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='trainer_list.php'">Cancel</button>
                     <button type="submit" class="btn btn-primary">Comfirm</button>
                   </div> 
                 </form>
@@ -256,6 +281,59 @@ if (!$conn) {
           </div>
         </div>
         <!-- /Insert Modal -->
+        <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">Edit Info</h5>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button> -->
+              </div>
+              <div class="modal-body">
+                <form action="trainer_list.php" method="POST">
+                  <div class="modal-body">
+                    <input type="hidden" name="emp_id" id="emp_id">
+                    
+                    <div class="row">
+                      <div class="form-group col-lg-6 col-12">
+                        <label for="uname">Branch Name</label>
+                        <input type="text" class="form-control" id="uname" name="uname" aria-describedby="emailHelp">
+                      </div>
+                      <div class="form-group col-lg-6 col-12">
+                        <label for="designation">Designation</label>
+                        <!-- <input type="text" class="form-control" id="designation" name="designation" aria-describedby="emailHelp"> -->
+                        <select name="designation" id="designation" class="form-select" aria-label="Default select example" style="width: 208px; height: 37px;">
+                          <option selected value="Trainer">Trainer</option>
+                          <option value="Receptionist">Receptionist</option>
+                          <option value="Manager">Manager</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="form-group col-lg-6 col-12">
+                        <label for="salary">Salary</label>
+                        <input type="text" class="form-control" id="salary" name="salary" aria-describedby="emailHelp">
+                      </div>
+                      <div class="form-group col-lg-6 col-12">
+                        <label for="shift">Shift</label>
+                        <input type="text" class="form-control" id="shift" name="shift" aria-describedby="emailHelp">
+                      </div>
+                    </div>
+                    
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='trainer_list.php'">Close</button>
+                    <button type="submit" class="btn btn-primary">Confirm</button>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
 
 
         <div class="bg-light clearfix">
@@ -283,26 +361,28 @@ if (!$conn) {
                 <th scope="col">Rating</th>
                 <th scope="col">Age</th>
                 <th scope="col">Salary</th>
+                <th scope="col">Shift</th>
                 <th scope="col">Action</th>
 
               </tr>
             </thead>
             <tbody>
               <?php
-              $sql = "select EMP_ID, NAME, GENDER, RATING_VALUE, SALARY, SYSDATE - DOB, USERNAME from users natural join employee where br_name = (select br_name from users where username = '$uname') and designation = 'Trainer'";
+              $sql = "select EMP_ID, NAME, GENDER, RATING_VALUE, SALARY, SYSDATE - DOB, USERNAME, BR_NAME, SHIFT from users natural join employee where br_name = (select br_name from users where username = '$uname') and designation = 'Trainer'";
               $stid = oci_parse($conn, $sql);
               $r = oci_execute($stid);
               while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
                 $un = $row['USERNAME'];
                 echo "
-              <tr>
+              <tr id='Trainer'>
               <th scope='row'>" . $row['EMP_ID'] . "</th>
               <td><a href='employee_profile.php?un =".$un." '>" . $row["NAME"] . "</a></td>
               <td>" . $row["GENDER"] . "</td>
               <td>" . $row["RATING_VALUE"] . "</td>
               <td>" . floor($row["SYSDATE-DOB"] / 365) . "</td>
               <td>" . $row["SALARY"] . "</td>
-              <td> <button class='delete btn btn-sm btn-danger' id=".$row['USERNAME'].">Remove</button> </td>
+              <td>" . $row["SHIFT"] . "</td>
+              <td> <button class='delete btn btn-sm btn-danger' id=".$row['USERNAME'].">Remove</button> <button class='update btn btn-sm btn-primary' id=".$row['BR_NAME'].">Edit</button> </td>
               </tr>
               ";
                 // ECHO var_dump($row);
@@ -380,6 +460,20 @@ if (!$conn) {
         username.value = e.target.id;
         console.log(username);
         $('#exampleModal').modal('toggle');
+      })
+    })
+    updates = document.getElementsByClassName('update');
+    Array.from(updates).forEach((element)=>{
+      element.addEventListener("click", (e)=>{
+        // console.log("update ", );
+        tr = e.target.parentNode.parentNode;
+        uname.value = e.target.id;
+        designation.value = tr.id;
+        shift.value = tr.getElementsByTagName("td")[5].innerText;
+        salary.value = tr.getElementsByTagName("td")[4].innerText;
+        emp_id.value = tr.getElementsByTagName("th")[0].innerText;
+        console.log(emp_id);
+        $('#exampleModal1').modal('toggle');
       })
     })
   </script>

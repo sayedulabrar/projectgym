@@ -39,6 +39,14 @@ if (!$conn) {
       $r = oci_execute($stid);
       // $x = $pkg_id;
     }
+    if(isset($_POST['pkg_id2'])) {
+      $pkg_id = $_POST['pkg_id2'];
+      $duration = $_POST['duration1'];
+      $charge = $_POST['amount1'];
+      $sql = "update package set pkg_duration = $duration, pkg_charge = $charge  where pkg_id = $pkg_id";
+      $stid = oci_parse($conn, $sql);
+      $r = oci_execute($stid);
+    }
   }
 
   // $packageInfo = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
@@ -251,7 +259,7 @@ if (!$conn) {
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel1">Are you sure you want to remove this package</h5>
+                <h5 class="modal-title" id="exampleModalLabel1">Are you sure you want to remove this package?</h5>
                 <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button> -->
@@ -260,7 +268,7 @@ if (!$conn) {
                 <form action="packages_list.php" method="POST">
                   <input type="hidden" name="pkg_id" id="pkg_id">
                   <div class="modal-body" style="float: right;">
-                    <button type="submit" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='packages_list.php'">Cancel</button>
                     <button type="submit" class="btn btn-primary">Comfirm</button>
                   </div> 
                 </form>
@@ -284,9 +292,9 @@ if (!$conn) {
                   <div class="modal-content">
                     <div class="modal-header">
                       <h5 class="modal-title" id="exampleModalLabel">Add New Package</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                      </button>
+                      </button> -->
                     </div>
                     <div class="modal-body">
                       <form action="packages_list.php" method="POST">
@@ -308,11 +316,11 @@ if (!$conn) {
                                 <option selected value="Fitness">Fitness</option>
                                 <option value="Light Gym">Light Gym</option>
                                 <option value="Yoga">Yoga</option>
-                                <option value="Body Building"> Body Building</opetion>
-                                <option value="Summer Package"> Summer Package</opetion>
-                                <option value="Winter Package"> Winter Package</opetion>
-                                <option value="Special Package"> Special Package</opetion>
-                                <option value="Weight Lifting"> Weight Lifting</opetion>
+                                <option value="Body Building"> Body Building</option>
+                                <option value="Summer Package"> Summer Package</option>
+                                <option value="Winter Package"> Winter Package</option>
+                                <option value="Special Package"> Special Package</option>
+                                <option value="Weight Lifting"> Weight Lifting</option>
                               </select>
                             </div>
                           </div>
@@ -338,6 +346,59 @@ if (!$conn) {
             </div>
           </div>
         </div>
+
+
+        <div class="bg-light clearfix">
+          <div class="row" style="padding-top: 30px;">
+            <div class="col-lg-6 col-md-12" style="padding-top: 15px;padding-right:40px;">
+              <!-- Insert Modal -->
+              <!-- <button type="button" class="insert btn btn-success float-right" data-toggle="modal" data-target="#exampleModal">Add New</button> -->
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel2">Edit Info</h5>
+                      <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button> -->
+                    </div>
+                    <div class="modal-body">
+                      <form action="packages_list.php" method="POST">
+                        <div class="modal-body">
+
+                          <input type="hidden" name="pkg_id2" id="pkg_id2">
+                          <div class="row">
+                            <div class="form-group col-lg-6 col-12">
+                              <label for="amount1">Charge</label>
+                              <input type="text" class="form-control" id="amount1" name="amount1" aria-describedby="emailHelp">
+                            </div>
+                            <div class="form-group col-lg-6 col-12">
+                              <label for="duration1">Duration</label>
+                              <input type="text" class="form-control" id="duration1" name="duration1" aria-describedby="emailHelp">
+                            </div>
+                        
+                          </div>
+                          
+
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="window.location.href='packages_list.php'">Close</button>
+                          <button type="submit" class="btn btn-primary" >Confirm</button>
+                        </div>
+                      </form>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <!-- /Insert Modal -->
+
+
+            </div>
+          </div>
+        </div>
+
 
 
 
@@ -370,7 +431,7 @@ if (!$conn) {
               <td>" . $row["PKG_TYPE"] . "</td>
               <td>" . $row["PKG_CHARGE"] . "</td>
               <td>" . $row["PKG_DURATION"] . "</td>
-              <td> <button class='delete btn btn-sm btn-danger'>Remove</button> </td>
+              <td> <button class='delete btn btn-sm btn-danger'>Remove</button> <button class='update btn btn-sm btn-primary' id=".$row['BR_NAME'].">Edit</button></td>
               </tr>
               ";
               }
@@ -459,6 +520,21 @@ if (!$conn) {
         pkg_id.value = tr.getElementsByTagName("th")[0].innerText;
         console.log(pkg_id);
         $('#exampleModal1').modal('toggle');
+      })
+    })
+    updates = document.getElementsByClassName('update');
+    Array.from(updates).forEach((element)=>{
+      element.addEventListener("click", (e)=>{
+        console.log("update ", );
+        tr = e.target.parentNode.parentNode;
+        // uname.value = e.target.id;
+        // designation.value = tr.id;
+        pkg_id2.value = tr.getElementsByTagName("th")[0].innerText;
+        amount1.value = tr.getElementsByTagName("td")[2].innerText;
+        duration1.value = tr.getElementsByTagName("td")[3].innerText;
+        console.log(pkg_id2.value, amount.value, duration.value);
+        // console.log(emp_id);
+        $('#exampleModal2').modal('toggle');
       })
     })
   </script>

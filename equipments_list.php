@@ -7,7 +7,6 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
 if (!$conn) {
   echo "sorry";
 } else {
-
   if (isset($_POST['name']) && isset($_POST['quantity'])) {
     $sql = "select *from equipment order by equipment_id desc";
     $stid = oci_parse($conn, $sql);
@@ -36,6 +35,13 @@ if (!$conn) {
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
     // $x = $pkg_id;
+  }
+  if(isset($_POST['equip_id2'])) {
+    $equip_id = $_POST['equip_id2'];
+    $quantity = $_POST['quantity1'];
+    $sql = "update equipment set equipment_quantity = $quantity where equipment_id = $equip_id";
+    $stid = oci_parse($conn, $sql);
+    $r = oci_execute($stid);
   }
 }
 
@@ -257,7 +263,7 @@ if (!$conn) {
                 <form action="equipments_list.php" method="POST">
                   <input type="hidden" name="equip_id" id="equip_id">
                   <div class="modal-body" style="float: right;">
-                    <button type="submit" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='equipments_list.php'">Cancel</button>
                     <button type="submit" class="btn btn-primary">Comfirm</button>
                   </div> 
                 </form>
@@ -332,6 +338,58 @@ if (!$conn) {
           </div>
         </div>
 
+        <div class="bg-light clearfix">
+          <div class="row" style="padding-top: 30px;">
+            <div class="col-lg-6 col-md-12" style="padding-top: 15px;padding-right:40px;">
+              <!-- Insert Modal -->
+              <!-- <button type="button" class="insert btn btn-success float-right" data-toggle="modal" data-target="#exampleModal">Add New</button> -->
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel2">Edit Info</h5>
+                      <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button> -->
+                    </div>
+                    <div class="modal-body">
+                      <form action="equipments_list.php" method="POST">
+                        <div class="modal-body">
+
+                          <input type="hidden" name="equip_id2" id="equip_id2">
+                          <!-- <div class="row"> -->
+                            <div class="form-group">
+                              <label for="quantity1">Quantity</label>
+                              <input type="text" class="form-control" id="quantity1" name="quantity1" aria-describedby="emailHelp">
+                            </div>
+                            <!-- <div class="form-group col-lg-6 col-12">
+                              <label for="available1">Available</label>
+                              <input type="text" class="form-control" id="available1" name="available1" aria-describedby="emailHelp">
+                            </div> -->
+                        
+                          <!-- </div> -->
+                          
+
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="window.location.href='equipments_list.php'">Close</button>
+                          <button type="submit" class="btn btn-primary" >Confirm</button>
+                        </div>
+                      </form>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <!-- /Insert Modal -->
+
+
+            </div>
+          </div>
+        </div>
+
+
 
         <div class="card-body" style="margin-top:1%">
 
@@ -362,7 +420,7 @@ if (!$conn) {
               <td>" . $row["EQUIPMENT_MODEL"] . "</td>
               <td>" . $row["EQUIPMENT_QUANTITY"] . "</td>
               <td>" . $row["EQUIPMENT_AVAILABLE"] . "</td>
-              <td> <button class='delete btn btn-sm btn-danger'>Remove</button> </td>
+              <td> <button class='delete btn btn-sm btn-danger'>Remove</button> <button class='update btn btn-sm btn-primary' id=".$row['BR_NAME'].">Edit</button></td>
               </tr>
               ";
                 // ECHO var_dump($row);
@@ -452,6 +510,21 @@ if (!$conn) {
         equip_id.value = tr.getElementsByTagName("th")[0].innerText;
         console.log(equip_id);
         $('#exampleModal1').modal('toggle');
+      })
+    })
+    updates = document.getElementsByClassName('update');
+    Array.from(updates).forEach((element)=>{
+      element.addEventListener("click", (e)=>{
+        console.log("update ", );
+        tr = e.target.parentNode.parentNode;
+        // // uname.value = e.target.id;
+        // // designation.value = tr.id;
+        equip_id2.value = tr.getElementsByTagName("th")[0].innerText;
+        quantity1.value = tr.getElementsByTagName("td")[3].innerText;
+        // available1.value = tr.getElementsByTagName("td")[4].innerText;
+        console.log(equip_id2.value, quantity1.value);
+        // // console.log(emp_id);
+        $('#exampleModal2').modal('toggle');
       })
     })
   </script>
