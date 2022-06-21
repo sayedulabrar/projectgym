@@ -27,6 +27,16 @@ if (!$conn) {
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
   }
+  if(isset($_POST['equip_id'])) {
+    $equip_id = $_POST['equip_id'];
+    $sql = "DELETE FROM maintenance WHERE equipment_id = '$equip_id'";
+    $stid = oci_parse($conn, $sql);
+    $r = oci_execute($stid);
+    $sql = "DELETE FROM equipment WHERE equipment_id = '$equip_id'";
+    $stid = oci_parse($conn, $sql);
+    $r = oci_execute($stid);
+    // $x = $pkg_id;
+  }
 }
 
 
@@ -55,9 +65,9 @@ if (!$conn) {
   <div class="wrapper">
 
     <!-- Preloader -->
-    <div class="preloader flex-column justify-content-center align-items-center">
+    <!-- <div class="preloader flex-column justify-content-center align-items-center">
       <img class="animation__wobble" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-    </div>
+    </div> -->
 
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand-lg navbar-dark fixed-top">
@@ -233,6 +243,30 @@ if (!$conn) {
     <div class="content-wrapper">
       <section class="content" style="margin-bottom:50px ;">
 
+
+        <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">Are you sure you want to remove equipment</h5>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button> -->
+              </div>
+              <div class="modal-body">
+                <form action="equipments_list.php" method="POST">
+                  <input type="hidden" name="equip_id" id="equip_id">
+                  <div class="modal-body" style="float: right;">
+                    <button type="submit" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Comfirm</button>
+                  </div> 
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
         <div class="bg-light clearfix">
           <div class="row" style="padding-top: 30px;">
             <div class="col-lg-6 col-md-12">
@@ -310,7 +344,7 @@ if (!$conn) {
                 <th scope="col">Model</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Available</th>
-
+                <th scope="col">Action</th>
 
               </tr>
             </thead>
@@ -328,7 +362,7 @@ if (!$conn) {
               <td>" . $row["EQUIPMENT_MODEL"] . "</td>
               <td>" . $row["EQUIPMENT_QUANTITY"] . "</td>
               <td>" . $row["EQUIPMENT_AVAILABLE"] . "</td>
-
+              <td> <button class='delete btn btn-sm btn-danger'>Remove</button> </td>
               </tr>
               ";
                 // ECHO var_dump($row);
@@ -393,6 +427,8 @@ if (!$conn) {
   <script src="dist/js/demo.js"></script>
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   <script src="dist/js/pages/dashboard2.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
   <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
   <script>
@@ -406,6 +442,16 @@ if (!$conn) {
       element.addEventListener("click", (e) => {
         console.log("insert ", e.target);
         // $('#exampleModal').modal('toggle');
+      })
+    })
+    deletes = document.getElementsByClassName('delete');
+    Array.from(deletes).forEach((element)=>{
+      element.addEventListener("click", (e)=>{
+        // console.log("delete ", );
+        tr = e.target.parentNode.parentNode;
+        equip_id.value = tr.getElementsByTagName("th")[0].innerText;
+        console.log(equip_id);
+        $('#exampleModal1').modal('toggle');
       })
     })
   </script>
