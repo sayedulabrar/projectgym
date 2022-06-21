@@ -1,14 +1,29 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $uname = $_SESSION['uname'];
-
+$x = NULL;
+$_SESSION['designation'] = 'Trainer'; 
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
   echo "sorry";
 } else {
-
-  
+  if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = $_POST['username'];
+    $sql = "DELETE FROM message WHERE username = '$username'";
+    $stid = oci_parse($conn, $sql);
+    $r = oci_execute($stid);
+    $sql = "DELETE FROM user_mobileno WHERE username = '$username'";
+    $stid = oci_parse($conn, $sql);
+    $r = oci_execute($stid);
+    $sql = "DELETE FROM employee WHERE username = '$username'";
+    $stid = oci_parse($conn, $sql);
+    $r = oci_execute($stid);
+    $sql = "DELETE FROM users WHERE username = '$username'";
+    $stid = oci_parse($conn, $sql);
+    $r = oci_execute($stid);
+    
+  }
 }
 
 ?>
@@ -36,9 +51,9 @@ if (!$conn) {
   <div class="wrapper">
 
     <!-- Preloader -->
-    <div class="preloader flex-column justify-content-center align-items-center">
+    <!-- <div class="preloader flex-column justify-content-center align-items-center">
       <img class="animation__wobble" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-    </div>
+    </div> -->
 
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand-lg navbar-dark fixed-top">
@@ -78,7 +93,9 @@ if (!$conn) {
           </div>
           <div class="info">
             <a href="employee_profile.php" class="d-block">
-              <?php echo $uname ?>
+              <?php 
+                echo $uname; 
+              ?>
             </a>
           </div>
         </div>
@@ -167,13 +184,13 @@ if (!$conn) {
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="add_employee.html" class="nav-link">
+                  <a href="add_employee.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p> Add Employee</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="add_member.html" class="nav-link">
+                  <a href="add_member.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p> Add Member</p>
                   </a>
@@ -213,9 +230,48 @@ if (!$conn) {
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <section class="content" style="margin-bottom:50px ;">
-        <div class="d-flex justify-content-center" style=" padding-top:1%;text-decoration: lightslategray;">
-          <h2>Trainers Info</h2>
+      <!-- Insert Modal -->
+      
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to remove him?</h5>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button> -->
+              </div>
+              <div class="modal-body">
+                <form action="trainer_list.php" method="POST">
+                  <input type="hidden" name="username" id="username">
+                  <div class="modal-body" style="float: right;">
+                    <button type="submit" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Comfirm</button>
+                  </div> 
+                </form>
+              </div>
+
+            </div>
+          </div>
         </div>
+        <!-- /Insert Modal -->
+
+
+        <div class="bg-light clearfix">
+          <div class="row" style="padding-top: 30px;">
+            <div class="col-lg-6 col-md-12">
+              <h2 style="margin-left: 25px;">Trainer Info</h2>
+            </div>
+            <div class="col-lg-6 col-md-12" style="padding-top: 15px;padding-right:40px;">
+              <!-- Insert Modal -->
+              <button type="button" class="insert btn btn-success float-right" data-toggle="modal" data-target="#exampleModal" onclick="window.location.href='add_employee.php'">Add New</button>
+
+
+            </div>
+          </div>
+        </div>
+
         <div class="card-body" style="margin-top:1%">
 
           <table class="table table-hover table-striped" id='myTable'>
@@ -227,28 +283,31 @@ if (!$conn) {
                 <th scope="col">Rating</th>
                 <th scope="col">Age</th>
                 <th scope="col">Salary</th>
-                
+                <th scope="col">Action</th>
+
               </tr>
             </thead>
             <tbody>
               <?php
-              $sql = "select EMP_ID, NAME, GENDER, RATING_VALUE, SALARY, SYSDATE - DOB from users natural join employee where br_name = (select br_name from users where username = '$uname') and designation = 'Trainer'";
+              $sql = "select EMP_ID, NAME, GENDER, RATING_VALUE, SALARY, SYSDATE - DOB, USERNAME from users natural join employee where br_name = (select br_name from users where username = '$uname') and designation = 'Trainer'";
               $stid = oci_parse($conn, $sql);
               $r = oci_execute($stid);
               while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                $un = $row['USERNAME'];
                 echo "
               <tr>
               <th scope='row'>" . $row['EMP_ID'] . "</th>
-              <td><a href='employee_profile.php'>" . $row["NAME"] . "</a></td>
+              <td><a href='employee_profile.php?un =".$un." '>" . $row["NAME"] . "</a></td>
               <td>" . $row["GENDER"] . "</td>
               <td>" . $row["RATING_VALUE"] . "</td>
-              <td>" . floor($row["SYSDATE-DOB"]/365) . "</td>
+              <td>" . floor($row["SYSDATE-DOB"] / 365) . "</td>
               <td>" . $row["SALARY"] . "</td>
+              <td> <button class='delete btn btn-sm btn-danger' id=".$row['USERNAME'].">Remove</button> </td>
               </tr>
               ";
-              // ECHO var_dump($row);
+                // ECHO var_dump($row);
               }
-
+              
 
               ?>
 
@@ -308,8 +367,23 @@ if (!$conn) {
   <script src="dist/js/demo.js"></script>
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   <script src="dist/js/pages/dashboard2.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
   <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+  <script>
+    deletes = document.getElementsByClassName('delete');
+    Array.from(deletes).forEach((element)=>{
+      element.addEventListener("click", (e)=>{
+        // console.log("delete ", );
+        tr = e.target.parentNode.parentNode;
+        username.value = e.target.id;
+        console.log(username);
+        $('#exampleModal').modal('toggle');
+      })
+    })
+  </script>
+  
   <script>
     $(document).ready(function() {
       $('#myTable').DataTable();

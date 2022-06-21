@@ -40,9 +40,9 @@ if (!$conn) {
   <div class="wrapper">
 
     <!-- Preloader -->
-    <div class="preloader flex-column justify-content-center align-items-center">
+    <!-- <div class="preloader flex-column justify-content-center align-items-center">
       <img class="animation__wobble" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-    </div>
+    </div> -->
 
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand-lg navbar-dark fixed-top">
@@ -171,13 +171,13 @@ if (!$conn) {
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="add_employee.html" class="nav-link">
+                  <a href="add_employee.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p> Add Employee</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="add_member.html" class="nav-link">
+                  <a href="add_member.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p> Add Member</p>
                   </a>
@@ -249,7 +249,7 @@ if (!$conn) {
             </div> -->
             <div class="col-lg-3 col-12">
               <!-- small box -->
-              <div class="small-box bg-danger" style="height: 142px;">
+              <div class="small-box bg-danger">
                 <div class="inner">
                   <h3>
                     <?php echo $userJoinBranch["REG_FEE"] ?>
@@ -260,6 +260,7 @@ if (!$conn) {
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
+                <a href="#" class="small-box-footer"> <i class="fas"></i></a>
               </div>
             </div>
 
@@ -376,7 +377,7 @@ if (!$conn) {
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="equipments_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="equipments_list.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
 

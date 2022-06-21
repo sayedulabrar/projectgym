@@ -8,8 +8,37 @@ if (!$conn) {
   echo "sorry";
 } else {
 
-  
+  if (isset($_POST['name']) && isset($_POST['quantity'])) {
+    $sql = "select *from equipment order by equipment_id desc";
+    $stid = oci_parse($conn, $sql);
+    $r = oci_execute($stid);
+    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+    $trx_id = $row['EQUIPMENT_ID'] + 1;
+    $name = $_POST['name'];
+    $quantity = $_POST['quantity'];
+    $brand = $_POST['brand'];
+    $model = $_POST['model'];
+    $sql = "select *from users where username='$uname'";
+    $stid = oci_parse($conn, $sql);
+    $r = oci_execute($stid);
+    $roww = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+    $br_name = $roww['BR_NAME'];
+    $sql = "insert into equipment (equipment_id, equipment_name, equipment_quantity, equipment_available, equipment_brand, equipment_model, br_name) values($trx_id, '$name', $quantity, 0, '$brand', '$model','$br_name')";
+    $stid = oci_parse($conn, $sql);
+    $r = oci_execute($stid);
+  }
+  if(isset($_POST['equip_id'])) {
+    $equip_id = $_POST['equip_id'];
+    $sql = "DELETE FROM maintenance WHERE equipment_id = '$equip_id'";
+    $stid = oci_parse($conn, $sql);
+    $r = oci_execute($stid);
+    $sql = "DELETE FROM equipment WHERE equipment_id = '$equip_id'";
+    $stid = oci_parse($conn, $sql);
+    $r = oci_execute($stid);
+    // $x = $pkg_id;
+  }
 }
+
 
 ?>
 
@@ -36,9 +65,9 @@ if (!$conn) {
   <div class="wrapper">
 
     <!-- Preloader -->
-    <div class="preloader flex-column justify-content-center align-items-center">
+    <!-- <div class="preloader flex-column justify-content-center align-items-center">
       <img class="animation__wobble" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-    </div>
+    </div> -->
 
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand-lg navbar-dark fixed-top">
@@ -167,13 +196,13 @@ if (!$conn) {
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="add_employee.html" class="nav-link">
+                  <a href="add_employee.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p> Add Employee</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="add_member.html" class="nav-link">
+                  <a href="add_member.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p> Add Member</p>
                   </a>
@@ -213,9 +242,97 @@ if (!$conn) {
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <section class="content" style="margin-bottom:50px ;">
-        <div class="d-flex justify-content-center" style=" padding-top:1%;text-decoration: lightslategray;">
-          <h2>Equipments Info</h2>
+
+
+        <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">Are you sure you want to remove equipment</h5>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button> -->
+              </div>
+              <div class="modal-body">
+                <form action="equipments_list.php" method="POST">
+                  <input type="hidden" name="equip_id" id="equip_id">
+                  <div class="modal-body" style="float: right;">
+                    <button type="submit" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Comfirm</button>
+                  </div> 
+                </form>
+              </div>
+
+            </div>
+          </div>
         </div>
+
+        <div class="bg-light clearfix">
+          <div class="row" style="padding-top: 30px;">
+            <div class="col-lg-6 col-md-12">
+              <h2 style="margin-left: 25px;">Equipments Info</h2>
+            </div>
+            <div class="col-lg-6 col-md-12" style="padding-top: 15px;padding-right:40px;">
+              <!-- Insert Modal -->
+              <button type="button" class="insert btn btn-success float-right" data-toggle="modal" data-target="#exampleModal">Add New</button>
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Add New Equipment</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form action="equipments_list.php" method="POST">
+                        <div class="modal-body">
+
+                          <input type="hidden" name="snoEdit" id="snoEdit">
+                          <div class="row">
+                            <div class="form-group col-lg-6 col-12">
+                              <label for="name">Equipment Name</label>
+                              <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp">
+                            </div>
+                            <div class="form-group col-lg-6 col-12">
+                              <label for="quantity">Quantity</label>
+                              <input type="text" class="form-control" id="quantity" name="quantity" aria-describedby="emailHelp">
+                            </div>
+
+                          </div>
+
+                          <div class="row">
+                            <div class="form-group col-lg-6 col-12">
+                              <label for="brand">Brand</label>
+                              <input type="text" class="form-control" id="brand" name="brand" aria-describedby="emailHelp">
+                            </div>
+                            <div class="form-group col-lg-6 col-12">
+                              <label for="model">Model</label>
+                              <input type="text" class="form-control" id="model" name="model" aria-describedby="emailHelp">
+                            </div>
+
+                          </div>
+
+                        </div>
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary">Add Equipment</button>
+                        </div>
+                      </form>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <!-- /Insert Modal -->
+
+
+            </div>
+          </div>
+        </div>
+
+
         <div class="card-body" style="margin-top:1%">
 
           <table class="table table-hover table-striped" id='myTable'>
@@ -227,8 +344,8 @@ if (!$conn) {
                 <th scope="col">Model</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Available</th>
+                <th scope="col">Action</th>
 
-                
               </tr>
             </thead>
             <tbody>
@@ -245,10 +362,10 @@ if (!$conn) {
               <td>" . $row["EQUIPMENT_MODEL"] . "</td>
               <td>" . $row["EQUIPMENT_QUANTITY"] . "</td>
               <td>" . $row["EQUIPMENT_AVAILABLE"] . "</td>
-
+              <td> <button class='delete btn btn-sm btn-danger'>Remove</button> </td>
               </tr>
               ";
-              // ECHO var_dump($row);
+                // ECHO var_dump($row);
               }
 
 
@@ -310,12 +427,33 @@ if (!$conn) {
   <script src="dist/js/demo.js"></script>
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   <script src="dist/js/pages/dashboard2.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
   <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
   <script>
     $(document).ready(function() {
       $('#myTable').DataTable();
     });
+  </script>
+  <script>
+    inserts = document.getElementsByClassName('insert');
+    Array.from(inserts).forEach((element) => {
+      element.addEventListener("click", (e) => {
+        console.log("insert ", e.target);
+        // $('#exampleModal').modal('toggle');
+      })
+    })
+    deletes = document.getElementsByClassName('delete');
+    Array.from(deletes).forEach((element)=>{
+      element.addEventListener("click", (e)=>{
+        // console.log("delete ", );
+        tr = e.target.parentNode.parentNode;
+        equip_id.value = tr.getElementsByTagName("th")[0].innerText;
+        console.log(equip_id);
+        $('#exampleModal1').modal('toggle');
+      })
+    })
   </script>
 </body>
 

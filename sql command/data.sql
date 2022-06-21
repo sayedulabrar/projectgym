@@ -45,3 +45,7 @@ insert into expenditure (exp_id, amount, exp_dateandtime, exp_reason, br_name) v
 
 
 insert into income (trx_id, inc_type, inc_amount, inc_dateandtime , inc_details, username, br_name) values (4, 'invest', 1200, TO_TIMESTAMP_TZ(CURRENT_TIMESTAMP, 'DD-MON-RR HH.MI.SSXFF PM TZH:TZM'), 'admin', 'brownFalcon', 'br_001');
+
+
+
+$sql = "insert into income (trx_id, username, inc_amount, inc_details, br_name, inc_type, inc_dateandtime) values($trx_id, '$username', $amount, '$details', '$br_name', '$type', SYSTIMESTAMP)";

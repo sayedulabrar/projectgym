@@ -1,6 +1,15 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
-$uname = $_SESSION['uname'];
+
+if($_GET == NULL) {
+  $uname = $_SESSION['uname'];
+}
+else {
+  $uname = $_GET['un_'] ;
+}
+
+// echo var_dump($_GET);
+$showuname = $_SESSION['uname'];
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
@@ -52,7 +61,8 @@ if (!$conn) {
           <div class="info">
             <a href="employee_profile.php" class="d-block">
               <?php
-              echo $uname;
+                $_SESSION['profile'] = $showuname;
+                echo $showuname;
               ?>
             </a>
           </div>
@@ -132,13 +142,13 @@ if (!$conn) {
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="add_employee.html" class="nav-link">
+                  <a href="add_employee.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p> Add Employee</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="add_member.html" class="nav-link">
+                  <a href="add_member.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p> Add Member</p>
                   </a>
@@ -208,7 +218,7 @@ if (!$conn) {
 
                   <h3 class="profile-username text-center">
                     <?php
-                    echo $userJoinEmployee["USERNAME"];
+                      echo $userJoinEmployee["USERNAME"];
                     ?>
                   </h3>
 

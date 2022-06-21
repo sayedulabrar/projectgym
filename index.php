@@ -1,7 +1,5 @@
 <?php
 session_start();
-
-
 $wrongInfo = false;
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
@@ -12,6 +10,7 @@ if (!$conn) {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $_SESSION['uname'] = $username;
+    $_SESSION['profile'] = $username;
     $sql = "select * from users where USERNAME = '$username' and PASSWORD = '$password'";
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
