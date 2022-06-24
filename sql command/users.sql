@@ -172,7 +172,7 @@ INSERT INTO USERS (
 INSERT INTO USERS (
   USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
 ) VALUES (
-  'hasnat', 'oishwee_hasnat', 'Oishwee Jahan Hasnat', 'Female', 'oishwee1999@gmail.com', 'Sagupta', 'B+',9587452364, 'br_003', TO_DATE('27/14/2001','dd/mm/yyyy')
+  'hasnat', 'oishwee_hasnat', 'Oishwee Jahan Hasnat', 'Female', 'oishwee1999@gmail.com', 'Sagupta', 'B+',9587452364, 'br_003', TO_DATE('27/11/2001','dd/mm/yyyy')
 );
 
 --recieptionist
@@ -193,15 +193,16 @@ INSERT INTO USERS (
 INSERT INTO USERS (
   USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
 ) VALUES (
-  'ruposhi', 'ruposhi_halder', 'Ruposhi Halder', 'Female', 'ruposhi@gmail.com', 'Asadgate', 'B+',15975348624, 'br_003', TO_DATE('31/09/2001','dd/mm/yyyy')
+  'ruposhi', 'ruposhi_halder', 'Ruposhi Halder', 'Female', 'ruposhi@gmail.com', 'Asadgate', 'B+',15975348624, 'br_003', TO_DATE('21/09/2001','dd/mm/yyyy')
 );
 
 --member
 INSERT INTO USERS (
   USERNAME, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
 ) VALUES (
-  'pant', 'rishabh', 'Rishabh Pant', 'Male', 'rishabh@gmail.com', 'Agargao', 'O+',203023002, 'br_001', TO_DATE('31/09/1996','dd/mm/yyyy')
+  'pant', 'rishabh', 'Rishabh Pant', 'Male', 'rishabh@gmail.com', 'Agargao', 'O+',203023002, 'br_001', TO_DATE('21/09/1996','dd/mm/yyyy')
 );
+
 
 
 

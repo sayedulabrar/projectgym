@@ -151,7 +151,7 @@ Pkg_Id NUMBER NOT NULL
 create table Equipment
 (
 Equipment_Available Number,
-Equipment_Quantity Number,
+
 Equipment_Id NUMBER NOT NULL,
 Equipment_Name varchar2(50),
 Equipment_Brand varchar2(50),
