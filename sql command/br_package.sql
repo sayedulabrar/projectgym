@@ -1,0 +1,78 @@
+INSERT INTO BR_PKG(
+    BR_NAME,PKG_ID
+)VALUES(
+    'br_001',01
+);
+
+INSERT INTO BR_PKG(
+    BR_NAME,PKG_ID
+)VALUES(
+    'br_001',02
+);
+
+INSERT INTO BR_PKG(
+    BR_NAME,PKG_ID
+)VALUES(
+    'br_001',03
+);
+
+INSERT INTO BR_PKG(
+    BR_NAME,PKG_ID
+)VALUES(
+    'br_001',04
+);
+
+INSERT INTO BR_PKG(
+    BR_NAME,PKG_ID
+)VALUES(
+    'br_002',05
+);
+
+INSERT INTO BR_PKG(
+    BR_NAME,PKG_ID
+)VALUES(
+    'br_001',06
+);
+
+INSERT INTO BR_PKG(
+    BR_NAME,PKG_ID
+)VALUES(
+    'br_002',07
+);
+
+INSERT INTO BR_PKG(
+    BR_NAME,PKG_ID
+)VALUES(
+    'br_002',01
+);
+
+INSERT INTO BR_PKG(
+    BR_NAME,PKG_ID
+)VALUES(
+    'br_001',07
+);
+
+INSERT INTO BR_PKG(
+    BR_NAME,PKG_ID
+)VALUES(
+    'br_003',08
+);
+
+INSERT INTO BR_PKG(
+    BR_NAME,PKG_ID
+)VALUES(
+    'br_003',09
+);
+
+INSERT INTO BR_PKG(
+    BR_NAME,PKG_ID
+)VALUES(
+    'br_003',02
+);
+
+INSERT INTO BR_PKG(
+    BR_NAME,PKG_ID
+)VALUES(
+    'br_003',03
+);
+
