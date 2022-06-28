@@ -360,7 +360,7 @@ else
                                                 $r1 = oci_execute($stid1);
                                                 $row1 = oci_fetch_array($stid1, OCI_ASSOC + OCI_RETURN_NULLS);
                                                 $var = $row['DIET_ID'];
-                                                //echo var_dump($var);
+                                                echo $var;
                                                 //echo $row1["(SYSDATE-DOB)"];
                                                 //    echo $un. ' '. $dateOfBirth. ' '. $name1; 
                                                 // $diff = date_diff($t_date,$row["DOB"]);
@@ -377,12 +377,7 @@ else
                                                    <td>" . $row["MEM_BMI"] . "</td>
                                                    <td>" . ROUND($row1["(SYSDATE-DOB)"]/365) ."</td>
                                                   
-                                                   <td>".-
-
-                                                    var_dump($var)
-                                                   
-                                                   ."<a href='diet.php?un=".$un."' class='btn btn-success'
-                                                     role='button'>Update</a></td>
+                                                   <td>NULL &nbsp; &nbsp;<a href='diet.php?un=".$un."' class='btn btn-success' role='button'>Update</a></td>
                                                    <td>NULL &nbsp; &nbsp;<a href='routine.html' class='btn btn-success'
                                                      role='button'>Update</a></td>
                                                  </tr>
