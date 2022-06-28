@@ -229,7 +229,7 @@ else
                                             $stid = oci_parse($conn, $sql);
                                             $r = oci_execute($stid);
                         
-                                            $num = 1;
+                                            $num = 0;
                                             while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
                                               $num = $num + 1;
                                             }
@@ -344,26 +344,49 @@ else
                                             </tr> -->
 
                                         <?php
-                                            $sql = "select *from users natural join member where br_name = (select br_name from users where username = '$uname')";
+
+                                            $sql = "select * from users natural join member where trainer='$uname'";
                                             $stid = oci_parse($conn, $sql);
                                             $r = oci_execute($stid);
                                             
                                             while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) 
                                             {
                                                 $un = $row['USERNAME'];
-                                                $t_date = date('d-m-y');
+                                                $dateOfBirth = $row['DOB'];
+                                                $name1=$row['NAME'];
+                                                
+                                                $sql1 = "select (sysdate-dob) from users,member where member.username = '$un' and trainer='$uname'";
+                                                $stid1 = oci_parse($conn, $sql1);
+                                                $r1 = oci_execute($stid1);
+                                                $row1 = oci_fetch_array($stid1, OCI_ASSOC + OCI_RETURN_NULLS);
+                                                $var = $row['DIET_ID'];
+                                                //echo var_dump($var);
+                                                //echo $row1["(SYSDATE-DOB)"];
+                                                //    echo $un. ' '. $dateOfBirth. ' '. $name1; 
                                                 // $diff = date_diff($t_date,$row["DOB"]);
+                                                // $diff = date_diff(date_create($dateOfBirth date_create($t_date));
+
+                                                 $row["MEM_BMI"]=($row["MEM_WEIGHT"]*2.21*703)/($row["MEM_HEIGHT"]*0.39*$row["MEM_HEIGHT"]*0.39);
+
+                                                
+                                                
                                                 echo "
-                                                <tr class='tr_as_mem'>
-                                                  <th scope='row'><a href='member_profile.php?un=".$un."'>" . $row["NAME"] . "</a></th>
-                                                  <td>" . ($row["MEM_WEIGHT"]*2.21*703)/($row["MEM_HEIGHT"]*0.39*$row["MEM_HEIGHT"]*0.39) . "</td>
-                                                  <td>" . $row["DOB"] . "</td>
-                                                  <td>NULL &nbsp; &nbsp;<a href='diet.html' class='btn btn-success'
-                                                    role='button'>Update</a></td>
-                                                  <td>NULL &nbsp; &nbsp;<a href='routine.html' class='btn btn-success'
-                                                    role='button'>Update</a></td>
-                                                </tr>
-                                            ";
+                                                 <tr class='tr_as_mem'>
+                                                   <th scope='row'><a href='member_profile.php?un=".$un."'>" . $row["NAME"] . "</a></th>
+                                                  
+                                                   <td>" . $row["MEM_BMI"] . "</td>
+                                                   <td>" . ROUND($row1["(SYSDATE-DOB)"]/365) ."</td>
+                                                  
+                                                   <td>".-
+
+                                                    var_dump($var)
+                                                   
+                                                   ."<a href='diet.php?un=".$un."' class='btn btn-success'
+                                                     role='button'>Update</a></td>
+                                                   <td>NULL &nbsp; &nbsp;<a href='routine.html' class='btn btn-success'
+                                                     role='button'>Update</a></td>
+                                                 </tr>
+                                                ";
                                             }
 
 
