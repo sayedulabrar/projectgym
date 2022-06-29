@@ -67,8 +67,8 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
           $po_wrk_carbohydrte=$_POST['post_wrk_carbohydrate'];
           $po_wrk_calory=$_POST['post_wrk_calory'];
           $sql="update Diet_Chart set B_VITAMIN='$b_vitamin',B_PROTEIN='$b_protein',B_CARBOHYDRATE='$b_carbohydrate',B_FAT='$b_fat',B_MINERALS='$b_minerals',B_CALORIES='$b_calory', L_VITAMIN='$l_vitamin',L_PROTEIN='$l_protein',L_CARBOHYDRATE='$l_carbohydrate',L_FAT='$l_fat',L_MINERALS='$l_minerals',L_CALORIES='$l_calory', D_VITAMIN='$d_vitamin',D_PROTEIN='$d_protein',D_CARBOHYDRATE='$d_carbohydrate',D_FAT='$d_fat',D_MINERALS='$d_minerals',D_CALORIES='$d_calory',PR_WRK_CARBOHYDRATE='$pr_wrk_carbohydrate',PR_WRK_PROTEIN='$pr_wrk_protein',PR_WRK_CALORIES='$pr_wrk_calory, PST_WRK_CARBOHYDRATE='$po_wrk_carbohydrate',PST_WRK_PROTEIN='$po_wrk_protein',PST_WRK_CALORIES='$po_wrk_calory' where Diet_Id='$diet_id'" ;
-          $stid = oci_parse($conn, $sql);
-          $r = oci_execute($stid);
+          $stid2 = oci_parse($conn, $sql);
+          $r2 = oci_execute($stid2);
 
         }
         else
@@ -106,12 +106,57 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
           L_VITAMIN,L_FAT,L_PROTEIN,L_MINERALS,L_CARBOHYDRATE,L_CALORIES,
           D_VITAMIN,D_FAT,D_PROTEIN,D_MINERALS,D_CARBOHYDRATE,D_CALORIES,
           PR_WRK_CARBOHYDRATE,PR_WRK_PROTEIN,PR_WRK_CALORIES,
-          PST_WRK_CARBOHYDRATE,PST_WRK_PROTEIN,PST_WRK_CALORIES) values('$diet_id', '$b_vitamin', '$b_fat', '$b_protein', '$b_minerals','$b_carbohydrate','$b_calory','$l_vitamin', '$l_fat', '$l_protein', '$l_minerals','$l_carbohydrate','$l_calory','$d_vitamin', '$d_fat', '$d_protein', '$d_minerals','$d_carbohydrate','$d_calory','$pr_wrk_protein','$pr_wrk_carbohydrate','$pr_wrk_calory','$po_wrk_protein','$po_wrk_carbohydrate','$po_wrk_calory')";
-           $stid = oci_parse($conn, $sql);
-           $r = oci_execute($stid);
+          PST_WRK_CARBOHYDRATE,PST_WRK_PROTEIN,PST_WRK_CALORIES) values($diet_id, '$b_vitamin', '$b_fat', '$b_protein', '$b_minerals','$b_carbohydrate','$b_calory','$l_vitamin', '$l_fat', '$l_protein', '$l_minerals','$l_carbohydrate','$l_calory','$d_vitamin', '$d_fat', '$d_protein', '$d_minerals','$d_carbohydrate','$d_calory','$pr_wrk_protein','$pr_wrk_carbohydrate','$pr_wrk_calory','$po_wrk_protein','$po_wrk_carbohydrate','$po_wrk_calory')";
+           $stid3 = oci_parse($conn, $sql);
+           $r3 = oci_execute($stid3);
            $sql="update Member set Diet_Id='$diet_id' where username='$uname'";
-           $stid = oci_parse($conn, $sql);
-           $r = oci_execute($stid);
+           $stid4 = oci_parse($conn, $sql);
+           $r4 = oci_execute($stid4);
+
+
+          //  $sql = "insert into diet_chart (DIET_ID,B_VITAMIN,B_FAT,B_PROTEIN,B_MINERALS,B_CARBOHYDRATE,B_CALORIES,
+          //  L_VITAMIN,L_FAT,L_PROTEIN,L_MINERALS,L_CARBOHYDRATE,L_CALORIES,
+          //  D_VITAMIN,D_FAT,D_PROTEIN,D_MINERALS,D_CARBOHYDRATE,D_CALORIES,
+          //  PR_WRK_CARBOHYDRATE,PR_WRK_PROTEIN,PR_WRK_CALORIES,
+          //  PST_WRK_CARBOHYDRATE,PST_WRK_PROTEIN,PST_WRK_CALORIES)". "values($diet_id, :b_vit, :b_fa, :b_pro,:b_min,:b_carbo,:b_ca,:l_vit, :l_fa, :l_pro,:l_min,:l_carbo,:l_ca,:d_vit, :d_fa, :d_pro,:d_min,:d_carbo,:d_ca,:pr_wrk_pro,pr_wrk_carbo,:pr_wrk_cal,:po_wrk_pro,:po_wrk_carbo,:po_wrk_cal)";
+          //   $stid3 = oci_parse($conn, $sql);
+          //   oci_bind_by_name($stid3,':b_vit',$b_vitamin);
+          //   oci_bind_by_name($stid3,':b_fa',$b_fat);
+          //   oci_bind_by_name($stid3,':b_pro',$b_protein);
+          //   oci_bind_by_name($stid3,':b_min',$b_minerals);
+          //   oci_bind_by_name($stid3,':b_carbo',$b_carbohydrate);
+          //   oci_bind_by_name($stid3,':b_cal',$b_calory);
+ 
+          //   oci_bind_by_name($stid3,':l_vit',$l_vitamin);
+          //   oci_bind_by_name($stid3,':l_fa',$l_fat);
+          //   oci_bind_by_name($stid3,':l_pro',$l_protein);
+          //   oci_bind_by_name($stid3,':l_min',$l_minerals);
+          //   oci_bind_by_name($stid3,':l_carbo',$l_carbohydrate);
+          //   oci_bind_by_name($stid3,':l_cal',$l_calory);
+ 
+          //   oci_bind_by_name($stid3,':d_vit',$d_vitamin);
+          //   oci_bind_by_name($stid3,':d_fa',$d_fat);
+          //   oci_bind_by_name($stid3,':d_pro',$d_protein);
+          //   oci_bind_by_name($stid3,':d_min',$d_minerals);
+          //   oci_bind_by_name($stid3,':d_carbo',$d_carbohydrate);
+          //   oci_bind_by_name($stid3,':d_cal',$d_calory);
+ 
+          //   oci_bind_by_name($stid3,':pr_wrk_pro',$pr_wrk_protein);
+          //   oci_bind_by_name($stid3,':pr_wrk_carbo',$pr_wrk_carbohydrate);
+          //   oci_bind_by_name($stid3,':pr_wrk_cal',$pr_wrk_calory);
+ 
+          //   oci_bind_by_name($stid3,':po_wrk_pro',$po_wrk_protein);
+          //   oci_bind_by_name($stid3,':po_wrk_carbo',$po_wrk_carbohydrate);
+          //   oci_bind_by_name($stid3,':po_wrk_cal',$po_wrk_calory);
+            
+          //   $r3 = oci_execute($stid3);
+          //   $sql="update Member set Diet_Id='$diet_id' where username='$uname'";
+          //   $stid4 = oci_parse($conn, $sql);
+          //   $r4 = oci_execute($stid4);
+ 
+
+
+
 
         }
         
