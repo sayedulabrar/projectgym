@@ -366,7 +366,12 @@ else
                                                 // $diff = date_diff($t_date,$row["DOB"]);
                                                 // $diff = date_diff(date_create($dateOfBirth date_create($t_date));
 
-                                                 $row["MEM_BMI"]=($row["MEM_WEIGHT"]*2.21*703)/($row["MEM_HEIGHT"]*0.39*$row["MEM_HEIGHT"]*0.39);
+                                                 $row["MEMB_BMI"]=number_format(($row["MEM_WEIGHT"]*2.21*703)/($row["MEM_HEIGHT"]*0.39*$row["MEM_HEIGHT"]*0.39),3);
+                                                 $val=$row["MEMB_BMI"];
+
+                                                 $query = "update Member set Memb_BMI='$val' where username='$un'";
+                                                 $p=oci_parse($conn,$query);
+                                                 $setting=oci_execute($p);
 
                                                 
                                                 
@@ -374,11 +379,29 @@ else
                                                  <tr class='tr_as_mem'>
                                                    <th scope='row'><a href='member_profile.php?un=".$un."'>" . $row["NAME"] . "</a></th>
                                                   
-                                                   <td>" . $row["MEM_BMI"] . "</td>
+                                                   <td>" . $row["MEMB_BMI"] . "</td>
                                                    <td>" . ROUND($row1["(SYSDATE-DOB)"]/365) ."</td>
                                                   
-                                                   <td>NULL &nbsp; &nbsp;<a href='diet.php?un=".$un."' class='btn btn-success' role='button'>Update</a></td>
-                                                   <td>NULL &nbsp; &nbsp;<a href='routine.html' class='btn btn-success'
+                                                   <td>";
+                                                   if(!isset($un["Diet_Id"]))
+                                                   {
+                                                    echo "NULL";
+                                                   }
+                                                   else
+                                                   {
+                                                    echo $un["Diet_Id"];
+                                                   } 
+                                                   echo "&nbsp; &nbsp;<a href='diet.php?un=".$un."' class='btn btn-success' role='button'>Update</a></td>
+                                                   <td>";
+                                                   if(!isset($un["Routine_Id"]))
+                                                   {
+                                                    echo "NULL";
+                                                   }
+                                                   else
+                                                   {
+                                                    echo $un["Diet_Id"];
+                                                   }  
+                                                   echo "&nbsp; &nbsp;<a href='routine.html' class='btn btn-success'
                                                      role='button'>Update</a></td>
                                                  </tr>
                                                 ";
