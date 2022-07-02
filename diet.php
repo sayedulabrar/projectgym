@@ -1,11 +1,10 @@
-<?php 
+<?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 
-if($_GET == NULL) {
+if ($_GET == NULL) {
   $uname = $_SESSION['uname'];
-}
-else {
-  $uname = $_GET['un'] ;
+} else {
+  $uname = $_GET['un'];
 }
 
 $trainer = $_SESSION['uname'];
@@ -13,172 +12,51 @@ $showuname = $_SESSION['uname'];
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 
-  if (!$conn)
+if (!$conn) {
+  echo "sorry";
+} else {
+  if(isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] == 'POST')
   {
-    echo "sorry";
+    $sql1 = "Select Diet_Id from Member where username='$uname'";
+  $stid1 = oci_parse($conn, $sql1);
+  $r1 = oci_execute($stid1);
+  $mem = oci_fetch_array($stid1, OCI_ASSOC + OCI_RETURN_NULLS);
+  $sql = "Select * from Diet_Chart order by Diet_Id desc";
+  $stid = oci_parse($conn, $sql);
+  $r = oci_execute($stid);
+  //$row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+  $diet_id = 0;
+
+  while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+    $diet_id = $diet_id + 1;
+  }
+  //$diet_id = $row['Diet_Id'];
+
+  if(!isset($mem['diet_id']))
+  {
+    $diet_id = $diet_id+1;
+    $sql5 = "insert into diet_chart (DIET_ID) values('$diet_id')";
+    $stid5 = oci_parse($conn,$sql5);
+    $r5 = oci_execute($stid5);
+
+    $sql6 = "update Member set Diet_Id = '$diet_id' where username='$uname'";
+    $stid6 = oci_parse($conn, $sql6);
+    $r6 = oci_execute($stid6,OCI_DEFAULT);
   }
 
-  else
-  {
-        $sql1 = "Select Diet_Id from Member where username='$uname'";
-        $stid1 = oci_parse($conn,$sql1);
-        $r1 = oci_execute($stid1);
-        $mem=oci_fetch_array($stid1,OCI_ASSOC + OCI_RETURN_NULLS);
-    
-    if($_SERVER['REQUEST_METHOD'] == 'POST')
-    {
-      if (isset($_POST['breakfast_vitamin']) && isset($_POST['breakfast_protein']) &&  isset($_POST['breakfast_carbohydrate']) && isset($_POST['breakfast_minerals']) && isset($_POST['breakfast_fat']) && isset($_POST['breakfast_calory'])  &&   isset($_POST['lunch_vitamin']) && isset($_POST['lunch_protein']) &&  isset($_POST['lunch_carbohydrate']) && isset($_POST['lunch_minerals']) && isset($_POST['lunch_fat']) && isset($_POST['lunch_calory'])  &&   isset($_POST['dinner_vitamin']) && isset($_POST['dinner_protein']) &&  isset($_POST['dinner_carbohydrate']) && isset($_POST['dinner_minerals']) && isset($_POST['dinner_fat']) && isset($_POST['dinner_calory']) &&  isset($_POST['pre_wrk_protein']) &&  isset($_POST['pre_wrk_carbohydrate']) &&  isset($_POST['pre_wrk_calory']) &&  isset($_POST['post_wrk_protein']) &&  isset($_POST['post_wrk_carbohydrate']) &&  isset($_POST['post_wrk_calory']))
-      {
-        
-        $sql="Select * from Diet_Chart order by Diet_Id desc";
-        $stid = oci_parse($conn, $sql);
-        $r = oci_execute($stid);
-        $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-        
-        if(isset($mem['Diet_Id']))
-        {
-          $diet_id=$row['Diet_Id'];
-          $b_vitamin=$_POST['breakfast_vitamin'];
-          $b_protein=$_POST['breakfast_protein'];
-          $b_carbohydrate=$_POST['breakfast_carbohydrate'];
-          $b_minerals=$_POST['breakfast_minerals'];
-          $b_fat=$_POST['breakfast_fat'];
-          $b_calory=$_POST['breakfast_calory'];
+  header("location: diet.php");
+  exit;
+  
 
-          $l_vitamin=$_POST['lunch_vitamin'];
-          $l_protein=$_POST['lunch_protein'];
-          $l_carbohydrate=$_POST['lunch_carbohydrate'];
-          $l_minerals=$_POST['lunch_minerals'];
-          $l_fat=$_POST['lunch_fat'];
-          $l_calory=$_POST['lunch_calory'];
-
-          $d_vitamin=$_POST['dinner_vitamin'];
-          $d_protein=$_POST['dinner_protein'];
-          $d_carbohydrate=$_POST['dinner_carbohydrate'];
-          $d_minerals=$_POST['dinner_minerals'];
-          $d_fat=$_POST['dinner_fat'];
-          $d_calory=$_POST['dinner_calory'];
-
-          $pr_wrk_protein=$_POST['pre_wrk_protein'];
-          $pr_wrk_carbohydrte=$_POST['pre_wrk_carbohydrate'];
-          $pr_wrk_calory=$_POST['pre_wrk_calory'];
-
-          $po_wrk_protein=$_POST['post_wrk_protein'];
-          $po_wrk_carbohydrte=$_POST['post_wrk_carbohydrate'];
-          $po_wrk_calory=$_POST['post_wrk_calory'];
-          $sql="update Diet_Chart set B_VITAMIN='$b_vitamin',B_PROTEIN='$b_protein',B_CARBOHYDRATE='$b_carbohydrate',B_FAT='$b_fat',B_MINERALS='$b_minerals',B_CALORIES='$b_calory', L_VITAMIN='$l_vitamin',L_PROTEIN='$l_protein',L_CARBOHYDRATE='$l_carbohydrate',L_FAT='$l_fat',L_MINERALS='$l_minerals',L_CALORIES='$l_calory', D_VITAMIN='$d_vitamin',D_PROTEIN='$d_protein',D_CARBOHYDRATE='$d_carbohydrate',D_FAT='$d_fat',D_MINERALS='$d_minerals',D_CALORIES='$d_calory',PR_WRK_CARBOHYDRATE='$pr_wrk_carbohydrate',PR_WRK_PROTEIN='$pr_wrk_protein',PR_WRK_CALORIES='$pr_wrk_calory, PST_WRK_CARBOHYDRATE='$po_wrk_carbohydrate',PST_WRK_PROTEIN='$po_wrk_protein',PST_WRK_CALORIES='$po_wrk_calory' where Diet_Id='$diet_id'" ;
-          $stid2 = oci_parse($conn, $sql);
-          $r2 = oci_execute($stid2);
-
-        }
-        else
-        {
-          $diet_id=$row['Diet_Id']+1;
-          $b_vitamin=$_POST['breakfast_vitamin'];
-          $b_protein=$_POST['breakfast_protein'];
-          $b_carbohydrate=$_POST['breakfast_carbohydrate'];
-          $b_minerals=$_POST['breakfast_minerals'];
-          $b_fat=$_POST['breakfast_fat'];
-          $b_calory=$_POST['breakfast_calory'];
-
-          $l_vitamin=$_POST['lunch_vitamin'];
-          $l_protein=$_POST['lunch_protein'];
-          $l_carbohydrate=$_POST['lunch_carbohydrate'];
-          $l_minerals=$_POST['lunch_minerals'];
-          $l_fat=$_POST['lunch_fat'];
-          $l_calory=$_POST['lunch_calory'];
-
-          $d_vitamin=$_POST['dinner_vitamin'];
-          $d_protein=$_POST['dinner_protein'];
-          $d_carbohydrate=$_POST['dinner_carbohydrate'];
-          $d_minerals=$_POST['dinner_minerals'];
-          $d_fat=$_POST['dinner_fat'];
-          $d_calory=$_POST['dinner_calory'];
-
-          $pr_wrk_protein=$_POST['pre_wrk_protein'];
-          $pr_wrk_carbohydrte=$_POST['pre_wrk_carbohydrate'];
-          $pr_wrk_calory=$_POST['pre_wrk_calory'];
-
-          $po_wrk_protein=$_POST['post_wrk_protein'];
-          $po_wrk_carbohydrte=$_POST['post_wrk_carbohydrate'];
-          $po_wrk_calory=$_POST['post_wrk_calory'];
-          $sql = "insert into diet_chart (DIET_ID,B_VITAMIN,B_FAT,B_PROTEIN,B_MINERALS,B_CARBOHYDRATE,B_CALORIES,
-          L_VITAMIN,L_FAT,L_PROTEIN,L_MINERALS,L_CARBOHYDRATE,L_CALORIES,
-          D_VITAMIN,D_FAT,D_PROTEIN,D_MINERALS,D_CARBOHYDRATE,D_CALORIES,
-          PR_WRK_CARBOHYDRATE,PR_WRK_PROTEIN,PR_WRK_CALORIES,
-          PST_WRK_CARBOHYDRATE,PST_WRK_PROTEIN,PST_WRK_CALORIES) values($diet_id, '$b_vitamin', '$b_fat', '$b_protein', '$b_minerals','$b_carbohydrate','$b_calory','$l_vitamin', '$l_fat', '$l_protein', '$l_minerals','$l_carbohydrate','$l_calory','$d_vitamin', '$d_fat', '$d_protein', '$d_minerals','$d_carbohydrate','$d_calory','$pr_wrk_protein','$pr_wrk_carbohydrate','$pr_wrk_calory','$po_wrk_protein','$po_wrk_carbohydrate','$po_wrk_calory')";
-           $stid3 = oci_parse($conn, $sql);
-           $r3 = oci_execute($stid3);
-           $sql="update Member set Diet_Id='$diet_id' where username='$uname'";
-           $stid4 = oci_parse($conn, $sql);
-           $r4 = oci_execute($stid4);
-
-
-          //  $sql = "insert into diet_chart (DIET_ID,B_VITAMIN,B_FAT,B_PROTEIN,B_MINERALS,B_CARBOHYDRATE,B_CALORIES,
-          //  L_VITAMIN,L_FAT,L_PROTEIN,L_MINERALS,L_CARBOHYDRATE,L_CALORIES,
-          //  D_VITAMIN,D_FAT,D_PROTEIN,D_MINERALS,D_CARBOHYDRATE,D_CALORIES,
-          //  PR_WRK_CARBOHYDRATE,PR_WRK_PROTEIN,PR_WRK_CALORIES,
-          //  PST_WRK_CARBOHYDRATE,PST_WRK_PROTEIN,PST_WRK_CALORIES)". "values($diet_id, :b_vit, :b_fa, :b_pro,:b_min,:b_carbo,:b_ca,:l_vit, :l_fa, :l_pro,:l_min,:l_carbo,:l_ca,:d_vit, :d_fa, :d_pro,:d_min,:d_carbo,:d_ca,:pr_wrk_pro,pr_wrk_carbo,:pr_wrk_cal,:po_wrk_pro,:po_wrk_carbo,:po_wrk_cal)";
-          //   $stid3 = oci_parse($conn, $sql);
-          //   oci_bind_by_name($stid3,':b_vit',$b_vitamin);
-          //   oci_bind_by_name($stid3,':b_fa',$b_fat);
-          //   oci_bind_by_name($stid3,':b_pro',$b_protein);
-          //   oci_bind_by_name($stid3,':b_min',$b_minerals);
-          //   oci_bind_by_name($stid3,':b_carbo',$b_carbohydrate);
-          //   oci_bind_by_name($stid3,':b_cal',$b_calory);
- 
-          //   oci_bind_by_name($stid3,':l_vit',$l_vitamin);
-          //   oci_bind_by_name($stid3,':l_fa',$l_fat);
-          //   oci_bind_by_name($stid3,':l_pro',$l_protein);
-          //   oci_bind_by_name($stid3,':l_min',$l_minerals);
-          //   oci_bind_by_name($stid3,':l_carbo',$l_carbohydrate);
-          //   oci_bind_by_name($stid3,':l_cal',$l_calory);
- 
-          //   oci_bind_by_name($stid3,':d_vit',$d_vitamin);
-          //   oci_bind_by_name($stid3,':d_fa',$d_fat);
-          //   oci_bind_by_name($stid3,':d_pro',$d_protein);
-          //   oci_bind_by_name($stid3,':d_min',$d_minerals);
-          //   oci_bind_by_name($stid3,':d_carbo',$d_carbohydrate);
-          //   oci_bind_by_name($stid3,':d_cal',$d_calory);
- 
-          //   oci_bind_by_name($stid3,':pr_wrk_pro',$pr_wrk_protein);
-          //   oci_bind_by_name($stid3,':pr_wrk_carbo',$pr_wrk_carbohydrate);
-          //   oci_bind_by_name($stid3,':pr_wrk_cal',$pr_wrk_calory);
- 
-          //   oci_bind_by_name($stid3,':po_wrk_pro',$po_wrk_protein);
-          //   oci_bind_by_name($stid3,':po_wrk_carbo',$po_wrk_carbohydrate);
-          //   oci_bind_by_name($stid3,':po_wrk_cal',$po_wrk_calory);
-            
-          //   $r3 = oci_execute($stid3);
-          //   $sql="update Member set Diet_Id='$diet_id' where username='$uname'";
-          //   $stid4 = oci_parse($conn, $sql);
-          //   $r4 = oci_execute($stid4);
- 
-
-
-
-
-        }
-        
-        
-
-       
-        //$br_name = $roww['BR_NAME'];
-        
-        
-
-        
-
-        echo "<div class='alert alert-success' role='alert'>This is a success alert—check it out!</div>";
-        //$sql = "update member set diet_id='$diet_id' where username='$uname'";
-        //$stid = oci_parse($conn, $sql);
-        //$r = oci_execute($stid);
-        
-      }
-    }
   }
+
+
+
+  
+}
 
 ?>
+
 
 
 
@@ -191,8 +69,7 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   <title>Diet Chart Update</title>
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- overlayScrollbars -->
@@ -216,9 +93,9 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
         <li class="nav-item">
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
-        
 
-        
+
+
       </ul>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -227,10 +104,10 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
             <a href=" index.php" type="button" class="btn btn-secondary">Logout</a>
           </li>
         </ul>
-    </div>
+      </div>
 
       <!-- Right navbar links -->
-     
+
     </nav>
     <!-- /.navbar -->
 
@@ -238,8 +115,7 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="#" class="brand-link">
-        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-          style="opacity: .8">
+        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Fitness Mania</span>
       </a>
 
@@ -257,7 +133,7 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
           </div>
         </div>
 
-        
+
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -283,12 +159,12 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
 
               </ul>
 
-              
+
             </li>
 
 
-         
-             
+
+
 
             <li class="nav-item">
               <a href="#" class="nav-link">
@@ -311,7 +187,7 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
                     <p>Compose</p>
                   </a>
                 </li>
-                
+
               </ul>
             </li>
             <li class="nav-item">
@@ -324,7 +200,7 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    
+
                 </li>
                 <li class="nav-item">
                   <a href="employee_profile.php" class="nav-link">
@@ -332,20 +208,20 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
                     <p>Profile</p>
                   </a>
                 </li>
-                
-                
-                
 
-                
+
+
+
+
               </ul>
             </li>
-            
 
-            
+
+
 
           </ul>
           </li>
-         
+
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
@@ -364,696 +240,320 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
             </div><!-- /.col -->
 
             <div class="col-sm-6">
-                <h5 class="m-0 float-right">
-                  <?php 
-                 
+              <h5 class="m-0 float-right">
+                <?php
 
-                   if(!isset($mem['Diet_Id']))
-                   {
-                    echo "DIET ID: NULL";
-                   }
-                   else
-                   {
-                    echo "DIET ID: ".$mem['Diet_Id'];
-                   }
+
+                  if(isset($_POST['submit']))
+                  {
+                    echo "DIET ID: " . $diet_id;
+                  }
                   
-                  ?>
-                </h5>
+                  
+                
+
+                ?>
+              </h5>
             </div><!-- /.col -->
-            
+
           </div><!-- /.row -->
         </div><!-- /.container-fluid -->
       </div>
       <!-- /.content-header -->
 
-      <!-- Main content -->
- <!--     <section class="content">
-        <div class="container-fluid">
-          
 
-          
-            
-            
 
-           
-              
-           
-          </div>
 
-
-         
-
-          <div class="card" >
-            <div class="card-header border-transparent"  id="day_exe">
-                <h4 class="d-flex">Breakfast</h4>
-  
-                <div class="card-tools">
-                 
-                </div>
-              </div>
-
-          <div class="card-body p-0">
-            <div class="table-responsive">
-              <table class="table m-0">
-                <thead>
-                  <tr>
-                    <th>Vitamin</th>
-                    <th>Protein</th>
-                    <th>Carbohydrate</th>
-                    <th>Minerals</th>
-                    <th>Fat</th>
-                    <th>Calory</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="mem_diet">
-                    <td>
-                        <form method="POST">
-                            <div class="form-group">
-                              <input type="text" maxlength="5" size="5" class="form-control" id="exampleInputExe1" placeholder="Amount" name="breakfast_vitamin">
-                            </div>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="diet.php" method="POST">
-                            <div class="form-group">
-                              <input type="text" maxlength="5" size="5" class="form-control" id="exampleInputExe1" placeholder="Amount" name="breakfast_protein">
-                            </div>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="diet.php" method="POST">
-                            <div class="form-group">
-                              <input type="text" maxlength="5" size="5" class="form-control" id="exampleInputExe1" placeholder="Amount" name="name="breakfast_carbohydrate"">
-                            </div>
-                        </form>
-                    </td> 
-                    <td>
-                        <form action="diet.php" method="POST">
-                            <div class="form-group">
-                              <input type="text" maxlength="5" size="5" class="form-control" id="exampleInputExe1" placeholder="Amount" name="breakfast_minerals">
-                            </div>
-                        </form>
-                    </td> 
-
-                    <td>
-                        <form action="diet.php" method="POST">
-                            <div class="form-group">
-                              <input type="text" maxlength="5" size="5" class="form-control" id="exampleInputExe1" placeholder="Amount" name="breakfast_fat">
-                            </div>
-                        </form>
-                    </td> 
-                    <td>
-                        <form action="diet.php" method="POST">
-                            <div class="form-group">
-                              <input type="text" maxlength="5" size="5" class="form-control" id="exampleInputExe1" placeholder="Amount" name="breakfast_calory">
-                            </div>
-                        </form>
-                    </td> 
-                    
-                  </tr>
-
-
-                  
-
-
-                 
-                 
-                </tbody>
-              </table>
-
-            </div>
-            
-
-          </div>
-
-          
-        </div>
-        
-      </section>
-
-
-
-
-      <section class="content">
-        <div class="container-fluid">
-           
-          </div>
-          <div class="card" >
-            <div class="card-header border-transparent"  id="day_exe">
-              <h4 class="d-flex">Lunch</h4>
-
-              <div class="card-tools">
-               
-              </div>
-            </div>
-
-          <div class="card-body p-0">
-            <div class="table-responsive">
-              <table class="table m-0">
-                <thead>
-                    <tr>
-                    <th>Vitamin</th>
-                    <th>Protein</th>
-                    <th>Carbohydrate</th>
-                    <th>Minerals</th>
-                    <th>Fat</th>
-                    <th>Calory</th>
-                      </tr>
-                </thead>
-                <tbody>
-                    <tr class="mem_diet">
-                        <td>
-                            <form action="diet.php" method="POST">
-                                <div class="form-group">
-                                  <input type="text" maxlength="5" size="5" class="form-control" id="exampleInputExe1" placeholder="Amount" name="lunch_vitamin">
-                                </div>
-                            </form>
-                        </td> 
-                        <td>
-                            <form action="diet.php" method="POST">
-                                <div class="form-group">
-                                  <input type="text" maxlength="5" size="5" class="form-control" id="exampleInputExe1" placeholder="Amount" name="lunch_protein">
-                                </div>
-                            </form>
-                        </td> 
-                        <td>
-                            <form  action="diet.php" method="POST">
-                                <div class="form-group">
-                                  <input type="text" maxlength="5" size="5" class="form-control" id="exampleInputExe1" placeholder="Amount" name="lunch_carbohydrate">
-                                </div>
-                            </form>
-                        </td>  
-                        <td>
-                            <form action="diet.php" method="POST">
-                                <div class="form-group">
-                                  <input type="text" maxlength="5" size="5" class="form-control" id="exampleInputExe1" placeholder="Amount" name="lunch_minerals">
-                                </div>
-                            </form>
-                        </td> 
-                        <td>
-                            <form action="diet.php" method="POST">
-                                <div class="form-group">
-                                  <input type="text" maxlength="5" size="5" class="form-control" id="exampleInputExe1" placeholder="Amount" name="lunch_fat">
-                                </div>
-                            </form>
-                        </td> 
-                        <td>
-                            <form action="diet.php" method="POST">
-                                <div class="form-group">
-                                  <input type="text" maxlength="5" size="5" class="form-control" id="exampleInputExe1" placeholder="Amount" name="lunch_calory">
-                                </div>
-                            </form>
-                        </td> 
-                        
-                      </tr>
-    
-
-
-    
-                </tbody>
-              </table>
-
-            </div>
-           
-
-
-            
-
-
-          </div>
-
-
-
-          
-        </div>
-        
-      </section>
-
-
-
-      <section class="content">
-        <div class="container-fluid">
-           
-          </div>
-          <div class="card" >
-            <div class="card-header border-transparent"  id="day_exe">
-              <h4 class="d-flex">Dinner</h4>
-
-              <div class="card-tools">
-               
-              </div>
-            </div>
-
-          <div class="card-body p-0">
-            <div class="table-responsive">
-              <table class="table m-0">
-                <thead>
-                    <tr>
-                        <th>Vitamin</th>
-                    <th>Protein</th>
-                    <th>Carbohydrate</th>
-                    <th>Minerals</th>
-                    <th>Fat</th>
-                    <th>Calory</th>
-                      </tr>
-                </thead>
-                <tbody>
-                    <tr class="mem_diet">
-                        <td>
-                            <form action="diet.php" method="POST">
-                                <div class="form-group">
-                                  <input type="text" maxlength="5" size="5" class="form-control" id="exampleInputExe1" placeholder="Amount" name="dinner_vitamin">
-                                </div>
-                            </form>
-                        </td> 
-                        <td>
-                            <form action="diet.php" method="POST">
-                                <div class="form-group">
-                                  <input type="text" maxlength="5" size="5" class="form-control" id="exampleInputExe1" placeholder="Amount" name="dinner_protein">
-                                </div>
-                            </form>
-                        </td> 
-                        <td>
-                            <form action="diet.php" method="POST">
-                                <div class="form-group">
-                                  <input type="text" maxlength="5" size="5" class="form-control" id="exampleInputExe1" placeholder="Amount" name="dinner_carbohydrate">
-                                </div>
-                            </form>
-                        </td> 
-                        <td>
-                            <form action="diet.php" method="POST">
-                                <div class="form-group">
-                                  <input type="text" maxlength="5" size="5" class="form-control" id="exampleInputExe1" placeholder="Amount" name="dinner_minerals">
-                                </div>
-                            </form>
-                        </td> 
-                        <td>
-                            <form action="diet.php" method="POST"> 
-                                <div class="form-group">
-                                  <input type="text" maxlength="5" size="5" class="form-control" id="exampleInputExe1" placeholder="Amount" name="dinner_fat">
-                                </div>
-                            </form>
-                        </td> 
-                        <td>
-                            <form action="diet.php" method="POST">
-                                <div class="form-group">
-                                  <input type="text" maxlength="5" size="5" class="form-control" id="exampleInputExe1" placeholder="Amount" name="dinner_calory">
-                                </div>
-                            </form>
-                        </td> 
-                        
-                      </tr>
-    
-
-
-                     
-                </tbody>
-              </table>
-
-            </div>
-           
-
-
-            
-
-
-          </div>
-
-
-
-          
-        </div>
-        
-      </section>
-
-
-
-
-      
-
-
-      <section class="content">
-        <div class="container-fluid">
-           
-          </div>
-          <div class="card" >
-            <div class="card-header border-transparent"  id="day_exe">
-              <h4 class="d-flex">Pre Workout</h4>
-
-              <div class="card-tools">
-               
-              </div>
-            </div>
-
-          <div class="card-body p-0">
-            <div class="table-responsive">
-              <table class="table m-0">
-                <thead>
-                    <tr>
-                        <th>Protein</th>
-                        <th>Carbohydrate</th>
-                        <th>Calory</th>
-                      </tr>
-                </thead>
-                <tbody>
-                    <tr class="mem_diet">
-                        <td>
-                            <form action="diet.php" method="POST">
-                                <div class="form-group">
-                                  <input type="text" maxlength="5" size="5" class="form-control" id="exampleInputExe1" placeholder="Amount" name="pre_wrk_protein">
-                                </div>
-                            </form>
-                        </td> 
-                        <td>
-                            <form action="diet.php" method="POST">
-                                <div class="form-group">
-                                  <input type="text" maxlength="5" size="5" class="form-control" id="exampleInputExe1" placeholder="Amount" name="pre_wrk_carbohydrate">
-                                </div>
-                            </form>
-                        </td> 
-                        <td>
-                            <form action="diet.php" method="POST">
-                                <div class="form-group">
-                                  <input type="text" maxlength="5" size="5" class="form-control" id="exampleInputExe1" placeholder="Amount" name="pre_wrk_calory">
-                                </div>
-                            </form>
-                        </td> 
-
-                        
-                      </tr>
-    
-
-
-                     
-    
-
-                </tbody>
-              </table>
-
-            </div>
-            
-
-
-            
-
-
-          </div>
-
-
-
-          
-        </div>
-      
-      </section>
-
-
-
-      <section class="content">
-        <div class="container-fluid">
-           
-          </div>
-          <div class="card" >
-            <div class="card-header border-transparent"  id="day_exe">
-              <h4 class="d-flex">Post Workout</h4>
-
-              <div class="card-tools">
-               
-              </div>
-            </div>
-
-          <div class="card-body p-0">
-            <div class="table-responsive">
-              <table class="table m-0">
-                <thead>
-                    <tr>
-                        <th>Protein</th>
-                        <th>Carbohydrate</th>
-                        <th>Calory</th>
-                      </tr>
-                </thead>
-                <tbody>
-                    <tr class="mem_diet">
-                        <td>
-                            <form action="diet.php" method="POST">
-                                <div class="form-group">
-                                  <input type="text" maxlength="5" size="5" class="form-control" id="exampleInputExe1" placeholder="Amount" name="post_wrk_protein">
-                                </div>
-                            </form>
-                        </td> 
-                        <td>
-                            <form action="diet.php" method="POST">
-                                <div class="form-group">
-                                  <input type="text" maxlength="5" size="5" class="form-control" id="exampleInputExe1" placeholder="Amount" name="post_wrk_carbohydrate">
-                                </div>
-                            </form>
-                        </td> 
-                        <td>
-                            <form action="diet.php" method="POST">
-                                <div class="form-group">
-                                  <input type="text" maxlength="5" size="5" class="form-control" id="exampleInputExe1" placeholder="Amount" name="post_wrk_calory">
-                                </div>
-                            </form>
-                        </td> 
-
-                        
-                      </tr>
-    
-
-
-                     
-                </tbody>
-              </table>
-
-            </div>
-
-
-            
-
-
-          </div>
-
-
-
-          
-        </div>
-      </section>
-
-      
-
-      <div class="container">
-        <div class="col-md-12 text-center">
-            <input href="#" class="btn btn-success" role="button" value="Add Diet" name="submit"></input>
-        </div>
-        
-    </div> -->
-
-
-    <form action="diet.php" method="post">
-          <div class="container">
+      <form action="diet.php" method="post">
+        <div class="container">
           <table class="table">
-          <h3>Breakfast</h3>
-  <thead>
-    
-    <tr>
-        <th>Vitamin</th>
-        <th>Protein</th>
-        <th>Carbohydrate</th>
-        <th>Minerals</th>
-        <th>Fat</th>
-        <th>Calory</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-    <td>
-            <input class="form-control" type="number"  min="1" max="100" name="breakfast_vitamin" form="my_form" >
-            
-        </td>
-        <td>
-            <input class="form-control" type="number"  min="1" max="100" name="breakfast_protein" form="my_form" >
-            
-        </td>
-        <td>
-            <input class="form-control" type="number"  min="1" max="100" name="breakfast_carbohydrate" form="my_form" >
-            
-        </td>
-        <td>
-            <input class="form-control" type="number"  min="1" max="100" name="breakfast_minerals" form="my_form" >
-            
-        </td>
-        <td>
-            <input class="form-control" type="number"  min="1" max="100" name="breakfast_fat" form="my_form" >
-            
-        </td>
-        <td>
-            <input class="form-control" type="number"  min="1" max="100" name="breakfast_calory" form="my_form" >
-            
-        </td>
-    </tr>
-    
-  </tbody>
-</table>
+            <h3>Breakfast</h3>
+            <thead>
+
+              <tr>
+                <th>Vitamin</th>
+                <th>Protein</th>
+                <th>Carbohydrate</th>
+                <th>Minerals</th>
+                <th>Fat</th>
+                <th>Calory</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <input class="form-control" type="number" min="1" max="100" name="breakfast_vitamin" >
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" min="1" max="100" name="breakfast_protein" >
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" min="1" max="100" name="breakfast_carbohydrate" >
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" min="1" max="100" name="breakfast_minerals" >
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" min="1" max="100" name="breakfast_fat" >
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" min="1" max="100" name="breakfast_calory" >
+
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
 
 
-<table class="table">
-          <h3>Lunch</h3>
-  <thead>
-    
-    <tr>
-        <th>Vitamin</th>
-        <th>Protein</th>
-        <th>Carbohydrate</th>
-        <th>Minerals</th>
-        <th>Fat</th>
-        <th>Calory</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-    <td>
-            <input class="form-control" type="number"  min="1" max="100" name="lunch_vitamin" form="my_form" >
-            
-        </td>
-        <td>
-            <input class="form-control" type="number"  min="1" max="100" name="lunch_protein" form="my_form" >
-            
-        </td>
-        <td>
-            <input class="form-control" type="number"  min="1" max="100" name="lunch_carbohydrate" form="my_form" >
-            
-        </td>
-        <td>
-            <input class="form-control" type="number"  min="1" max="100" name="lunch_minerals" form="my_form" >
-            
-        </td>
-        <td>
-            <input class="form-control" type="number"  min="1" max="100" name="lunch_fat" form="my_form" >
-            
-        </td>
-        <td>
-            <input class="form-control" type="number"  min="1" max="100" name="lunch_calory" form="my_form" >
-            
-        </td>
-    </tr>
-    
-  </tbody>
-</table>
+
+          <table class="table">
+            <h3>Lunch</h3>
+            <thead>
+
+              <tr>
+                <th>Vitamin</th>
+                <th>Protein</th>
+                <th>Carbohydrate</th>
+                <th>Minerals</th>
+                <th>Fat</th>
+                <th>Calory</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <input class="form-control" type="number" min="1" max="100" name="lunch_vitamin" >
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" min="1" max="100" name="lunch_protein" >
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" min="1" max="100" name="lunch_carbohydrate">
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" min="1" max="100" name="lunch_minerals">
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" min="1" max="100" name="lunch_fat">
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" min="1" max="100" name="lunch_calory">
+
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
 
 
-<table class="table">
-          <h3>Dinner</h3>
-  <thead>
-    
-    <tr>
-        <th>Vitamin</th>
-        <th>Protein</th>
-        <th>Carbohydrate</th>
-        <th>Minerals</th>
-        <th>Fat</th>
-        <th>Calory</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-    <td>
-            <input class="form-control" type="number"  min="1" max="100" name="dinner_vitamin" form="my_form" >
-            
-        </td>
-        <td>
-            <input class="form-control" type="number"  min="1" max="100" name="dinner_protein" form="my_form" >
-            
-        </td>
-        <td>
-            <input class="form-control" type="number"  min="1" max="100" name="dinner_carbohydrate" form="my_form" >
-            
-        </td>
-        <td>
-            <input class="form-control" type="number"  min="1" max="100" name="dinner_minerals" form="my_form" >
-            
-        </td>
-        <td>
-            <input class="form-control" type="number"  min="1" max="100" name="dinner_fat" form="my_form" >
-            
-        </td>
-        <td>
-            <input class="form-control" type="number"  min="1" max="100" name="dinner_calory" form="my_form" >
-            
-        </td>
-    </tr>
-    
-  </tbody>
-</table>
+          <table class="table">
+            <h3>Dinner</h3>
+            <thead>
+
+              <tr>
+                <th>Vitamin</th>
+                <th>Protein</th>
+                <th>Carbohydrate</th>
+                <th>Minerals</th>
+                <th>Fat</th>
+                <th>Calory</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <input class="form-control" type="number" min="1" max="100" name="dinner_vitamin">
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" min="1" max="100" name="dinner_protein">
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" min="1" max="100" name="dinner_carbohydrate">
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" min="1" max="100" name="dinner_minerals">
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" min="1" max="100" name="dinner_fat">
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" min="1" max="100" name="dinner_calory">
+
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
 
 
-<table class="table">
-          <h3>Pre Workout</h3>
-  <thead>
-    
-    <tr>
-        <th>Protein</th>
-        <th>Carbohydrate</th>
-        <th>Calory</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-    <td>
-            <input class="form-control" type="number"  min="1" max="100" name="pre_wrk_protein" form="my_form" >
-            
-        </td>
-        <td>
-            <input class="form-control" type="number"  min="1" max="100" name="pre_wrk_carbohydrate" form="my_form" >
-            
-        </td>
-        <td>
-            <input class="form-control" type="number"  min="1" max="100" name="pre_wrk_calory" form="my_form" >
-            
-        </td>
-    </tr>
-    
-  </tbody>
-</table>
+          <table class="table">
+            <h3>Pre Workout</h3>
+            <thead>
+
+              <tr>
+                <th>Protein</th>
+                <th>Carbohydrate</th>
+                <th>Calory</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <input class="form-control" type="number" min="1" max="100" name="pre_wrk_protein">
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" min="1" max="100" name="pre_wrk_carbohydrate">
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" min="1" max="100" name="pre_wrk_calory">
+
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
 
 
-<table class="table">
-          <h3>Post Workout</h3>
-  <thead>
-    
-    <tr>
-        <th>Protein</th>
-        <th>Carbohydrate</th>
-        <th>Calory</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-    <td>
-            <input class="form-control" type="number"  min="1" max="100" name="post_wrk_protein" form="my_form" >
-            
-        </td>
-        <td>
-            <input class="form-control" type="number"  min="1" max="100" name="post_wrk_carbohydrate" form="my_form" >
-            
-        </td>
-        <td>
-            <input class="form-control" type="number"  min="1" max="100" name="post_wrk_calory" form="my_form" >
-            
-        </td>
-    </tr>
-    
-  </tbody>
-</table>
+          <table class="table">
+            <h3>Post Workout</h3>
+            <thead>
+
+              <tr>
+                <th>Protein</th>
+                <th>Carbohydrate</th>
+                <th>Calory</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <input class="form-control" type="number" min="1" max="100" name="post_wrk_protein">
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" min="1" max="100" name="post_wrk_carbohydrate">
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" min="1" max="100" name="post_wrk_calory">
+
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
 
 
-          </div>
+        </div>
+
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+        </div>
+      </form>
+
+
+      <?php
+      
+      
+
+      if (isset($_POST['submit']) && $_SERVER['REQUEST_METHOD'] == 'POST') 
+      {
+        if (isset($_POST['breakfast_vitamin']) && isset($_POST['breakfast_protein']) &&  isset($_POST['breakfast_carbohydrate']) && isset($_POST['breakfast_minerals']) && isset($_POST['breakfast_fat']) && isset($_POST['breakfast_calory'])  &&   isset($_POST['lunch_vitamin']) && isset($_POST['lunch_protein']) &&  isset($_POST['lunch_carbohydrate']) && isset($_POST['lunch_minerals']) && isset($_POST['lunch_fat']) && isset($_POST['lunch_calory'])  &&   isset($_POST['dinner_vitamin']) && isset($_POST['dinner_protein']) &&  isset($_POST['dinner_carbohydrate']) && isset($_POST['dinner_minerals']) && isset($_POST['dinner_fat']) && isset($_POST['dinner_calory']) &&  isset($_POST['pre_wrk_protein']) &&  isset($_POST['pre_wrk_carbohydrate']) &&  isset($_POST['pre_wrk_calory']) &&  isset($_POST['post_wrk_protein']) &&  isset($_POST['post_wrk_carbohydrate']) &&  isset($_POST['post_wrk_calory'])) {
+    
+            $b_vitamin = $_POST['breakfast_vitamin'];
+            $b_protein = $_POST['breakfast_protein'];
+            $b_carbohydrate = $_POST['breakfast_carbohydrate'];
+            $b_minerals = $_POST['breakfast_minerals'];
+            $b_fat = $_POST['breakfast_fat'];
+            $b_calory = $_POST['breakfast_calory'];
+    
+            $l_vitamin = $_POST['lunch_vitamin'];
+            $l_protein = $_POST['lunch_protein'];
+            $l_carbohydrate = $_POST['lunch_carbohydrate'];
+            $l_minerals = $_POST['lunch_minerals'];
+            $l_fat = $_POST['lunch_fat'];
+            $l_calory = $_POST['lunch_calory'];
+    
+            $d_vitamin = $_POST['dinner_vitamin'];
+            $d_protein = $_POST['dinner_protein'];
+            $d_carbohydrate = $_POST['dinner_carbohydrate'];
+            $d_minerals = $_POST['dinner_minerals'];
+            $d_fat = $_POST['dinner_fat'];
+            $d_calory = $_POST['dinner_calory'];
+    
+            $pr_wrk_protein = $_POST['pre_wrk_protein'];
+            $pr_wrk_carbohydrate = $_POST['pre_wrk_carbohydrate'];
+            $pr_wrk_calory = $_POST['pre_wrk_calory'];
+    
+            $po_wrk_protein = $_POST['post_wrk_protein'];
+            $po_wrk_carbohydrate = $_POST['post_wrk_carbohydrate'];
+            $po_wrk_calory = $_POST['post_wrk_calory'];
+    
+    
+            $sql = "update Diet_Chart set B_VITAMIN='$b_vitamin',B_PROTEIN='$b_protein',B_CARBOHYDRATE='$b_carbohydrate',B_FAT='$b_fat',B_MINERALS='$b_minerals',B_CALORIES='$b_calory', L_VITAMIN='$l_vitamin',L_PROTEIN='$l_protein',L_CARBOHYDRATE='$l_carbohydrate',L_FAT='$l_fat',L_MINERALS='$l_minerals',L_CALORIES='$l_calory', D_VITAMIN='$d_vitamin',D_PROTEIN='$d_protein',D_CARBOHYDRATE='$d_carbohydrate',D_FAT='$d_fat',D_MINERALS='$d_minerals',D_CALORIES='$d_calory',PR_WRK_CARBOHYDRATE='$pr_wrk_carbohydrate',PR_WRK_PROTEIN='$pr_wrk_protein',PR_WRK_CALORIES='$pr_wrk_calory', PST_WRK_CARBOHYDRATE='$po_wrk_carbohydrate',PST_WRK_PROTEIN='$po_wrk_protein',PST_WRK_CALORIES='$po_wrk_calory' where Diet_Id= '$diet_id' ";
+    
+    
+            $stid2 = oci_parse($conn, $sql);
+            $r2 = oci_execute($stid2);
+         
+          echo "<div class='alert alert-success' role='alert'>This is a success alert—check it out!</div>
+          
+          ";
+
+
+
+          if($r2)  
+          {  
+            oci_commit($conn);
+            echo "Data Updated Successfully !";
+          }
+          else{
+            echo "Error.";
+          }
+
+
+        }
+      }
   
-          <div class="text-center">
-          <button type="submit" class="btn btn-primary">Submit</button>
-          </div>
-</form>
+  
+  
+      
+      
+      
+      
+      ?>
 
-    <div style="margin-bottom:20px ;"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+      <div style="margin-bottom:20px ;"></div>
     </div>
 
 
