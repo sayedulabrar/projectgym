@@ -1,0 +1,79 @@
+INSERT INTO M_PKG(
+    USERNAME,PKG_ID
+)VALUES(
+    'afk999',01
+);
+
+
+INSERT INTO M_PKG(
+    USERNAME,PKG_ID
+)VALUES(
+    'Ayon037',02
+);
+
+INSERT INTO M_PKG(
+    USERNAME,PKG_ID
+)VALUES(
+    'hasnat',02
+);
+
+INSERT INTO M_PKG(
+    USERNAME,PKG_ID
+)VALUES(
+    'rashid',03
+);
+
+INSERT INTO M_PKG(
+    USERNAME,PKG_ID
+)VALUES(
+    'meher',01
+);
+
+INSERT INTO M_PKG(
+    USERNAME,PKG_ID
+)VALUES(
+    'rahat',04
+);
+
+INSERT INTO M_PKG(
+    USERNAME,PKG_ID
+)VALUES(
+    'arafat',03
+);
+
+
+INSERT INTO M_PKG(
+    USERNAME,PKG_ID
+)VALUES(
+    'adrito',05
+);
+
+INSERT INTO M_PKG(
+    USERNAME,PKG_ID
+)VALUES(
+    'naiem',06
+);
+
+INSERT INTO M_PKG(
+    USERNAME,PKG_ID
+)VALUES(
+    'naima',07
+);
+
+INSERT INTO M_PKG(
+    USERNAME,PKG_ID
+)VALUES(
+    'megh',09
+);
+
+INSERT INTO M_PKG(
+    USERNAME,PKG_ID
+)VALUES(
+    'ruposhi',06
+);
+
+
+
+
+
+
