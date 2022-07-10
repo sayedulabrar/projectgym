@@ -14,7 +14,8 @@ SELECT COUNT(*) FROM Branch ;
 --list of branches
 SELECT Br_name,Br_Revenue,Br_Expendeture,Br_profit FROM Branch;
 
-
+--member count
+SELECT COUNT(*) FROM Member ;
 --Number of Packages.
 SELECT COUNT(*) FROM Package ;
 

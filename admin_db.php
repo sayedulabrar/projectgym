@@ -1,7 +1,15 @@
 <?php
-  session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
-  $uname = $_SESSION['uname'];
+session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
+$uname = $_SESSION['uname'];
 
+
+$conn = oci_connect('Abrar', 'saif0rrahman', 'localhost/xe')
+  or die(oci_error());
+if (!$conn) {
+  echo "sorry";
+} else {
+  
+}
 ?>
 
 <!DOCTYPE html>
@@ -55,7 +63,7 @@
   </nav>
   <!-- /.navbar -->
 
-    Main Sidebar Container
+ 
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
@@ -71,7 +79,7 @@
           <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+        <a href="employee_profile.php" class="d-block"><?php echo $uname; ?>
         </div>
       </div>
 
@@ -143,7 +151,7 @@
             <ul class="nav nav-treeview">
                  
               <li class="nav-item">
-                <a href="pages/examples/profilev2.html" class="nav-link">
+                <a href="employee_profile2.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Profile</p>
                 </a>
@@ -158,7 +166,7 @@
                 </a>
               
               <li class="nav-item">
-                <a href="pages/examples/Branch.html" class="nav-link active">
+                <a href="pages/examples/Branch.html" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Branch</p>
                 </a>
@@ -212,14 +220,24 @@
               <!-- small box -->
               <div class="small-box bg-danger">
                 <div class="inner">
-                  <h3>150</h3>
+                  <h3>
+                  <?php
+                  $sql="SELECT COUNT(*) FROM Employee WHERE Designation='Manager' ";
+                  $stid = oci_parse($conn, $sql);
+                  $r = oci_execute($stid);
+                  $mg=oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+
+                  echo $mg['COUNT(*)'];
+
+                  ?>
+                  </h3>
 
                   <p>Managers</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="manager_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="manager_list.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
 
@@ -227,14 +245,20 @@
               <!-- small box -->
               <div class="small-box bg-success">
                   <div class="inner">
-                  <h3>Details</h3>
 
                   <p>Registration Fee</p>
+                  <h3>
+                  
+                  Details
+                  
+                  
+                  
+                  </h3>
                   </div>
                   <div class="icon">
                   <i class="ion ion-bag"></i>
                   </div>
-                  <a href="registrationfee_list.html" class="small-box-footer">view <i class="fas fa-arrow-circle-right"></i></a>
+                  <a href="registrationfee_list.php" class="small-box-footer">view <i class="fas fa-arrow-circle-right"></i></a>
               </div>
               </div>
 
@@ -244,21 +268,44 @@
               <!-- small box -->
               <div class="small-box bg-warning">
                 <div class="inner">
-                  <h3>44</h3>
+                  <h3>
+                  
+                  <?php
+                  $sql="SELECT COUNT(*) FROM Branch ";
+                  $stid = oci_parse($conn, $sql);
+                  $r = oci_execute($stid);
+                  $mg=oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+
+                  echo $mg['COUNT(*)'];
+
+                  ?>
+
+                  </h3>
 
                   <p>Number of Branches</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-person-add"></i>
                 </div>
-                <a href="branch_list.html" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="branch_list.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <div class="col-lg-3 col-12">
               <!-- small box -->
               <div class="small-box bg-success">
                   <div class="inner">
-                  <h3>10015</h3>
+                  <h3>
+                  
+                  <?php
+                  $sql="SELECT COUNT(*) FROM Member ";
+                  $stid = oci_parse($conn, $sql);
+                  $r = oci_execute($stid);
+                  $mg=oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+
+                  echo $mg['COUNT(*)'];
+                  ?>
+
+                  </h3>
 
                   <p>Member Registered</p>
                   </div>
@@ -275,8 +322,8 @@
               <div class="card">
                 <div class="card-header">
                   
-
-                  
+            
+                
                 </div>
                 <!-- /.card-header -->
                 <!-- ./card-body -->
@@ -285,7 +332,15 @@
                     <div class="col-sm-4 col-8">
                       <div class="description-block border-right">
                         <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 17%</span>
-                        <h5 class="description-header">$35,210.43</h5>
+                        <h5 class="description-header">
+                        <?php
+                         $sql = "SELECT SUM(BR_REVENUE) FROM Branch";
+                         $stid = oci_parse($conn, $sql);
+                         $r = oci_execute($stid);
+                         $Branch = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                         echo $Branch['SUM(BR_REVENUE)'];
+                        ?>
+                        </h5>
                         <span class="description-text">TOTAL REVENUE</span>
                       </div>
                       <!-- /.description-block -->
@@ -294,7 +349,15 @@
                     <div class="col-sm-4 col-8">
                       <div class="description-block border-right">
                         <span class="description-percentage text-warning"><i class="fas fa-caret-left"></i> 0%</span>
-                        <h5 class="description-header">$10,390.90</h5>
+                        <h5 class="description-header">
+                        <?php
+                         $sql = "SELECT SUM(BR_EXPENDITURE) FROM Branch";
+                         $stid = oci_parse($conn, $sql);
+                         $r = oci_execute($stid);
+                         $Branch = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                        echo $Branch["SUM(BR_EXPENDITURE)"];
+                       ?>
+                       </h5>
                         <span class="description-text">TOTAL COST</span>
                       </div>
                       <!-- /.description-block -->
@@ -303,7 +366,15 @@
                     <div class="col-sm-4 col-8">
                       <div class="description-block border-right">
                         <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 20%</span>
-                        <h5 class="description-header">$24,813.53</h5>
+                        <h5 class="description-header">
+                        <?php
+                        $sql = "SELECT SUM(BR_PROFIT) FROM Branch";
+                        $stid = oci_parse($conn, $sql);
+                        $r = oci_execute($stid);
+                        $Branch = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                        echo $Branch["SUM(BR_PROFIT)"];
+                       ?>
+                        </h5>
                         <span class="description-text">TOTAL PROFIT</span>
                       </div>
                       <!-- /.description-block -->

@@ -1,6 +1,43 @@
+<?php
+session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
+$uname = $_SESSION['uname'];
 
 
 
+$conn = oci_connect('Abrar', 'saif0rrahman', 'localhost/xe')
+  or die(oci_error());
+if (!$conn) {
+  echo "sorry";
+} else {
+
+
+      
+
+  if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+             if(isset($_POST['salary']) ) {
+               $br_name = $_POST['uname'];
+               $fee=$_POST['salary'];
+               $sql = "update Branch set REG_FEE = '$fee' where BR_NAME='$br_name' ";
+               $stid = oci_parse($conn, $sql);
+               $r = oci_execute($stid);
+               
+               
+               
+
+
+  
+  
+    
+             }
+
+            }
+  
+
+
+           
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +54,8 @@
   <link rel="stylesheet" href="      plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="      dist/css/adminlte.min.css">
+
+  <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 </head>
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
@@ -189,41 +228,98 @@
   <div class="content-wrapper">
   <section class="content" style="margin-bottom:50px ;">
 
-     <div class="d-flex justify-content-center" style=" padding-top:1%;text-decoration: lightslategray;"><h2>Registration Info</h2></div>
+
+    <!-- /Insert Modal -->
+     <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">Edit Info</h5>
+              </div>
+              <div class="modal-body">
+                <form action="registrationfee_list.php" method="POST">
+                  <div class="modal-body">
+                    
+                    <div class="row">
+                      <div class="form-group col-lg-6 col-12">
+                        <label for="uname">Branch Name</label>
+                        <input type="text" class="form-control" id="uname" name="uname" aria-describedby="emailHelp">
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="form-group col-lg-6 col-12">
+                        <label for="salary">Registration Fee</label>
+                        <input type="text" class="form-control" id="salary" name="salary" aria-describedby="emailHelp">
+                      </div>
+                      
+                    </div>
+                    
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='registrationfee_list.php'">Close</button>
+                    <button type="submit" class="btn btn-primary">Confirm</button>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+
+       
+
+
+
+
+
+
+    <div class="d-flex justify-content-center" style=" padding-top:1%;text-decoration: lightslategray;"><h2>Registration Info</h2></div>
 
     <div class="card-body"style="margin-top:1%">
 
         
-      <table class="table table-hover table-striped">
-        <tbody style="color:#33ABF9 ;">
+      <table class="table table-hover table-striped" id='myTable'>
+        
+        <thead>
         <tr>
           <th>Branch Name</th>
           <th>Registration Fee</th>
-          <th></th>
-          <th></th>
-        </tr> 
-        <tr >
-          
-          
-          <td >Chittagong</td>
-          <td > 800</td>
-          <td ><input class="form-control" id="exampleFormControlInput1"> </td>
-          <td ><input type="submit" value="Edit fee" class="btn btn-success float-right"></td>
-          
+          <th>Action</th>
         </tr>
 
-        <tr >
+        </thead>
+
+        <tbody style="color:#33ABF9 ;">
+        
+        
+        <?php
+         
+        $sql = "Select Br_name,Reg_fee FROM Branch";
+        $stid = oci_parse($conn, $sql);
+        $r = oci_execute($stid);
+  
+        while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+          echo
+          "
+          <tr >
           
-            <td >  Uttora</td>
-          <td ><b> </b> 900</td>
-          <td ><input class="form-control" id="exampleFormControlInput1"> </td>
-          <td ><input type="submit" value="Edit fee" class="btn btn-success float-right"></td>
           
-           
+            <td >" . $row['BR_NAME'] . "</td>
+            <td >" . $row['REG_FEE'] . "</td>
+            <td ><button class='update btn btn-sm btn-primary' id=".$row['BR_NAME'].">Edit</button> </td>
             
-          </tr>
+            
+          </tr> 
+          " ;
+        }
 
+        ?>
+        
 
+        
 
           
     
@@ -273,6 +369,27 @@
 <!-- AdminLTE for demo purposes -->
 <script src="      dist/js/demo.js"></script>
 <!-- Page specific script -->
+
+<script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+  <script>
+    updates = document.getElementsByClassName('update');
+    Array.from(updates).forEach((element)=>{
+      element.addEventListener("click", (e)=>{
+        // console.log("update ", );
+        tr = e.target.parentNode.parentNode;
+        uname.value = e.target.id;        
+        salary.value = tr.getElementsByTagName("td")[1].innerText;
+        console.log(salary);
+        $('#exampleModal1').modal('toggle');
+      })
+    })
+  </script>
+  
+  <script>
+    $(document).ready(function() {
+      $('#myTable').DataTable();
+    });
+  </script>
 
 </body>
 </html>

@@ -1,6 +1,25 @@
+<?php
+session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 
 
 
+$conn = oci_connect('Abrar', 'saif0rrahman', 'localhost/xe')
+  or die(oci_error());
+if (!$conn) {
+  echo "sorry";
+} else {
+//   if($_SERVER['REQUEST METHOD']=='POST')
+//   {
+//     $nme=$_POST[''];
+//     $fee=$_POST['ctrl'];
+//     $sql = "update Branch set REG_FEE = $fee where BR_NAME=";
+//     $stid = oci_parse($conn, $sql);
+//     $r = oci_execute($stid);
+
+
+//   }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -189,41 +208,50 @@
   <div class="content-wrapper">
   <section class="content" style="margin-bottom:50px ;">
 
-     <div class="d-flex justify-content-center" style=" padding-top:1%;text-decoration: lightslategray;"><h2>Registration Info</h2></div>
+     <div class="d-flex justify-content-center" style=" padding-top:1%;text-decoration: lightslategray;"><strong>Registration Info</strong></div>
 
     <div class="card-body"style="margin-top:1%">
 
         
-      <table class="table table-hover table-striped">
-        <tbody style="color:#33ABF9 ;">
+    <table class="table table-hover table-striped" id='myTable'>
+        <thead>
         <tr>
           <th>Branch Name</th>
-          <th>Registration Fee</th>
-          <th></th>
-          <th></th>
-        </tr> 
-        <tr >
-          
-          
-          <td >Chittagong</td>
-          <td > 800</td>
-          <td ><input class="form-control" id="exampleFormControlInput1"> </td>
-          <td ><input type="submit" value="Edit fee" class="btn btn-success float-right"></td>
-          
+          <th>Total Ravenue</th>
+
+          <th>Total Cost</th>
+          <th>Total Profit</th>
         </tr>
-
-        <tr >
+        </thead>
+        
+        <tbody>
+        <?php
+         
+        $sql = "Select * FROM Branch";
+        $stid = oci_parse($conn, $sql);
+        $r = oci_execute($stid);
+  
+        while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+          echo
+          "
+          <tr >
           
-            <td >  Uttora</td>
-          <td ><b> </b> 900</td>
-          <td ><input class="form-control" id="exampleFormControlInput1"> </td>
-          <td ><input type="submit" value="Edit fee" class="btn btn-success float-right"></td>
           
-           
+            <td > <strong>" . $row['BR_NAME'] . "</strong></td>
+            <td ><strong>" . $row['BR_REVENUE'] . "</strong></td>
+            <td ><strong>" . $row['BR_EXPENDITURE'] . "</strong></td>
+            <td ><strong>" . $row['BR_PROFIT'] . "</strong></td>
             
-          </tr>
+            
+            
+          </tr> 
+          " ;
+        }
 
+        ?>
+        
 
+        
 
           
     
