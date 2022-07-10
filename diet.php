@@ -25,15 +25,18 @@ if (!$conn) {
     
     if (isset($_POST['breakfast_vitamin']) && isset($_POST['breakfast_protein']) &&  isset($_POST['breakfast_carbohydrate']) && isset($_POST['breakfast_minerals']) && isset($_POST['breakfast_fat']) && isset($_POST['breakfast_calory'])  &&   isset($_POST['lunch_vitamin']) && isset($_POST['lunch_protein']) &&  isset($_POST['lunch_carbohydrate']) && isset($_POST['lunch_minerals']) && isset($_POST['lunch_fat']) && isset($_POST['lunch_calory'])  &&   isset($_POST['dinner_vitamin']) && isset($_POST['dinner_protein']) &&  isset($_POST['dinner_carbohydrate']) && isset($_POST['dinner_minerals']) && isset($_POST['dinner_fat']) && isset($_POST['dinner_calory']) &&  isset($_POST['pre_wrk_protein']) &&  isset($_POST['pre_wrk_carbohydrate']) &&  isset($_POST['pre_wrk_calory']) &&  isset($_POST['post_wrk_protein']) &&  isset($_POST['post_wrk_carbohydrate']) &&  isset($_POST['post_wrk_calory'])) 
     {
-      $sql="select * from diet_chart order by diet_id desc";
-      $stid = oci_parse($conn, $sql);
-      $r = oci_execute($stid);
-      $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-
-      $diet_id = $row['DIET_ID'];
+      
+      
       if(!isset($mem['diet_id']))
       {
-        $diet_id=$diet_id+1;
+        //$diet_id=$diet_id+1;
+        $sql="select * from diet_chart order by diet_id desc";
+        $stid = oci_parse($conn, $sql);
+        $r = oci_execute($stid);
+        $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+
+        $diet_id = $row['DIET_ID']+1;
+
         $b_vitamin = $_POST['breakfast_vitamin'];
         $b_protein = $_POST['breakfast_protein'];
         $b_carbohydrate = $_POST['breakfast_carbohydrate'];
@@ -75,12 +78,14 @@ if (!$conn) {
           $sql="update member set diet_id=$diet_id where username=$uname";
           $stid = oci_parse($conn,$sql);
           $r=oci_execute($stid);
+          $flag=1;
 
 
       }
+
       else
       {
-        $diet_id=$diet_id;
+        $diet_id=$mem['diet_id'];
         $b_vitamin = $_POST['breakfast_vitamin'];
         $b_protein = $_POST['breakfast_protein'];
         $b_carbohydrate = $_POST['breakfast_carbohydrate'];
@@ -111,9 +116,9 @@ if (!$conn) {
         $po_wrk_calory = $_POST['post_wrk_calory'];
 
         $sql = "update Diet_Chart set B_VITAMIN='$b_vitamin',B_PROTEIN='$b_protein',B_CARBOHYDRATE='$b_carbohydrate',B_FAT='$b_fat',B_MINERALS='$b_minerals',B_CALORIES='$b_calory', L_VITAMIN='$l_vitamin',L_PROTEIN='$l_protein',L_CARBOHYDRATE='$l_carbohydrate',L_FAT='$l_fat',L_MINERALS='$l_minerals',L_CALORIES='$l_calory', D_VITAMIN='$d_vitamin',D_PROTEIN='$d_protein',D_CARBOHYDRATE='$d_carbohydrate',D_FAT='$d_fat',D_MINERALS='$d_minerals',D_CALORIES='$d_calory',PR_WRK_CARBOHYDRATE='$pr_wrk_carbohydrate',PR_WRK_PROTEIN='$pr_wrk_protein',PR_WRK_CALORIES='$pr_wrk_calory, PST_WRK_CARBOHYDRATE='$po_wrk_carbohydrate',PST_WRK_PROTEIN='$po_wrk_protein',PST_WRK_CALORIES='$po_wrk_calory' where Diet_Id=$diet_id";
+
         $stid = oci_parse($conn,$sql);
         $r=oci_execute($stid);
-
 
       }
     
