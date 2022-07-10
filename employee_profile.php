@@ -39,7 +39,12 @@ if (!$conn) {
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
 </head>
 
-<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+
+
+  
+
+
   <div class="wrapper">
 
 
@@ -185,9 +190,14 @@ if (!$conn) {
     </aside>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper" style="margin-top: 0;">
+    <div class="content-wrapper dark-mode" style="margin-top: 0; ">
       <!-- Content Header (Page header) -->
-      <section class="content-header">
+      
+      <section class="content-header ">
+        
+
+
+
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
@@ -352,10 +362,16 @@ if (!$conn) {
                             ?>
                           </a>
                         </li>
+                        
                       </ul>
+                      
                     </div>
+                    
                   </div>
-
+                  <div class="float-right">
+                    <!-- <a href="profile_edit.html"> -->
+                      <button type="button" class="update btn btn-primary"  data-toggle="modal" data-target="#exampleModal"><i class="fa-solid fa-user-pen"></i> Edit</button>
+                  </div>
 
                 </div>
                 <!-- /.card-body -->
@@ -377,18 +393,107 @@ if (!$conn) {
             </div>
         </div>
       </div> -->
+      
+
         <div class="card-footer">
-          <div class="float-right">
-            <a href="profile_edit.html">
-              <button type="submit" class="btn btn-primary"><i class="fa-solid fa-user-pen"></i> Edit</button></a>
-          </div>
+          
 
         </div>
       </section>
 
       <!-- /.content -->
       <div style="margin-bottom:30px ;"></div>
+
     </div>
+    <div class="bg-light clearfix">
+          <div>
+            <!-- <div class="col-lg-6 col-md-12">
+              <h2 style="margin-left: 25px;">Package Info</h2>
+            </div> -->
+            <div class="col-lg-6 col-md-12" style="padding-top: 0px;padding-right:40px;">
+              <!-- Insert Modal -->
+              <!-- <button type="button" class="insert btn btn-success float-right" data-toggle="modal" data-target="#exampleModal">Add New</button> -->
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Edit Info</h5>
+                      <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button> -->
+                    </div>
+                    <div class="modal-body">
+                      <form action="packages_list.php" method="POST">
+                        <div class="modal-body">
+                          <input type="hidden" name="snoEdit" id="snoEdit">
+                          <div class="row">
+                            <div class="form-group col-lg-6 col-12">
+                              <label for="name">Username</label>
+                              <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp">
+                            </div>
+                            <div class="form-group col-lg-6 col-12">
+                              <label for="name">Name</label>
+                              <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp">
+                            </div>
+                          </div>
+                          
+                          <div class="row">
+                            <div class="form-group col-lg-6 col-12">
+                              <label for="amount">Gender</label>
+                              <input type="text" class="form-control" id="amount" name="amount" aria-describedby="emailHelp">
+                            </div>
+                            <div class="form-group col-lg-6 col-12">
+                              <label for="type">Date of Birth(DD-MM-YYYY)</label>
+                              <input type="text" class="form-control" id="amount" name="amount" aria-describedby="emailHelp">
+                            </div>
+                          </div>
+                          
+                          <div class="row">
+                            <div class="form-group col-lg-6 col-12">
+                              <label for="amount">Password</label>
+                              <input type="text" class="form-control" id="amount" name="amount" aria-describedby="emailHelp">
+                            </div>
+                            <div class="form-group col-lg-6 col-12">
+                              <label for="type">Confirm Password</label>
+                              <input type="text" class="form-control" id="amount" name="amount" aria-describedby="emailHelp">
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="form-group col-lg-6 col-12">
+                              <label for="amount">Email</label>
+                              <input type="email" class="form-control" id="amount" name="amount" aria-describedby="emailHelp">
+                            </div>
+                            <div class="form-group col-lg-6 col-12">
+                              <label for="type">Address</label>
+                              <input type="text" class="form-control" id="amount" name="amount" aria-describedby="emailHelp">
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="form-group col-lg-6 col-12">
+                              <label for="amount">Account No</label>
+                              <input type="text" class="form-control" id="amount" name="amount" aria-describedby="emailHelp">
+                            </div>
+                            <div class="form-group col-lg-6 col-12">
+                              <label for="type">Mobile No</label>
+                              <input type="text" class="form-control" id="amount" name="amount" aria-describedby="emailHelp">
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <!-- /Insert Modal -->
+
+
+            </div>
+          </div>
+        </div>
+
     <!-- /.content-wrapper -->
 
 
@@ -408,6 +513,17 @@ if (!$conn) {
   <script src="dist/js/adminlte.min.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="dist/js/demo.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  <script>
+    
+    updates = document.getElementsByClassName('update');
+    Array.from(updates).forEach((element)=>{
+      element.addEventListener("click", (e)=>{
+        // console.log("update ", );
+        tr = e.target.parentNode.parentNode;
+      })
+    })
+  </script>
 </body>
 
 </html>
