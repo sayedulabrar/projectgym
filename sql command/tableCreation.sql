@@ -214,12 +214,21 @@ ALTER TABLE Users
 ADD CONSTRAINT Users_Br_Name_fk
 FOREIGN KEY(Br_name) REFERENCES Branch(Br_name) ON DELETE CASCADE;
 
+ALTER TABLE users 
+ADD CONSTRAINT fk_users 
+FOREIGN KEY (username) 
+REFERENCES users (username) ON UPDATE CASCADE; 
+
 ALTER TABLE Message
 ADD PRIMARY KEY (Mes_Id);
 
 ALTER TABLE Message
 ADD CONSTRAINT Message_Username_fk
 FOREIGN KEY(Username) REFERENCES Users(Username) ON DELETE CASCADE;
+
+ALTER TABLE Message
+ADD CONSTRAINT Message_Username_fk
+FOREIGN KEY(Username) REFERENCES Users(Username) ON update CASCADE;
 
 ALTER TABLE Employee
 ADD CONSTRAINT Employee_Username_fk
