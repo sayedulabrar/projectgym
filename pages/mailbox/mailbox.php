@@ -2,6 +2,18 @@
 
 session_start();
 
+if ($_GET == NULL) {
+  $uname = $_SESSION['uname'];
+  
+  //$va1=$uname;
+} else {
+  $uname = $_GET['un'];
+  
+  //$va2=$uname;
+}
+
+$username = $_SESSION['uname'];
+
 
 ?>
 
@@ -70,7 +82,7 @@ session_start();
           <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="../../admin_profile.html" class="d-block">Alexander Pierce</a>
+          <?php echo "<a href='../../admin_profile.html' class='d-block'>".$username."</a>"; ?>
         </div>
       </div>
 
