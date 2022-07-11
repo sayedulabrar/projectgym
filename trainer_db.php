@@ -142,12 +142,19 @@ else
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="pages/mailbox/mailbox.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
+                            <?php
+                               echo "<li class='nav-item'>
+
+                                
+                                    
+                                         <a href='pages/mailbox/mailbox.php?un=".$uname."' class='nav-link'>
+                                        <i class='far fa-circle nav-icon'></i>
                                         <p>Inbox</p>
-                                    </a>
-                                </li>
+                                         </a>
+
+                                   
+                                </li>";
+                                ?>
                                 <li class="nav-item">
                                     <a href="pages/mailbox/compose.html" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
