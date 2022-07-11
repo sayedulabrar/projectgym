@@ -15,7 +15,7 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
 if (!$conn) {
   echo "sorry";
 } else {
-  if($_SERVER['REQUEST_METHOD'] == 'POST')
+  if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit']))
   {
 
 
@@ -40,35 +40,9 @@ if (!$conn) {
         $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
 
         $diet_id = $row['DIET_ID']+1;
-        $update = "update MEMBER SET DIET_ID='$diet_id' WHERE USERNAME='$uname';";
+        $update = "insert into MEMBER(diet_id) values('$diet_id') WHERE USERNAME='$uname';";
         $stmt = oci_parse($conn, $update);
-                    //oci_bind_by_name($stmt, ':table', $uname);
         $result = oci_execute($stmt);
-        $row_count = oci_num_rows($stmt);                                    
-        oci_commit($conn);  
-        if ($row_count>0) {
-            echo "Error!";   
-        }
-        else
-        {
-            echo "Success!";
-        }
-
-
-
-
-        /*$sql="update member set DIET_ID='$diet_id' where username='$uname'";
-        $stid = oci_parse($conn,$sql);
-        $r=oci_execute($stid);
-
-        if($stid)
-        {
-            echo "Updated Successfully!!";
-        }
-        else
-        {
-            echo "Did Not Update!";
-        }*/
 
         $b_vitamin = $_POST['breakfast_vitamin'];
         $b_protein = $_POST['breakfast_protein'];
@@ -161,7 +135,7 @@ if (!$conn) {
     
 
     }
-
+  
   header("location: diet.php");
   //exit;
   
