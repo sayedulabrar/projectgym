@@ -1,11 +1,12 @@
 <?php
   session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
-
   if ($_GET == NULL) {
     $uname = $_SESSION['uname'];
+    
     //$va1=$uname;
   } else {
     $uname = $_GET['un'];
+    
     //$va2=$uname;
   }
   //$uname = $_GET['un'];
@@ -89,7 +90,7 @@
           $r = oci_execute($stid);
 
 
-
+          //header("location: diet.php?un=$uname");
           
           
           
@@ -136,13 +137,17 @@
         
 
       }
+
+      
     
 
     }
 
 
+    //header("location: diet.php?un=$uname");
 
     }
+
 ?>
 
 <!DOCTYPE html>
