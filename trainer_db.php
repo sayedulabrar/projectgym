@@ -249,6 +249,7 @@ else
                                 <div class="icon">
                                     <i class="ion ion-bag"></i>
                                 </div>
+                                <a href="#" class="small-box-footer"> <i class="fas"></i></a>
                             </div>
                         </div>
 
@@ -263,6 +264,7 @@ else
                                 <div class="icon">
                                     <i class="ion ion-person-add"></i>
                                 </div>
+                                <a href="#" class="small-box-footer"> <i class="fas"></i></a>
                             </div>
                         </div>
 
@@ -282,6 +284,7 @@ else
                                 <div class="icon">
                                     <i class="ion ion-person-add"></i>
                                 </div>
+                                <a href="#" class="small-box-footer"> <i class="fas"></i></a>
                             </div>
                         </div>
 
@@ -300,6 +303,7 @@ else
                                 <div class="icon">
                                     <i class="ion ion-person-add"></i>
                                 </div>
+                                <a href="#" class="small-box-footer"> <i class="fas"></i></a>
                             </div>
                         </div>
 
