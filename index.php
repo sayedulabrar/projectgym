@@ -18,6 +18,7 @@ if (!$conn) {
 
     if($username=='Admin1' && $password=='admin')
     {
+      $_SESSION['profation']='Admin';
       header("Location: admin_db.php");
     }
     else if ($row == NULL) {
@@ -33,16 +34,21 @@ if (!$conn) {
         $r = oci_execute($stid);
         $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
         if ($row == NULL) {
+          $_SESSION['profation']='Admin';
           header("Location: admin_db.php");
         } else {
+          $_SESSION['profation']='Member';
           header("Location: member_db.php");
         }
       } else {
         if ($row['DESIGNATION'] == 'Manager') {
+          $_SESSION['profation']='Manager';
           header("Location: manager_db.php");
         } else if ($row['DESIGNATION'] == 'Trainer') {
+          $_SESSION['profation']='Trainer';
           header("Location: trainer_db.php");
         } else {
+          $_SESSION['profation']='Receptionist';
           header("Location: receptionist.php");
         }
       }

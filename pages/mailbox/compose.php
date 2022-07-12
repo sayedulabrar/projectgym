@@ -1,7 +1,7 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $uname = $_SESSION['uname'];
-$designation = 'Admin';   // aita get method dia ante hobe link er shathe pataia.
+$designation = $_SESSION['profation'];   // aita get method dia ante hobe link er shathe pataia.
 $conn = oci_connect('Abrar', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
@@ -77,7 +77,7 @@ if (!$conn) {
       <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
     </div>
     <div class="info">
-      <a href="../../admin_profile.html" class="d-block"><?php echo $uname ?></a>
+      <a href="#" class="d-block"><?php echo $uname ?></a>
     </div>
   </div>
 

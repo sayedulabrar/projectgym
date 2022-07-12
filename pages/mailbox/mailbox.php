@@ -9,12 +9,35 @@ if ($_GET == NULL) {
   $uname = $_GET['un'];
 }
 
+$job= $_SESSION['profation'];
+
 
 $conn = oci_connect('Abrar', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
   echo "sorry";
 } else {
+
+  if($job!="Member")
+  {
+    $sql="Select EMP_ID FROM EMPLOYEE where USERNAME='$uname'";
+    $stid = oci_parse($conn, $sql);
+    $r = oci_execute($stid);
+    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+    $reciverid=$row['EMP_ID'];
+  }else
+  {
+
+    $sql="Select MEM_ID FROM MEMBER where USERNAME='$uname'";
+    $stid = oci_parse($conn, $sql);
+    $r = oci_execute($stid);
+    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+    $reciverid=$row['MEM_ID'];
+  }
+
+  
+  
+
   
 }
 
@@ -52,7 +75,7 @@ if (!$conn) {
       <a href="../../index3.html" class="brand-link">
         <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
           style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <span class="brand-text font-weight-light"><?php echo $reciverid; ?></span>
       </a>
 
       <!-- Sidebar -->
@@ -112,13 +135,13 @@ if (!$conn) {
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="../mailbox/mailbox.html" class="nav-link active">
+                  <a href="../mailbox/mailbox.php" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Inbox</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../mailbox/compose.html" class="nav-link">
+                  <a href="../mailbox/compose.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Compose</p>
                   </a>
@@ -290,7 +313,7 @@ if (!$conn) {
 
           
               $sql = "Select MES_ID, RECIEVER_ID, SUBJECT,ROUND(SYSDATE - S_DATE), USERNAME  From MESSAGE JOIN EMPLOYEE  ON (EMPLOYEE.EMP_ID=MESSAGE.SENDER_ID)
-              where RECIEVER_ID = (Select Emp_ID FROM EMPLOYEE  where DESIGNATION='Admin')";
+              where RECIEVER_ID = '$reciverid'";
               $stid = oci_parse($conn, $sql);
               $r = oci_execute($stid);
               if($r){
@@ -314,6 +337,16 @@ if (!$conn) {
                   
                 
                 }
+              }else
+              {
+
+              $sql = "Select MES_ID, RECIEVER_ID, SUBJECT,ROUND(SYSDATE - S_DATE), USERNAME  From MESSAGE JOIN MEMBER  ON (MEMBER.MEM_ID=MESSAGE.SENDER_ID)
+              where RECIEVER_ID = (Select Emp_ID FROM EMPLOYEE  where DESIGNATION='$job')";
+              $stid = oci_parse($conn, $sql);
+              $r = oci_execute($stid);
+
+
+
               }
               
               
