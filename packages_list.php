@@ -1,60 +1,67 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $uname = $_SESSION['uname'];
-if($_GET['un'] == 'w') {
-  $wrongUsername = true;
-}
-else {
-  $wrongUsername = false;
-}
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
   echo "sorry";
 } else {
-  
-  if (isset($_POST['username']) && isset($_POST['amount']) && isset($_POST['type'])) {
-    $sql = "select *from income order by trx_id desc";
-    $stid = oci_parse($conn, $sql);
-    $r = oci_execute($stid);
-    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-    $trx_id = $row['TRX_ID'] + 1;
-    $type = $_POST['type'];
-    $username = $_POST['username'];
-    $amount = $_POST['amount'];
-    $details = $_POST['details'];
-    $sql = "select *from users where username='$username'";
-    $stid = oci_parse($conn, $sql);
-    $r = oci_execute($stid);
-    $roww = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-    if($roww == NULL) {
-      $wrongUsername = true;
-      header("Location: revenue_list.php?un=w");
-    }
-    else {
+  if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['name']) && isset($_POST['amount']) &&  isset($_POST['duration'])) {
+      $sql = "select *from package order by pkg_id desc";
+      $stid = oci_parse($conn, $sql);
+      $r = oci_execute($stid);
+      $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+      $pkg_id = $row['PKG_ID'] + 1;
+      $type = $_POST['type'];
+      $name = $_POST['name'];
+      $amount = $_POST['amount'];
+      $duration = $_POST['duration'];
       $sql = "select *from users where username='$uname'";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
       $roww = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
       $br_name = $roww['BR_NAME'];
-      $sql = "insert into income (trx_id, username, inc_amount, inc_details, br_name, inc_type, inc_dateandtime) values($trx_id, '$username', $amount, '$details', '$br_name', '$type', SYSTIMESTAMP)";
+      $sql = "insert into package (pkg_id, pkg_type, pkg_charge, pkg_name, pkg_duration) values($pkg_id, '$type', $amount, '$name', $duration)";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
-      header("Location: revenue_list.php?un=i");
+      $sql = "insert into br_pkg (pkg_id, br_name) values($pkg_id, '$br_name')";
+      $stid = oci_parse($conn, $sql);
+      $r = oci_execute($stid);
+
+      header("Location: packages_list.php?un=i");
+
+    }
+    if(isset($_POST['pkg_id'])) {
+      $pkg_id = $_POST['pkg_id'];
+      $sql = "DELETE FROM package WHERE pkg_id = '$pkg_id'";
+      $stid = oci_parse($conn, $sql);
+      $r = oci_execute($stid);
+      // $x = $pkg_id;
+      
+      header("Location: packages_list.php?un=d");
+    }
+    if(isset($_POST['pkg_id2'])) {
+      $pkg_id = $_POST['pkg_id2'];
+      $duration = $_POST['duration1'];
+      $charge = $_POST['amount1'];
+      $sql = "update package set pkg_duration = $duration, pkg_charge = $charge  where pkg_id = $pkg_id";
+      $stid = oci_parse($conn, $sql);
+      $r = oci_execute($stid);
+      
+      header("Location: packages_list.php?un=u");
     }
   }
-}
 
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Revenue List</title>
-
+  <title>Packages List</title>
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
@@ -64,17 +71,15 @@ if (!$conn) {
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
-
 </head>
+
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
   <div class="wrapper">
-
     <!-- Preloader -->
     <!-- <div class="preloader flex-column justify-content-center align-items-center">
       <img class="animation__wobble" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
     </div> -->
-
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand-lg navbar-dark fixed-top">
       <!-- Left navbar links -->
@@ -91,11 +96,7 @@ if (!$conn) {
         </ul>
       </div>
     </nav>
-
-
-
     <!-- /.navbar -->
-
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
@@ -103,7 +104,6 @@ if (!$conn) {
         <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Fitness Mania</span>
       </a>
-
       <!-- Sidebar -->
       <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
@@ -117,7 +117,6 @@ if (!$conn) {
             </a>
           </div>
         </div>
-
         <!-- SidebarSearch Form -->
         <!-- <div class="form-inline">
           <div class="input-group" data-widget="sidebar-search">
@@ -129,7 +128,6 @@ if (!$conn) {
             </div>
           </div>
         </div> -->
-
         <!-- Sidebar Menu -->
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -144,21 +142,14 @@ if (!$conn) {
                 </p>
               </a>
               <ul class="nav nav-treeview">
-
                 <li class="nav-item">
                   <a href="manager_db.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Manager</p>
                   </a>
                 </li>
-
               </ul>
             </li>
-
-
-
-
-
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="nav-icon far fa-envelope"></i>
@@ -180,94 +171,74 @@ if (!$conn) {
                     <p>Compose</p>
                   </a>
                 </li>
-
               </ul>
             </li>
           </ul>
           </li>
-
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
       </div>
       <!-- /.sidebar -->
     </aside>
-
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-      <!-- <section class="content" style="margin-bottom:50px ;">
-        <form>
-          <div class="row">
-            <div class="col-lg-1 col-md-12">
-
-            </div>
-            <div class="col-lg-4 col-md-12">
-              <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Sender Username</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">      
-              </div>
-              <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Amount</label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
-              </div>
-            </div>
-            <div class="col-lg-1 col-md-12">
-
-            </div>
-            <div class="col-lg-4 col-md-12">
-              <div class="input-group mb-3">
-                <label for="exampleSelect1" class="form-label">Income Type</label>
-                <select class="form-select" aria-label="Default select example" style="width: 490px;height:40px" id="exampleSelect1">
-                  <option value = "Payment of Package" selected>Payment of Package</option>
-                  <option value="Investment of Member">Investment from Member</option>
-                  <option value="Investment of Employee">Investment from Employee</option>
-                  <option value="For Advertising">For Advertising</option>
-                  <option value="Others">Others</option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Details</label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-10 col-md-12">
-            
-            </div>
-            <div class="col-lg-2 col-md-12">
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-             
-          </div>
-          
-        </form>
-      </section> -->
       <section class="content" style="margin-bottom:50px ;">
+        <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel1">Are you sure you want to remove this package?</h5>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button> -->
+              </div>
+              <div class="modal-body">
+                <form action="packages_list.php" method="POST">
+                  <input type="hidden" name="pkg_id" id="pkg_id">
+                  <div class="modal-body" style="float: right;">
+                  <button type="button" class="btn btn-secondary" onclick="window.location.href='packages_list.php'">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Comfirm</button>
+                  </div> 
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
         <?php
-          if($wrongUsername) {
-            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
-            You have given a wrong username
-            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-              <span aria-hidden='true'>&times;</span>
-            </button>
-          </div>";
-          }
-          else if($_GET) {
-            if($_GET['un']=='i') {
+          if($_GET) {
+            if($_GET['un'] == 'i') {
               echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-              Successfully Inserted
+              Successfully inserted
               <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-                <span aria-hidden='true'>&times;</span>
+              <span aria-hidden='true'>&times;</span>
+              </button>
+            </div>";
+            }
+            elseif($_GET['un'] == 'u') {
+              echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+              Successfully Updated
+              <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+              <span aria-hidden='true'>&times;</span>
+              </button>
+            </div>";
+            }
+            
+            elseif($_GET['un'] == 'd') {
+              echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+              Successfully Deleted
+              <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+              <span aria-hidden='true'>&times;</span>
               </button>
             </div>";
             }
           }
         ?>
+
         <div class="bg-light clearfix">
           <div class="row" style="padding-top: 30px;">
             <div class="col-lg-6 col-md-12">
-              <h2 style="margin-left: 25px;">Revenue Info</h2>
+              <h2 style="margin-left: 25px;">Package Info</h2>
             </div>
             <div class="col-lg-6 col-md-12" style="padding-top: 15px;padding-right:40px;">
               <!-- Insert Modal -->
@@ -277,45 +248,95 @@ if (!$conn) {
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Add New Revenue</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <h5 class="modal-title" id="exampleModalLabel">Add New Package</h5>
+                         <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                      </button>
+                        </button> -->
                     </div>
                     <div class="modal-body">
-                      <form action="revenue_list.php" method="POST">
+                      <form action="packages_list.php" method="POST">
                         <div class="modal-body">
-
                           <input type="hidden" name="snoEdit" id="snoEdit">
                           <div class="form-group">
-                            <label for="username">Sender Username</label>
-                            <input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp">
+                            <label for="name">Package Name</label>
+                            <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp">
                           </div>
                           <div class="row">
                             <div class="form-group col-lg-6 col-12">
-                              <label for="amount">Amount</label>
+                              <label for="amount">Charge</label>
                               <input type="text" class="form-control" id="amount" name="amount" aria-describedby="emailHelp">
                             </div>
                             <div class="form-group col-lg-6 col-12">
-                              <label for="type">Income Type</label>
+                              <label for="type">Package Type</label>
                               <select name="type" id="type" class="form-select" aria-label="Default select example" style="width: 208px; height: 37px;">
-                                <option selected value="Admin Investment">Admin Investment</option>
-                                <option value="Employee Investment">Employee Investment</option>
-                                <option value="Company Investment">Company Investment</option>
-                                <option value="Others"> Others</opetion>
+                                <option selected value="Fitness">Fitness</option>
+                                <option value="Light Gym">Light Gym</option>
+                                <option value="Yoga">Yoga</option>
+                                <option value="Body Building"> Body Building</option>
+                                <option value="Summer Package"> Summer Package</option>
+                                <option value="Winter Package"> Winter Package</option>
+                                <option value="Special Package"> Special Package</option>
+                                <option value="Weight Lifting"> Weight Lifting</option>
                               </select>
                             </div>
                           </div>
-
                           <div class="form-group">
-                            <label for="details">Short Description</label>
-                            <textarea class="form-control" id="details" name="details" rows="3"></textarea>
-
+                            <label for="duration">Duration</label>
+                            <input type="text" class="form-control" id="duration" name="duration" aria-describedby="emailHelp">
                           </div>
                         </div>
                         <div class="modal-footer">
                           <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-primary">Add Revenue</button>
+                          <button type="submit" class="btn btn-primary">Add Package</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /Insert Modal -->
+            </div>
+          </div>
+        </div>
+
+
+        <div class="bg-light clearfix">
+          <div class="row" style="padding-top: 30px;">
+            <div class="col-lg-6 col-md-12" style="padding-top: 15px;padding-right:40px;">
+              <!-- Insert Modal -->
+              <!-- <button type="button" class="insert btn btn-success float-right" data-toggle="modal" data-target="#exampleModal">Add New</button> -->
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel2">Edit Info</h5>
+                      <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button> -->
+                    </div>
+                    <div class="modal-body">
+                      <form action="packages_list.php" method="POST">
+                        <div class="modal-body">
+
+                          <input type="hidden" name="pkg_id2" id="pkg_id2">
+                          <div class="row">
+                            <div class="form-group col-lg-6 col-12">
+                              <label for="amount1">Charge</label>
+                              <input type="text" class="form-control" id="amount1" name="amount1" aria-describedby="emailHelp">
+                            </div>
+                            <div class="form-group col-lg-6 col-12">
+                              <label for="duration1">Duration</label>
+                              <input type="text" class="form-control" id="duration1" name="duration1" aria-describedby="emailHelp">
+                            </div>
+
+                          </div>
+
+
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="window.location.href='packages_list.php'">Close</button>
+                          <button type="submit" class="btn btn-primary" >Confirm</button>
                         </div>
                       </form>
                     </div>
@@ -330,68 +351,54 @@ if (!$conn) {
           </div>
         </div>
 
-        <div class="card-body" style="margin-top:1%">
 
+
+
+
+
+        <div class="card-body" style="margin-top:1%">
           <table class="table table-hover table-striped" id='myTable'>
             <thead>
               <tr>
-                <th scope="col">Trx ID</th>
-                <th scope="col">Sender Username</th>
-                <th scope="col">Amount</th>
-                <th scope="col">Time</th>
-                <th scope="col">Date</th>
-                <th scope="col">Income Type</th>
-                <th scope="col">Income Details</th>
-
-
+                <th scope="col">Package ID</th>
+                <th scope="col">Package Name</th>
+                <th scope="col">Package Type</th>
+                <th scope="col">Charge</th>
+                <th scope="col">Duration (months)</th>
+                <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
               <?php
-              $sql = "select * from income where br_name = (select br_name from users where username = '$uname')";
+              // $br_name = $packageInfo["BR_NAME"];
+              $sql = "select *from branch natural join br_pkg natural join package where br_name = (select br_name from users where username = '$uname')";
               $stid = oci_parse($conn, $sql);
               $r = oci_execute($stid);
               while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-                $array = explode(" ", $row['INC_DATEANDTIME']);
                 echo "
               <tr>
-              <th scope='row'>" . $row['TRX_ID'] . "</th>
-              <td>" . $row["USERNAME"] . " </td>
-              <td>" . $row["INC_AMOUNT"] . " </td>
-              <td>" .  $array[1] . "</td>
-              <td>" .  $array[0] . "</td>
-              <td>" . $row["INC_TYPE"] . "</td>
-              <td>" . $row["INC_DETAILS"] . "</td>
+              <th scope='row'>" . $row["PKG_ID"] . "</th>
+              <td>" . $row["PKG_NAME"] . "</td>
+              <td>" . $row["PKG_TYPE"] . "</td>
+              <td>" . $row["PKG_CHARGE"] . "</td>
+              <td>" . $row["PKG_DURATION"] . "</td>
+              <td> <button class='delete btn btn-sm btn-danger'>Remove</button> <button class='update btn btn-sm btn-primary' id=".$row['BR_NAME'].">Edit</button></td>
               </tr>
               ";
-                // ECHO var_dump($row);
               }
-
-
               ?>
-
             </tbody>
           </table>
-
-
-
       </section>
-
-
-
       <!-- /.content -->
       <div style="margin-bottom:30px ;"></div>
     </div>
     <!-- /.content-wrapper -->
-
-
-
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
       <!-- Control sidebar content goes here -->
     </aside>
     <!-- /.control-sidebar -->
-
     <!-- Main Footer -->
     <footer class="main-footer dark-mode" style="color: #869099">
       <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
@@ -402,7 +409,6 @@ if (!$conn) {
     </footer>
   </div>
   <!-- ./wrapper -->
-
   <!-- REQUIRED SCRIPTS -->
   <!-- jQuery -->
   <script src="plugins/jquery/jquery.min.js"></script>
@@ -412,7 +418,6 @@ if (!$conn) {
   <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
   <!-- AdminLTE App -->
   <script src="dist/js/adminlte.js"></script>
-
   <!-- PAGE PLUGINS -->
   <!-- jQuery Mapael -->
   <script src="plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
@@ -420,10 +425,9 @@ if (!$conn) {
   <script src="plugins/jquery-mapael/jquery.mapael.min.js"></script>
   <script src="plugins/jquery-mapael/maps/usa_states.min.js"></script>
   <!-- ChartJS -->
-  <!-- <script src="plugins/chart.js/Chart.min.js"></script> -->
-
+  <script src="plugins/chart.js/Chart.min.js"></script>
   <!-- AdminLTE for demo purposes -->
-  <!-- <script src="dist/js/demo.js"></script> -->
+  <script src="dist/js/demo.js"></script>
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   <script src="dist/js/pages/dashboard2.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
@@ -438,8 +442,33 @@ if (!$conn) {
     inserts = document.getElementsByClassName('insert');
     Array.from(inserts).forEach((element) => {
       element.addEventListener("click", (e) => {
-        console.log("insert ", e.target);
+        // console.log("insert ", e.target);
         // $('#exampleModal').modal('toggle');
+      })
+    })
+    deletes = document.getElementsByClassName('delete');
+    Array.from(deletes).forEach((element)=>{
+      element.addEventListener("click", (e)=>{
+        // console.log("delete ", );
+        tr = e.target.parentNode.parentNode;
+        pkg_id.value = tr.getElementsByTagName("th")[0].innerText;
+        console.log(pkg_id);
+        $('#exampleModal1').modal('toggle');
+      })
+    })
+    updates = document.getElementsByClassName('update');
+    Array.from(updates).forEach((element)=>{
+      element.addEventListener("click", (e)=>{
+        console.log("update ", );
+        tr = e.target.parentNode.parentNode;
+        // uname.value = e.target.id;
+        // designation.value = tr.id;
+        pkg_id2.value = tr.getElementsByTagName("th")[0].innerText;
+        amount1.value = tr.getElementsByTagName("td")[2].innerText;
+        duration1.value = tr.getElementsByTagName("td")[3].innerText;
+        console.log(pkg_id2.value, amount.value, duration.value);
+        // console.log(emp_id);
+        $('#exampleModal2').modal('toggle');
       })
     })
   </script>

@@ -1,5 +1,6 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
+
 $uname = $_SESSION['uname'];
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
@@ -28,11 +29,12 @@ if (!$conn) {
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
     
+    header("Location: expenditure_list.php?un=i");
+
   }
 }
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -120,8 +122,8 @@ if (!$conn) {
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-            <li class="nav-item menu-open">
-              <a href="#" class="nav-link active">
+            <li class="nav-item">
+              <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   Dashboard
@@ -131,7 +133,7 @@ if (!$conn) {
               <ul class="nav nav-treeview">
 
                 <li class="nav-item">
-                  <a href="manager_db.php" class="nav-link active">
+                  <a href="manager_db.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Manager</p>
                   </a>
@@ -168,58 +170,6 @@ if (!$conn) {
 
               </ul>
             </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-book"></i>
-                <p>
-                  Pages
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-
-                </li>
-                <li class="nav-item">
-                  <a href="employee_profile.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Profile</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="add_employee.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p> Add Employee</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="add_member.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p> Add Member</p>
-                  </a>
-                </li>
-                <!-- <li class="nav-item">
-                  <a href="pages/examples/Branch.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Branch</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/examples/Search-Manager.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Search Manager</p>
-                  </a>
-                </li> -->
-
-
-
-
-              </ul>
-            </li>
-
-
-
-
           </ul>
           </li>
 
@@ -233,7 +183,17 @@ if (!$conn) {
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <section class="content" style="margin-bottom:50px ;">
-
+        
+        <?php
+          if($_GET) {
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+            Successfully Inserted
+            <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+              <span aria-hidden='true'>&times;</span>
+            </button>
+          </div>";
+          }
+        ?>
 
 
         <div class="bg-light clearfix">
