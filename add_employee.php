@@ -36,7 +36,6 @@ if (!$conn) {
     $bloodgrp = $_POST['bloodgrp'];
     $education = $_POST['education'];
     // $designation = 'Trainer';
-    $password = $name;
 
     $sql = "select *from users";
     $stid = oci_parse($conn, $sql);
@@ -45,15 +44,16 @@ if (!$conn) {
     while ($roww = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
       $num = $num + 1;
     }
-    $username = $name . $num;
 
+    $username = $name . $num;
+    $password = $username;
 
 
     $mobileno = $_POST['mobileno'];
     $array = explode(",", $mobileno);
     $test = count($array);
 
-    $sql = "insert into users (username, password, dob, name, gender, email, address, blood_grp, account_no, br_name) values ('$username', '$password', to_date('$dob', 'dd-mm-yyyy'), '$name', '$gender', '$email', '$address', '$bloodgrp', $accountno, '$br_name')";
+    $sql = "insert into users (username, password, dob, name, gender, email, address, blood_grp, account_no, br_name) values ('$username', '$password', to_date('$dob', 'dd-mon-yy'), '$name', '$gender', '$email', '$address', '$bloodgrp', $accountno, '$br_name')";
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
 
@@ -76,13 +76,13 @@ if (!$conn) {
       $i = $i + 1;
     }
     if($designation == 'Trainer') {
-      header("Location: trainer_list.php");
+      header("Location: trainer_list.php?un=i");
     }
     elseif($designation == 'Receptionist') {
-      header("Location: receptionist_list.php");
+      header("Location: receptionist_list.php?un=i");
     }
     elseif($designation == 'Manager') {
-      header("Location: manager_list.php");
+      header("Location: manager_list.php?un=i");
     }
   }
 }
@@ -192,55 +192,6 @@ if (!$conn) {
 
               </ul>
             </li>
-            <li class="nav-item menu-open">
-              <a href="#" class="nav-link active">
-                <i class="nav-icon fas fa-book"></i>
-                <p>
-                  Pages
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-
-                <li class="nav-item">
-                  <a href="employee_profile.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Profile</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="add_employee.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p> Add Employee</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="add_member.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p> Add Member</p>
-                  </a>
-                </li>
-
-                <!-- <li class="nav-item">
-                <a href=" examples/Branch.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Branch</p>
-                </a>
-              <li class="nav-item">
-                <a href=" examples/Search-Manager.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Search Manager</p>
-                </a>
-              </li>-->
-
-
-
-
-              </ul>
-            </li>
-
-
-
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
@@ -317,7 +268,7 @@ if (!$conn) {
 
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="dob">Date of Birth (DD-MM-YYYY)</label>
+                    <label for="dob">Date of Birth (eg. 31-MAR-00)</label>
                     <input type="text" id="dob" name="dob" class="form-control">
                   </div>
                   <div class="form-group">

@@ -212,19 +212,19 @@ if (!$conn) {
             <div class="row">
               <div class="form-group col-lg-12 col-12">
                 <label for="oldpass">Old Password</label>
-                <input type="text" class="form-control" id="oldpass" name="oldpass" aria-describedby="emailHelp">
+                <input type="password" class="form-control" id="oldpass" name="oldpass" aria-describedby="emailHelp">
               </div>
             </div>
             <div class="row">
               <div class="form-group col-lg-12 col-12">
                 <label for="newpass">New Password</label>
-                <input type="text" class="form-control" id="newpass" name="newpass" aria-describedby="emailHelp">
+                <input type="password" class="form-control" id="newpass" name="newpass" aria-describedby="emailHelp">
               </div>
             </div>
             <div class="row">
               <div class="form-group col-lg-12 col-12">
                 <label for="cpass">Confirm Password</label>
-                <input type="text" class="form-control" id="cpass" name="cpass" aria-describedby="emailHelp">
+                <input type="password" class="form-control" id="cpass" name="cpass" aria-describedby="emailHelp">
               </div>
             </div>
 
@@ -246,17 +246,17 @@ if (!$conn) {
 
 
     <!-- Main Sidebar Container -->
-    <!-- <aside class="main-sidebar sidebar-dark-primary elevation-4"> -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <!-- <a href="#" class="brand-link">
+      <a href="#" class="brand-link">
         <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Fitness Mania</span>
-      </a> -->
+      </a>
 
       <!-- Sidebar -->
-      <!-- <div class="sidebar"> -->
+      <div class="sidebar">
         <!-- Sidebar user (optional) -->
-        <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
             <img src="dist/img/enan_pinki.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
@@ -268,16 +268,16 @@ if (!$conn) {
               ?>
             </a>
           </div>
-        </div> -->
+        </div>
 
 
 
         <!-- Sidebar Menu -->
-        <!-- <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false"> -->
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-            <!-- <li class="nav-item">
+            <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
@@ -327,64 +327,12 @@ if (!$conn) {
 
               </ul>
             </li>
-            <li class="nav-item menu-open">
-              <a href="#" class="nav-link active">
-                <i class="nav-icon fas fa-book"></i>
-                <p>
-                  Pages
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-
-                <li class="nav-item">
-                  <a href="employee_profile.php" class="nav-link active">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Profile</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="add_employee.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p> Add Employee</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="add_member.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p> Add Member</p>
-                  </a>
-                </li> -->
-                <!-- <li class="nav-item">
-                <a href="examples/Branch.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Branch</p>
-                </a>
-              </li>
-
-              
-              <li class="nav-item">
-                <a href="examples/Search-Manager.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Search Manager</p>
-                </a>
-              </li> -->
-
-
-
-
-              <!-- </ul>
-            </li>
-
-
-
-
           </ul>
-        </nav> -->
+        </nav>
         <!-- /.sidebar-menu -->
-      <!-- </div> -->
+      </div>
       <!-- /.sidebar -->
-    <!-- </aside> -->
+    </aside>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper dark-mode" style="margin-top: 0; ">
@@ -579,8 +527,14 @@ if (!$conn) {
                               }
                             ?>
                           </p>
-                          <button type="button" class="update btn btn-primary"  data-toggle="modal" data-target="#exampleModal">Edit Info</button>
-                          <button type="button" class="pass btn btn-primary"  data-toggle="modal" data-target="#exampleModal1">Change Password</button>
+                          <?php
+                            if($_GET == NULL) {
+                              echo '
+                              <button type="button" class="update btn btn-primary"  data-toggle="modal" data-target="#exampleModal">Edit Info</button>
+                              <button type="button" class="pass btn btn-primary"  data-toggle="modal" data-target="#exampleModal1">Change Password</button>
+                              ';
+                            } 
+                          ?>
                         </div>
                       </div>
                     </div>
