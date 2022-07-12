@@ -84,7 +84,7 @@ else
                         <img src="dist/img/enan_pinki.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="employee_profile.php" class="d-block">
+                        <a href="employee_profile.php?un_=trainer" class="d-block">
                             <?php 
                               echo $uname; 
                             ?>
@@ -175,33 +175,7 @@ else
 
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-book"></i>
-                                <p>
-                                    Pages
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-
-                                </li>
-                                <li class="nav-item">
-                                    <a href="employee_profile.php" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Profile</p>
-                                    </a>
-                                </li>
-
-
-
-
-
-
-                            </ul>
-                        </li>
-
+                        
 
 
 
