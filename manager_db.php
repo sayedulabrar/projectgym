@@ -56,7 +56,7 @@ if (!$conn) {
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto navbar-right-top">
           <li class="nav-item">
-            <button onclick="window.location.href=' index.php'" type="button" class="btn btn-secondary">Logout</button>
+            <button onclick="window.location.href='index.php'" type="button" class="btn btn-secondary">Logout</button>
           </li>
         </ul>
       </div>

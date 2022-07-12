@@ -39,9 +39,9 @@ else
     <div class="wrapper">
 
         <!-- Preloader -->
-        <div class="preloader flex-column justify-content-center align-items-center">
+        <!-- <div class="preloader flex-column justify-content-center align-items-center">
             <img class="animation__wobble" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-        </div>
+        </div> -->
 
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-dark">
@@ -364,18 +364,23 @@ else
                                                 
                                                 //$sql1 = "select (sysdate-dob) from users,member where member.username = '$un' and trainer='$uname'";
                                                 $sql1="SELECT TRUNC(MONTHS_BETWEEN(SYSDATE,DOB)/12) AS AGE FROM USERS,MEMBER WHERE MEMBER.USERNAME='$un' and TRAINER='$uname'";
-
+                                                
                                                 $gty=OCI_SYSDATE;
 
                                                 $stid1 = oci_parse($conn, $sql1);
                                                 $r1 = oci_execute($stid1);
                                                 $row1 = oci_fetch_array($stid1, OCI_ASSOC + OCI_RETURN_NULLS);
                                                 $var = $row['DIET_ID'];
-                                                echo $var;
                                                 //echo $row1["(SYSDATE-DOB)"];
                                                 //    echo $un. ' '. $dateOfBirth. ' '. $name1; 
                                                 // $diff = date_diff($t_date,$row["DOB"]);
                                                 // $diff = date_diff(date_create($dateOfBirth date_create($t_date));
+                                                
+                                                $sql1 = "Select * from Member where username='$un'";
+                                                $stid1 = oci_parse($conn, $sql1);
+                                                $r1 = oci_execute($stid1);
+                                                $mem = oci_fetch_array($stid1, OCI_ASSOC + OCI_RETURN_NULLS);
+    
 
                                                  $row["MEMB_BMI"]=number_format(($row["MEM_WEIGHT"]*2.21*703)/($row["MEM_HEIGHT"]*0.39*$row["MEM_HEIGHT"]*0.39),3);
                                                  $val=$row["MEMB_BMI"];
@@ -394,6 +399,7 @@ else
                                                    <td>" . $row1["AGE"] ."</td>
                                                   
                                                    <td>";
+<<<<<<< Updated upstream
                                                    if(!isset($un["DIET_ID"]))
                                                    {
                                                     echo "NULL";
@@ -402,16 +408,18 @@ else
                                                    {
                                                     echo $un["DIET_ID"];
                                                    } 
-                                                   echo "&nbsp; &nbsp;<a href='diet.php?un=".$un."' class='btn btn-success' role='button'>Update</a></td>
-                                                   <td>";
-                                                   if(!isset($un["Routine_Id"]))
-                                                   {
+=======
+                                                   if($mem['DIET_ID']) {
+                                                    echo $mem['DIET_ID'];
+                                                   }
+                                                   else {
                                                     echo "NULL";
                                                    }
-                                                   else
-                                                   {
-                                                    echo $un["Diet_Id"];
-                                                   }  
+
+>>>>>>> Stashed changes
+                                                   echo "&nbsp; &nbsp;<a href='diet.php?un=".$un."' class='btn btn-success' role='button'>Update</a></td>
+                                                   <td>";
+                                                  
                                                    echo "&nbsp; &nbsp;<a href='routine.html' class='btn btn-success'
                                                      role='button'>Update</a></td>
                                                  </tr>

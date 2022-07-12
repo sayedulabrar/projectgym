@@ -6,8 +6,12 @@
     //$va1=$uname;
   } else {
     $uname = $_GET['un'];
+<<<<<<< Updated upstream
     $_SESSION['val1']=$uname;
     
+=======
+    $_SESSION['extra'] = $uname;
+>>>>>>> Stashed changes
     //$va2=$uname;
   }
   //$uname = $_GET['un'];
@@ -25,7 +29,12 @@
     } 
 
     else{
+<<<<<<< Updated upstream
       $sql1 = "Select * from Member where username='$val1'";
+=======
+      
+      $sql1 = "Select * from Member where username='$uname'";
+>>>>>>> Stashed changes
       $stid1 = oci_parse($conn, $sql1);
       $r1 = oci_execute($stid1);
       $mem = oci_fetch_array($stid1, OCI_ASSOC + OCI_RETURN_NULLS);
@@ -35,8 +44,9 @@
 
 
     //header("location: diet.php?un=$uname");
-
+      
     }
+    
 
 ?>
 
@@ -225,14 +235,26 @@
                 <?php
 
 
+<<<<<<< Updated upstream
                   if(!isset($mem['DIET_ID']))
+=======
+                  if($mem['DIET_ID'] == NULL)
+>>>>>>> Stashed changes
                   {
                     echo "DIET ID: Null<br>" ;
                     //echo "DIET ID: ".$mem['DIET_ID'];
                   }
                   else
                   {
+<<<<<<< Updated upstream
                       echo "DIET ID: ".$mem['DIET_ID'];
+=======
+                    
+                    
+                    //else{
+                      echo "DIET ID: ".$mem['DIET_ID'];
+                    //}
+>>>>>>> Stashed changes
                   }
                   
                   
@@ -248,7 +270,12 @@
       
 
 
-
+      <?php
+        $sql = "select * from diet_chart where diet_id = $mem[DIET_ID]";
+        $stid = oci_parse($conn, $sql);
+        $r = oci_execute($stid);
+        $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+      ?>
 
       <form action="diet_extra.php" method="post">
         <div class="container">
@@ -268,8 +295,12 @@
             <tbody>
               <tr>
                 <td>
-                  <input class="form-control" type="number" min="1" max="100" name="breakfast_vitamin" >
+                  <input class="form-control" type="number" value = "<?php  
+                    if($row['B_VITAMIN']) echo $row['B_VITAMIN'];
+                    else echo "0"; 
+                   ?>" name="breakfast_vitamin" >
                   
+<<<<<<< Updated upstream
                   <?php 
                   if(isset($mem['DIET_ID'])) 
                   {
@@ -330,9 +361,26 @@
 
                   }
                   ?>
+=======
+                </td>
+                <td>
+                  <input class="form-control" type="number"  value = "<?php  
+                    if($row['B_PROTEIN']) echo $row['B_PROTEIN'];
+                    else echo "0"; 
+                   ?>" name="breakfast_protein" >
 
                 </td>
                 <td>
+                  <input class="form-control" type="number"  value = "<?php  
+                    if($row['B_CARBOHYDRATE']) echo $row['B_CARBOHYDRATE'];
+                    else echo "0"; 
+                   ?>" name="breakfast_carbohydrate" >
+>>>>>>> Stashed changes
+
+                 
+                </td>
+                <td>
+<<<<<<< Updated upstream
                   <input class="form-control" type="number" min="1" max="100" name="breakfast_minerals" >
                   <?php 
                   if(isset($mem['DIET_ID'])) 
@@ -394,6 +442,28 @@
                     }
                   }
                   ?>
+=======
+                  <input class="form-control" type="number"  value = "<?php  
+                    if($row['B_MINERALS']) echo $row['B_MINERALS'];
+                    else echo "0"; 
+                   ?>" 
+                  
+                  name="breakfast_minerals" >
+                  
+                </td>
+                <td>
+                  <input class="form-control" type="number" value = "<?php  
+                    if($row['B_FAT']) echo $row['B_FAT'];
+                    else echo "0"; 
+                   ?>" name="breakfast_fat" >
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" value = "<?php  
+                    if($row['B_CALORIES']) echo $row['B_CALORIES'];
+                    else echo "0"; 
+                   ?>" name="breakfast_calory" >
+>>>>>>> Stashed changes
 
                 </td>
               </tr>
@@ -419,6 +489,7 @@
             <tbody>
               <tr>
                 <td>
+<<<<<<< Updated upstream
                   <input class="form-control" type="number" min="1" max="100" name="lunch_vitamin" >
 
                   <?php 
@@ -537,6 +608,51 @@
 
                   }
                   ?>
+=======
+                  <input class="form-control" type="number"
+                  value = "<?php  
+                    if($row['L_VITAMIN']) echo $row['L_VITAMIN'];
+                    else echo "0"; 
+                   ?>" name="lunch_vitamin" >
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" 
+                  value = "<?php  
+                    if($row['L_PROTEIN']) echo $row['L_PROTEIN'];
+                    else echo "0"; 
+                   ?>" name="lunch_protein" >
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" value = "<?php  
+                    if($row['L_CARBOHYDRATE']) echo $row['L_CARBOHYDRATE'];
+                    else echo "0"; 
+                   ?>" name="lunch_carbohydrate">
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" 
+                  value = "<?php  
+                    if($row['L_MINERALS']) echo $row['L_MINERALS'];
+                    else echo "0"; 
+                   ?>"  name="lunch_minerals">
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" value = "<?php  
+                    if($row['L_FAT']) echo $row['L_FAT'];
+                    else echo "0"; 
+                   ?>" name="lunch_fat">
+                </td>
+                <td>
+                  <input class="form-control" type="number" 
+                  value = "<?php  
+                    if($row['L_CALORIES']) echo $row['L_CALORIES'];
+                    else echo "0"; 
+                   ?>"
+                   name="lunch_calory">
+>>>>>>> Stashed changes
                 </td>
               </tr>
 
@@ -560,6 +676,7 @@
             <tbody>
               <tr>
                 <td>
+<<<<<<< Updated upstream
                   <input class="form-control" type="number" min="1" max="100" name="dinner_vitamin">
                   <?php
                   if(isset($mem['DIET_ID'])) 
@@ -678,6 +795,55 @@
 
                   }
                   ?>
+=======
+                  <input class="form-control" type="number" 
+                  value = "<?php  
+                    if($row['D_VITAMIN']) echo $row['D_VITAMIN'];
+                    else echo "0"; 
+                   ?>" name="dinner_vitamin">
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" 
+                  value = "<?php  
+                    if($row['L_PROTEIN']) echo $row['L_PROTEIN'];
+                    else echo "0"; 
+                   ?>"
+                  name="dinner_protein">
+
+                </td>
+                <td>
+                  <input class="form-control" type="number"
+                  value = "<?php  
+                    if($row['D_CARBOHYDRATE']) echo $row['D_CARBOHYDRATE'];
+                    else echo "0"; 
+                   ?>"  name="dinner_carbohydrate">
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" 
+                  value = "<?php  
+                    if($row['D_MINERALS']) echo $row['D_MINERALS'];
+                    else echo "0"; 
+                   ?>" name="dinner_minerals">
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" 
+                  value = "<?php  
+                    if($row['D_FAT']) echo $row['D_FAT'];
+                    else echo "0"; 
+                   ?>" name="dinner_fat">
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" 
+                  value = "<?php  
+                    if($row['D_CALORIES']) echo $row['D_CALORIES'];
+                    else echo "0"; 
+                   ?>"
+                  name="dinner_calory">
+>>>>>>> Stashed changes
 
                 </td>
               </tr>
@@ -699,6 +865,7 @@
             <tbody>
               <tr>
                 <td>
+<<<<<<< Updated upstream
                   <input class="form-control" type="number" min="1" max="100" name="pre_wrk_protein">
                   <?php
                   if(isset($mem['DIET_ID'])) 
@@ -736,15 +903,34 @@
                       echo $row['Pr_Wrk_Carbohydrate'];
                     }
                     
+=======
+                  <input class="form-control" type="number" 
+                  value = "<?php  
+                    if($row['PR_WRK_PROTEIN']) echo $row['PR_WRK_PROTEIN'];
+                    else echo "0"; 
+                   ?>" name="pre_wrk_protein">
 
-                  }
-                  ?>
+                </td>
+                <td>
+                  <input class="form-control" type="number" 
+                  value = "<?php  
+                    if($row['PR_WRK_CARBOHYDRATE']) echo $row['PR_WRK_CARBOHYDRATE'];
+                    else echo "0"; 
+                   ?>" name="pre_wrk_carbohydrate">
+>>>>>>> Stashed changes
+
 
 
                 </td>
                 <td>
-                  <input class="form-control" type="number" min="1" max="100" name="pre_wrk_calory">
+                  <input class="form-control" type="number" 
+                  value = "<?php  
+                    if($row['PR_WRK_CALORIES']) echo $row['PR_WRK_CALORIES'];
+                    else echo "0"; 
+                   ?>"
+                  name="pre_wrk_calory">
 
+<<<<<<< Updated upstream
                   <?php
                   if(isset($mem['DIET_ID'])) 
                   {
@@ -761,6 +947,8 @@
 
                   }
                   ?>
+=======
+>>>>>>> Stashed changes
 
 
                 </td>
@@ -783,6 +971,7 @@
             <tbody>
               <tr>
                 <td>
+<<<<<<< Updated upstream
                   <input class="form-control" type="number" min="1" max="100" name="post_wrk_protein">
                   <?php
                   if(isset($mem['DIET_ID'])) 
@@ -800,10 +989,24 @@
 
                   }
                   ?>
+=======
+                  <input class="form-control" type="number" 
+                  value = "<?php  
+                    if($row['PST_WRK_PROTEIN']) echo $row['PST_WRK_PROTEIN'];
+                    else echo "0"; 
+                   ?>"
+                  
+                  name="post_wrk_protein">
+>>>>>>> Stashed changes
 
                 </td>
                 <td>
-                  <input class="form-control" type="number" min="1" max="100" name="post_wrk_carbohydrate">
+                  <input class="form-control" type="number" 
+                  value = "<?php  
+                    if($row['PST_WRK_CARBOHYDRATE']) echo $row['PST_WRK_CARBOHYDRATE'];
+                    else echo "0"; 
+                   ?>"
+                  name="post_wrk_carbohydrate">
                   <?php
                   if(isset($mem['DIET_ID'])) 
                   {
@@ -823,6 +1026,7 @@
 
                 </td>
                 <td>
+<<<<<<< Updated upstream
                   <input class="form-control" type="number" min="1" max="100" name="post_wrk_calory">
                   <?php
                   if(isset($mem['DIET_ID'])) 
@@ -840,6 +1044,14 @@
 
                   }
                   ?>
+=======
+                  <input class="form-control" type="number" 
+                  value = "<?php  
+                    if($row['PST_WRK_CALORIES']) echo $row['PST_WRK_CALORIES'];
+                    else echo "0"; 
+                   ?>"
+                  name="post_wrk_calory">
+>>>>>>> Stashed changes
 
                 </td>
               </tr>
