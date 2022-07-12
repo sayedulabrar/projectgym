@@ -1,7 +1,7 @@
 <?php
 session_start();
 $wrongInfo = false;
-$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
+$conn = oci_connect('Abrar', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
   echo "sorry";
@@ -15,7 +15,12 @@ if (!$conn) {
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
     $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-    if ($row == NULL) {
+
+    if($username=='Admin1' && $password=='admin')
+    {
+      header("Location: admin_db.php");
+    }
+    else if ($row == NULL) {
       $wrongInfo = true;
     } else {
       $sql = "select * from employee where USERNAME = '$username'";
@@ -109,7 +114,10 @@ if (!$conn) {
           <div class="row">
             <div class="col-8">
               <div class="icheck-primary">
-                
+                <input type="checkbox" id="remember">
+                <label for="remember">
+                  Remember Me
+                </label>
               </div>
             </div>
             <!-- /.col -->
