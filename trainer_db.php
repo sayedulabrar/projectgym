@@ -1,5 +1,6 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
+$_SESSION['profation']="trainer";
 $uname = $_SESSION['uname'];
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
@@ -155,12 +156,22 @@ else
                                    
                                 </li>";
                                 ?>
-                                <li class="nav-item">
+
+
+                            <?php
+                                echo "<li class='nav-item'>                    
+                                <a href='pages/mailbox/compose.php?un=".$uname."' class='nav-link'>
+                                <i class='far fa-circle nav-icon'></i>
+                                <p>Compose</p>
+                                </a>
+                                </li>";
+                            ?>
+                                <!-- <li class="nav-item">
                                     <a href="pages/mailbox/compose.html" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Compose</p>
                                     </a>
-                                </li>
+                                </li> -->
 
                             </ul>
                         </li>

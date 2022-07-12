@@ -1,5 +1,6 @@
 <?php
   session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
+  $_SESSION['profation']="trainer";
   if ($_GET == NULL) {
     $uname = $_SESSION['uname'];
     
@@ -163,12 +164,22 @@
                   </a>
 </li>";
               ?>
-                <li class="nav-item">
+
+
+              <?php
+                  echo "<li class='nav-item'>                    
+                  <a href='pages/mailbox/compose.php?un=".$trainer."' class='nav-link'>
+                  <i class='far fa-circle nav-icon'></i>
+                  <p>Compose</p>
+                  </a>
+                  </li>";
+              ?>
+                <!-- <li class="nav-item">
                   <a href="pages/mailbox/compose.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Compose</p>
                   </a>
-                </li>
+                </li> -->
 
               </ul>
             </li>
