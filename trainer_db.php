@@ -399,16 +399,6 @@ else
                                                    <td>" . $row1["AGE"] ."</td>
                                                   
                                                    <td>";
-<<<<<<< Updated upstream
-                                                   if(!isset($un["DIET_ID"]))
-                                                   {
-                                                    echo "NULL";
-                                                   }
-                                                   else
-                                                   {
-                                                    echo $un["DIET_ID"];
-                                                   } 
-=======
                                                    if($mem['DIET_ID']) {
                                                     echo $mem['DIET_ID'];
                                                    }
@@ -416,7 +406,6 @@ else
                                                     echo "NULL";
                                                    }
 
->>>>>>> Stashed changes
                                                    echo "&nbsp; &nbsp;<a href='diet.php?un=".$un."' class='btn btn-success' role='button'>Update</a></td>
                                                    <td>";
                                                   
