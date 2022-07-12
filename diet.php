@@ -1,17 +1,16 @@
 <?php
   session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
+  $_SESSION['profation']="trainer";
   if ($_GET == NULL) {
     $uname = $_SESSION['uname'];
     
     //$va1=$uname;
   } else {
     $uname = $_GET['un'];
-    $_SESSION['val1']=$uname;
-    
+    $_SESSION['extra'] = $uname;
     //$va2=$uname;
   }
   //$uname = $_GET['un'];
-  $val1=$_SESSION['val1'];
 
   
   $trainer = $_SESSION['uname'];
@@ -25,7 +24,8 @@
     } 
 
     else{
-      $sql1 = "Select * from Member where username='$val1'";
+      
+      $sql1 = "Select * from Member where username='$uname'";
       $stid1 = oci_parse($conn, $sql1);
       $r1 = oci_execute($stid1);
       $mem = oci_fetch_array($stid1, OCI_ASSOC + OCI_RETURN_NULLS);
@@ -35,8 +35,9 @@
 
 
     //header("location: diet.php?un=$uname");
-
+      
     }
+    
 
 ?>
 
@@ -92,16 +93,16 @@
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-      
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <!-- Brand Logo -->
       <a href="#" class="brand-link">
         <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Fitness Mania</span>
       </a>
 
-     
+      <!-- Sidebar -->
       <div class="sidebar">
-        
+        <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
             <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
@@ -115,10 +116,11 @@
 
 
 
-       
-       <nav class="mt-2">
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            
+            <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
             <li class="nav-item menu-open">
               <a href="#" class="nav-link active">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -162,12 +164,22 @@
                   </a>
 </li>";
               ?>
-                <li class="nav-item">
+
+
+              <?php
+                  echo "<li class='nav-item'>                    
+                  <a href='pages/mailbox/compose.php?un=".$trainer."' class='nav-link'>
+                  <i class='far fa-circle nav-icon'></i>
+                  <p>Compose</p>
+                  </a>
+                  </li>";
+              ?>
+                <!-- <li class="nav-item">
                   <a href="pages/mailbox/compose.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Compose</p>
                   </a>
-                </li>
+                </li> -->
 
               </ul>
             </li>
@@ -204,10 +216,10 @@
           </li>
 
           </ul>
-        </nav> 
-       
+        </nav>
+        <!-- /.sidebar-menu -->
       </div>
-      
+      <!-- /.sidebar -->
     </aside>
 
     <!-- Content Wrapper. Contains page content -->
@@ -225,14 +237,17 @@
                 <?php
 
 
-                  if(!isset($mem['DIET_ID']))
+                  if($mem['DIET_ID'] == NULL)
                   {
-                    echo "DIET ID: Null<br>" ;
-                    //echo "DIET ID: ".$mem['DIET_ID'];
+                    echo "DIET ID: Null" ;
                   }
                   else
                   {
+                    
+                    
+                    //else{
                       echo "DIET ID: ".$mem['DIET_ID'];
+                    //}
                   }
                   
                   
@@ -245,10 +260,15 @@
           </div><!-- /.row -->
         </div><!-- /.container-fluid -->
       </div>
-      
+      <!-- /.content-header -->
 
 
-
+      <?php
+        $sql = "select * from diet_chart where diet_id = $mem[DIET_ID]";
+        $stid = oci_parse($conn, $sql);
+        $r = oci_execute($stid);
+        $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+      ?>
 
       <form action="diet_extra.php" method="post">
         <div class="container">
@@ -268,132 +288,48 @@
             <tbody>
               <tr>
                 <td>
-                  <input class="form-control" type="number" min="1" max="100" name="breakfast_vitamin" >
+                  <input class="form-control" type="number" value = "<?php  
+                    if($row['B_VITAMIN']) echo $row['B_VITAMIN'];
+                    else echo "0"; 
+                   ?>" name="breakfast_vitamin" >
                   
-                  <?php 
-                  if(isset($mem['DIET_ID'])) 
-                  {
-                    $qu=$mem['DIET_ID'];
-                    $sql="Select * from DIET_CHART where DIET_ID='$qu'";
-                    $stid = oci_parse($conn, $sql);
-                    $r = oci_execute($stid);
-                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    if(isset($row['B_Vitamin']))
-                    {
-                      echo $row['B_Vitamin'];
-                    }
-                    
-
-                  }
-                  ?>
+                </td>
+                <td>
+                  <input class="form-control" type="number"  value = "<?php  
+                    if($row['B_PROTEIN']) echo $row['B_PROTEIN'];
+                    else echo "0"; 
+                   ?>" name="breakfast_protein" >
 
                 </td>
                 <td>
-                  <input class="form-control" type="number" min="1" max="100" name="breakfast_protein" >
+                  <input class="form-control" type="number"  value = "<?php  
+                    if($row['B_CARBOHYDRATE']) echo $row['B_CARBOHYDRATE'];
+                    else echo "0"; 
+                   ?>" name="breakfast_carbohydrate" >
 
-                  <?php 
-                  if(isset($mem['DIET_ID'])) 
-                  {
-                    $qu=$mem['DIET_ID'];
-                    $sql="Select * from DIET_CHART where DIET_ID='$qu'";
-                    $stid = oci_parse($conn, $sql);
-                    $r = oci_execute($stid);
-                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    
-                    if(isset($row['B_Protein']))
-                    {
-                      echo $row['B_Protein'];
-                    }
-                    
-
-                  }
-                  ?>
-
+                 
                 </td>
                 <td>
-                  <input class="form-control" type="number" min="1" max="100" name="breakfast_carbohydrate" >
-
-                  <?php 
-                  if(isset($mem['DIET_ID'])) 
-                  {
-                    $qu=$mem['DIET_ID'];
-                    $sql="Select * from DIET_CHART where DIET_ID='$qu'";
-                    $stid = oci_parse($conn, $sql);
-                    $r = oci_execute($stid);
-                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    
-                    if(isset($row['B_Carbohydrate']))
-                    {
-                      echo $row['B_Carbohydrate'];
-                    }
-                    
-
-                  }
-                  ?>
-
-                </td>
-                <td>
-                  <input class="form-control" type="number" min="1" max="100" name="breakfast_minerals" >
-                  <?php 
-                  if(isset($mem['DIET_ID'])) 
-                  {
-                    $qu=$mem['DIET_ID'];
-                    $sql="Select * from DIET_CHART where DIET_ID='$qu'";
-                    $stid = oci_parse($conn, $sql);
-                    $r = oci_execute($stid);
-                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    
-                    if(isset($row['B_Minerals']))
-                    {
-                      echo $row['B_Minerals'];
-                    }
-                    
-
-                  }
-                  ?>
-
-                </td>
-                <td>
-                  <input class="form-control" type="number" min="1" max="100" name="breakfast_fat" >
-
-                  <?php 
-                  if(isset($mem['DIET_ID'])) 
-                  {
-                    $qu=$mem['DIET_ID'];
-                    $sql="Select * from DIET_CHART where DIET_ID='$qu'";
-                    $stid = oci_parse($conn, $sql);
-                    $r = oci_execute($stid);
-                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    
-                    if(isset($row['B_Fat']))
-                    {
-                      echo $row['B_Fat'];
-                    }
+                  <input class="form-control" type="number"  value = "<?php  
+                    if($row['B_MINERALS']) echo $row['B_MINERALS'];
+                    else echo "0"; 
+                   ?>" 
                   
-                    
-
-                  }
-                  ?>
+                  name="breakfast_minerals" >
+                  
+                </td>
+                <td>
+                  <input class="form-control" type="number" value = "<?php  
+                    if($row['B_FAT']) echo $row['B_FAT'];
+                    else echo "0"; 
+                   ?>" name="breakfast_fat" >
 
                 </td>
                 <td>
-                  <input class="form-control" type="number" min="1" max="100" name="breakfast_calory" >
-
-                  <?php 
-                  if(isset($mem['DIET_ID'])) 
-                  {
-                    $qu=$mem['DIET_ID'];
-                    $sql="Select * from DIET_CHART where DIET_ID='$qu'";
-                    $stid = oci_parse($conn, $sql);
-                    $r = oci_execute($stid);
-                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    
-                    if(isset($row['B_Calories']))
-                    {
-                      echo $row['B_Calories'];
-                    }
-                  }
-                  ?>
+                  <input class="form-control" type="number" value = "<?php  
+                    if($row['B_CALORIES']) echo $row['B_CALORIES'];
+                    else echo "0"; 
+                   ?>" name="breakfast_calory" >
 
                 </td>
               </tr>
@@ -419,124 +355,49 @@
             <tbody>
               <tr>
                 <td>
-                  <input class="form-control" type="number" min="1" max="100" name="lunch_vitamin" >
-
-                  <?php 
-                  if(isset($mem['DIET_ID'])) 
-                  {
-                    $qu=$mem['DIET_ID'];
-                    $sql="Select * from DIET_CHART where DIET_ID='$qu'";
-                    $stid = oci_parse($conn, $sql);
-                    $r = oci_execute($stid);
-                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    
-                    if(isset($row['L_Vitamin']))
-                    {
-                      echo $row['L_Vitamin'];
-                    }
-
-                  }
-                  ?>
+                  <input class="form-control" type="number"
+                  value = "<?php  
+                    if($row['L_VITAMIN']) echo $row['L_VITAMIN'];
+                    else echo "0"; 
+                   ?>" name="lunch_vitamin" >
 
                 </td>
                 <td>
-                  <input class="form-control" type="number" min="1" max="100" name="lunch_protein" >
-                  <?php 
-                  if(isset($mem['DIET_ID'])) 
-                  {
-                    $qu=$mem['DIET_ID'];
-                    $sql="Select * from DIET_CHART where DIET_ID='$qu'";
-                    $stid = oci_parse($conn, $sql);
-                    $r = oci_execute($stid);
-                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    
-                    if(isset($row['L_Protein']))
-                    {
-                      echo $row['L_Protein'];
-                    }
-                    
-
-                  }
-                  ?>
+                  <input class="form-control" type="number" 
+                  value = "<?php  
+                    if($row['L_PROTEIN']) echo $row['L_PROTEIN'];
+                    else echo "0"; 
+                   ?>" name="lunch_protein" >
 
                 </td>
                 <td>
-                  <input class="form-control" type="number" min="1" max="100" name="lunch_carbohydrate">
-                  <?php
-                  if(isset($mem['DIET_ID'])) 
-                  {
-                    $qu=$mem['DIET_ID'];
-                    $sql="Select * from DIET_CHART where DIET_ID='$qu'";
-                    $stid = oci_parse($conn, $sql);
-                    $r = oci_execute($stid);
-                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    
-                    if(isset($row['L_Carbohydrate']))
-                    {
-                      echo $row['L_Carbohydrate'];
-                    }
-
-                  }
-                  ?>
+                  <input class="form-control" type="number" value = "<?php  
+                    if($row['L_CARBOHYDRATE']) echo $row['L_CARBOHYDRATE'];
+                    else echo "0"; 
+                   ?>" name="lunch_carbohydrate">
 
                 </td>
                 <td>
-                  <input class="form-control" type="number" min="1" max="100" name="lunch_minerals">
-                  <?php
-                  if(isset($mem['DIET_ID'])) 
-                  {
-                    $qu=$mem['DIET_ID'];
-                    $sql="Select * from DIET_CHART where DIET_ID='$qu'";
-                    $stid = oci_parse($conn, $sql);
-                    $r = oci_execute($stid);
-                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    
-                    if(isset($row['L_Minerals']))
-                    {
-                      echo $row['L_Minerals'];
-                    }
-
-                  }
-                  ?>
+                  <input class="form-control" type="number" 
+                  value = "<?php  
+                    if($row['L_MINERALS']) echo $row['L_MINERALS'];
+                    else echo "0"; 
+                   ?>"  name="lunch_minerals">
 
                 </td>
                 <td>
-                  <input class="form-control" type="number" min="1" max="100" name="lunch_fat">
-                  <?php
-                  if(isset($mem['DIET_ID'])) 
-                  {
-                    $qu=$mem['DIET_ID'];
-                    $sql="Select * from DIET_CHART where DIET_ID='$qu'";
-                    $stid = oci_parse($conn, $sql);
-                    $r = oci_execute($stid);
-                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    
-                    if(isset($row['L_Fat']))
-                    {
-                      echo $row['L_Fat'];
-                    }
-                  }
-                  ?>
-
+                  <input class="form-control" type="number" value = "<?php  
+                    if($row['L_FAT']) echo $row['L_FAT'];
+                    else echo "0"; 
+                   ?>" name="lunch_fat">
                 </td>
                 <td>
-                  <input class="form-control" type="number" min="1" max="100" name="lunch_calory">
-                  <?php
-                  if(isset($mem['DIET_ID'])) 
-                  {
-                    $qu=$mem['DIET_ID'];
-                    $sql="Select * from DIET_CHART where DIET_ID='$qu'";
-                    $stid = oci_parse($conn, $sql);
-                    $r = oci_execute($stid);
-                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    
-                    if(isset($row['L_Calories']))
-                    {
-                      echo $row['L_Calories'];
-                    }
-
-                  }
-                  ?>
+                  <input class="form-control" type="number" 
+                  value = "<?php  
+                    if($row['L_CALORIES']) echo $row['L_CALORIES'];
+                    else echo "0"; 
+                   ?>"
+                   name="lunch_calory">
                 </td>
               </tr>
 
@@ -560,124 +421,53 @@
             <tbody>
               <tr>
                 <td>
-                  <input class="form-control" type="number" min="1" max="100" name="dinner_vitamin">
-                  <?php
-                  if(isset($mem['DIET_ID'])) 
-                  {
-                    $qu=$mem['DIET_ID'];
-                    $sql="Select * from DIET_CHART where DIET_ID='$qu'";
-                    $stid = oci_parse($conn, $sql);
-                    $r = oci_execute($stid);
-                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    
-                    if(isset($row['D_Vitamin']))
-                    {
-                      echo $row['D_Vitamin'];
-                    }
-
-                  }
-                  ?>
+                  <input class="form-control" type="number" 
+                  value = "<?php  
+                    if($row['D_VITAMIN']) echo $row['D_VITAMIN'];
+                    else echo "0"; 
+                   ?>" name="dinner_vitamin">
 
                 </td>
                 <td>
-                  <input class="form-control" type="number" min="1" max="100" name="dinner_protein">
-                  <?php
-                  if(isset($mem['DIET_ID'])) 
-                  {
-                    $qu=$mem['DIET_ID'];
-                    $sql="Select * from DIET_CHART where DIET_ID='$qu'";
-                    $stid = oci_parse($conn, $sql);
-                    $r = oci_execute($stid);
-                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    
-                    if(isset($row['D_Protein']))
-                    {
-                      echo $row['D_Protein'];
-                    }
-
-                  }
-                  ?>
+                  <input class="form-control" type="number" 
+                  value = "<?php  
+                    if($row['L_PROTEIN']) echo $row['L_PROTEIN'];
+                    else echo "0"; 
+                   ?>"
+                  name="dinner_protein">
 
                 </td>
                 <td>
-                  <input class="form-control" type="number" min="1" max="100" name="dinner_carbohydrate">
-                  <?php
-                  if(isset($mem['DIET_ID'])) 
-                  {
-                    $qu=$mem['DIET_ID'];
-                    $sql="Select * from DIET_CHART where DIET_ID='$qu'";
-                    $stid = oci_parse($conn, $sql);
-                    $r = oci_execute($stid);
-                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    
-                    if(isset($row['D_Carbohydrate']))
-                    {
-                      echo $row['D_Carbohydrate'];
-                    }
-                    
-
-                  }
-                  ?>
+                  <input class="form-control" type="number"
+                  value = "<?php  
+                    if($row['D_CARBOHYDRATE']) echo $row['D_CARBOHYDRATE'];
+                    else echo "0"; 
+                   ?>"  name="dinner_carbohydrate">
 
                 </td>
                 <td>
-                  <input class="form-control" type="number" min="1" max="100" name="dinner_minerals">
-                  <?php
-                  if(isset($mem['DIET_ID'])) 
-                  {
-                    $qu=$mem['DIET_ID'];
-                    $sql="Select * from DIET_CHART where DIET_ID='$qu'";
-                    $stid = oci_parse($conn, $sql);
-                    $r = oci_execute($stid);
-                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    
-                    if(isset($row['D_Minerals']))
-                    {
-                      echo $row['D_Minerals'];
-                    }
-                  }
-                  ?>
+                  <input class="form-control" type="number" 
+                  value = "<?php  
+                    if($row['D_MINERALS']) echo $row['D_MINERALS'];
+                    else echo "0"; 
+                   ?>" name="dinner_minerals">
 
                 </td>
                 <td>
-                  <input class="form-control" type="number" min="1" max="100" name="dinner_fat">
-                  <?php
-
-                  if(isset($mem['DIET_ID'])) 
-                  {
-                    $qu=$mem['DIET_ID'];
-                    $sql="Select * from DIET_CHART where DIET_ID='$qu'";
-                    $stid = oci_parse($conn, $sql);
-                    $r = oci_execute($stid);
-                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    
-                    if(isset($row['D_Fat']))
-                    {
-                      echo $row['D_Fat'];
-                    }
-
-                  }
-                  ?>
+                  <input class="form-control" type="number" 
+                  value = "<?php  
+                    if($row['D_FAT']) echo $row['D_FAT'];
+                    else echo "0"; 
+                   ?>" name="dinner_fat">
 
                 </td>
                 <td>
-                  <input class="form-control" type="number" min="1" max="100" name="dinner_calory">
-                  <?php
-                  if(isset($mem['DIET_ID'])) 
-                  {
-                    $qu=$mem['DIET_ID'];
-                    $sql="Select * from DIET_CHART where DIET_ID='$qu'";
-                    $stid = oci_parse($conn, $sql);
-                    $r = oci_execute($stid);
-                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    
-                    if(isset($row['D_Calories']))
-                    {
-                      echo $row['D_Calories'];
-                    }
-
-                  }
-                  ?>
+                  <input class="form-control" type="number" 
+                  value = "<?php  
+                    if($row['D_CALORIES']) echo $row['D_CALORIES'];
+                    else echo "0"; 
+                   ?>"
+                  name="dinner_calory">
 
                 </td>
               </tr>
@@ -699,68 +489,31 @@
             <tbody>
               <tr>
                 <td>
-                  <input class="form-control" type="number" min="1" max="100" name="pre_wrk_protein">
-                  <?php
-                  if(isset($mem['DIET_ID'])) 
-                  {
-                    $qu=$mem['DIET_ID'];
-                    $sql="Select * from DIET_CHART where DIET_ID='$qu'";
-                    $stid = oci_parse($conn, $sql);
-                    $r = oci_execute($stid);
-                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    
-                    if(isset($row['Pr_Wrk_Protein']))
-                    {
-                      echo $row['Pr_Wrk_Protein'];
-                    }
-                    
-
-                  }
-                  ?>
+                  <input class="form-control" type="number" 
+                  value = "<?php  
+                    if($row['PR_WRK_PROTEIN']) echo $row['PR_WRK_PROTEIN'];
+                    else echo "0"; 
+                   ?>" name="pre_wrk_protein">
 
                 </td>
                 <td>
-                  <input class="form-control" type="number" min="1" max="100" name="pre_wrk_carbohydrate">
+                  <input class="form-control" type="number" 
+                  value = "<?php  
+                    if($row['PR_WRK_CARBOHYDRATE']) echo $row['PR_WRK_CARBOHYDRATE'];
+                    else echo "0"; 
+                   ?>" name="pre_wrk_carbohydrate">
 
-                  <?php
-                  if(isset($mem['DIET_ID'])) 
-                  {
-                    $qu=$mem['DIET_ID'];
-                    $sql="Select * from DIET_CHART where DIET_ID='$qu'";
-                    $stid = oci_parse($conn, $sql);
-                    $r = oci_execute($stid);
-                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    
-                    if(isset($row['Pr_Wrk_Carbohydrate']))
-                    {
-                      echo $row['Pr_Wrk_Carbohydrate'];
-                    }
-                    
-
-                  }
-                  ?>
 
 
                 </td>
                 <td>
-                  <input class="form-control" type="number" min="1" max="100" name="pre_wrk_calory">
+                  <input class="form-control" type="number" 
+                  value = "<?php  
+                    if($row['PR_WRK_CALORIES']) echo $row['PR_WRK_CALORIES'];
+                    else echo "0"; 
+                   ?>"
+                  name="pre_wrk_calory">
 
-                  <?php
-                  if(isset($mem['DIET_ID'])) 
-                  {
-                    $qu=$mem['DIET_ID'];
-                    $sql="Select * from DIET_CHART where DIET_ID='$qu'";
-                    $stid = oci_parse($conn, $sql);
-                    $r = oci_execute($stid);
-                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    
-                    if(isset($row['Pr_Wrk_Calories']))
-                    {
-                      echo $row['Pr_Wrk_Calories'];
-                    }
-
-                  }
-                  ?>
 
 
                 </td>
@@ -783,63 +536,44 @@
             <tbody>
               <tr>
                 <td>
-                  <input class="form-control" type="number" min="1" max="100" name="post_wrk_protein">
+                  <input class="form-control" type="number" 
+                  value = "<?php  
+                    if($row['PST_WRK_PROTEIN']) echo $row['PST_WRK_PROTEIN'];
+                    else echo "0"; 
+                   ?>"
+                  
+                  name="post_wrk_protein">
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" 
+                  value = "<?php  
+                    if($row['PST_WRK_CARBOHYDRATE']) echo $row['PST_WRK_CARBOHYDRATE'];
+                    else echo "0"; 
+                   ?>"
+                  name="post_wrk_carbohydrate">
                   <?php
-                  if(isset($mem['DIET_ID'])) 
+                  if(isset($mem['diet_id'])) 
                   {
-                    $qu=$mem['DIET_ID'];
-                    $sql="Select * from DIET_CHART where DIET_ID='$qu'";
+                    $qu=$mem['diet_id'];
+                    $sql="Select * from diet_chart where diet_id='$qu'";
                     $stid = oci_parse($conn, $sql);
                     $r = oci_execute($stid);
                     $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                    echo $row['Pst_Wrk_Carbohydrate'];
                     
-                    if(isset($row['Pst_Wrk_Protein']))
-                    {
-                      echo $row['Pst_Wrk_Protein'];
-                    }
 
                   }
                   ?>
 
                 </td>
                 <td>
-                  <input class="form-control" type="number" min="1" max="100" name="post_wrk_carbohydrate">
-                  <?php
-                  if(isset($mem['DIET_ID'])) 
-                  {
-                    $qu=$mem['DIET_ID'];
-                    $sql="Select * from DIET_CHART where DIET_ID='$qu'";
-                    $stid = oci_parse($conn, $sql);
-                    $r = oci_execute($stid);
-                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    
-                    if(isset($row['Pst_Wrk_Carbohydrate']))
-                    {
-                      echo $row['Pst_Wrk_Carbohydrate'];
-                    }
-
-                  }
-                  ?>
-
-                </td>
-                <td>
-                  <input class="form-control" type="number" min="1" max="100" name="post_wrk_calory">
-                  <?php
-                  if(isset($mem['DIET_ID'])) 
-                  {
-                    $qu=$mem['DIET_ID'];
-                    $sql="Select * from DIET_CHART where DIET_ID='$qu'";
-                    $stid = oci_parse($conn, $sql);
-                    $r = oci_execute($stid);
-                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    if(isset($row['Pst_Wrk_Calories']))
-                    {
-                      echo $row['Pst_Wrk_Calories'];
-                    }
-                    
-
-                  }
-                  ?>
+                  <input class="form-control" type="number" 
+                  value = "<?php  
+                    if($row['PST_WRK_CALORIES']) echo $row['PST_WRK_CALORIES'];
+                    else echo "0"; 
+                   ?>"
+                  name="post_wrk_calory">
 
                 </td>
               </tr>
