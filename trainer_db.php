@@ -394,13 +394,13 @@ else
                                                    <td>" . $row1["AGE"] ."</td>
                                                   
                                                    <td>";
-                                                   if(!isset($un["Diet_Id"]))
+                                                   if(!isset($un["DIET_ID"]))
                                                    {
                                                     echo "NULL";
                                                    }
                                                    else
                                                    {
-                                                    echo $un["Diet_Id"];
+                                                    echo $un["DIET_ID"];
                                                    } 
                                                    echo "&nbsp; &nbsp;<a href='diet.php?un=".$un."' class='btn btn-success' role='button'>Update</a></td>
                                                    <td>";
