@@ -1,6 +1,7 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $uname = $_SESSION['uname'];
+$_SESSION['designation'] = 'X'; 
 $branchExpenditure = 0;
 $branchRevenue = 0;
 
@@ -152,55 +153,7 @@ if (!$conn) {
 
               </ul>
             </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-book"></i>
-                <p>
-                  Pages
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-
-                </li>
-                <li class="nav-item">
-                  <a href="employee_profile.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Profile</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="add_employee.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p> Add Employee</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="add_member.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p> Add Member</p>
-                  </a>
-                </li>
-                <!-- <li class="nav-item">
-                  <a href="pages/examples/Branch.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Branch</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/examples/Search-Manager.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Search Manager</p>
-                  </a>
-                </li> -->
-
-
-
-
-              </ul>
-            </li>
-
+            
 
 
 
@@ -497,7 +450,7 @@ if (!$conn) {
                               $ans = $ans +  $row["INC_AMOUNT"];
                             }
                           }
-                          echo $ans . " tk";
+                          echo $ans . " BDT";
                           $branchRevenue = $ans;
                           // $x = EXTRACT( YEAR FROM TO_DATE( '31-Dec-1999 15:30:20 ',  'DD-Mon-YYYY HH24:MI:SS' ) ) YEAR;
 
@@ -528,7 +481,7 @@ if (!$conn) {
                               $prevMonth = $prevMonth + $row["AMOUNT"];
                             }
                           }
-                          echo $thisMonth . " tk";
+                          echo $thisMonth . " BDT";
                           $branchExpenditure = $thisMonth;
                           ?>
                         </h5>
@@ -542,7 +495,7 @@ if (!$conn) {
                         <!-- <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 20%</span> -->
                         <h5 class="description-header">
                           <?php
-                          echo $branchRevenue - $branchExpenditure;
+                          echo $branchRevenue - $branchExpenditure . " BDT";
                           ?>
                         </h5>
                         <span class="description-text">BRANCH PROFIT</span>
