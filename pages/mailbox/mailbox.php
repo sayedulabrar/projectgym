@@ -2,12 +2,9 @@
 
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 
-if ($_GET == NULL) {
-  $uname = $_SESSION['uname'];
-  
-} else {
-  $uname = $_GET['un'];
-}
+
+
+$uname = $_SESSION['uname'];
 
 $job= $_SESSION['profation'];
 
@@ -75,7 +72,7 @@ if (!$conn) {
       <a href="../../index3.html" class="brand-link">
         <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
           style="opacity: .8">
-        <span class="brand-text font-weight-light"><?php echo $reciverid; ?></span>
+        <span class="brand-text font-weight-light"><?php echo $job; ?></span>
       </a>
 
       <!-- Sidebar -->
@@ -316,7 +313,13 @@ if (!$conn) {
               where RECIEVER_ID = '$reciverid'";
               $stid = oci_parse($conn, $sql);
               $r = oci_execute($stid);
-              if($r){
+              $roa = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+              if($roa!=NULL){
+
+                $sql = "Select MES_ID, RECIEVER_ID, SUBJECT,ROUND(SYSDATE - S_DATE), USERNAME  From MESSAGE JOIN EMPLOYEE  ON (EMPLOYEE.EMP_ID=MESSAGE.SENDER_ID)
+              where RECIEVER_ID = '$reciverid'";
+              $stid = oci_parse($conn, $sql);
+              $r = oci_execute($stid);
 
 
                 while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
@@ -346,8 +349,24 @@ if (!$conn) {
               $r = oci_execute($stid);
 
 
+              while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                $us = $row['MES_ID'];
+                $nm=$row['USERNAME'];
+                $rc=$row['ROUND(SYSDATE-S_DATE)'];
+                $sb=$row['SUBJECT'];
+
+                echo "
+              <tr >
+              <th scope='row'>" . $nm . "</th>
+              <td><a href='readmail.php?us=".$us."&nm=".$nm."&rnm=Admin'>" . $sb. "</a></td>
+              <td>" . $rc . "<b> days ago</b></td>
+              </tr>";
+
+
 
               }
+
+            }
               
               
 
