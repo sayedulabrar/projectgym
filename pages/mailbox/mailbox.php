@@ -1,6 +1,13 @@
 <?php
+
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
-$uname = $_SESSION['uname'];
+
+if ($_GET == NULL) {
+  $uname = $_SESSION['uname'];
+  
+} else {
+  $uname = $_GET['un'];
+}
 
 
 $conn = oci_connect('Abrar', 'saif0rrahman', 'localhost/xe')
@@ -10,7 +17,8 @@ if (!$conn) {
 } else {
   
 }
-?>
+
+   ?>
 
 
 
@@ -32,6 +40,7 @@ if (!$conn) {
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
 </head>
+
 
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
   <div class="wrapper">
@@ -345,3 +354,4 @@ if (!$conn) {
 </body>
 
 </html>
+

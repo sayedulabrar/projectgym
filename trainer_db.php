@@ -142,12 +142,19 @@ else
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="pages/mailbox/mailbox.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
+                            <?php
+                               echo "<li class='nav-item'>
+
+                                
+                                    
+                                         <a href='pages/mailbox/mailbox.php?un=".$uname."' class='nav-link'>
+                                        <i class='far fa-circle nav-icon'></i>
                                         <p>Inbox</p>
-                                    </a>
-                                </li>
+                                         </a>
+
+                                   
+                                </li>";
+                                ?>
                                 <li class="nav-item">
                                     <a href="pages/mailbox/compose.html" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
@@ -355,7 +362,11 @@ else
                                                 $dateOfBirth = $row['DOB'];
                                                 $name1=$row['NAME'];
                                                 
-                                                $sql1 = "select (sysdate-dob) from users,member where member.username = '$un' and trainer='$uname'";
+                                                //$sql1 = "select (sysdate-dob) from users,member where member.username = '$un' and trainer='$uname'";
+                                                $sql1="SELECT TRUNC(MONTHS_BETWEEN(SYSDATE,DOB)/12) AS AGE FROM USERS,MEMBER WHERE MEMBER.USERNAME='$un' and TRAINER='$uname'";
+
+                                                $gty=OCI_SYSDATE;
+
                                                 $stid1 = oci_parse($conn, $sql1);
                                                 $r1 = oci_execute($stid1);
                                                 $row1 = oci_fetch_array($stid1, OCI_ASSOC + OCI_RETURN_NULLS);
@@ -380,7 +391,7 @@ else
                                                    <th scope='row'><a href='member_profile.php?un=".$un."'>" . $row["NAME"] . "</a></th>
                                                   
                                                    <td>" . $row["MEMB_BMI"] . "</td>
-                                                   <td>" . ROUND($row1["(SYSDATE-DOB)"]/365) ."</td>
+                                                   <td>" . $row1["AGE"] ."</td>
                                                   
                                                    <td>";
                                                    if(!isset($un["Diet_Id"]))
