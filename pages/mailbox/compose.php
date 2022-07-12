@@ -340,6 +340,8 @@ $sql=" INSERT INTO MESSAGE(
 )";  
 $stid = oci_parse($conn, $sql);
 $r = oci_execute($stid);
+$_POST = array();
+
 
 
 
