@@ -93,7 +93,8 @@ Mes_Id NUMBER NOT NULL,
 Reciever_Id NUMBER NOT NULL,
 Subject varchar2(100),
 Description varchar2(2000),
-Username varchar2(50)
+SENDER_ID varchar2(50),
+S_DATE DATE
 );
 
 create table Employee
