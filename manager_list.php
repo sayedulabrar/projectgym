@@ -3,7 +3,7 @@ session_start(); // this NEEDS TO BE AT THE TOP of the page before any output et
 $uname = $_SESSION['uname'];
 
 $_SESSION['designation'] = 'Manager'; 
-$conn = oci_connect('Abrar', 'saif0rrahman', 'localhost/xe')
+$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
   echo "sorry";

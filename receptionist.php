@@ -49,12 +49,6 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-dark">
       <!-- Left navbar links -->
-      <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-                </li>
-
-            </ul>
       <!-- <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
@@ -107,7 +101,6 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
         
 
         <nav class="mt-2">
-          
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
            
             <li class="nav-item menu-open">

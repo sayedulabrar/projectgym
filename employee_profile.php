@@ -10,6 +10,7 @@ if($_GET == NULL) {
 }
 else {
   $uname = $_GET['un_'];
+  $_SESSION['xxx'] = $uname;
   if($uname == 'w' || $uname == 'm' || $uname == 'n') {
     if($uname == 'w') {
       $wrongPassword = true;
@@ -22,13 +23,13 @@ else {
     }
     $uname =  $_SESSION['uname'];
   }
-  if($uname = 'trainer') {
+  if($uname == 'trainer') {
     $trainer = true;
     $uname =  $_SESSION['uname'];
   }
 
 }
-
+$_SESSION['xxx'] = $uname;
 // echo var_dump($_GET);
 
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')

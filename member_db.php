@@ -2,7 +2,7 @@
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $uname = $_SESSION['uname'];
 $designation=$_SESSION['profation'];
-$conn = oci_connect('brownfalcon_gms2', 'saif0rrahman', 'localhost/xe')
+$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if(!$conn)
 {
@@ -401,86 +401,59 @@ else
                     </tr>
                   </thead>
                   <tbody>
-                  <?php
-                      $sql = "select DIET_ID from member where username='$uname'";
-                      $stid = oci_parse($conn, $sql);
-                      $r = oci_execute($stid);
-                      $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                      
-                      $d_id= $row['DIET_ID'];
-                      $sql = "select * from DIET_CHART where DIET_ID='$d_id'";
-                      $stid = oci_parse($conn, $sql);
-                      $r = oci_execute($stid);
-                      $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                     
-                      
-                      
+                    <tr class="breakfast">
+                      <td>Breakfat</td>
+                      <td>1g</td>
+                      <td>1g</td>
+                      <td>1g</td>
+                      <td>1g</td>
+                      <td>1g</td>
+                      <td>10</td>
 
 
-                  
 
-                
+                    </tr>
+                    <tr class="lunch">
+                      <td>Lunch</a></td>
+                      <td>1g</td>
+                      <td>1g</td>
+                      <td>1g</td>
+                      <td>1g</td>
+                      <td>1g</td>
+                      <td>10</td>
 
-                    if($row){
+                    </tr>
+                    <tr class="dinner">
+                      <td>Dinner</td>
+                      <td>1g</td>
+                      <td>1g</td>
+                      <td>1g</td>
+                      <td>1g</td>
+                      <td>1g</td>
+                      <td>10</td>
 
-                      echo  " <tr class='lunch'>
-                      <td>  Breakfast</td>
-                      <td>".$row['B_VITAMIN']."</td>
-                      <td>". $row['B_FAT']. "</td>
-                      <td>". $row['B_PROTEIN']. "</td>
-                      <td>". $row['B_MINERALS']." </td>
-                      <td>". $row['B_CARBOHYDRATE']." </td>
-                      <td>".$row['B_CALORIES']. "</td>
-                      </tr>";
-                      
-                    
-                    echo  " <tr class='lunch'>
-                      <td>  Lunch</td>
-                      <td>".$row['L_VITAMIN']."</td>
-                      <td>". $row['L_FAT']. "</td>
-                      <td>". $row['L_PROTEIN']. "</td>
-                      <td>". $row['L_MINERALS']." </td>
-                      <td>". $row['L_CARBOHYDRATE']." </td>
-                      <td>".$row['L_CALORIES']. "</td></tr>";
-                        
+                    </tr>
+                    <tr class="preworkout">
+                      <td>Preworkout</td>
+                      <td>1g</td>
+                      <td>1g</td>
+                      <td>1g</td>
+                      <td>1g</td>
+                      <td>1g</td>
+                      <td>10</td>
 
-                      echo  " <tr class='lunch'>
-                      <td>  Dinner</td>
-                      <td>".$row['D_VITAMIN']."</td>
-                      <td>". $row['D_FAT']. "</td>
-                      <td>". $row['D_PROTEIN']. "</td>
-                      <td>". $row['D_MINERALS']." </td>
-                      <td>". $row['D_CARBOHYDRATE']." </td>
-                      <td>".$row['D_CALORIES']. "</td></tr>";
-
-                      echo  " <tr class='lunch'>
-                      <td>  PreWorkout</td>
-                      <td>N/A</td>
-                      <td>N/A</td>
-                      <td>". $row['PR_WRK_PROTEIN']. "</td>
-                      <td> N/A</td>
-                      <td>". $row['PR_WRK_CARBOHYDRATE']." </td>
-                      <td>".$row['PR_WRK_CALORIES']. "</td></tr>";
-
-
-                      echo  " <tr class='lunch'>
+                    </tr>
+                    <tr class="postworkout">
                       <td>Postworkout</td>
-                      <td>N/A</td>
-                      <td>N/A</td>
-                      <td>". $row['PST_WRK_PROTEIN']. "</td>
-                      <td> N/A</td>
-                      <td>". $row['PST_WRK_CARBOHYDRATE']." </td>
-                      <td>".$row['PST_WRK_CALORIES']. "</td></tr>";
+                      <td>1g</td>
+                      <td>1g</td>
+                      <td>1g</td>
+                      <td>1g</td>
+                      <td>1g</td>
+                      <td>10</td>
 
+                    </tr>
 
-                      
-                    }
-
-                    else
-                    {
-                     
-                    }
-                      ?>
                   </tbody>
                 </table>
               </div>

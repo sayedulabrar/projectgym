@@ -29,29 +29,25 @@ if (!$conn) {
       $r = oci_execute($stid);
       $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
       if ($row == NULL) {
-        $sql = "select * from member where USERNAME = '$username'";
-        $stid = oci_parse($conn, $sql);
-        $r = oci_execute($stid);
-        $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-        if ($row == NULL) {
-          $_SESSION['profation']='Admin';
-          header("Location: admin_db.php");
-        } else {
-          $_SESSION['profation']='Member';
-          header("Location: member_db.php");
-        }
+        $_SESSION['profation']='Member';
+        header("Location: member_db.php");
       } else {
         if ($row['DESIGNATION'] == 'Manager') {
           $_SESSION['profation']='Manager';
           header("Location: manager_db.php");
-        } else if ($row['DESIGNATION'] == 'Trainer') {
+        } elseif ($row['DESIGNATION'] == 'Trainer') {
           $_SESSION['profation']='Trainer';
           header("Location: trainer_db.php");
-        } else {
+        } elseif ($row['DESIGNATION'] == 'Receptionist')  {
           $_SESSION['profation']='Receptionist';
           header("Location: receptionist.php");
         }
+        else {
+          $_SESSION['profation']='Admin';
+          header("Location: admin_db.php");
+        }
       }
+      
     }
   }
 }

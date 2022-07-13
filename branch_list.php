@@ -3,7 +3,7 @@ session_start(); // this NEEDS TO BE AT THE TOP of the page before any output et
 
 
 
-$conn = oci_connect('Abrar', 'saif0rrahman', 'localhost/xe')
+$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
   echo "sorry";
@@ -237,7 +237,22 @@ if (!$conn) {
           <tr >
           
           
-            <td > <strong>" . $row['BR_NAME'] . "</strong></td>
+          <td > <strong><a href=";
+          $br_name = $row['BR_NAME'];
+          $sql = "select * from users where br_name = '$br_name'";
+          $stid1 = oci_parse($conn, $sql);
+          $r = oci_execute($stid1);
+          $row1 = oci_fetch_array($stid1, OCI_ASSOC + OCI_RETURN_NULLS);
+          if($row1 == NULL) {
+            echo "#";
+          }
+          else {
+            echo "manager_db.php?un=".$row1['USERNAME'];
+          }
+
+
+          echo ">" . $row['BR_NAME'] . "</a></strong></td>
+
             <td ><strong>" . $row['BR_REVENUE'] . "</strong></td>
             <td ><strong>" . $row['BR_EXPENDITURE'] . "</strong></td>
             <td ><strong>" . $row['BR_PROFIT'] . "</strong></td>
