@@ -97,6 +97,12 @@ INSERT INTO MEMBER (
   'pant', 13, 170, 78,TO_DATE('21/04/2022','dd/mm/yyyy'), 'Increase Muscle','shafin'
 );
 
+INSERT INTO MEMBER (
+  USERNAME, MEM_ID, MEM_HEIGHT, MEM_WEIGHT,  EXPECTED_OUTCOME, TRAINER
+)
+  VALUES (
+  'mustafiz', 41, 164, 70, 'Increase Muscle','shafin'
+);
 
 
 

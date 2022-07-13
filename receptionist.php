@@ -257,7 +257,10 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="member_list.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <?php
+                  echo "<a href='member_list.php?un=".$uname."' class='small-box-footer'>More info <i class='fas fa-arrow-circle-right'></i></a>";
+                ?>
+                <!-- <a href="member_list.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
               </div>
             </div>
 

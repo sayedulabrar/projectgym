@@ -180,9 +180,15 @@ if (!$conn) {
                         </div>
                         <div class="col-lg-6 col-md-12" style="padding-top: 15px;padding-right:40px;">
                             <!-- Insert Modal -->
-                            <button type="button" class="insert btn btn-success float-right" data-toggle="modal"
+
+                            <?php
+                            echo '<button type="button" class="insert btn btn-success float-right" data-toggle="modal"
+                            data-target="#exampleModal" onclick="window.location.href=\'add_member.php?un='.$uname.'\'">Add
+                            New</button>';
+                            ?>
+                            <!-- <button type="button" class="insert btn btn-success float-right" data-toggle="modal"
                                 data-target="#exampleModal" onclick="window.location.href='add_member.php'">Add
-                                New</button>
+                                New</button> -->
 
 
                         </div>

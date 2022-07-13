@@ -210,6 +210,12 @@ INSERT INTO USERS (
   'pant', 'rishabh', 'Rishabh Pant', 'Male', 'rishabh@gmail.com', 'Agargao', 'O+',203023002, 'br_001', TO_DATE('21/09/1996','dd/mm/yyyy')
 );
 
+INSERT INTO USERS (
+  USERNAME, PASSWORD, NAME, GENDER,  BLOOD_GRP, ACCOUNT_NO, BR_NAME, DOB
+) VALUES (
+  'mustafiz', '1234', 'Mustafizur Rahman', 'Male',  'O+',217148974897, 'br_001', TO_DATE('12/03/1996','dd/mm/yyyy')
+);
+
 
 
 
