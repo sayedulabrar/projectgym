@@ -1,19 +1,17 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
-$_SESSION['profation']="trainer";
+$_SESSION['profation'] = "trainer";
+$_SESSION['routine'] = NULL;
 $uname = $_SESSION['uname'];
-$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
-  or die(oci_error());
-if(!$conn)
-{
-  echo "Sorry";
-}
-else
-{
-  $sql = "select * from employee where username = '$uname'";
-  $stid = oci_parse($conn, $sql);
-  $r = oci_execute($stid);
-  $tra=oci_fetch_array($stid,OCI_ASSOC + OCI_RETURN_NULLS);
+$conn = oci_connect('brownfalcon_gms2', 'saif0rrahman', 'localhost/xe')
+    or die(oci_error());
+if (!$conn) {
+    echo "Sorry";
+} else {
+    $sql = "select * from employee where username = '$uname'";
+    $stid = oci_parse($conn, $sql);
+    $r = oci_execute($stid);
+    $tra = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
 }
 ?>
 
@@ -26,17 +24,18 @@ else
     <title>Trainer | Dashboard </title>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
     <!-- overlayScrollbars -->
     <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+
 </head>
 
-<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body class="hold-transition  sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
 
         <!-- Preloader -->
@@ -70,9 +69,8 @@ else
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="$" class="brand-link">
-                <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-                    style="opacity: .8">
+            <a href="#" class="brand-link">
+                <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">Fitness Mania</span>
             </a>
 
@@ -84,9 +82,9 @@ else
                         <img src="dist/img/enan_pinki.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="employee_profile.php" class="d-block">
-                            <?php 
-                              echo $uname; 
+                        <a href="employee_profile.php?un_=trainer" class="d-block">
+                            <?php
+                            echo $uname;
                             ?>
                         </a>
                     </div>
@@ -106,8 +104,7 @@ else
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                        data-accordion="false">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                         <li class="nav-item menu-open">
@@ -143,12 +140,12 @@ else
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                            <?php
-                               echo "<li class='nav-item'>
+                                <?php
+                                echo "<li class='nav-item'>
 
                                 
                                     
-                                         <a href='pages/mailbox/mailbox.php?un=".$uname."' class='nav-link'>
+                                         <a href='pages/mailbox/mailbox.php?un=" . $uname . "' class='nav-link'>
                                         <i class='far fa-circle nav-icon'></i>
                                         <p>Inbox</p>
                                          </a>
@@ -158,46 +155,20 @@ else
                                 ?>
 
 
-                            <?php
+                                <?php
                                 echo "<li class='nav-item'>                    
-                                <a href='pages/mailbox/compose.php?un=".$uname."' class='nav-link'>
+                                <a href='pages/mailbox/compose.php?un=" . $uname . "' class='nav-link'>
                                 <i class='far fa-circle nav-icon'></i>
                                 <p>Compose</p>
                                 </a>
                                 </li>";
-                            ?>
+                                ?>
                                 <!-- <li class="nav-item">
                                     <a href="pages/mailbox/compose.html" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Compose</p>
                                     </a>
                                 </li> -->
-
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-book"></i>
-                                <p>
-                                    Pages
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-
-                                </li>
-                                <li class="nav-item">
-                                    <a href="employee_profile.php" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Profile</p>
-                                    </a>
-                                </li>
-
-
-
-
-
 
                             </ul>
                         </li>
@@ -242,16 +213,16 @@ else
                                 <div class="inner">
                                     <h3>
                                         <?php
-                                            //$br_name = $member_number["TRAINER"];
-                                            $sql = "select * from  member where trainer = '$uname'";
-                                            $stid = oci_parse($conn, $sql);
-                                            $r = oci_execute($stid);
-                        
-                                            $num = 0;
-                                            while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-                                              $num = $num + 1;
-                                            }
-                                            echo $num;
+                                        //$br_name = $member_number["TRAINER"];
+                                        $sql = "select * from  member where trainer = '$uname'";
+                                        $stid = oci_parse($conn, $sql);
+                                        $r = oci_execute($stid);
+
+                                        $num = 0;
+                                        while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                                            $num = $num + 1;
+                                        }
+                                        echo $num;
                                         ?>
                                     </h3>
 
@@ -285,7 +256,7 @@ else
                                 <div class="inner">
                                     <h3>
                                         <?php
-                                          echo $tra["SALARY"]." BDT";
+                                        echo $tra["SALARY"] . " BDT";
                                         ?>
 
                                     </h3>
@@ -305,7 +276,7 @@ else
                                 <div class="inner">
                                     <h3>
                                         <?php
-                                          echo $tra["SHIFT"].".00 am";
+                                        echo $tra["SHIFT"] . ".00 am";
                                         ?>
                                     </h3>
 
@@ -340,14 +311,16 @@ else
 
                         <div class="card-body p-0">
                             <div class="table-responsive">
-                                <table class="table m-0">
+                                <table class="table m-0" id='myTable'>
                                     <thead>
                                         <tr>
                                             <th>Name</th>
                                             <th>BMI</th>
                                             <th>Age</th>
-                                            <th>Diet_Id</th>
-                                            <th>Routine_Id</th>
+                                            <th>Diet Chart</th>
+                                            <th>Action</th>
+                                            <th>Exercise Routine</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -367,68 +340,75 @@ else
 
                                         <?php
 
-                                            $sql = "select * from users natural join member where trainer='$uname'";
-                                            $stid = oci_parse($conn, $sql);
-                                            $r = oci_execute($stid);
-                                            
-                                            while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) 
-                                            {
-                                                $un = $row['USERNAME'];
-                                                $dateOfBirth = $row['DOB'];
-                                                $name1=$row['NAME'];
-                                                
-                                                //$sql1 = "select (sysdate-dob) from users,member where member.username = '$un' and trainer='$uname'";
-                                                $sql1="SELECT TRUNC(MONTHS_BETWEEN(SYSDATE,DOB)/12) AS AGE FROM USERS,MEMBER WHERE MEMBER.USERNAME='$un' and TRAINER='$uname'";
-                                                
-                                                $gty=OCI_SYSDATE;
+                                        $sql = "select * from users natural join member where trainer='$uname'";
+                                        $stid = oci_parse($conn, $sql);
+                                        $r = oci_execute($stid);
 
-                                                $stid1 = oci_parse($conn, $sql1);
-                                                $r1 = oci_execute($stid1);
-                                                $row1 = oci_fetch_array($stid1, OCI_ASSOC + OCI_RETURN_NULLS);
-                                                $var = $row['DIET_ID'];
-                                                //echo $row1["(SYSDATE-DOB)"];
-                                                //    echo $un. ' '. $dateOfBirth. ' '. $name1; 
-                                                // $diff = date_diff($t_date,$row["DOB"]);
-                                                // $diff = date_diff(date_create($dateOfBirth date_create($t_date));
-                                                
-                                                $sql1 = "Select * from Member where username='$un'";
-                                                $stid1 = oci_parse($conn, $sql1);
-                                                $r1 = oci_execute($stid1);
-                                                $mem = oci_fetch_array($stid1, OCI_ASSOC + OCI_RETURN_NULLS);
-    
+                                        while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                                            $un = $row['USERNAME'];
+                                            $dateOfBirth = $row['DOB'];
+                                            $name1 = $row['NAME'];
 
-                                                 $row["MEMB_BMI"]=number_format(($row["MEM_WEIGHT"]*2.21*703)/($row["MEM_HEIGHT"]*0.39*$row["MEM_HEIGHT"]*0.39),3);
-                                                 $val=$row["MEMB_BMI"];
+                                            //$sql1 = "select (sysdate-dob) from users,member where member.username = '$un' and trainer='$uname'";
+                                            $sql1 = "SELECT TRUNC(MONTHS_BETWEEN(SYSDATE,DOB)/12) AS AGE FROM USERS,MEMBER WHERE MEMBER.USERNAME='$un' and TRAINER='$uname'";
 
-                                                 $query = "update Member set Memb_BMI='$val' where username='$un'";
-                                                 $p=oci_parse($conn,$query);
-                                                 $setting=oci_execute($p);
+                                            $gty = OCI_SYSDATE;
 
-                                                
-                                                
-                                                echo "
+                                            $stid1 = oci_parse($conn, $sql1);
+                                            $r1 = oci_execute($stid1);
+                                            $row1 = oci_fetch_array($stid1, OCI_ASSOC + OCI_RETURN_NULLS);
+                                            $var = $row['DIET_ID'];
+                                            //echo $row1["(SYSDATE-DOB)"];
+                                            //    echo $un. ' '. $dateOfBirth. ' '. $name1; 
+                                            // $diff = date_diff($t_date,$row["DOB"]);
+                                            // $diff = date_diff(date_create($dateOfBirth date_create($t_date));
+
+                                            $sql1 = "Select * from Member where username='$un'";
+                                            $stid1 = oci_parse($conn, $sql1);
+                                            $r1 = oci_execute($stid1);
+                                            $mem = oci_fetch_array($stid1, OCI_ASSOC + OCI_RETURN_NULLS);
+
+
+                                            $row["MEMB_BMI"] = number_format(($row["MEM_WEIGHT"] * 2.21 * 703) / ($row["MEM_HEIGHT"] * 0.39 * $row["MEM_HEIGHT"] * 0.39), 3);
+                                            $val = $row["MEMB_BMI"];
+
+                                            $query = "update Member set Memb_BMI='$val' where username='$un'";
+                                            $p = oci_parse($conn, $query);
+                                            $setting = oci_execute($p);
+
+
+
+                                            echo "
                                                  <tr class='tr_as_mem'>
-                                                   <th scope='row'><a href='member_profile.php?un=".$un."'>" . $row["NAME"] . "</a></th>
+                                                   <th scope='row'><a href='member_profile.php?un=" . $un . "'>" . $row["NAME"] . "</a></th>
                                                   
                                                    <td>" . $row["MEMB_BMI"] . "</td>
-                                                   <td>" . $row1["AGE"] ."</td>
+                                                   <td>" . $row1["AGE"] . "</td>
                                                   
                                                    <td>";
-                                                   if($mem['DIET_ID']) {
-                                                    echo $mem['DIET_ID'];
-                                                   }
-                                                   else {
-                                                    echo "NULL";
-                                                   }
-
-                                                   echo "&nbsp; &nbsp;<a href='diet.php?un=".$un."' class='btn btn-success' role='button'>Update</a></td>
+                                            if ($mem['DIET_ID']) {
+                                                echo "Set";
+                                            } else {
+                                                echo "Not set yet";
+                                            }
+                                                echo "</td><td>";
+                                            echo "&nbsp; &nbsp;<a href='diet.php?un=" . $un . "' class='btn btn-success' role='button'>Add/Edit</a></td>
                                                    <td>";
-                                                  
-                                                   echo "&nbsp; &nbsp;<a href='routine.html' class='btn btn-success'
-                                                     role='button'>Update</a></td>
+                                            $sql1 = "Select * from Routine where username='$un'";
+                                            $stid1 = oci_parse($conn, $sql1);
+                                            $r1 = oci_execute($stid1);
+                                            $mem = oci_fetch_array($stid1, OCI_ASSOC + OCI_RETURN_NULLS);
+                                            if ($mem) {
+                                                echo "Set";
+                                            } else {
+                                                echo "Not set yet";
+                                            }
+                                            echo "</td><td>";
+                                            echo "&nbsp; &nbsp;<a href='routine.php?un=" . $un . "' class='btn btn-success'
+                                                     role='button'>Add/Edit</a></td>
                                                  </tr>
                                                 ";
-                                            }
+                                        }
 
 
                                         ?>
@@ -503,6 +483,15 @@ else
     <script src="dist/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="dist/js/pages/dashboard2.js"></script>
+    <script src="dist/js/pages/dashboard2.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+    });
+    </script>
 </body>
 
 </html>

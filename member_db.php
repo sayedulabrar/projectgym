@@ -1,6 +1,17 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $uname = $_SESSION['uname'];
+$designation=$_SESSION['profation'];
+$conn = oci_connect('brownfalcon_gms2', 'saif0rrahman', 'localhost/xe')
+  or die(oci_error());
+if(!$conn)
+{
+  echo "Sorry";
+}
+else
+{
+  // echo "Connection Successful";
+}
 
 ?>
 
@@ -67,7 +78,15 @@ $uname = $_SESSION['uname'];
             <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="member_profile.php" class="d-block">Alexander Pierce</a>
+            <a href="member_profile.php" class="d-block">
+              <?php
+                $sql = "select name from users where username='$uname'";
+                $stid = oci_parse($conn, $sql);
+                $r = oci_execute($stid);
+                $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                echo $row['NAME'];
+              ?>
+            </a>
           </div>
         </div>
 
@@ -229,8 +248,20 @@ $uname = $_SESSION['uname'];
               <!-- small box -->
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3>50kg</h3>
+                  <h3>
 
+
+                  </h3>
+                  <?php
+                  $sql = "select mem_weight from member where username='$uname'";
+                    $stid = oci_parse($conn, $sql);
+                    $r = oci_execute($stid);
+                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                    
+                    echo $row['MEM_WEIGHT']."kg";
+                    
+                   
+                  ?>
                   <p>Weight</p>
                 </div>
                 <div class="icon">
@@ -244,7 +275,24 @@ $uname = $_SESSION['uname'];
               <!-- small box -->
               <div class="small-box bg-info">
                 <div class="inner">
-                  <p style="font-size: 20px; padding: 0px;margin: 0px;"><b style="font-size: 32px;padding-right: 40px;">Shafin</b> -trainer</p>
+                  <p style="font-size: 20px; padding: 0px;margin: 0px;"><b style="font-size: 32px;padding-right: 40px;">
+                  <?php
+                  $sql = "select trainer from member where username='$uname'";
+                    $stid = oci_parse($conn, $sql);
+                    $r = oci_execute($stid);
+                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                    
+                    $tr_name=$row['TRAINER'];
+                    $sql = "select name from users where username='$tr_name'";
+                    $stid = oci_parse($conn, $sql);
+                    $r = oci_execute($stid);
+                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                    echo $row['NAME'] ;
+                    
+                   
+                    ?>
+                
+                </b> -trainer</p>
                   <input type="text" class="form-control" placeholder="Rate out of 5" aria-label="Username" aria-describedby="basic-addon1">
                   <button type="button" class="btn btn-primary">Rate</button>
                 </div>
@@ -259,7 +307,19 @@ $uname = $_SESSION['uname'];
               <!-- small box -->
               <div class="small-box bg-warning">
                 <div class="inner">
-                  <h3>12 June,2022</h3>
+                  <h3>
+                  <?php
+                  $sql = "select MEMBERSHIP_EXPIRY from member where username='$uname'";
+                    $stid = oci_parse($conn, $sql);
+                    $r = oci_execute($stid);
+                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                    
+                    echo $row['MEMBERSHIP_EXPIRY'];
+                    
+                   
+                    ?>
+
+                  </h3>
 
                   <p>Expiry Date</p>
                 </div>
@@ -274,7 +334,38 @@ $uname = $_SESSION['uname'];
               <!-- small box -->
               <div class="small-box bg-danger">
                 <div class="inner">
-                  <h3>23</h3>
+                  <h3>
+                  <?php
+                  $sql = "select mem_weight from member where username='$uname'";
+                    $stid = oci_parse($conn, $sql);
+                    $r = oci_execute($stid);
+                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                    
+                    $weight=$row['MEM_WEIGHT'];
+
+                    $sql = "select mem_height from member where username='$uname'";
+                    $stid = oci_parse($conn, $sql);
+                    $r = oci_execute($stid);
+                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                    $height=$row['MEM_HEIGHT'];
+                    
+
+                    $height=$height/100;
+                    
+                    $height=$height**2;
+                   
+                    $bmi=number_format($weight/$height,2);
+                
+                    echo $bmi;
+
+                    $query = "update Member set Memb_BMI='$bmi' where username='$uname'";
+                    $p=oci_parse($conn,$query);
+                    $setting=oci_execute($p);
+
+
+                    ?>
+
+                  </h3>
 
                   <p>BMI</p>
                 </div>

@@ -4,7 +4,7 @@ $showuname = $_SESSION['uname'];
 $wrongPassword = false;
 $matchPassword = true;
 $nullPassword = false;
-
+$trainer = false;
 if($_GET == NULL) {
   $uname = $_SESSION['uname'];
 }
@@ -20,6 +20,10 @@ else {
     else {
       $nullPassword = true;
     }
+    $uname =  $_SESSION['uname'];
+  }
+  if($uname = 'trainer') {
+    $trainer = true;
     $uname =  $_SESSION['uname'];
   }
 
@@ -244,96 +248,215 @@ if (!$conn) {
 
   <div class="wrapper">
 
-
-    <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
-      <!-- Brand Logo -->
-      <a href="#" class="brand-link">
-        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">Fitness Mania</span>
-      </a>
-
-      <!-- Sidebar -->
-      <div class="sidebar">
-        <!-- Sidebar user (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-          <div class="image">
-            <img src="dist/img/enan_pinki.jpg" class="img-circle elevation-2" alt="User Image">
+    <?php
+      if($trainer == false) {
+        echo '
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+          <!-- Brand Logo -->
+          <a href="#" class="brand-link">
+            <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">Fitness Mania</span>
+          </a>
+    
+          <!-- Sidebar -->
+          <div class="sidebar">
+            <!-- Sidebar user (optional) -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+              <div class="image">
+                <img src="dist/img/enan_pinki.jpg" class="img-circle elevation-2" alt="User Image">
+              </div>
+              <div class="info">
+                <a href="employee_profile.php" class="d-block">';
+                  
+            $_SESSION["profile"] = $showuname;
+            echo $showuname;
+                  
+               echo '</a>
+              </div>
+            </div>
+    
+    
+    
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+              <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Add icons to the links using the .nav-icon class
+                  with font-awesome or any other icon font library -->
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>
+                      Dashboard
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+    
+                    <li class="nav-item">
+                      <a href="manager_db.php" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Manager</p>
+                      </a>
+                    </li>
+    
+                  </ul>
+                </li>
+    
+    
+                <li class="nav-item">
+    
+                </li>
+    
+    
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="nav-icon far fa-envelope"></i>
+                    <p>
+                      Mailbox
+                      <i class="fas fa-angle-left right"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                      <a href="pages/mailbox/mailbox.html" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Inbox</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="pages/mailbox/compose.html" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Compose</p>
+                      </a>
+                    </li>
+    
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
           </div>
-          <div class="info">
-            <a href="employee_profile.php" class="d-block">
-              <?php
-                $_SESSION['profile'] = $showuname;
-                echo $showuname;
-              ?>
+          <!-- /.sidebar -->
+        </aside>
+    
+        ';
+      }
+      else {
+        echo '
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="#" class="brand-link">
+                <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                    style="opacity: .8">
+                <span class="brand-text font-weight-light">Fitness Mania</span>
             </a>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user panel (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="image">
+                        <img src="dist/img/enan_pinki.jpg" class="img-circle elevation-2" alt="User Image">
+                    </div>
+                    <div class="info">
+                        <a href="employee_profile.php?un_=trainer" class="d-block">'; 
+                              echo $showuname; 
+                  
+                  echo      '</a>
+                    </div>
+                </div>
+
+                <!-- SidebarSearch Form -->
+                <!-- <div class="form-inline">
+          <div class="input-group" data-widget="sidebar-search">
+            <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+            <div class="input-group-append">
+              <button class="btn btn-sidebar">
+                <i class="fas fa-search fa-fw"></i>
+              </button>
+            </div>
           </div>
-        </div>
+        </div> -->
 
-
-
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <!-- Add icons to the links using the .nav-icon class
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                        data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
-                <p>
-                  Dashboard
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Dashboard
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
 
-                <li class="nav-item">
-                  <a href="manager_db.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Manager</p>
-                  </a>
-                </li>
+                                <li class="nav-item">
+                                    <a href="trainer_db.php" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Trainer</p>
+                                    </a>
+                                </li>
 
-              </ul>
-            </li>
-
-
-            <li class="nav-item">
-
-            </li>
+                            </ul>
+                        </li>
 
 
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon far fa-envelope"></i>
-                <p>
-                  Mailbox
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="pages/mailbox/mailbox.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Inbox</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/mailbox/compose.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Compose</p>
-                  </a>
-                </li>
 
-              </ul>
-            </li>
-          </ul>
-        </nav>
-        <!-- /.sidebar-menu -->
-      </div>
-      <!-- /.sidebar -->
-    </aside>
 
+
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon far fa-envelope"></i>
+                                <p>
+                                    Mailbox
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+        ';
+        echo "<li class='nav-item'>
+
+                                
+                                    
+                                         <a href='pages/mailbox/mailbox.php?un=".$uname."' class='nav-link'>
+                                        <i class='far fa-circle nav-icon'></i>
+                                        <p>Inbox</p>
+                                         </a>
+
+                                   
+                                </li>";
+                                echo "<li class='nav-item'>                    
+                                <a href='pages/mailbox/compose.php?un=".$uname."' class='nav-link'>
+                                <i class='far fa-circle nav-icon'></i>
+                                <p>Compose</p>
+                                </a>
+                                </li>";
+        echo '
+        </ul>
+        </li>
+        
+
+
+
+    </ul>
+    </li>
+
+    </ul>
+</nav>
+<!-- /.sidebar-menu -->
+</div>
+<!-- /.sidebar -->
+</aside>
+        ';
+      }
+    ?>
+    
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper dark-mode" style="margin-top: 0; ">
       <!-- Content Header (Page header) -->
@@ -350,7 +473,14 @@ if (!$conn) {
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="manager_db.php">Home</a></li>
+                <li class="breadcrumb-item"><a href="<?php
+                  if($trainer) {
+                    echo "trainer_db.php";
+                  }
+                  else {
+                    echo "manager_db.php";
+                  }
+                ?>">Home</a></li>
                 <li class="breadcrumb-item active">User Profile</li>
               </ol>
             </div>
@@ -528,7 +658,7 @@ if (!$conn) {
                             ?>
                           </p>
                           <?php
-                            if($_GET == NULL) {
+                            if($_GET == NULL || $_GET['un_'] == 'trainer') {
                               echo '
                               <button type="button" class="update btn btn-primary"  data-toggle="modal" data-target="#exampleModal">Edit Info</button>
                               <button type="button" class="pass btn btn-primary"  data-toggle="modal" data-target="#exampleModal1">Change Password</button>
