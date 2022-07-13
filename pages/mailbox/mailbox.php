@@ -309,14 +309,14 @@ if (!$conn) {
           
 
           
-              $sql = "Select MES_ID, RECIEVER_ID, SUBJECT,ROUND(SYSDATE - S_DATE), USERNAME  From MESSAGE JOIN EMPLOYEE  ON (EMPLOYEE.EMP_ID=MESSAGE.SENDER_ID)
+              $sql = "Select MES_ID, RECIEVER_ID, SUBJECT,S_DATE, USERNAME  From MESSAGE JOIN EMPLOYEE  ON (EMPLOYEE.EMP_ID=MESSAGE.SENDER_ID)
               where RECIEVER_ID = '$reciverid'";
               $stid = oci_parse($conn, $sql);
               $r = oci_execute($stid);
               $roa = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
               if($roa!=NULL){
 
-                $sql = "Select MES_ID, RECIEVER_ID, SUBJECT,ROUND(SYSDATE - S_DATE), USERNAME  From MESSAGE JOIN EMPLOYEE  ON (EMPLOYEE.EMP_ID=MESSAGE.SENDER_ID)
+              $sql = "Select MES_ID, RECIEVER_ID, SUBJECT,S_DATE, USERNAME  From MESSAGE JOIN EMPLOYEE  ON (EMPLOYEE.EMP_ID=MESSAGE.SENDER_ID)
               where RECIEVER_ID = '$reciverid'";
               $stid = oci_parse($conn, $sql);
               $r = oci_execute($stid);
@@ -325,14 +325,14 @@ if (!$conn) {
                 while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
                   $us = $row['MES_ID'];
                   $nm=$row['USERNAME'];
-                  $rc=$row['ROUND(SYSDATE-S_DATE)'];
+                  $rc=$row['S_DATE'];
                   $sb=$row['SUBJECT'];
 
                   echo "
                 <tr >
                 <th scope='row'>" . $nm . "</th>
                 <td><a href='readmail.php?us=".$us."&nm=".$nm."&rnm=Admin'>" . $sb. "</a></td>
-                <td>" . $rc . "<b> days ago</b></td>
+                <td>" . $rc . "</td>
                 </tr>";
 
 
@@ -342,9 +342,20 @@ if (!$conn) {
                 }
               }else
               {
+                $sql = "Select MES_ID, RECIEVER_ID, SUBJECT,S_DATE, USERNAME  From MESSAGE JOIN MEMBER  ON (MEMBER.MEM_ID=MESSAGE.SENDER_ID)
+                where RECIEVER_ID = '$reciverid'";
+                $stid = oci_parse($conn, $sql);
+                $r = oci_execute($stid);
+  
+              $roa = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
 
-              $sql = "Select MES_ID, RECIEVER_ID, SUBJECT,ROUND(SYSDATE - S_DATE), USERNAME  From MESSAGE JOIN MEMBER  ON (MEMBER.MEM_ID=MESSAGE.SENDER_ID)
-              where RECIEVER_ID = (Select Emp_ID FROM EMPLOYEE  where DESIGNATION='$job')";
+
+
+              if($roa!=NULL){
+
+
+                $sql = "Select MES_ID, RECIEVER_ID, SUBJECT,S_DATE, USERNAME  From MESSAGE JOIN MEMBER  ON (MEMBER.MEM_ID=MESSAGE.SENDER_ID)
+              where RECIEVER_ID = '$reciverid'";
               $stid = oci_parse($conn, $sql);
               $r = oci_execute($stid);
 
@@ -352,19 +363,23 @@ if (!$conn) {
               while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
                 $us = $row['MES_ID'];
                 $nm=$row['USERNAME'];
-                $rc=$row['ROUND(SYSDATE-S_DATE)'];
+                $rc=$row['S_DATE'];
                 $sb=$row['SUBJECT'];
 
                 echo "
               <tr >
               <th scope='row'>" . $nm . "</th>
               <td><a href='readmail.php?us=".$us."&nm=".$nm."&rnm=Admin'>" . $sb. "</a></td>
-              <td>" . $rc . "<b> days ago</b></td>
+              <td>" . $rc . "</td>
               </tr>";
 
 
 
               }
+
+              }
+
+              
 
             }
               
@@ -406,4 +421,3 @@ if (!$conn) {
 </body>
 
 </html>
-

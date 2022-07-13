@@ -306,7 +306,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $r = oci_execute($stid);
     $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
 
-    $to=$row['MEM_ID'];
+
     $sub=$_POST['subject'];
     $des=$_POST['details'];
     $sid=$senderid;
@@ -323,7 +323,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $r = oci_execute($stid);
   $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
 
-    $to=$row['EMP_ID'];
+    
     $sub=$_POST['subject'];
     $des=$_POST['details'];
     $sid=$senderid;
@@ -333,14 +333,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-$sql=" INSERT INTO MESSAGE(
-  MES_ID,RECIEVER_ID,SUBJECT,DESCRIPTION,SENDER_ID,S_DATE
-)VALUES(
-  per_mes_id_sq.NEXTVAL,'$to','$sub','$des','$sid',SYSDATE
-)";  
-$stid = oci_parse($conn, $sql);
-$r = oci_execute($stid);
-$_POST = array();
+
+if($row!=NULL)
+{
+  $to=$row['EMP_ID'];
+  $sql=" INSERT INTO MESSAGE(
+    MES_ID,RECIEVER_ID,SUBJECT,DESCRIPTION,S_DATE,SENDER_ID
+  )VALUES(
+    per_mes_id_sq.NEXTVAL,'$to','$sub','$des',SYSDATE,'$sid'
+  )";  
+  $stid = oci_parse($conn, $sql);
+  $r = oci_execute($stid);
+  
+  $_POST = array();
+}else
+{
+  echo"<div class='alert alert-warning alert-dismissible fade show my-4' role='alert'>
+  <strong>Sorry !</strong> Invalid Username.
+  <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+    <span aria-hidden='true'>&times;</span>
+  </button>
+</div>" ;
+
+  $_POST = array();
+}
+
 
 
 
