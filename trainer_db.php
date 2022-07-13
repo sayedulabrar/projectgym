@@ -31,9 +31,11 @@ if (!$conn) {
     <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+
 </head>
 
-<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body class="hold-transition  sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
 
         <!-- Preloader -->
@@ -309,7 +311,7 @@ if (!$conn) {
 
                         <div class="card-body p-0">
                             <div class="table-responsive">
-                                <table class="table m-0">
+                                <table class="table m-0" id='myTable'>
                                     <thead>
                                         <tr>
                                             <th>Name</th>
@@ -481,6 +483,15 @@ if (!$conn) {
     <script src="dist/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="dist/js/pages/dashboard2.js"></script>
+    <script src="dist/js/pages/dashboard2.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+    });
+    </script>
 </body>
 
 </html>
