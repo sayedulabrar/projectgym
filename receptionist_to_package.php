@@ -38,9 +38,11 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+
 </head>
 
-<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body class="hold-transition  sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
   <div class="wrapper">
 
     <!-- Preloader -->
@@ -231,11 +233,13 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
 
      
         <div class="d-flex justify-content-center" style=" padding-top:1%;text-decoration: lightslategray;"><h2>Packages Info</h2></div>
+
+
         <div class="card-body"style="margin-top:1%">
     
         
-            <table class="table table-hover table-striped">
-                <thead style="color:#33ABF9 ;">
+            <table class="table table-hover table-striped" id='myTable'>
+                <thead style="color:black ;">
                 
                 <tr>
                     <th>ID</th>
@@ -247,7 +251,7 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
                 </tr>
               </thead>
 
-              <tbody style="color:#33ABF9 ;">
+              <tbody style="color:black ;">
 
               <?php
                   $br=$rec['BR_NAME'];
@@ -271,33 +275,6 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
                     ";
                   }
               ?>
-
-
-        
-        
-                <!-- <tr >
-                
-                    <td >pkg_001</td>
-                    <td >Winter special</td>
-                    <td >10000</td>
-                    <td >Fitness</td>
-                    <td>3 months</td>
-                    <td><button class="btn btn-sm btn-outline-light">
-                        
-                        <a href="userpages/examples/purchase.html" class="fa fa-shopping-cart"></a>            
-      </button></td>
-                </tr>
-                <tr >
-                
-                    <td >pkg_001</td>
-                    <td >Winter special</td>
-                    <td >10000</td>
-                    <td >Fitness</td>
-                    <td>3 months</td>
-                    <td><button class="btn btn-sm btn-outline-light">
-                        <a href="userpages/examples/purchase.html" class="fa fa-shopping-cart"></a>  
-                  </button></td>
-                </tr> -->
                 </tbody>
             </table>
             <!-- /.table -->
@@ -357,6 +334,14 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   <script src="dist/js/demo.js"></script>
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   <script src="dist/js/pages/dashboard2.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+    });
+    </script>
 </body>
 
 </html>
