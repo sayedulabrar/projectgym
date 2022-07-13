@@ -17,6 +17,7 @@ if (!$conn) {
       $sql = "update member set f_set = $val where username = '$username'";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
+      $_SESSION['routine'] = 'u';
     }
     if(isset($_POST['exe_name'])) {
       $exe_name = $_POST['exe_name'];
@@ -281,6 +282,15 @@ if (!$conn) {
             </div>";
             $_SESSION['routine'] = NULL; 
             }
+            if($_SESSION['routine'] == 'u') {
+              echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+              Successfully updated Followed Set
+              <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+              <span aria-hidden='true'>&times;</span>
+              </button>
+            </div>";
+            $_SESSION['routine'] = NULL; 
+            }
             
         ?>
       <div class="content-header">
@@ -304,8 +314,11 @@ if (!$conn) {
                       else if($row['F_SET'] == 2) {
                         echo "Indermediate";
                       }
-                      else {
+                      else if($row['F_SET'] == 3) {
                         echo "Advanced";
+                      }
+                      else {
+                        echo "Not Set Yet";
                       }
                     }
                   ?>
