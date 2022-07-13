@@ -316,7 +316,9 @@ if (!$conn) {
                                             <th>BMI</th>
                                             <th>Age</th>
                                             <th>Diet Chart</th>
+                                            <th>Action</th>
                                             <th>Exercise Routine</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -387,7 +389,7 @@ if (!$conn) {
                                             } else {
                                                 echo "Not set yet";
                                             }
-
+                                                echo "</td><td>";
                                             echo "&nbsp; &nbsp;<a href='diet.php?un=" . $un . "' class='btn btn-success' role='button'>Add/Edit</a></td>
                                                    <td>";
                                             $sql1 = "Select * from Routine where username='$un'";
@@ -399,6 +401,7 @@ if (!$conn) {
                                             } else {
                                                 echo "Not set yet";
                                             }
+                                            echo "</td><td>";
                                             echo "&nbsp; &nbsp;<a href='routine.php?un=" . $un . "' class='btn btn-success'
                                                      role='button'>Add/Edit</a></td>
                                                  </tr>
