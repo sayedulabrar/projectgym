@@ -1,3 +1,26 @@
+<?php
+session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
+$_SESSION['profation'] = "receptionist";
+$uname = $_SESSION['uname'];
+$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
+    or die(oci_error());
+
+  if (!$conn) 
+  {
+      echo "Sorry";
+  }
+  else
+  {
+    $sql = "Select * from users where username='$uname'";
+    $stid = oci_parse($conn, $sql);
+    $r = oci_execute($stid);
+    $rec = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+
+  }
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,12 +55,12 @@
         <li class="nav-item">
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
+        <!-- <li class="nav-item d-none d-sm-inline-block">
           <a href="index3.html" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
           <a href="#" class="nav-link">Contact</a>
-        </li>
+        </li> -->
       </ul>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto navbar-right-top">
@@ -58,7 +81,7 @@
       <a href="index3.html" class="brand-link">
         <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
           style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <span class="brand-text font-weight-light">Fitness Mania </span>
       </a>
 
       <!-- Sidebar -->
@@ -69,12 +92,16 @@
             <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="#" class="d-block">Alexander Pierce</a>
+            <a href="#" class="d-block">
+              <?php
+                echo $uname;
+              ?>
+            </a>
           </div>
         </div>
 
         <!-- SidebarSearch Form -->
-        <div class="form-inline">
+        <!-- <div class="form-inline">
           <div class="input-group" data-widget="sidebar-search">
             <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
             <div class="input-group-append">
@@ -83,7 +110,7 @@
               </button>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -123,18 +150,22 @@
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="pages/mailbox/mailbox.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
+              <?php
+                    echo "<li class='nav-item'>                
+                    <a href='pages/mailbox/mailbox.php?un=" . $uname . "' class='nav-link'>
+                    <i class='far fa-circle nav-icon'></i>
                     <p>Inbox</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/mailbox/compose.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
+                    </a>         
+ </li>";
+              ?>
+               <?php
+                    echo "<li class='nav-item'>                
+                    <a href='pages/mailbox/compose.php?un=" . $uname . "' class='nav-link'>
+                    <i class='far fa-circle nav-icon'></i>
                     <p>Compose</p>
-                  </a>
-                </li>
+                    </a>         
+                    </li>";
+                ?>
                 
               </ul>
             </li>
@@ -151,7 +182,7 @@
                     
                 </li>
                 <li class="nav-item">
-                  <a href="pages/examples/profile.html" class="nav-link">
+                  <a href="employee_profile.php?un_=receptionist" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Profile</p>
                   </a>
@@ -204,7 +235,7 @@
     
         
             <table class="table table-hover table-striped">
-                <tbody style="color:#33ABF9 ;">
+                <thead style="color:#33ABF9 ;">
                 
                 <tr>
                     <th>ID</th>
@@ -214,9 +245,37 @@
                     <th>Duration</th>
                     <th>Purchase</th>
                 </tr>
+              </thead>
+
+              <tbody style="color:#33ABF9 ;">
+
+              <?php
+                  $br=$rec['BR_NAME'];
+                  $sql="select * from package natural join br_pkg where br_name='$br'";
+                  $stid = oci_parse($conn, $sql);
+                  $r = oci_execute($stid);
+                  while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS))
+                  {
+                    echo "
+                      <tr>
+                        <td>".$row["PKG_ID"]."</td>
+                        <td>".$row["PKG_NAME"]."</td>
+                        <td>".$row["PKG_CHARGE"]." BDT</td>
+                        <td>".$row["PKG_TYPE"]."</td>
+                        <td>".$row["PKG_DURATION"]." months</td>
+                        <td><button class='btn btn-sm btn-outline-light'>
+                        
+                        <a href='userpages/examples/purchase.html' class='fa fa-shopping-cart'></a>            
+      </button></td>
+                      </tr>
+                    ";
+                  }
+              ?>
+
+
         
         
-                <tr >
+                <!-- <tr >
                 
                     <td >pkg_001</td>
                     <td >Winter special</td>
@@ -238,7 +297,7 @@
                     <td><button class="btn btn-sm btn-outline-light">
                         <a href="userpages/examples/purchase.html" class="fa fa-shopping-cart"></a>  
                   </button></td>
-                </tr>
+                </tr> -->
                 </tbody>
             </table>
             <!-- /.table -->
