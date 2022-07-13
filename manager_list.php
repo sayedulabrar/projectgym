@@ -11,16 +11,7 @@ if (!$conn) {
   if($_SERVER['REQUEST_METHOD'] == 'POST') {
     if(isset($_POST['username'])) {
       $username = $_POST['username'];
-      $sql = "DELETE FROM message WHERE username = '$username'";
-      $stid = oci_parse($conn, $sql);
-      $r = oci_execute($stid);
-      $sql = "DELETE FROM user_mobileno WHERE username = '$username'";
-      $stid = oci_parse($conn, $sql);
-      $r = oci_execute($stid);
-      $sql = "DELETE FROM employee WHERE username = '$username'";
-      $stid = oci_parse($conn, $sql);
-      $r = oci_execute($stid);
-      $sql = "DELETE FROM users WHERE username = '$username'";
+      $sql = "DELETE FROM USERS WHERE USERNAME = '$username'";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
     }
@@ -31,15 +22,15 @@ if (!$conn) {
       $emp_id = $_POST['emp_id'];
       $designation = $_POST['designation'];
       $shift = $_POST['shift'];
-      $sql = "update employee set salary = $salary, shift = $shift, designation = '$designation'  where emp_id = $emp_id";
+      $sql = "UPDATE EMPLOYEE SET SALARY = $salary, SHIFT = $shift, DESIGNATION = '$designation'  where EMP_ID = $emp_id";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
-      $sql = "select * from employee where emp_id = $emp_id";
+      $sql = "SELECT * FROM EMPLOYEE WHERE EMP_ID = $emp_id";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
       $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
       $username = $row['USERNAME'];
-      $sql = "update users set br_name = '$br_name' where username = '$username'";
+      $sql = "UPDATE USERS SET BR_NAME = '$br_name' where USERNAME = '$username'";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
       
@@ -304,7 +295,7 @@ if (!$conn) {
                         <label for="designation">Designation</label>
                         <!-- <input type="text" class="form-control" id="designation" name="designation" aria-describedby="emailHelp"> -->
                         <select name="designation" id="designation" class="form-select" aria-label="Default select example" style="width: 208px; height: 37px;">
-                          <option selected value="manager">manager</option>
+                          <option selected value="Manager">Manager</option>
                           
                           
                         </select>
