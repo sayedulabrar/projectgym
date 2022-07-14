@@ -1,19 +1,18 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $showname = $_SESSION['uname'];
-
-if($_GET!= NULL && ($_GET['un'] != 'u' && $_GET['un'] != 'i' && $_GET['un'] != 'd' && $_GET['un'] != 'w')) {
-    $uname = $_GET['un'];
-}
-else {
-    $uname = $_SESSION['uname'];
+$designation = $_SESSION['profation'];
+if ($_GET != NULL && ($_GET['un'] != 'u' && $_GET['un'] != 'i' && $_GET['un'] != 'd' && $_GET['un'] != 'w')) {
+  $uname = $_GET['un'];
+} else {
+  $uname = $_SESSION['uname'];
 }
 $conn = oci_connect('brownfalcon_gms2', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
   echo "sorry";
 } else {
-  if($_SERVER['REQUEST_METHOD'] == 'POST') {
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['name']) && isset($_POST['amount']) &&  isset($_POST['duration'])) {
       $sql = "select *from package order by pkg_id desc";
       $stid = oci_parse($conn, $sql);
@@ -37,34 +36,58 @@ if (!$conn) {
       $r = oci_execute($stid);
 
       header("Location: packages_list.php?un=i");
-
     }
-    if(isset($_POST['pkg_id'])) {
-      $pkg_id = $_POST['pkg_id'];
-      $sql = "DELETE FROM package WHERE pkg_id = '$pkg_id'";
-      $stid = oci_parse($conn, $sql);
-      $r = oci_execute($stid);
+    if (isset($_POST['pkg_id'])) {
+      if($designation == 'Member') {
+        $pkg_id = $_POST['pkg_id'];
+        $sql = "select * from users where USERNAME = '$uname'";
+        $stid = oci_parse($conn, $sql);
+        $r = oci_execute($stid);
+        $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+        $br_name = $row["BR_NAME"];
+        $_SESSION['xxx'] = $br_name;
+        $sql = "select *from income order by trx_id desc";
+        $stid = oci_parse($conn, $sql);
+        $r = oci_execute($stid);
+        $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+        $trx_id = $row['TRX_ID'] + 1;
+        $sql = "select * from package where pkg_id = '$pkg_id'";
+        $stid = oci_parse($conn, $sql);
+        $r = oci_execute($stid);
+        $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+        $amount = $row['PKG_CHARGE'];
+        $sql = "insert into income (trx_id, username, inc_amount, br_name, inc_type, inc_dateandtime) values($trx_id, '$uname', $amount, '$br_name', 'Member Payment', SYSTIMESTAMP)";
+        $stid = oci_parse($conn, $sql);
+        $r = oci_execute($stid);
+      }
+      else {
+        $pkg_id = $_POST['pkg_id'];
+        $sql = "DELETE FROM package WHERE pkg_id = '$pkg_id'";
+        $stid = oci_parse($conn, $sql);
+        $r = oci_execute($stid);
+        header("Location: packages_list.php?un=d");
+      }
       // $x = $pkg_id;
+
       
-      header("Location: packages_list.php?un=d");
     }
-    if(isset($_POST['pkg_id2'])) {
+    if (isset($_POST['pkg_id2'])) {
       $pkg_id = $_POST['pkg_id2'];
       $duration = $_POST['duration1'];
       $charge = $_POST['amount1'];
       $sql = "update package set pkg_duration = $duration, pkg_charge = $charge  where pkg_id = $pkg_id";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
-      
+
       header("Location: packages_list.php?un=u");
     }
   }
-
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -105,8 +128,112 @@ if (!$conn) {
     </nav>
     <!-- /.navbar -->
     <?php
-      if($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u' )  )) {
-        echo '
+    if($designation == 'Member') {
+      echo '
+      <!-- Main Sidebar Container -->
+      <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="#" class="brand-link">
+          <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+          <span class="brand-text font-weight-light">Fitness Mania</span>
+        </a>
+  
+        <!-- Sidebar -->
+        <div class="sidebar">
+          <!-- Sidebar user panel (optional) -->
+          <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+              <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+            </div>
+            <div class="info">
+              <a href="member_profile.php" class="d-block">'.$uname.'
+              </a>
+            </div>
+          </div>
+  
+          <!-- SidebarSearch Form -->
+          <!-- <div class="form-inline">
+            <div class="input-group" data-widget="sidebar-search">
+              <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+              <div class="input-group-append">
+                <button class="btn btn-sidebar">
+                  <i class="fas fa-search fa-fw"></i>
+                </button>
+              </div>
+            </div>
+          </div> -->
+  
+          <!-- Sidebar Menu -->
+          <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+              <!-- Add icons to the links using the .nav-icon class
+                 with font-awesome or any other icon font library -->
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <p>
+                    Dashboard
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+  
+                  <li class="nav-item">
+                    <a href="member_db.php" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Member</p>
+                    </a>
+                  </li>
+  
+                </ul>
+              </li>
+  
+  
+  
+  
+  
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon far fa-envelope"></i>
+                  <p>
+                    Mailbox
+                    <i class="fas fa-angle-left right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="pages/mailbox/mailbox.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Inbox</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="pages/mailbox/compose.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Compose</p>
+                    </a>
+                  </li>
+  
+                </ul>
+              </li>
+              
+  
+  
+  
+            </ul>
+            </li>
+  
+            </ul>
+          </nav>
+          <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+      </aside>  
+      ';
+    }
+    else {
+    if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+      echo '
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
@@ -125,8 +252,8 @@ if (!$conn) {
                     </div>
                     <div class="info">
                         <a href="employee_profile.php" class="d-block">';
-                            echo $uname;
-                        echo '</a>
+      echo $uname;
+      echo '</a>
                     </div>
                 </div>
 
@@ -207,9 +334,8 @@ if (!$conn) {
 </aside>
 
 ';
-}
-else {
-echo '
+    } else {
+      echo '
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 <!-- Brand Logo -->
 <a href="#" class="brand-link">
@@ -225,9 +351,9 @@ echo '
   <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
 </div>
 <div class="info">
-<a href="admin_profile.html" class="d-block">';
-echo $showname;  
-echo '</a>  
+<a href="admin_profile.php" class="d-block">';
+      echo $showname;
+      echo '</a>  
 </div>
 </div>
 
@@ -337,8 +463,9 @@ echo '</a>
   </aside> 
           
   ';
-}
-?>
+    }
+  }
+    ?>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <section class="content" style="margin-bottom:50px ;">
@@ -346,7 +473,7 @@ echo '</a>
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel1">Are you sure you want to remove this package?</h5>
+                <h5 class="modal-title" id="exampleModalLabel1">Are you sure you want to remove this package?</h5>
                 <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button> -->
@@ -355,42 +482,39 @@ echo '</a>
                 <form action="packages_list.php" method="POST">
                   <input type="hidden" name="pkg_id" id="pkg_id">
                   <div class="modal-body" style="float: right;">
-                  <button type="button" class="btn btn-secondary" onclick="window.location.href='packages_list.php'">Cancel</button>
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='packages_list.php'">Cancel</button>
                     <button type="submit" class="btn btn-primary">Comfirm</button>
-                  </div> 
+                  </div>
                 </form>
               </div>
             </div>
           </div>
         </div>
         <?php
-          if($_GET) {
-            if($_GET['un'] == 'i') {
-              echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+        if ($_GET) {
+          if ($_GET['un'] == 'i') {
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
               Successfully inserted
               <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
               <span aria-hidden='true'>&times;</span>
               </button>
             </div>";
-            }
-            elseif($_GET['un'] == 'u') {
-              echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+          } elseif ($_GET['un'] == 'u') {
+            echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
               Successfully Updated
               <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
               <span aria-hidden='true'>&times;</span>
               </button>
             </div>";
-            }
-            
-            elseif($_GET['un'] == 'd') {
-              echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+          } elseif ($_GET['un'] == 'd') {
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
               Successfully Deleted
               <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
               <span aria-hidden='true'>&times;</span>
               </button>
             </div>";
-            }
           }
+        }
         ?>
 
         <div class="bg-light clearfix">
@@ -400,13 +524,15 @@ echo '</a>
             </div>
             <div class="col-lg-6 col-md-12" style="padding-top: 15px;padding-right:40px;">
               <!-- Insert Modal -->
-              <?php 
-                if($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u') )) {
+              <?php
+              if($designation <> 'Member') {
+              if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
                 echo '
                 <button type="button" class="insert btn btn-success float-right" data-toggle="modal" data-target="#exampleModal">Add New</button>
               
                 ';
-                }    
+              }
+            }
               ?>
               <!-- Modal -->
               <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -414,7 +540,7 @@ echo '</a>
                   <div class="modal-content">
                     <div class="modal-header">
                       <h5 class="modal-title" id="exampleModalLabel">Add New Package</h5>
-                         <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button> -->
                     </div>
@@ -501,7 +627,7 @@ echo '</a>
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="window.location.href='packages_list.php'">Close</button>
-                          <button type="submit" class="btn btn-primary" >Confirm</button>
+                          <button type="submit" class="btn btn-primary">Confirm</button>
                         </div>
                       </form>
                     </div>
@@ -531,8 +657,8 @@ echo '</a>
                 <th scope="col">Charge</th>
                 <th scope="col">Duration (months)</th>
                 <?php
-                if($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i'|| $_GET['un'] == 'u' ) )) {
-                echo '<th scope="col">Action</th>';
+                if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+                  echo '<th scope="col">Action</th>';
                 }
                 ?>
               </tr>
@@ -551,11 +677,17 @@ echo '</a>
               <td>" . $row["PKG_TYPE"] . "</td>
               <td>" . $row["PKG_CHARGE"] . "</td>
               <td>" . $row["PKG_DURATION"] . "</td>";
-              if($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i'|| $_GET['un'] == 'u' ) )) {
-              echo "<td> <button class='delete btn btn-sm btn-danger'>Remove</button> <button class='update btn btn-sm btn-primary' id=".$row['BR_NAME'].">Edit</button></td>";}
-              echo "</tr>
+              if($designation == 'Member') {
+                echo "<td> <button class='delete btn btn-sm btn-success'>Purchase</button>";
+              }
+              else {
+                if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+                  echo "<td> <button class='delete btn btn-sm btn-danger'>Remove</button> <button class='update btn btn-sm btn-primary' id=" . $row['BR_NAME'] . ">Edit</button></td>";
+                }
+                echo "</tr>
               ";
               }
+            }
               ?>
             </tbody>
           </table>
@@ -617,8 +749,8 @@ echo '</a>
       })
     })
     deletes = document.getElementsByClassName('delete');
-    Array.from(deletes).forEach((element)=>{
-      element.addEventListener("click", (e)=>{
+    Array.from(deletes).forEach((element) => {
+      element.addEventListener("click", (e) => {
         // console.log("delete ", );
         tr = e.target.parentNode.parentNode;
         pkg_id.value = tr.getElementsByTagName("th")[0].innerText;
@@ -627,8 +759,8 @@ echo '</a>
       })
     })
     updates = document.getElementsByClassName('update');
-    Array.from(updates).forEach((element)=>{
-      element.addEventListener("click", (e)=>{
+    Array.from(updates).forEach((element) => {
+      element.addEventListener("click", (e) => {
         console.log("update ", );
         tr = e.target.parentNode.parentNode;
         // uname.value = e.target.id;

@@ -2,11 +2,10 @@
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $showname = $_SESSION['uname'];
 
-if($_GET!= NULL && $_GET['un'] != 'a') {
-    $uname = $_GET['un'];
-}
-else {
-    $uname = $_SESSION['uname'];
+if ($_GET != NULL && $_GET['un'] != 'a') {
+  $uname = $_GET['un'];
+} else {
+  $uname = $_SESSION['uname'];
 }
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
@@ -20,51 +19,49 @@ if (!$conn) {
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Member List</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Member List</title>
 
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
-    <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/adminlte.min.css">
-    <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <!-- overlayScrollbars -->
+  <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-    <div class="wrapper">
+  <div class="wrapper">
 
-        <!-- Preloader -->
-        <!-- <div class="preloader flex-column justify-content-center align-items-center">
+    <!-- Preloader -->
+    <!-- <div class="preloader flex-column justify-content-center align-items-center">
       <img class="animation__wobble" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
     </div> -->
 
-        <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand-lg navbar-dark fixed-top">
-            <!-- Left navbar links -->
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-                </li>
-            </ul>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto navbar-right-top">
-                    <li class="nav-item">
-                        <button onclick="window.location.href=' index.php'" type="button"
-                            class="btn btn-secondary">Logout</button>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand-lg navbar-dark fixed-top">
+      <!-- Left navbar links -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+      </ul>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto navbar-right-top">
+          <li class="nav-item">
+            <button onclick="window.location.href=' index.php'" type="button" class="btn btn-secondary">Logout</button>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
-        <?php
-            if($_GET == NULL || ($_GET != NULL && $_GET['un'] == 'a' )) {
-                echo '
+    <?php
+    if ($_GET == NULL || ($_GET != NULL && $_GET['un'] == 'a')) {
+      echo '
                 <!-- Main Sidebar Container -->
                 <aside class="main-sidebar sidebar-dark-primary elevation-4">
                     <!-- Brand Logo -->
@@ -83,8 +80,8 @@ if (!$conn) {
                             </div>
                             <div class="info">
                                 <a href="employee_profile.php" class="d-block">';
-                                    echo $uname;
-                                echo '</a>
+      echo $uname;
+      echo '</a>
                             </div>
                         </div>
         
@@ -165,9 +162,8 @@ if (!$conn) {
                 </aside>
         
                 ';
-            }
-            else {
-                echo '
+    } else {
+      echo '
                 <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="#" class="brand-link">
@@ -183,9 +179,9 @@ if (!$conn) {
                   <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                <a href="admin_profile.html" class="d-block">';
-                echo $showname;  
-                echo '</a>  
+                <a href="admin_profile.php" class="d-block">';
+      echo $showname;
+      echo '</a>  
               </div>
               </div>
         
@@ -295,160 +291,158 @@ if (!$conn) {
             </aside>
         
             ';
-        }
+    }
     ?>
 
     <!-- /.navbar -->
 
 
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <section class="content" style="margin-bottom:50px ;">
-            <?php
-                if(isset($_GET['un']) && $_GET['un'] == 'a') {
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <section class="content" style="margin-bottom:50px ;">
+        <?php
+        if (isset($_GET['un']) && $_GET['un'] == 'a') {
 
-                    echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+          echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
                     Successfully inserted
                     <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                     <span aria-hidden='true'>&times;</span>
                     </button>
                 </div>";
-                }
-            ?>
+        }
+        ?>
 
-                <div class="bg-light clearfix">
-                    <div class="row" style="padding-top: 30px;">
-                        <div class="col-lg-6 col-md-12">
-                            <h2 style="margin-left: 25px;">Member Info</h2>
-                        </div>
-                        <div class="col-lg-6 col-md-12" style="padding-top: 15px;padding-right:40px;">
-                            <!-- Insert Modal -->
+        <div class="bg-light clearfix">
+          <div class="row" style="padding-top: 30px;">
+            <div class="col-lg-6 col-md-12">
+              <h2 style="margin-left: 25px;">Member Info</h2>
+            </div>
+            <div class="col-lg-6 col-md-12" style="padding-top: 15px;padding-right:40px;">
+              <!-- Insert Modal -->
 
-                            <?php
-                            if($_GET == NULL || ($_GET != NULL && $_GET['un'] == 'a' )) {
-                                echo '<button type="button" class="insert btn btn-success float-right" data-toggle="modal"
-                                data-target="#exampleModal" onclick="window.location.href=\'add_member.php?un='.$uname.'\'">Add
+              <?php
+              if ($_GET == NULL || ($_GET != NULL && $_GET['un'] == 'a')) {
+                echo '<button type="button" class="insert btn btn-success float-right" data-toggle="modal"
+                                data-target="#exampleModal" onclick="window.location.href=\'add_member.php?un=' . $uname . '\'">Add
                                 New</button>';
-                            }
-                            ?>
-                            <!-- <button type="button" class="insert btn btn-success float-right" data-toggle="modal"
+              }
+              ?>
+              <!-- <button type="button" class="insert btn btn-success float-right" data-toggle="modal"
                                 data-target="#exampleModal" onclick="window.location.href='add_member.php'">Add
                                 New</button> -->
 
 
-                        </div>
-                    </div>
-                </div>
+            </div>
+          </div>
+        </div>
 
 
 
 
-                <div class="card-body" style="margin-top:1%">
+        <div class="card-body" style="margin-top:1%">
 
-                    <table class="table table-hover table-striped" id='myTable'>
-                        <thead>
-                            <tr>
-                                <th scope="col">Membership ID</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Gender</th>
-                                <th scope="col">Trainer Name</th>
-                                <th scope="col">Membership Expiry Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                                $sql = "select *from users natural join member where br_name = (select br_name from users where username = '$uname')";
-                                $stid = oci_parse($conn, $sql);
-                                $r = oci_execute($stid);
-                                while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) 
-                                {
-                                $un = $row['USERNAME'];
-                                echo "
+          <table class="table table-hover table-striped" id='myTable'>
+            <thead>
+              <tr>
+                <th scope="col">Membership ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Trainer Name</th>
+                <th scope="col">Membership Expiry Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              $sql = "select *from users natural join member where br_name = (select br_name from users where username = '$uname')";
+              $stid = oci_parse($conn, $sql);
+              $r = oci_execute($stid);
+              while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                $un = $row['USERNAME'];
+                echo "
                                 <tr>
                                 <th scope='row'>" . $row["MEM_ID"] . "</th>
                                 <td>";
-                                if($_GET == NULL || ($_GET != NULL && $_GET['un'] == 'a' )) {
-                                echo "<a href='member_profile.php?un=".$un."'>" ;
-                                }
-                                echo  $row["NAME"];
-                                if($_GET == NULL || ($_GET != NULL && $_GET['un'] == 'a' )) { 
-                                    echo "</a>";
-                                }
-                                echo "</td>
+                if ($_GET == NULL || ($_GET != NULL && $_GET['un'] == 'a')) {
+                  echo "<a href='member_profile.php?un=" . $un . "'>";
+                }
+                echo  $row["NAME"];
+                if ($_GET == NULL || ($_GET != NULL && $_GET['un'] == 'a')) {
+                  echo "</a>";
+                }
+                echo "</td>
                                 <td>" . $row["GENDER"] . "</td>
                                 <td>" . $row["TRAINER"] . "</td>
                                 <td>" . $row["MEMBERSHIP_EXPIRY"] . "</td>
                                 </tr>
                                 ";
-                                }
+              }
 
 
               ?>
 
-                        </tbody>
-                    </table>
+            </tbody>
+          </table>
 
 
 
-            </section>
+      </section>
 
 
 
-            <!-- /.content -->
-            <div style="margin-bottom:30px ;"></div>
-        </div>
-        <!-- /.content-wrapper -->
-
-
-
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
-
-        <!-- Main Footer -->
-        <footer class="main-footer dark-mode" style="color: #869099">
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-            All rights reserved.
-            <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 3.2.0-rc
-            </div>
-        </footer>
+      <!-- /.content -->
+      <div style="margin-bottom:30px ;"></div>
     </div>
-    <!-- ./wrapper -->
+    <!-- /.content-wrapper -->
 
-    <!-- REQUIRED SCRIPTS -->
-    <!-- jQuery -->
-    <script src="plugins/jquery/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- overlayScrollbars -->
-    <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="dist/js/adminlte.js"></script>
 
-    <!-- PAGE PLUGINS -->
-    <!-- jQuery Mapael -->
-    <script src="plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
-    <script src="plugins/raphael/raphael.min.js"></script>
-    <script src="plugins/jquery-mapael/jquery.mapael.min.js"></script>
-    <script src="plugins/jquery-mapael/maps/usa_states.min.js"></script>
-    <!-- ChartJS -->
-    <script src="plugins/chart.js/Chart.min.js"></script>
 
-    <!-- AdminLTE for demo purposes -->
-    <script src="dist/js/demo.js"></script>
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="dist/js/pages/dashboard2.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.js"
-        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-    <script>
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+      <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+
+    <!-- Main Footer -->
+    <footer class="main-footer dark-mode" style="color: #869099">
+      <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+      All rights reserved.
+      <div class="float-right d-none d-sm-inline-block">
+        <b>Version</b> 3.2.0-rc
+      </div>
+    </footer>
+  </div>
+  <!-- ./wrapper -->
+
+  <!-- REQUIRED SCRIPTS -->
+  <!-- jQuery -->
+  <script src="plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- overlayScrollbars -->
+  <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="dist/js/adminlte.js"></script>
+
+  <!-- PAGE PLUGINS -->
+  <!-- jQuery Mapael -->
+  <script src="plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+  <script src="plugins/raphael/raphael.min.js"></script>
+  <script src="plugins/jquery-mapael/jquery.mapael.min.js"></script>
+  <script src="plugins/jquery-mapael/maps/usa_states.min.js"></script>
+  <!-- ChartJS -->
+  <script src="plugins/chart.js/Chart.min.js"></script>
+
+  <!-- AdminLTE for demo purposes -->
+  <script src="dist/js/demo.js"></script>
+  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+  <script src="dist/js/pages/dashboard2.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+  <script>
     $(document).ready(function() {
-        $('#myTable').DataTable();
+      $('#myTable').DataTable();
     });
-    </script>
+  </script>
 </body>
 
 </html>

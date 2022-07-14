@@ -2,21 +2,21 @@
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output et
 $uname = $_SESSION['uname'];
 
-$_SESSION['designation'] = 'Manager'; 
+$_SESSION['designation'] = 'Manager';
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
   echo "sorry";
 } else {
-  if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if(isset($_POST['username'])) {
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['username'])) {
       $username = $_POST['username'];
       $sql = "DELETE FROM USERS WHERE USERNAME = '$username'";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
     }
 
-    if(isset($_POST['uname']) && isset($_POST['emp_id'])) {
+    if (isset($_POST['uname']) && isset($_POST['emp_id'])) {
       $br_name = $_POST['uname'];
       $salary = $_POST['salary'];
       $emp_id = $_POST['emp_id'];
@@ -33,12 +33,8 @@ if (!$conn) {
       $sql = "UPDATE USERS SET BR_NAME = '$br_name' where USERNAME = '$username'";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
-      
     }
-    
   }
-  
-  
 }
 
 
@@ -93,31 +89,31 @@ if (!$conn) {
     <!-- /.navbar -->
 
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="#" class="brand-link">
-      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Fitness Mania</span>
-    </a>
+      <!-- Brand Logo -->
+      <a href="#" class="brand-link">
+        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">Fitness Mania</span>
+      </a>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar user (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Sidebar user (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="image">
+            <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          </div>
+          <div class="info">
+            <a href="admin_profile.php" class="d-block"><?php echo $uname; ?>
+            </a>
+          </div>
         </div>
-        <div class="info">
-        <a href="admin_profile.html" class="d-block"><?php echo $uname; ?>
-        </a>  
-      </div>
-      </div>
 
-     
 
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item">
               <a href="#" class="nav-link">
@@ -140,88 +136,88 @@ if (!$conn) {
             </li>
 
 
-         
-          <li class="nav-item">
-            
-          </li>
-          
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon far fa-envelope"></i>
-              <p>
-                Mailbox
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/mailbox/mailbox.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Inbox</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/mailbox/compose.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Compose</p>
-                </a>
-              </li>
-              
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-book"></i>
-              <p>
-                Pages
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-                 
-              <li class="nav-item">
-                <a href="employee_profile2.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Profile</p>
-                </a>
-              </li>
-              
-               
-              
-               <li class="nav-item">
-                <a href="pages/examples/userreg.php" class="nav-link ">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Member Add</p>
-                </a>
-              
-              
-              <li class="nav-item">
-                <a href="pages/examples/Search-Manager.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Search Manager</p>
-                </a>
-              </li>
-               
-              
 
-              
-            </ul>
-          </li>
-         
-          
-          
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
+            <li class="nav-item">
+
+            </li>
+
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon far fa-envelope"></i>
+                <p>
+                  Mailbox
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="pages/mailbox/mailbox.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Inbox</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="pages/mailbox/compose.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Compose</p>
+                  </a>
+                </li>
+
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-book"></i>
+                <p>
+                  Pages
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+
+                <li class="nav-item">
+                  <a href="employee_profile2.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Profile</p>
+                  </a>
+                </li>
+
+
+
+                <li class="nav-item">
+                  <a href="pages/examples/userreg.php" class="nav-link ">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Member Add</p>
+                  </a>
+
+
+                <li class="nav-item">
+                  <a href="pages/examples/Search-Manager.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Search Manager</p>
+                  </a>
+                </li>
+
+
+
+
+              </ul>
+            </li>
+
+
+
+          </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+      </div>
+      <!-- /.sidebar -->
+    </aside>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <section class="content" style="margin-bottom:50px ;">
-      <!-- Insert Modal -->
-      
+        <!-- Insert Modal -->
+
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -238,7 +234,7 @@ if (!$conn) {
                   <div class="modal-body" style="float: right;">
                     <button type="button" class="btn btn-secondary" onclick="window.location.href='manager_list.php'">Cancel</button>
                     <button type="submit" class="btn btn-primary">Comfirm</button>
-                  </div> 
+                  </div>
                 </form>
               </div>
 
@@ -259,7 +255,7 @@ if (!$conn) {
                 <form action="manager_list.php" method="POST">
                   <div class="modal-body">
                     <input type="hidden" name="emp_id" id="emp_id">
-                    
+
                     <div class="row">
                       <div class="form-group col-lg-6 col-12">
                         <label for="uname">Branch Name</label>
@@ -270,8 +266,8 @@ if (!$conn) {
                         <!-- <input type="text" class="form-control" id="designation" name="designation" aria-describedby="emailHelp"> -->
                         <select name="designation" id="designation" class="form-select" aria-label="Default select example" style="width: 208px; height: 37px;">
                           <option selected value="Manager">Manager</option>
-                          
-                          
+
+
                         </select>
                       </div>
                     </div>
@@ -286,7 +282,7 @@ if (!$conn) {
                         <input type="text" class="form-control" id="shift" name="shift" aria-describedby="emailHelp">
                       </div>
                     </div>
-                    
+
 
                   </div>
                   <div class="modal-footer">
@@ -323,7 +319,7 @@ if (!$conn) {
                 <th scope="col">Employee ID</th>
                 <th scope="col">Name</th>
                 <th scope="col">Gender</th>
-               
+
                 <th scope="col">Salary</th>
                 <th scope="col">Shift</th>
                 <th scope="col">Action</th>
@@ -340,17 +336,17 @@ if (!$conn) {
                 echo "
               <tr id='Manager'>
               <th scope='row'>" . $row['EMP_ID'] . "</th>
-              <td><a href='employee_profile.php?un =".$un." '>" . $row["NAME"] . "</a></td>
+              <td><a href='employee_profile.php?un =" . $un . " '>" . $row["NAME"] . "</a></td>
               <td>" . $row["GENDER"] . "</td>
               
               <td>" . $row["SALARY"] . "</td>
               <td>" . $row["SHIFT"] . "</td>
-              <td> <button class='delete btn btn-sm btn-danger' id=".$row['USERNAME'].">Remove</button> <button class='update btn btn-sm btn-primary' id=".$row['BR_NAME'].">Edit</button> </td>
+              <td> <button class='delete btn btn-sm btn-danger' id=" . $row['USERNAME'] . ">Remove</button> <button class='update btn btn-sm btn-primary' id=" . $row['BR_NAME'] . ">Edit</button> </td>
               </tr>
               ";
                 // ECHO var_dump($row);
               }
-              
+
 
               ?>
 
@@ -416,8 +412,8 @@ if (!$conn) {
   <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
   <script>
     deletes = document.getElementsByClassName('delete');
-    Array.from(deletes).forEach((element)=>{
-      element.addEventListener("click", (e)=>{
+    Array.from(deletes).forEach((element) => {
+      element.addEventListener("click", (e) => {
         // console.log("delete ", );
         tr = e.target.parentNode.parentNode;
         username.value = e.target.id;
@@ -426,8 +422,8 @@ if (!$conn) {
       })
     })
     updates = document.getElementsByClassName('update');
-    Array.from(updates).forEach((element)=>{
-      element.addEventListener("click", (e)=>{
+    Array.from(updates).forEach((element) => {
+      element.addEventListener("click", (e) => {
         // console.log("update ", );
         tr = e.target.parentNode.parentNode;
         uname.value = e.target.id;
@@ -440,7 +436,7 @@ if (!$conn) {
       })
     })
   </script>
-  
+
   <script>
     $(document).ready(function() {
       $('#myTable').DataTable();

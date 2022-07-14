@@ -2,21 +2,25 @@
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output et
 $showname = $_SESSION['uname'];
 
-if($_GET!= NULL && ($_GET['un'] != 'u' && $_GET['un'] != 'i' && $_GET['un'] != 'd' && $_GET['un'] != 'w')) {
-    $uname = $_GET['un'];
-}
-else {
-    $uname = $_SESSION['uname'];
+if ($_GET != NULL && ($_GET['un'] != 'u' && $_GET['un'] != 'i' && $_GET['un'] != 'd' && $_GET['un'] != 'w')) {
+  $uname = $_GET['un'];
+} else {
+  $uname = $_SESSION['uname'];
 }
 
+<<<<<<< HEAD
 $_SESSION['designation'] = 'Trainer'; 
 $conn = oci_connect('brownfalcon_gms2', 'saif0rrahman', 'localhost/xe')
+=======
+$_SESSION['designation'] = 'Trainer';
+$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
+>>>>>>> 1b8f301aed25d8ddbcaed1ac7610400842dade68
   or die(oci_error());
 if (!$conn) {
   echo "sorry";
 } else {
-  if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if(isset($_POST['username'])) {
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['username'])) {
       $username = $_POST['username'];
       // $sql = "DELETE FROM message WHERE username = '$username'";
       // $stid = oci_parse($conn, $sql);
@@ -32,21 +36,17 @@ if (!$conn) {
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
       $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-      if($row == NULL) {
+      if ($row == NULL) {
         $sql = "DELETE FROM users WHERE username = '$username'";
         $stid = oci_parse($conn, $sql);
         $r = oci_execute($stid);
         header("Location: trainer_list.php?un=d");
-      }
-      else {
+      } else {
         header("Location: trainer_list.php?un=w");
       }
-
-      
-      
     }
 
-    if(isset($_POST['uname']) && isset($_POST['emp_id'])) {
+    if (isset($_POST['uname']) && isset($_POST['emp_id'])) {
       $br_name = $_POST['uname'];
       $salary = $_POST['salary'];
       $emp_id = $_POST['emp_id'];
@@ -66,10 +66,7 @@ if (!$conn) {
 
       header("Location: trainer_list.php?un=u");
     }
-    
   }
-  
-  
 }
 
 
@@ -124,8 +121,8 @@ if (!$conn) {
     <!-- /.navbar -->
 
     <?php
-      if($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u' )  )) {
-        echo '
+    if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+      echo '
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
@@ -144,8 +141,8 @@ if (!$conn) {
                     </div>
                     <div class="info">
                         <a href="employee_profile.php" class="d-block">';
-                            echo $uname;
-                        echo '</a>
+      echo $uname;
+      echo '</a>
                     </div>
                 </div>
 
@@ -226,9 +223,8 @@ if (!$conn) {
 </aside>
 
 ';
-}
-else {
-echo '
+    } else {
+      echo '
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 <!-- Brand Logo -->
 <a href="#" class="brand-link">
@@ -244,9 +240,9 @@ echo '
   <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
 </div>
 <div class="info">
-<a href="admin_profile.html" class="d-block">';
-echo $showname;  
-echo '</a>  
+<a href="admin_profile.php" class="d-block">';
+      echo $showname;
+      echo '</a>  
 </div>
 </div>
 
@@ -356,13 +352,13 @@ echo '</a>
   </aside> 
           
   ';
-}
-?>
+    }
+    ?>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <section class="content" style="margin-bottom:50px ;">
-      <!-- Insert Modal -->
-      
+        <!-- Insert Modal -->
+
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -379,7 +375,7 @@ echo '</a>
                   <div class="modal-body" style="float: right;">
                     <button type="button" class="btn btn-secondary" onclick="window.location.href='trainer_list.php'">Cancel</button>
                     <button type="submit" class="btn btn-primary">Comfirm</button>
-                  </div> 
+                  </div>
                 </form>
               </div>
 
@@ -400,7 +396,7 @@ echo '</a>
                 <form action="trainer_list.php" method="POST">
                   <div class="modal-body">
                     <input type="hidden" name="emp_id" id="emp_id">
-                    
+
                     <div class="row">
                       <div class="form-group col-lg-6 col-12">
                         <label for="uname">Branch Name</label>
@@ -427,7 +423,7 @@ echo '</a>
                         <input type="text" class="form-control" id="shift" name="shift" aria-describedby="emailHelp">
                       </div>
                     </div>
-                    
+
 
                   </div>
                   <div class="modal-footer">
@@ -441,41 +437,37 @@ echo '</a>
           </div>
         </div>
         <?php
-          if($_GET) {
-            if($_GET['un'] == 'i') {
-              echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+        if ($_GET) {
+          if ($_GET['un'] == 'i') {
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
               Successfully inserted
               <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
               <span aria-hidden='true'>&times;</span>
               </button>
             </div>";
-            }
-            elseif($_GET['un'] == 'u') {
-              echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+          } elseif ($_GET['un'] == 'u') {
+            echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
               Successfully Updated
               <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
               <span aria-hidden='true'>&times;</span>
               </button>
             </div>";
-            }
-            
-            elseif($_GET['un'] == 'd') {
-              echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+          } elseif ($_GET['un'] == 'd') {
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
               Successfully Deleted
               <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
               <span aria-hidden='true'>&times;</span>
               </button>
             </div>";
-            }
-            elseif($_GET['un'] == 'w') {
-              echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+          } elseif ($_GET['un'] == 'w') {
+            echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
               Cannot remove this trainer as some members are still assigned to him
               <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
               <span aria-hidden='true'>&times;</span>
               </button>
             </div>";
-            }
           }
+        }
         ?>
 
         <div class="bg-light clearfix">
@@ -485,12 +477,12 @@ echo '</a>
             </div>
             <div class="col-lg-6 col-md-12" style="padding-top: 15px;padding-right:40px;">
               <!-- Insert Modal -->
-              <?php 
-                if($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u') )) {
-                  echo '<button type="button" class="insert btn btn-success float-right" data-toggle="modal"
-                  data-target="#exampleModal" onclick="window.location.href=\'add_employee.php?un='.$uname.'\'">Add
+              <?php
+              if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+                echo '<button type="button" class="insert btn btn-success float-right" data-toggle="modal"
+                  data-target="#exampleModal" onclick="window.location.href=\'add_employee.php?un=' . $uname . '\'">Add
                   New</button>';
-                }    
+              }
               ?>
 
 
@@ -511,8 +503,8 @@ echo '</a>
                 <th scope="col">Salary</th>
                 <th scope="col">Shift</th>
                 <?php
-                if($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i'|| $_GET['un'] == 'u' ) )) {
-                echo '<th scope="col">Action</th>';
+                if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+                  echo '<th scope="col">Action</th>';
                 }
                 ?>
 
@@ -529,26 +521,27 @@ echo '</a>
               <tr id='Trainer'>
               <th scope='row'>" . $row['EMP_ID'] . "</th>
               <td>";
-              if($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i'|| $_GET['un'] == 'u' ) )) {
-              echo "<a href='employee_profile.php?un =".$un." '>"; 
-              }
-              echo $row["NAME"]; 
-              if($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i'|| $_GET['un'] == 'u' ) )) {
-              echo  "</a>";
-              }
-              echo "</td>
+                if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+                  echo "<a href='employee_profile.php?un =" . $un . " '>";
+                }
+                echo $row["NAME"];
+                if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+                  echo  "</a>";
+                }
+                echo "</td>
               <td>" . $row["GENDER"] . "</td>
               <td>" . $row["RATING_VALUE"] . "</td>
               <td>" . floor($row["SYSDATE-DOB"] / 365) . "</td>
               <td>" . $row["SALARY"] . "</td>
               <td>" . $row["SHIFT"] . "</td>";
-              if($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i'|| $_GET['un'] == 'u' ) )) {
-              echo "<td> <button class='delete btn btn-sm btn-danger' id=".$row['USERNAME'].">Remove</button> <button class='update btn btn-sm btn-primary' id=".$row['BR_NAME'].">Edit</button> </td>";}
-              echo "</tr>
+                if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+                  echo "<td> <button class='delete btn btn-sm btn-danger' id=" . $row['USERNAME'] . ">Remove</button> <button class='update btn btn-sm btn-primary' id=" . $row['BR_NAME'] . ">Edit</button> </td>";
+                }
+                echo "</tr>
               ";
                 // ECHO var_dump($row);
               }
-              
+
 
               ?>
 
@@ -614,19 +607,19 @@ echo '</a>
   <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
   <script>
     deletes = document.getElementsByClassName('delete');
-    Array.from(deletes).forEach((element)=>{
-      element.addEventListener("click", (e)=>{
+    Array.from(deletes).forEach((element) => {
+      element.addEventListener("click", (e) => {
         // console.log("delete ", );
         tr = e.target.parentNode.parentNode;
         username.value = e.target.id;
         console.log(username.value);
-        
+
         $('#exampleModal').modal('toggle');
       })
     })
     updates = document.getElementsByClassName('update');
-    Array.from(updates).forEach((element)=>{
-      element.addEventListener("click", (e)=>{
+    Array.from(updates).forEach((element) => {
+      element.addEventListener("click", (e) => {
         // console.log("update ", );
         tr = e.target.parentNode.parentNode;
         uname.value = e.target.id;
@@ -639,7 +632,7 @@ echo '</a>
       })
     })
   </script>
-  
+
   <script>
     $(document).ready(function() {
       $('#myTable').DataTable();

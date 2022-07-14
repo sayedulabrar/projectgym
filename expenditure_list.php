@@ -3,11 +3,10 @@ session_start(); // this NEEDS TO BE AT THE TOP of the page before any output et
 
 $showname = $_SESSION['uname'];
 
-if($_GET!= NULL && ($_GET['un'] != 'u' && $_GET['un'] != 'i' && $_GET['un'] != 'd' && $_GET['un'] != 'w')) {
-    $uname = $_GET['un'];
-}
-else {
-    $uname = $_SESSION['uname'];
+if ($_GET != NULL && ($_GET['un'] != 'u' && $_GET['un'] != 'i' && $_GET['un'] != 'd' && $_GET['un'] != 'w')) {
+  $uname = $_GET['un'];
+} else {
+  $uname = $_SESSION['uname'];
 }
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
@@ -35,9 +34,8 @@ if (!$conn) {
     $sql = "insert into expenditure (exp_id, amount, exp_reason, br_name, exp_dateandtime) values($exp_id, $amount, '$details', '$br_name', SYSTIMESTAMP)";
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
-    
-    header("Location: expenditure_list.php?un=i");
 
+    header("Location: expenditure_list.php?un=i");
   }
 }
 
@@ -91,8 +89,8 @@ if (!$conn) {
     <!-- /.navbar -->
 
     <?php
-      if($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u' )  )) {
-        echo '
+    if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+      echo '
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
@@ -111,8 +109,8 @@ if (!$conn) {
                     </div>
                     <div class="info">
                         <a href="employee_profile.php" class="d-block">';
-                            echo $uname;
-                        echo '</a>
+      echo $uname;
+      echo '</a>
                     </div>
                 </div>
 
@@ -193,9 +191,8 @@ if (!$conn) {
 </aside>
 
 ';
-}
-else {
-echo '
+    } else {
+      echo '
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 <!-- Brand Logo -->
 <a href="#" class="brand-link">
@@ -211,9 +208,9 @@ echo '
   <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
 </div>
 <div class="info">
-<a href="admin_profile.html" class="d-block">';
-echo $showname;  
-echo '</a>  
+<a href="admin_profile.php" class="d-block">';
+      echo $showname;
+      echo '</a>  
 </div>
 </div>
 
@@ -323,21 +320,21 @@ echo '</a>
   </aside> 
           
   ';
-}
-?>
+    }
+    ?>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <section class="content" style="margin-bottom:50px ;">
-        
+
         <?php
-          if($_GET != NULL && $_GET['un'] == 'i') {
-            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+        if ($_GET != NULL && $_GET['un'] == 'i') {
+          echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
             Successfully Inserted
             <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
               <span aria-hidden='true'>&times;</span>
             </button>
           </div>";
-          }
+        }
         ?>
 
 
@@ -348,13 +345,13 @@ echo '</a>
             </div>
             <div class="col-lg-6 col-md-12" style="padding-top: 15px;padding-right:40px;">
               <!-- Insert Modal -->
-              <?php 
-                if($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u') )) {
+              <?php
+              if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
                 echo '
                 <button type="button" class="insert btn btn-success float-right" data-toggle="modal" data-target="#exampleModal">Add New</button>
               
                 ';
-                }    
+              }
               ?>
               <!-- Modal -->
               <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

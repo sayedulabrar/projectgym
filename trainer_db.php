@@ -350,13 +350,22 @@ if (!$conn) {
                                             $name1 = $row['NAME'];
 
                                             //$sql1 = "select (sysdate-dob) from users,member where member.username = '$un' and trainer='$uname'";
-                                            $sql1 = "SELECT TRUNC(MONTHS_BETWEEN(SYSDATE,DOB)/12) AS AGE FROM USERS,MEMBER WHERE MEMBER.USERNAME='$un' and TRAINER='$uname'";
 
-                                            $gty = OCI_SYSDATE;
+                                            // $sql1 = "SELECT TRUNC(MONTHS_BETWEEN(SYSDATE,DOB)/12) AS AGE FROM USERS,MEMBER WHERE MEMBER.USERNAME='$un' and TRAINER='$uname'";
 
+                                            // $gty = OCI_SYSDATE;
+
+                                            // $stid1 = oci_parse($conn, $sql1);
+                                            // $r1 = oci_execute($stid1);
+                                            // $row1 = oci_fetch_array($stid1, OCI_ASSOC + OCI_RETURN_NULLS);
+
+                                            
+                                            $sql1 = 'BEGIN :var :=AGE(:daofbi); END;';
                                             $stid1 = oci_parse($conn, $sql1);
+                                            oci_bind_by_name($stid1,':daofbi',$dateOfBirth);
+                                            oci_bind_by_name($stid1,':var',$age);
                                             $r1 = oci_execute($stid1);
-                                            $row1 = oci_fetch_array($stid1, OCI_ASSOC + OCI_RETURN_NULLS);
+
                                             $var = $row['DIET_ID'];
                                             //echo $row1["(SYSDATE-DOB)"];
                                             //    echo $un. ' '. $dateOfBirth. ' '. $name1; 
@@ -383,7 +392,7 @@ if (!$conn) {
                                                    <th scope='row'><a href='member_profile.php?un=" . $un . "'>" . $row["NAME"] . "</a></th>
                                                   
                                                    <td>" . $row["MEMB_BMI"] . "</td>
-                                                   <td>" . $row1["AGE"] . "</td>
+                                                   <td>" . $age . "</td>
                                                   
                                                    <td>";
                                             if ($mem['DIET_ID']) {
