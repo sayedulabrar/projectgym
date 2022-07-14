@@ -2,16 +2,14 @@
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $showname = $_SESSION['uname'];
 
-if($_GET!= NULL && ($_GET['un'] != 'u' && $_GET['un'] != 'i' && $_GET['un'] != 'd' && $_GET['un'] != 'w')) {
-    $uname = $_GET['un'];
+if ($_GET != NULL && ($_GET['un'] != 'u' && $_GET['un'] != 'i' && $_GET['un'] != 'd' && $_GET['un'] != 'w')) {
+  $uname = $_GET['un'];
+} else {
+  $uname = $_SESSION['uname'];
 }
-else {
-    $uname = $_SESSION['uname'];
-}
-if($_GET != NULL && $_GET['un'] == 'w') {
+if ($_GET != NULL && $_GET['un'] == 'w') {
   $wrongUsername = true;
-}
-else {
+} else {
   $wrongUsername = false;
 }
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
@@ -19,7 +17,7 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
 if (!$conn) {
   echo "sorry";
 } else {
-  
+
   if (isset($_POST['username']) && isset($_POST['amount']) && isset($_POST['type'])) {
     $sql = "select *from income order by trx_id desc";
     $stid = oci_parse($conn, $sql);
@@ -34,11 +32,10 @@ if (!$conn) {
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
     $roww = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-    if($roww == NULL) {
+    if ($roww == NULL) {
       $wrongUsername = true;
       header("Location: revenue_list.php?un=w");
-    }
-    else {
+    } else {
       $sql = "select *from users where username='$uname'";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
@@ -104,8 +101,8 @@ if (!$conn) {
     <!-- /.navbar -->
 
     <?php
-      if($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u' )  )) {
-        echo '
+    if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+      echo '
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
@@ -124,8 +121,8 @@ if (!$conn) {
                     </div>
                     <div class="info">
                         <a href="employee_profile.php" class="d-block">';
-                            echo $uname;
-                        echo '</a>
+      echo $uname;
+      echo '</a>
                     </div>
                 </div>
 
@@ -206,9 +203,8 @@ if (!$conn) {
 </aside>
 
 ';
-}
-else {
-echo '
+    } else {
+      echo '
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 <!-- Brand Logo -->
 <a href="#" class="brand-link">
@@ -224,9 +220,9 @@ echo '
   <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
 </div>
 <div class="info">
-<a href="admin_profile.html" class="d-block">';
-echo $showname;  
-echo '</a>  
+<a href="admin_profile.php" class="d-block">';
+      echo $showname;
+      echo '</a>  
 </div>
 </div>
 
@@ -336,8 +332,8 @@ echo '</a>
   </aside> 
           
   ';
-}
-?>
+    }
+    ?>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- <section class="content" style="margin-bottom:50px ;">
@@ -390,24 +386,23 @@ echo '</a>
       </section> -->
       <section class="content" style="margin-bottom:50px ;">
         <?php
-          if($wrongUsername) {
-            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+        if ($wrongUsername) {
+          echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
             You have given a wrong username
             <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
               <span aria-hidden='true'>&times;</span>
             </button>
           </div>";
-          }
-          else if($_GET) {
-            if($_GET['un']=='i') {
-              echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+        } else if ($_GET) {
+          if ($_GET['un'] == 'i') {
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
               Successfully Inserted
               <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                 <span aria-hidden='true'>&times;</span>
               </button>
             </div>";
-            }
           }
+        }
         ?>
         <div class="bg-light clearfix">
           <div class="row" style="padding-top: 30px;">
@@ -416,13 +411,13 @@ echo '</a>
             </div>
             <div class="col-lg-6 col-md-12" style="padding-top: 15px;padding-right:40px;">
               <!-- Insert Modal -->
-              <?php 
-                if($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u') )) {
+              <?php
+              if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
                 echo '
                 <button type="button" class="insert btn btn-success float-right" data-toggle="modal" data-target="#exampleModal">Add New</button>
               
                 ';
-                }    
+              }
               ?>
               <!-- Modal -->
               <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

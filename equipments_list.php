@@ -2,11 +2,10 @@
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $showname = $_SESSION['uname'];
 
-if($_GET!= NULL && ($_GET['un'] != 'u' && $_GET['un'] != 'i' && $_GET['un'] != 'd' && $_GET['un'] != 'w')) {
-    $uname = $_GET['un'];
-}
-else {
-    $uname = $_SESSION['uname'];
+if ($_GET != NULL && ($_GET['un'] != 'u' && $_GET['un'] != 'i' && $_GET['un'] != 'd' && $_GET['un'] != 'w')) {
+  $uname = $_GET['un'];
+} else {
+  $uname = $_SESSION['uname'];
 }
 
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
@@ -32,25 +31,24 @@ if (!$conn) {
     $sql = "insert into equipment (equipment_id, equipment_name, equipment_quantity, equipment_available, equipment_brand, equipment_model, br_name) values($trx_id, '$name', $quantity, 0, '$brand', '$model','$br_name')";
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
-    
-    header("Location: equipments_list.php?un=i");
 
+    header("Location: equipments_list.php?un=i");
   }
-  if(isset($_POST['equip_id'])) {
+  if (isset($_POST['equip_id'])) {
     $equip_id = $_POST['equip_id'];
     $sql = "DELETE FROM equipment WHERE equipment_id = '$equip_id'";
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
-    
+
     header("Location: equipments_list.php?un=d");
   }
-  if(isset($_POST['equip_id2'])) {
+  if (isset($_POST['equip_id2'])) {
     $equip_id = $_POST['equip_id2'];
     $quantity = $_POST['quantity1'];
     $sql = "update equipment set equipment_quantity = $quantity where equipment_id = $equip_id";
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
-    
+
     header("Location: equipments_list.php?un=u");
   }
 }
@@ -107,8 +105,8 @@ if (!$conn) {
     <!-- /.navbar -->
 
     <?php
-      if($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u' )  )) {
-        echo '
+    if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+      echo '
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
@@ -127,8 +125,8 @@ if (!$conn) {
                     </div>
                     <div class="info">
                         <a href="employee_profile.php" class="d-block">';
-                            echo $uname;
-                        echo '</a>
+      echo $uname;
+      echo '</a>
                     </div>
                 </div>
 
@@ -209,9 +207,8 @@ if (!$conn) {
 </aside>
 
 ';
-}
-else {
-echo '
+    } else {
+      echo '
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 <!-- Brand Logo -->
 <a href="#" class="brand-link">
@@ -227,9 +224,9 @@ echo '
   <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
 </div>
 <div class="info">
-<a href="admin_profile.html" class="d-block">';
-echo $showname;  
-echo '</a>  
+<a href="admin_profile.php" class="d-block">';
+      echo $showname;
+      echo '</a>  
 </div>
 </div>
 
@@ -339,8 +336,8 @@ echo '</a>
   </aside> 
           
   ';
-}
-?> 
+    }
+    ?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -362,7 +359,7 @@ echo '</a>
                   <div class="modal-body" style="float: right;">
                     <button type="button" class="btn btn-secondary" onclick="window.location.href='equipments_list.php'">Cancel</button>
                     <button type="submit" class="btn btn-primary">Comfirm</button>
-                  </div> 
+                  </div>
                 </form>
               </div>
 
@@ -370,33 +367,30 @@ echo '</a>
           </div>
         </div>
         <?php
-          if($_GET) {
-            if($_GET['un'] == 'i') {
-              echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+        if ($_GET) {
+          if ($_GET['un'] == 'i') {
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
               Successfully inserted
               <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
               <span aria-hidden='true'>&times;</span>
               </button>
             </div>";
-            }
-            elseif($_GET['un'] == 'u') {
-              echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+          } elseif ($_GET['un'] == 'u') {
+            echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
               Successfully Updated
               <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
               <span aria-hidden='true'>&times;</span>
               </button>
             </div>";
-            }
-            
-            elseif($_GET['un'] == 'd') {
-              echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+          } elseif ($_GET['un'] == 'd') {
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
               Successfully Deleted
               <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
               <span aria-hidden='true'>&times;</span>
               </button>
             </div>";
-            }
           }
+        }
         ?>
 
         <div class="bg-light clearfix">
@@ -406,13 +400,13 @@ echo '</a>
             </div>
             <div class="col-lg-6 col-md-12" style="padding-top: 15px;padding-right:40px;">
               <!-- Insert Modal -->
-              <?php 
-                if($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u') )) {
+              <?php
+              if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
                 echo '
                 <button type="button" class="insert btn btn-success float-right" data-toggle="modal" data-target="#exampleModal">Add New</button>
               
                 ';
-                }    
+              }
               ?>
               <!-- Modal -->
               <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -492,22 +486,22 @@ echo '</a>
 
                           <input type="hidden" name="equip_id2" id="equip_id2">
                           <!-- <div class="row"> -->
-                            <div class="form-group">
-                              <label for="quantity1">Quantity</label>
-                              <input type="text" class="form-control" id="quantity1" name="quantity1" aria-describedby="emailHelp">
-                            </div>
-                            <!-- <div class="form-group col-lg-6 col-12">
+                          <div class="form-group">
+                            <label for="quantity1">Quantity</label>
+                            <input type="text" class="form-control" id="quantity1" name="quantity1" aria-describedby="emailHelp">
+                          </div>
+                          <!-- <div class="form-group col-lg-6 col-12">
                               <label for="available1">Available</label>
                               <input type="text" class="form-control" id="available1" name="available1" aria-describedby="emailHelp">
                             </div> -->
-                        
+
                           <!-- </div> -->
-                          
+
 
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="window.location.href='equipments_list.php'">Close</button>
-                          <button type="submit" class="btn btn-primary" >Confirm</button>
+                          <button type="submit" class="btn btn-primary">Confirm</button>
                         </div>
                       </form>
                     </div>
@@ -536,8 +530,8 @@ echo '</a>
                 <th scope="col">Quantity</th>
                 <th scope="col">Available</th>
                 <?php
-                if($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i'|| $_GET['un'] == 'u' ) )) {
-                echo '<th scope="col">Action</th>';
+                if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+                  echo '<th scope="col">Action</th>';
                 }
                 ?>
 
@@ -557,9 +551,10 @@ echo '</a>
               <td>" . $row["EQUIPMENT_MODEL"] . "</td>
               <td>" . $row["EQUIPMENT_QUANTITY"] . "</td>
               <td>" . $row["EQUIPMENT_AVAILABLE"] . "</td>";
-              if($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i'|| $_GET['un'] == 'u' ) )) {
-              echo "<td> <button class='delete btn btn-sm btn-danger'>Remove</button> <button class='update btn btn-sm btn-primary' id=".$row['BR_NAME'].">Edit</button></td>";}
-              echo "</tr>
+                if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+                  echo "<td> <button class='delete btn btn-sm btn-danger'>Remove</button> <button class='update btn btn-sm btn-primary' id=" . $row['BR_NAME'] . ">Edit</button></td>";
+                }
+                echo "</tr>
               ";
                 // ECHO var_dump($row);
               }
@@ -641,8 +636,8 @@ echo '</a>
       })
     })
     deletes = document.getElementsByClassName('delete');
-    Array.from(deletes).forEach((element)=>{
-      element.addEventListener("click", (e)=>{
+    Array.from(deletes).forEach((element) => {
+      element.addEventListener("click", (e) => {
         // console.log("delete ", );
         tr = e.target.parentNode.parentNode;
         equip_id.value = tr.getElementsByTagName("th")[0].innerText;
@@ -651,8 +646,8 @@ echo '</a>
       })
     })
     updates = document.getElementsByClassName('update');
-    Array.from(updates).forEach((element)=>{
-      element.addEventListener("click", (e)=>{
+    Array.from(updates).forEach((element) => {
+      element.addEventListener("click", (e) => {
         console.log("update ", );
         tr = e.target.parentNode.parentNode;
         // // uname.value = e.target.id;

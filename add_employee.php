@@ -1,18 +1,18 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $uname = $_SESSION['uname'];
-$designation= $_SESSION['designation'];
+$designation = $_SESSION['designation'];
 $test = NULL;
 $link = NULL;
 $wrongBranch = false;
-if($designation == 'Trainer'){
-  $link='trainer_list.php';
+if ($designation == 'Trainer') {
+  $link = 'trainer_list.php';
 }
-if($designation == 'Receptionist'){
-  $link='receptionist_list.php';
+if ($designation == 'Receptionist') {
+  $link = 'receptionist_list.php';
 }
-if($designation == 'Manager'){
-  $link='manager_list.php';
+if ($designation == 'Manager') {
+  $link = 'manager_list.php';
 }
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
@@ -24,20 +24,18 @@ if (!$conn) {
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
     $roww = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-    if($designation == 'Manager') {
+    if ($designation == 'Manager') {
       $br_name = $_POST['br_name'];
-    }
-    else {
+    } else {
       $br_name = $roww['BR_NAME'];
     }
     $sql = "select * from branch where br_name = '$br_name'";
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
     $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-    if($row == NULL) {
+    if ($row == NULL) {
       $wrongBranch = true;
-    }
-    else {
+    } else {
       $name = $_POST['name'];
       $gender = $_POST['gender'];
       $email = $_POST['email'];
@@ -70,7 +68,7 @@ if (!$conn) {
       $sql = "insert into users (username, password, dob, name, gender, email, address, blood_grp, account_no, br_name) values ('$username', '$password', to_date('$dob', 'dd-mm-yyyy'), '$name', '$gender', '$email', '$address', '$bloodgrp', $accountno, '$br_name')";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
-      
+
       $sql = "select *from employee order by emp_id desc";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
@@ -89,13 +87,11 @@ if (!$conn) {
         $r = oci_execute($stid);
         $i = $i + 1;
       }
-      if($designation == 'Trainer') {
+      if ($designation == 'Trainer') {
         header("Location: trainer_list.php");
-      }
-      elseif($designation == 'Receptionist') {
+      } elseif ($designation == 'Receptionist') {
         header("Location: receptionist_list.php");
-      }
-      elseif($designation == 'Manager') {
+      } elseif ($designation == 'Manager') {
         header("Location: manager_list.php");
       }
     }
@@ -128,8 +124,8 @@ if (!$conn) {
   <div class="wrapper">
 
     <?php
-      if($designation == 'Manager') {
-        echo '
+    if ($designation == 'Manager') {
+      echo '
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
           <!-- Brand Logo -->
@@ -147,7 +143,7 @@ if (!$conn) {
                 <img src="      dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
               </div>
               <div class="info">
-                <a href="admin_profile.html" class="d-block">'.$_SESSION['uname'].'</a>
+                <a href="admin_profile.php" class="d-block">' . $_SESSION['uname'] . '</a>
               </div>
             </div>
       
@@ -222,7 +218,7 @@ if (!$conn) {
                   <ul class="nav nav-treeview">
                        
                     <li class="nav-item">
-                      <a href="admin_profile.html" class="nav-link">
+                      <a href="admin_profile.php" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Profile</p>
                       </a>
@@ -263,9 +259,8 @@ if (!$conn) {
         </aside>
       
         ';
-      }
-      else {
-        echo '
+    } else {
+      echo '
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
           <!-- Brand Logo -->
@@ -282,7 +277,7 @@ if (!$conn) {
                 <img src="  dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
               </div>
               <div class="info">
-                <a href="employee_profile.php" class="d-block">'.$uname.'
+                <a href="employee_profile.php" class="d-block">' . $uname . '
                 </a>
               </div>
             </div>
@@ -358,54 +353,51 @@ if (!$conn) {
         </aside>
     
         ';
-      }
+    }
     ?>
-    
+
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper" style="margin-top: 0;">
       <!-- Content Header (Page header) -->
       <section class="content-header">
-      <?php 
-      if($wrongBranch) {
-        echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+        <?php
+        if ($wrongBranch) {
+          echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
               Given Branch does not exist
               <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
                 <span aria-hidden='true'>&times;</span>
               </button>
             </div>";
-      }
-    ?>
+        }
+        ?>
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
 
-              <h1>Add <?php 
-                  if($designation == 'Manager') {
-                    echo "Manager";
-                  }
-                  else {
-                    echo "Employee";
-                  }
-                ?></h1>
+              <h1>Add <?php
+                      if ($designation == 'Manager') {
+                        echo "Manager";
+                      } else {
+                        echo "Employee";
+                      }
+                      ?></h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="
                 <?php
-                  if($designation == 'Manager') {
-                    echo "admin_db.php";
-                  }
-                  else echo "manager_db.php";
+                if ($designation == 'Manager') {
+                  echo "admin_db.php";
+                } else echo "manager_db.php";
                 ?>
                 ">Home</a></li>
-                <li class="breadcrumb-item active"> Add <?php 
-                  if($designation == 'Manager') {
-                    echo "Manager";
-                  }
-                  else {
-                    echo "Employee";
-                  }
-                ?></li>
+                <li class="breadcrumb-item active"> Add <?php
+                                                        if ($designation == 'Manager') {
+                                                          echo "Manager";
+                                                        } else {
+                                                          echo "Employee";
+                                                        }
+                                                        ?></li>
               </ol>
             </div>
           </div>
@@ -414,7 +406,7 @@ if (!$conn) {
 
       <!-- Main content -->
       <section class="content" style="margin-bottom:50px ;">
-        
+
         <form action="add_employee.php" method="POST">
           <div class="row">
             <div class="col-lg-6 col-md-12">
@@ -450,16 +442,16 @@ if (!$conn) {
                     <label for="bloodgrp">Blood Group</label>
                     <input type="text" id="bloodgrp" name="bloodgrp" class="form-control">
                   </div>
-                  <?php 
-                  if($designation == 'Manager') {
+                  <?php
+                  if ($designation == 'Manager') {
                     echo '<div class="form-group">
                     <label for="br_name">Branch Name</label>
                     <input type="text" id="br_name" name="br_name" class="form-control">
                   </div>';
                   }
-                  
-                ?>
-                  
+
+                  ?>
+
 
                 </div>
                 <!-- /.card-body -->
@@ -535,10 +527,12 @@ if (!$conn) {
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
   <script>
-  $( function() {
-    $( "#datepicker" ).datepicker({ changeMonth: true,
-      changeYear: true});
-  } );
+    $(function() {
+      $("#datepicker").datepicker({
+        changeMonth: true,
+        changeYear: true
+      });
+    });
   </script>
 </body>
 

@@ -1,13 +1,12 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $showname = $_SESSION['uname'];
-if($_GET) {
+if ($_GET) {
   $uname = $_GET['un'];
-}
-else  {
+} else {
   $uname = $_SESSION['uname'];
 }
-$_SESSION['designation'] = 'X'; 
+$_SESSION['designation'] = 'X';
 $branchExpenditure = 0;
 $branchRevenue = 0;
 
@@ -69,8 +68,8 @@ if (!$conn) {
     </nav>
 
     <?php
-      if($_GET == NULL) {
-        echo '
+    if ($_GET == NULL) {
+      echo '
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
           <!-- Brand Logo -->
@@ -88,8 +87,8 @@ if (!$conn) {
               </div>
               <div class="info">
                 <a href="employee_profile.php" class="d-block">';
-                  echo $uname;
-                echo '</a>
+      echo $uname;
+      echo '</a>
               </div>
             </div>
     
@@ -172,9 +171,8 @@ if (!$conn) {
   <!-- /.sidebar -->
   </aside>
   ';
-} 
-else {
-  echo '
+    } else {
+      echo '
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
 <!-- Brand Logo -->
 <a href="#" class="brand-link">
@@ -190,9 +188,9 @@ else {
     <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-        <a href="admin_profile.html" class="d-block">';
-        echo $showname;  
-        echo '</a>  
+        <a href="admin_profile.php" class="d-block">';
+      echo $showname;
+      echo '</a>  
       </div>
       </div>
 
@@ -302,28 +300,27 @@ else {
     </aside>
 
     ';
-  }
-?>
+    }
+    ?>
 
 
-         
 
 
-<!-- Content Wrapper. Contains page content -->
+
+    <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
       <div class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-            <h1 class="m-0">
+              <h1 class="m-0">
                 <?php
-                  if($_GET) {
-                    echo "Branch Name: ". $userJoinBranch['BR_NAME'];
-                  }
-                  else {
-                    echo "Manager";
-                  }
+                if ($_GET) {
+                  echo "Branch Name: " . $userJoinBranch['BR_NAME'];
+                } else {
+                  echo "Manager";
+                }
                 ?>
               </h1>
             </div><!-- /.col -->
@@ -393,11 +390,11 @@ else {
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="member_list.php<?php 
-                  if($_GET) {
-                    echo "?un=".$_GET['un'];
-                  }
-                ?>
+                <a href="member_list.php<?php
+                                        if ($_GET) {
+                                          echo "?un=" . $_GET['un'];
+                                        }
+                                        ?>
                 " class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
@@ -427,11 +424,11 @@ else {
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="trainer_list.php<?php 
-                  if($_GET) {
-                    echo "?un=".$_GET['un'];
-                  }
-                ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="trainer_list.php<?php
+                                          if ($_GET) {
+                                            echo "?un=" . $_GET['un'];
+                                          }
+                                          ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
 
@@ -460,11 +457,11 @@ else {
                 <div class="icon">
                   <i class="ion ion-person-add"></i>
                 </div>
-                <a href="receptionist_list.php<?php 
-                  if($_GET) {
-                    echo "?un=".$_GET['un'];
-                  }
-                ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="receptionist_list.php<?php
+                                              if ($_GET) {
+                                                echo "?un=" . $_GET['un'];
+                                              }
+                                              ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
 
@@ -494,11 +491,11 @@ else {
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="equipments_list.php<?php 
-                  if($_GET) {
-                    echo "?un=".$_GET['un'];
-                  }
-                ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="equipments_list.php<?php
+                                            if ($_GET) {
+                                              echo "?un=" . $_GET['un'];
+                                            }
+                                            ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
 
@@ -527,11 +524,11 @@ else {
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="packages_list.php<?php 
-                  if($_GET) {
-                    echo "?un=".$_GET['un'];
-                  }
-                ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="packages_list.php<?php
+                                          if ($_GET) {
+                                            echo "?un=" . $_GET['un'];
+                                          }
+                                          ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
 
@@ -560,11 +557,11 @@ else {
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="expenditure_list.php<?php 
-                  if($_GET) {
-                    echo "?un=".$_GET['un'];
-                  }
-                ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="expenditure_list.php<?php
+                                              if ($_GET) {
+                                                echo "?un=" . $_GET['un'];
+                                              }
+                                              ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
 
@@ -593,11 +590,11 @@ else {
                 <div class="icon">
                   <i class="ion ion-person-add"></i>
                 </div>
-                <a href="revenue_list.php<?php 
-                  if($_GET) {
-                    echo "?un=".$_GET['un'];
-                  }
-                ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="revenue_list.php<?php
+                                          if ($_GET) {
+                                            echo "?un=" . $_GET['un'];
+                                          }
+                                          ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
 
@@ -623,11 +620,11 @@ else {
                           $r = oci_execute($stid);
                           $ans = 0;
                           while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-                           
+
                             $array = explode(" ", $row["differ"]);
                             $diff = $array[0];
                             $num = (int)$diff;
-                            
+
                             if ($num <= 30 && $row['BR_NAME'] == $userJoinBranch['BR_NAME']) {
                               $ans = $ans +  $row["INC_AMOUNT"];
                             }

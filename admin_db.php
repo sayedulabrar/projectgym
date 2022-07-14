@@ -1,7 +1,7 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $uname = $_SESSION['uname'];
-$job= $_SESSION['profation'];
+$job = $_SESSION['profation'];
 
 
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
@@ -9,7 +9,6 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
 if (!$conn) {
   echo "sorry";
 } else {
-  
 }
 ?>
 
@@ -22,8 +21,7 @@ if (!$conn) {
   <title>Admin DB</title>
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- overlayScrollbars -->
@@ -54,43 +52,43 @@ if (!$conn) {
             <button onclick="window.location.href=' index.php'" type="button" class="btn btn-secondary">Logout</button>
           </li>
         </ul>
-    </div>
+      </div>
       <!-- Right navbar links -->
-     
+
     </nav>
     <!-- /.navbar -->
 
     <!-- Right navbar links -->
-  </nav>
-  <!-- /.navbar -->
+    </nav>
+    <!-- /.navbar -->
 
- 
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="#" class="brand-link">
-      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Fitness Mania</span>
-    </a>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar user (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <!-- Brand Logo -->
+      <a href="#" class="brand-link">
+        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">Fitness Mania</span>
+      </a>
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Sidebar user (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="image">
+            <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          </div>
+          <div class="info">
+            <a href="admin_profile.php" class="d-block"><?php echo $uname; ?>
+            </a>
+          </div>
         </div>
-        <div class="info">
-        <a href="admin_profile.html" class="d-block"><?php echo $uname; ?>
-        </a>  
-      </div>
-      </div>
 
-     
 
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item menu-open">
               <a href="#" class="nav-link active">
@@ -113,86 +111,86 @@ if (!$conn) {
             </li>
 
 
-         
-          <li class="nav-item">
-            
-          </li>
-          
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon far fa-envelope"></i>
-              <p>
-                Mailbox
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/mailbox/mailbox.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Inbox</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/mailbox/compose.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Compose</p>
-                </a>
-              </li>
-              
-            </ul>
-          </li>
-          <li class="nav-item ">
-            <a href="#" class="nav-link ">
-              <i class="nav-icon fas fa-book"></i>
-              <p>
-                Pages
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-                 
-              <li class="nav-item">
-                <a href="employee_profile2.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Profile</p>
-                </a>
-              </li>
-              
-               
-              
-               <li class="nav-item">
-                <a href="pages/examples/userreg.php" class="nav-link ">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Member Add</p>
-                </a>
-              
-              
-              <li class="nav-item">
-                <a href="pages/examples/Search-Manager.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Search Manager</p>
-                </a>
-              </li>
-               
-              
 
-              
-            </ul>
-          </li>
-         
-          
-          
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
+            <li class="nav-item">
+
+            </li>
+
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon far fa-envelope"></i>
+                <p>
+                  Mailbox
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="pages/mailbox/mailbox.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Inbox</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="pages/mailbox/compose.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Compose</p>
+                  </a>
+                </li>
+
+              </ul>
+            </li>
+            <li class="nav-item ">
+              <a href="#" class="nav-link ">
+                <i class="nav-icon fas fa-book"></i>
+                <p>
+                  Pages
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+
+                <li class="nav-item">
+                  <a href="employee_profile2.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Profile</p>
+                  </a>
+                </li>
 
 
-    
-  
+
+                <li class="nav-item">
+                  <a href="pages/examples/userreg.php" class="nav-link ">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Member Add</p>
+                  </a>
+
+
+                <li class="nav-item">
+                  <a href="pages/examples/Search-Manager.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Search Manager</p>
+                  </a>
+                </li>
+
+
+
+
+              </ul>
+            </li>
+
+
+
+          </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+      </div>
+      <!-- /.sidebar -->
+    </aside>
+
+
+
+
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
@@ -202,7 +200,7 @@ if (!$conn) {
             <div class="col-sm-6">
               <h1 class="m-0">Admin</h1>
             </div><!-- /.col -->
-            
+
           </div><!-- /.row -->
         </div><!-- /.container-fluid -->
       </div>
@@ -211,7 +209,7 @@ if (!$conn) {
       <!-- Main content -->
       <section class="content">
         <div class="container-fluid">
-          
+
 
           <div class="row">
             <div class="col-lg-3 col-12">
@@ -219,15 +217,15 @@ if (!$conn) {
               <div class="small-box bg-danger">
                 <div class="inner">
                   <h3>
-                  <?php
-                  $sql="SELECT COUNT(*) FROM Employee WHERE Designation='Manager' ";
-                  $stid = oci_parse($conn, $sql);
-                  $r = oci_execute($stid);
-                  $mg=oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                    <?php
+                    $sql = "SELECT COUNT(*) FROM Employee WHERE Designation='Manager' ";
+                    $stid = oci_parse($conn, $sql);
+                    $r = oci_execute($stid);
+                    $mg = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
 
-                  echo $mg['COUNT(*)'];
+                    echo $mg['COUNT(*)'];
 
-                  ?>
+                    ?>
                   </h3>
 
                   <p>Managers</p>
@@ -242,41 +240,41 @@ if (!$conn) {
             <div class="col-lg-3 col-12">
               <!-- small box -->
               <div class="small-box bg-success">
-                  <div class="inner">
+                <div class="inner">
 
                   <p>Registration Fee</p>
                   <h3>
-                  
-                  Details
-                  
-                  
-                  
-                  </h3>
-                  </div>
-                  <div class="icon">
-                  <i class="ion ion-bag"></i>
-                  </div>
-                  <a href="registrationfee_list.php" class="small-box-footer">view <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-              </div>
 
-        
-            
+                    Details
+
+
+
+                  </h3>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
+                </div>
+                <a href="registrationfee_list.php" class="small-box-footer">view <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+
+
+
             <div class="col-lg-3 col-12">
               <!-- small box -->
               <div class="small-box bg-warning">
                 <div class="inner">
                   <h3>
-                  
-                  <?php
-                  $sql="SELECT COUNT(*) FROM Branch ";
-                  $stid = oci_parse($conn, $sql);
-                  $r = oci_execute($stid);
-                  $mg=oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
 
-                  echo $mg['COUNT(*)'];
+                    <?php
+                    $sql = "SELECT COUNT(*) FROM Branch ";
+                    $stid = oci_parse($conn, $sql);
+                    $r = oci_execute($stid);
+                    $mg = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
 
-                  ?>
+                    echo $mg['COUNT(*)'];
+
+                    ?>
 
                   </h3>
 
@@ -291,37 +289,37 @@ if (!$conn) {
             <div class="col-lg-3 col-12">
               <!-- small box -->
               <div class="small-box bg-success">
-                  <div class="inner">
+                <div class="inner">
                   <h3>
-                  
-                  <?php
-                  $sql="SELECT COUNT(*) FROM Member ";
-                  $stid = oci_parse($conn, $sql);
-                  $r = oci_execute($stid);
-                  $mg=oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
 
-                  echo $mg['COUNT(*)'];
-                  ?>
+                    <?php
+                    $sql = "SELECT COUNT(*) FROM Member ";
+                    $stid = oci_parse($conn, $sql);
+                    $r = oci_execute($stid);
+                    $mg = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+
+                    echo $mg['COUNT(*)'];
+                    ?>
 
                   </h3>
 
                   <p>Member Registered</p>
-                  </div>
-                  <div class="icon">
+                </div>
+                <div class="icon">
                   <i class="ion ion-bag"></i>
-                  </div>
-                  <a href="#" class="small-box-footer"><i class="fas"></i></a>
+                </div>
+                <a href="#" class="small-box-footer"><i class="fas"></i></a>
               </div>
-              </div>
-           
+            </div>
+
           </div>
           <div class="row">
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header">
-                  
-            
-                
+
+
+
                 </div>
                 <!-- /.card-header -->
                 <!-- ./card-body -->
@@ -329,26 +327,26 @@ if (!$conn) {
                   <div class="row">
                     <div class="col-sm-4 col-8">
                       <div class="description-block border-right">
-                        
+
                         <h5 class="description-header">
-                        <?php
+                          <?php
                           $sql = 'select br_name, inc_amount, CURRENT_TIMESTAMP-inc_dateandtime "differ" from income';
                           $stid = oci_parse($conn, $sql);
                           $r = oci_execute($stid);
                           $ans = 0;
                           while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-                           
+
                             $array = explode(" ", $row["differ"]);
                             $diff = $array[0];
                             $num = (int)$diff;
-                            
+
                             if ($num <= 30) {
                               $ans = $ans +  $row["INC_AMOUNT"];
                             }
                           }
                           echo $ans . " BDT";
                           $branchRevenue = $ans;
-                        ?>
+                          ?>
                         </h5>
                         <span class="description-text">TOTAL REVENUE</span>
                       </div>
@@ -357,28 +355,28 @@ if (!$conn) {
                     <!-- /.col -->
                     <div class="col-sm-4 col-8">
                       <div class="description-block border-right">
-                        
+
                         <h5 class="description-header">
-                        <?php
-                         $sql = 'select br_name, amount, CURRENT_TIMESTAMP-exp_dateandtime "differ" from expenditure';
-                         $stid = oci_parse($conn, $sql);
-                         $r = oci_execute($stid);
-                         $thisMonth = 0;
-                         $prevMonth = 0;
-                         while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-                           $array = explode(" ", $row["differ"]);
-                           $diff = $array[0];
-                           $num = (int)$diff;
-                           if ($num <= 30) {
-                             $thisMonth = $thisMonth +  $row["AMOUNT"];
-                           } else if ($num <= 60) {
-                             $prevMonth = $prevMonth + $row["AMOUNT"];
-                           }
-                         }
-                         echo $thisMonth . " BDT";
-                         $branchExpenditure = $thisMonth;
-                       ?>
-                       </h5>
+                          <?php
+                          $sql = 'select br_name, amount, CURRENT_TIMESTAMP-exp_dateandtime "differ" from expenditure';
+                          $stid = oci_parse($conn, $sql);
+                          $r = oci_execute($stid);
+                          $thisMonth = 0;
+                          $prevMonth = 0;
+                          while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                            $array = explode(" ", $row["differ"]);
+                            $diff = $array[0];
+                            $num = (int)$diff;
+                            if ($num <= 30) {
+                              $thisMonth = $thisMonth +  $row["AMOUNT"];
+                            } else if ($num <= 60) {
+                              $prevMonth = $prevMonth + $row["AMOUNT"];
+                            }
+                          }
+                          echo $thisMonth . " BDT";
+                          $branchExpenditure = $thisMonth;
+                          ?>
+                        </h5>
                         <span class="description-text">TOTAL COST</span>
                       </div>
                       <!-- /.description-block -->
@@ -386,18 +384,18 @@ if (!$conn) {
                     <!-- /.col -->
                     <div class="col-sm-4 col-8">
                       <div class="description-block border-right">
-                       
+
                         <h5 class="description-header">
-                        <?php
-                        echo $branchRevenue - $branchExpenditure . " BDT";
-                       ?>
+                          <?php
+                          echo $branchRevenue - $branchExpenditure . " BDT";
+                          ?>
                         </h5>
                         <span class="description-text">TOTAL PROFIT</span>
                       </div>
                       <!-- /.description-block -->
                     </div>
                     <!-- /.col -->
-                    
+
                   </div>
                   <!-- /.row -->
                 </div>
@@ -407,12 +405,12 @@ if (!$conn) {
             </div>
             <!-- /.col -->
           </div>
-          <!-- /.row -->          
+          <!-- /.row -->
         </div>
         <!--/. container-fluid -->
       </section>
-           <!-- /.content -->
-    <div style="margin-bottom:30px ;"></div>
+      <!-- /.content -->
+      <div style="margin-bottom:30px ;"></div>
     </div>
     <!-- /.content-wrapper -->
 

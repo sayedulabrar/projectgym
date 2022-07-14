@@ -2,11 +2,10 @@
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $showname = $_SESSION['uname'];
 
-if($_GET!= NULL && ($_GET['un'] != 'u' && $_GET['un'] != 'i' && $_GET['un'] != 'd' && $_GET['un'] != 'w')) {
-    $uname = $_GET['un'];
-}
-else {
-    $uname = $_SESSION['uname'];
+if ($_GET != NULL && ($_GET['un'] != 'u' && $_GET['un'] != 'i' && $_GET['un'] != 'd' && $_GET['un'] != 'w')) {
+  $uname = $_GET['un'];
+} else {
+  $uname = $_SESSION['uname'];
 }
 $_SESSION['designation'] = "Receptionist";
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
@@ -14,16 +13,16 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
 if (!$conn) {
   echo "sorry";
 } else {
-  if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if(isset($_POST['username'])) {
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['username'])) {
       $username = $_POST['username'];
       $sql = "DELETE FROM users WHERE username = '$username'";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
       header("Location: receptionist_list.php?un=d");
     }
-    
-    if(isset($_POST['uname']) && isset($_POST['emp_id'])) {
+
+    if (isset($_POST['uname']) && isset($_POST['emp_id'])) {
       $br_name = $_POST['uname'];
       $salary = $_POST['salary'];
       $emp_id = $_POST['emp_id'];
@@ -42,7 +41,6 @@ if (!$conn) {
       $r = oci_execute($stid);
       header("Location: receptionist_list.php?un=u");
     }
-    
   }
 }
 
@@ -97,8 +95,8 @@ if (!$conn) {
     <!-- /.navbar -->
 
     <?php
-      if($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u' )  )) {
-        echo '
+    if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+      echo '
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
@@ -117,8 +115,8 @@ if (!$conn) {
                     </div>
                     <div class="info">
                         <a href="employee_profile.php" class="d-block">';
-                            echo $uname;
-                        echo '</a>
+      echo $uname;
+      echo '</a>
                     </div>
                 </div>
 
@@ -199,9 +197,8 @@ if (!$conn) {
 </aside>
 
 ';
-}
-else {
-echo '
+    } else {
+      echo '
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 <!-- Brand Logo -->
 <a href="#" class="brand-link">
@@ -217,9 +214,9 @@ echo '
   <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
 </div>
 <div class="info">
-<a href="admin_profile.html" class="d-block">';
-echo $showname;  
-echo '</a>  
+<a href="admin_profile.php" class="d-block">';
+      echo $showname;
+      echo '</a>  
 </div>
 </div>
 
@@ -329,110 +326,107 @@ echo '</a>
   </aside> 
           
   ';
-}
-?>
+    }
+    ?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <section class="content" style="margin-bottom:50px ;">
 
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to remove him?</h5>
-              <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to remove him?</h5>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button> -->
-            </div>
-            <div class="modal-body">
-              <form action="receptionist_list.php" method="POST">
-                <input type="hidden" name="username" id="username">
-                <div class="modal-body" style="float: right;">
-                  <button type="button" class="btn btn-secondary" onclick="window.location.href='receptionist_list.php'" >Cancel</button>
-                  <button type="submit" class="btn btn-primary">Comfirm</button>
-                </div> 
-              </form>
-            </div>  
+              </div>
+              <div class="modal-body">
+                <form action="receptionist_list.php" method="POST">
+                  <input type="hidden" name="username" id="username">
+                  <div class="modal-body" style="float: right;">
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='receptionist_list.php'">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Comfirm</button>
+                  </div>
+                </form>
+              </div>
 
+            </div>
           </div>
         </div>
-      </div>
-  
-      <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel1">Edit Info</h5>
-              <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+        <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">Edit Info</h5>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button> -->
-            </div>
-            <div class="modal-body">
-              <form action="receptionist_list.php" method="POST">
-                <div class="modal-body">
-                  <input type="hidden" name="emp_id" id="emp_id">
-                  
-                  <div class="row">
-                    <div class="form-group col-lg-6 col-12">
-                      <label for="uname">Branch Name</label>
-                      <input type="text" class="form-control" id="uname" name="uname" aria-describedby="emailHelp">
+              </div>
+              <div class="modal-body">
+                <form action="receptionist_list.php" method="POST">
+                  <div class="modal-body">
+                    <input type="hidden" name="emp_id" id="emp_id">
+
+                    <div class="row">
+                      <div class="form-group col-lg-6 col-12">
+                        <label for="uname">Branch Name</label>
+                        <input type="text" class="form-control" id="uname" name="uname" aria-describedby="emailHelp">
+                      </div>
+                      <div class="form-group col-lg-6 col-12">
+                        <label for="designation">Designation</label>
+                        <!-- <input type="text" class="form-control" id="designation" name="designation" aria-describedby="emailHelp"> -->
+                        <select name="designation" id="designation" class="form-select" aria-label="Default select example" style="width: 208px; height: 37px;">
+                          <option selected value="Trainer">Trainer</option>
+                          <option value="Receptionist">Receptionist</option>
+                          <option value="Manager">Manager</option>
+                        </select>
+                      </div>
                     </div>
-                    <div class="form-group col-lg-6 col-12">
-                      <label for="designation">Designation</label>
-                      <!-- <input type="text" class="form-control" id="designation" name="designation" aria-describedby="emailHelp"> -->
-                      <select name="designation" id="designation" class="form-select" aria-label="Default select example" style="width: 208px; height: 37px;">
-                        <option selected value="Trainer">Trainer</option>
-                        <option value="Receptionist">Receptionist</option>
-                        <option value="Manager">Manager</option>
-                      </select>
+
+                    <div class="row">
+                      <div class="form-group col-lg-6 col-12">
+                        <label for="salary">Salary</label>
+                        <input type="text" class="form-control" id="salary" name="salary" aria-describedby="emailHelp">
+                      </div>
+                      <div class="form-group col-lg-6 col-12">
+                        <label for="shift">Shift</label>
+                        <input type="text" class="form-control" id="shift" name="shift" aria-describedby="emailHelp">
+                      </div>
                     </div>
+
+
                   </div>
-
-                  <div class="row">
-                    <div class="form-group col-lg-6 col-12">
-                      <label for="salary">Salary</label>
-                      <input type="text" class="form-control" id="salary" name="salary" aria-describedby="emailHelp">
-                    </div>
-                    <div class="form-group col-lg-6 col-12">
-                      <label for="shift">Shift</label>
-                      <input type="text" class="form-control" id="shift" name="shift" aria-describedby="emailHelp">
-                    </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='receptionist_list.php'">Close</button>
+                    <button type="submit" class="btn btn-primary">Confirm</button>
                   </div>
-                  
+                </form>
+              </div>
 
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" onclick="window.location.href='receptionist_list.php'">Close</button>
-                  <button type="submit" class="btn btn-primary">Confirm</button>
-                </div>
-              </form>
             </div>
-
           </div>
         </div>
-      </div>
 
-      <?php
-        if($_GET) {
-          if($_GET['un'] == 'i') {
+        <?php
+        if ($_GET) {
+          if ($_GET['un'] == 'i') {
             echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
             Successfully inserted
             <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
             <span aria-hidden='true'>&times;</span>
             </button>
           </div>";
-          }
-          elseif($_GET['un'] == 'u') {
+          } elseif ($_GET['un'] == 'u') {
             echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
             Successfully Updated
             <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
             <span aria-hidden='true'>&times;</span>
             </button>
           </div>";
-          }
-          
-          elseif($_GET['un'] == 'd') {
+          } elseif ($_GET['un'] == 'd') {
             echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
             Successfully Deleted
             <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
@@ -441,21 +435,21 @@ echo '</a>
           </div>";
           }
         }
-      ?>
+        ?>
 
-      <div class="bg-light clearfix">
+        <div class="bg-light clearfix">
           <div class="row" style="padding-top: 30px;">
             <div class="col-lg-6 col-md-12">
               <h2 style="margin-left: 25px;">Receptionists Info</h2>
             </div>
             <div class="col-lg-6 col-md-12" style="padding-top: 15px;padding-right:40px;">
               <!-- Insert Modal -->
-              <?php 
-                if($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u') )) {
-                  echo '<button type="button" class="insert btn btn-success float-right" data-toggle="modal"
-                  data-target="#exampleModal" onclick="window.location.href=\'add_employee.php?un='.$uname.'\'">Add
+              <?php
+              if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+                echo '<button type="button" class="insert btn btn-success float-right" data-toggle="modal"
+                  data-target="#exampleModal" onclick="window.location.href=\'add_employee.php?un=' . $uname . '\'">Add
                   New</button>';
-                }    
+              }
               ?>
 
 
@@ -474,8 +468,8 @@ echo '</a>
                 <th scope="col">Salary</th>
                 <th scope="col">Shift</th>
                 <?php
-                if($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i'|| $_GET['un'] == 'u' ) )) {
-                echo '<th scope="col">Action</th>';
+                if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+                  echo '<th scope="col">Action</th>';
                 }
                 ?>
 
@@ -492,21 +486,22 @@ echo '</a>
               <tr id='Receptionist'>
               <th scope='row'>" . $row['EMP_ID'] . "</th>
               <td>";
-              if($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i'|| $_GET['un'] == 'u' ) )) {
-              echo "<a href='employee_profile.php?un =".$un."'>"; 
-              }
-              echo  $row["NAME"] ;
-              if($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i'|| $_GET['un'] == 'u' ) )) {
-              echo  "</a>";
-              }
-              echo"</td>
+                if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+                  echo "<a href='employee_profile.php?un =" . $un . "'>";
+                }
+                echo  $row["NAME"];
+                if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+                  echo  "</a>";
+                }
+                echo "</td>
               <td>" . $row["GENDER"] . "</td>
               <td>" . floor($row["SYSDATE-DOB"] / 365) . "</td>
               <td>" . $row["SALARY"] . "</td>
               <td>" . $row["SHIFT"] . "</td>";
-              if($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i'|| $_GET['un'] == 'u' ) )) {
-              echo "<td> <button class='delete btn btn-sm btn-danger' id=".$row['USERNAME'].">Remove</button> <button class='update btn btn-sm btn-primary' id=".$row['BR_NAME'].">Edit</button> </td>";}
-              echo "</tr>
+                if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+                  echo "<td> <button class='delete btn btn-sm btn-danger' id=" . $row['USERNAME'] . ">Remove</button> <button class='update btn btn-sm btn-primary' id=" . $row['BR_NAME'] . ">Edit</button> </td>";
+                }
+                echo "</tr>
               ";
                 // ECHO var_dump($row);
               }
@@ -576,8 +571,8 @@ echo '</a>
   <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
   <script>
     deletes = document.getElementsByClassName('delete');
-    Array.from(deletes).forEach((element)=>{
-      element.addEventListener("click", (e)=>{
+    Array.from(deletes).forEach((element) => {
+      element.addEventListener("click", (e) => {
         // console.log("delete ", );
         tr = e.target.parentNode.parentNode;
         username.value = e.target.id;
@@ -586,8 +581,8 @@ echo '</a>
       })
     })
     updates = document.getElementsByClassName('update');
-    Array.from(updates).forEach((element)=>{
-      element.addEventListener("click", (e)=>{
+    Array.from(updates).forEach((element) => {
+      element.addEventListener("click", (e) => {
         // console.log("update ", );
         tr = e.target.parentNode.parentNode;
         uname.value = e.target.id;
