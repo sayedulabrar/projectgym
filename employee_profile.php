@@ -1,6 +1,7 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $showuname = $_SESSION['uname'];
+$designation = $_SESSION['profation'];
 $wrongPassword = false;
 $matchPassword = true;
 $nullPassword = false;
@@ -10,7 +11,8 @@ if($_GET == NULL) {
 }
 else {
   $uname = $_GET['un_'];
-  $_SESSION['xxx'] = $uname;
+
+  
   if($uname == 'w' || $uname == 'm' || $uname == 'n') {
     if($uname == 'w') {
       $wrongPassword = true;
@@ -27,9 +29,14 @@ else {
     $trainer = true;
     $uname =  $_SESSION['uname'];
   }
+  if($designation <> 'Trainer' && $designation <> 'Admin') {
+    $uname = $_SESSION['uname'];
+  }
+
+  
 
 }
-$_SESSION['xxx'] = $uname;
+// $_SESSION['xxx'] = $uname;
 // echo var_dump($_GET);
 
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
@@ -250,6 +257,231 @@ if (!$conn) {
   <div class="wrapper">
 
     <?php
+    $_SESSION['xxx'] = $designation;
+    if($designation == 'Admin') {
+      echo '
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+<!-- Brand Logo -->
+<a href="#" class="brand-link">
+<img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+<span class="brand-text font-weight-light">Fitness Mania</span>
+</a>
+
+<!-- Sidebar -->
+<div class="sidebar">
+<!-- Sidebar user (optional) -->
+<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+  <div class="image">
+    <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+        <a href="admin_profile.php" class="d-block">';
+      echo $showuname;
+      echo '</a>  
+      </div>
+      </div>
+
+       
+      
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+      with font-awesome or any other icon font library -->
+      <li class="nav-item">
+      <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                  Dashboard
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+
+                <li class="nav-item">
+                  <a href="admin_db.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Admin</p>
+                  </a>
+                </li>
+
+              </ul>
+            </li>
+
+
+          
+            <li class="nav-item">   
+
+            </li>
+          
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon far fa-envelope"></i>
+                <p>
+                  Mailbox
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="pages/mailbox/mailbox.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Inbox</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="pages/mailbox/compose.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Compose</p>
+                  </a>
+                </li>
+                
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-book"></i>
+                <p>
+                  Pages
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                   
+                <li class="nav-item">
+                  <a href="employee_profile2.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Profile</p>
+                  </a>
+                </li>
+                
+                 
+                
+                 <li class="nav-item">
+                  <a href="pages/examples/userreg.php" class="nav-link ">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Member Add</p>
+                  </a>
+                
+                
+                <li class="nav-item">
+                  <a href="pages/examples/Search-Manager.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Search Manager</p>
+                  </a>
+                </li>
+                 
+                
+  
+                
+              </ul>
+            </li>
+           
+            
+            
+          </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+      </div>
+      <!-- /.sidebar -->
+    </aside>
+
+    ';
+    }
+    else {
+    if($designation == "receptionist") {
+      echo '
+      <!-- Main Sidebar Container -->
+      <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="index3.html" class="brand-link">
+          <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+          <span class="brand-text font-weight-light">Fitness Mania</span>
+        </a>
+  
+        <!-- Sidebar -->
+        <div class="sidebar">
+          <!-- Sidebar user panel (optional) -->
+          <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+              <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+            </div>
+            <div class="info">
+              <a href="employee_profile.php?un_=receptionist" class="d-block">'.
+              $uname
+              .'</a>
+            </div>
+          </div>
+  
+          
+  
+          <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+             
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <p>
+                    Dashboard
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+  
+                  <li class="nav-item">
+                    <a href="receptionist.php" class="nav-link ">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Receptionist</p>
+                    </a>
+                  </li>
+  
+                </ul>
+              </li>
+  
+  
+  
+  
+  
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon far fa-envelope"></i>
+                  <p>
+                    Mailbox
+                    <i class="fas fa-angle-left right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">';
+                      echo "<li class='nav-item'>                
+                      <a href='pages/mailbox/mailbox.php?un=" . $uname . "' class='nav-link'>
+                      <i class='far fa-circle nav-icon'></i>
+                      <p>Inbox</p>
+                      </a>         
+   </li>";
+                      echo "<li class='nav-item'>                
+                      <a href='pages/mailbox/compose.php?un=" . $uname . "' class='nav-link'>
+                      <i class='far fa-circle nav-icon'></i>
+                      <p>Compose</p>
+                      </a>         
+                      </li>";
+  
+            echo    ' </ul>
+              </li>
+              
+  
+  
+  
+            </ul>
+            </li>
+  
+            </ul>
+          </nav>
+          <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+      </aside>
+      ';
+    }
+    else {
       if($trainer == false) {
         echo '
         <!-- Main Sidebar Container -->
@@ -456,6 +688,8 @@ if (!$conn) {
 </aside>
         ';
       }
+    }
+  }
     ?>
     
     <!-- Content Wrapper. Contains page content -->

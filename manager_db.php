@@ -1,6 +1,8 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $showname = $_SESSION['uname'];
+
+  $_SESSION['profation'] = 'Trainer';
 $_SESSION['xxx'] = $_SESSION['profation'];
 if ($_GET) {
   $uname = $_GET['un'];

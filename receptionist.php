@@ -42,9 +42,9 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   <div class="wrapper">
 
     <!-- Preloader -->
-    <div class="preloader flex-column justify-content-center align-items-center">
+    <!-- <div class="preloader flex-column justify-content-center align-items-center">
       <img class="animation__wobble" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-    </div>
+    </div> -->
 
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-dark">
@@ -155,49 +155,7 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
 
               </ul>
             </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-book"></i>
-                <p>
-                  Pages
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-
-                </li>
-                <li class="nav-item">
-                  <a href="employee_profile.php?un_=receptionist" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Profile</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/examples/userreg.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p> Manager Add</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/examples/Branch.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Branch</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/examples/Search-Manager.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Search Manager</p>
-                  </a>
-                </li>
-
-
-
-
-              </ul>
-            </li>
-
+            
 
 
 
@@ -263,23 +221,41 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
                 <!-- <a href="member_list.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
               </div>
             </div>
-
-            <div class="col-lg-3 col-6">
+            <div class="col-lg-3 col-12">
               <!-- small box -->
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3 style="color: white;">Repair</h3>
+                  <h3>
+                    <?php
+                    $br_name = $rec["BR_NAME"];
+                    $sql = "select *from equipment where br_name in('$br_name')";
+                    $stid = oci_parse($conn, $sql);
+                    $r = oci_execute($stid);
 
-                  <p style="color: white;">Maintenance</p>
+                    $num = 0;
+                    while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                      $num = $num + 1;
+                    }
+                    echo $num;
+
+                    ?>
+
+                  </h3>
+
+                  <p>Equipments </p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <?php
-                echo '<a href="add_maintanance.php?un='.$uname.'" class="small-box-footer">Edit <i class="fas fa-arrow-circle-right"></i></a>';
-                ?>
+                <a href="equipments_list.php<?php
+                                            if ($_GET) {
+                                              echo "?un=" . $_GET['un'];
+                                            }
+                                            ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
+
+            
 
             <div class="col-lg-3 col-6">
               <!-- small box -->

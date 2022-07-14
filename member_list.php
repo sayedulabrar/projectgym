@@ -1,7 +1,12 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $showname = $_SESSION['uname'];
-
+$wrongUname = false;
+$unameActive = false;
+$designation = $_SESSION['profation'];
+$ageActive = false;
+$ml = false;
+$mo = false;
 if ($_GET != NULL && $_GET['un'] != 'a') {
   $uname = $_GET['un'];
 } else {
@@ -12,6 +17,34 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
 if (!$conn) {
   echo "sorry";
 } else {
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if(isset($_POST['un'])) {
+      $username = $_POST['un'];
+      $sql = "select * from employee where USERNAME = '$username' and designation = 'Trainer'";
+      $stid = oci_parse($conn, $sql);
+      $r = oci_execute($stid);
+      $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+      if($row) {
+        $unameActive = true;
+      }
+      else {
+        $wrongUname = true;
+      }
+    }
+    if(isset($_POST['s_a']) && isset($_POST['f_a'])) {
+      $s_a = $_POST['s_a'];
+      $f_a = $_POST['f_a'];
+      $ageActive = true;
+    }
+    if(isset($_POST['ml'])) {
+      $xx = $_POST['ml'];
+      $ml = true;
+    }
+    if(isset($_POST['mo'])) {
+      $xx = $_POST['mo'];
+      $mo = true;
+    }
+  }
 }
 
 ?>
@@ -60,6 +93,99 @@ if (!$conn) {
     </nav>
 
     <?php
+    if($designation == "receptionist") {
+      echo '
+      <!-- Main Sidebar Container -->
+      <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="index3.html" class="brand-link">
+          <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+          <span class="brand-text font-weight-light">Fitness Mania</span>
+        </a>
+  
+        <!-- Sidebar -->
+        <div class="sidebar">
+          <!-- Sidebar user panel (optional) -->
+          <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+              <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+            </div>
+            <div class="info">
+              <a href="employee_profile.php?un_=receptionist" class="d-block">'.
+              $uname
+              .'</a>
+            </div>
+          </div>
+  
+          
+  
+          <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+             
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <p>
+                    Dashboard
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+  
+                  <li class="nav-item">
+                    <a href="receptionist.php" class="nav-link ">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Receptionist</p>
+                    </a>
+                  </li>
+  
+                </ul>
+              </li>
+  
+  
+  
+  
+  
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon far fa-envelope"></i>
+                  <p>
+                    Mailbox
+                    <i class="fas fa-angle-left right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">';
+                      echo "<li class='nav-item'>                
+                      <a href='pages/mailbox/mailbox.php?un=" . $uname . "' class='nav-link'>
+                      <i class='far fa-circle nav-icon'></i>
+                      <p>Inbox</p>
+                      </a>         
+   </li>";
+                      echo "<li class='nav-item'>                
+                      <a href='pages/mailbox/compose.php?un=" . $uname . "' class='nav-link'>
+                      <i class='far fa-circle nav-icon'></i>
+                      <p>Compose</p>
+                      </a>         
+                      </li>";
+  
+            echo    ' </ul>
+              </li>
+              
+  
+  
+  
+            </ul>
+            </li>
+  
+            </ul>
+          </nav>
+          <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+      </aside>
+      ';
+    }
+    else {
     if ($_GET == NULL || ($_GET != NULL && $_GET['un'] == 'a')) {
       echo '
                 <!-- Main Sidebar Container -->
@@ -292,8 +418,9 @@ if (!$conn) {
         
             ';
     }
+  }
     ?>
-
+    
     <!-- /.navbar -->
 
 
@@ -311,7 +438,93 @@ if (!$conn) {
                 </div>";
         }
         ?>
-
+        <div class="alert alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <div class="bg-light clearfix">
+            <div class="row" style="padding-top: 30px;">
+              <div class="col-lg-6 col-md-12">
+                <h2 style="margin-left: 25px;"> Search Using</h2>
+              </div>
+            </div>
+            <br>
+            <div class="container" >
+              <div class="row">
+                
+                <div class="form-group col-lg-5 col-12">
+                  <h5 style="text-align: center;">Membership Left</h5>
+                  <br>
+                  <div class="row">
+                    <div class="form-group col-lg-6 col-12">
+                      <form action="member_list.php" method = "POST">
+                        <div class="row">
+                          <div class="form-group col-lg-7 col-12">
+                            <input type="text" placeholder="Days or less" class="form-control" id="ml" name="ml">
+                          </div>
+                          <div class="form-group col-lg-5 col-12">
+                            <button type="submit" class="btn btn-secondary">Search</button>
+                            
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="form-group col-lg-6 col-12">
+                      <form action="member_list.php" method = "POST">
+                        <div class="row">
+                          <div class="form-group col-lg-7 col-12">
+                            <input type="text" placeholder="Days or More" class="form-control" id="mo" name="mo">
+                          </div>
+                          <div class="form-group col-lg-5 col-12">
+                            <button type="submit" class="btn btn-secondary">Search</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="form-group col-lg-4 col-12" >
+                  <h5 style="text-align: center;">Age</h5>  
+                  <br>
+                  <form action="member_list.php" method = "POST">
+                    <div class="row" >
+                      <div class="form-group col-lg-5 col-12" >
+                        <input type="text" placeholder="From" class="form-control" id="s_a" name="s_a" aria-describedby="emailHelp">  
+                      </div>
+                      <div class="form-group col-lg-4 col-12">
+                        <input type="text" placeholder="To" class="form-control" id="f_a" name="f_a">
+                      </div>
+                      <div class="form-group col-lg-3 col-12">
+                        <button type="submit" class="btn btn-secondary">Search</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="form-group col-lg-3 col-12" >
+                  <h5 style="text-align: center;">Trainer</h5>  
+                  <br>
+                  <form action="member_list.php" method = "POST">
+                    <div class="row" >
+                      <div class="form-group col-lg-8 col-12">
+                        <input type="text" placeholder="Username" class="form-control" id="un" name="un">
+                      </div>
+                      <div class="form-group col-lg-4 col-12">
+                        <button type="submit" class="btn btn-secondary">Search</button>
+                        
+                      </div>
+                    </div>
+                    <?php
+                              if($wrongUname) {
+                                echo '
+                                <p style="color: red;"> Wrong Username</p>
+                                ';
+                              } 
+                            ?>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="bg-light clearfix">
           <div class="row" style="padding-top: 30px;">
             <div class="col-lg-6 col-md-12">
@@ -344,23 +557,36 @@ if (!$conn) {
           <table class="table table-hover table-striped" id='myTable'>
             <thead>
               <tr>
-                <th scope="col">Membership ID</th>
                 <th scope="col">Name</th>
                 <th scope="col">Gender</th>
+                <th scope="col">Age</th>
                 <th scope="col">Trainer Name</th>
                 <th scope="col">Membership Expiry Date</th>
               </tr>
             </thead>
             <tbody>
               <?php
-              $sql = "select *from users natural join member where br_name = (select br_name from users where username = '$uname')";
+              if($unameActive) {
+                $sql = "select NAME, GENDER, USERNAME, BR_NAME, SYSDATE - DOB, TRAINER, MEMBERSHIP_EXPIRY from users natural join member where br_name = (select br_name from users where username = '$uname') and trainer = '$username'";  
+              }
+              elseif($ageActive) {
+                $sql = "select NAME, GENDER, USERNAME, BR_NAME, SYSDATE - DOB, TRAINER, MEMBERSHIP_EXPIRY from users natural join member where br_name = (select br_name from users where username = '$uname') and floor((SYSDATE - DOB)/365) >= $s_a and floor((SYSDATE - DOB)/365) <= $f_a";
+              }
+              elseif($ml) {
+                $sql = "select NAME, GENDER, USERNAME, BR_NAME, SYSDATE - DOB, TRAINER, MEMBERSHIP_EXPIRY from users natural join member where br_name = (select br_name from users where username = '$uname') and (MEMBERSHIP_EXPIRY - SYSDATE) <= $xx";
+              }
+              elseif($mo) {
+                $sql = "select NAME, GENDER, USERNAME, BR_NAME, SYSDATE - DOB, TRAINER, MEMBERSHIP_EXPIRY,  from users natural join member where br_name = (select br_name from users where username = '$uname') and (MEMBERSHIP_EXPIRY - SYSDATE) >= $xx";
+              }
+              else {
+                $sql = "select NAME, GENDER, USERNAME, BR_NAME, SYSDATE - DOB, TRAINER, MEMBERSHIP_EXPIRY from users natural join member where br_name = (select br_name from users where username = '$uname')";
+              }
               $stid = oci_parse($conn, $sql);
               $r = oci_execute($stid);
               while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
                 $un = $row['USERNAME'];
                 echo "
                                 <tr>
-                                <th scope='row'>" . $row["MEM_ID"] . "</th>
                                 <td>";
                 if ($_GET == NULL || ($_GET != NULL && $_GET['un'] == 'a')) {
                   echo "<a href='member_profile.php?un=" . $un . "'>";
@@ -371,6 +597,9 @@ if (!$conn) {
                 }
                 echo "</td>
                                 <td>" . $row["GENDER"] . "</td>
+                                <td>";
+                                echo floor($row["SYSDATE-DOB"] / 365);
+                                echo "</td>
                                 <td>" . $row["TRAINER"] . "</td>
                                 <td>" . $row["MEMBERSHIP_EXPIRY"] . "</td>
                                 </tr>

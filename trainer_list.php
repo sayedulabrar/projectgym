@@ -485,69 +485,68 @@ if (!$conn) {
         <div class="alert alert-dismissible" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <div class="bg-light clearfix">
-          <div class="row" style="padding-top: 30px;">
-            <div class="col-lg-6 col-md-12">
-              <h2 style="margin-left: 25px;"> Search Using</h2>
-            </div>
-          </div>
-          <br>
-          <div class="container" >
-            <div class="row">
-              <div class="form-group col-lg-4 col-12" >
-                <h5 style="text-align: center;">Rating</h5>  
-                <br>
-                <form action="trainer_list.php" method = "POST">
-                  <div class="row" >
-                    <div class="form-group col-lg-4 col-12" >
-                      <input type="text" placeholder="From" class="form-control" id="s_r" name="s_r" aria-describedby="emailHelp">  
-                    </div>
-                    <div class="form-group col-lg-4 col-12">
-                      <input type="text" placeholder="To" class="form-control" id="f_r" name="f_r">
-                    </div>
-                    <div class="form-group col-lg-4 col-12">
-                      <button type="submit" class="btn btn-secondary">Search</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div class="form-group col-lg-4 col-12">
-              <h5 style="text-align: center;">Salary</h5>
-              <br>
-                <form action="trainer_list.php" method = "POST">
-                  <div class="row">
-                    <div class="form-group col-lg-4 col-12">
-                      <input type="text" placeholder="From" class="form-control" id="s_s" name="s_s" aria-describedby="emailHelp">  
-                    </div>
-                    <div class="form-group col-lg-4 col-12">
-                      <input type="text" placeholder="To" class="form-control" id="f_s" name="f_s">
-                    </div>
-                    <div class="form-group col-lg-4 col-12">
-                      <button type="submit" class="btn btn-secondary">Search</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div class="form-group col-lg-4 col-12">
-              <h5 style="text-align: center;">Age</h5>
-              <br>
-                <form action="trainer_list.php" method = "POST">
-                  <div class="row">
-                    <div class="form-group col-lg-4 col-12">
-                      <input type="text" placeholder="From" class="form-control" id="s_a" name="s_a" aria-describedby="emailHelp">  
-                    </div>
-                    <div class="form-group col-lg-4 col-12">
-                      <input type="text" placeholder="To" class="form-control" id="f_a" name="f_a">
-                    </div>
-                    <div class="form-group col-lg-4 col-12">
-                      <button type="submit" class="btn btn-secondary">Search</button>
-                    </div>
-                  </div>
-                </form>
+            <div class="row" style="padding-top: 30px;">
+              <div class="col-lg-6 col-md-12">
+                <h2 style="margin-left: 25px;"> Search Using</h2>
               </div>
             </div>
+            <br>
+            <div class="container" >
+              <div class="row">
+                <div class="form-group col-lg-4 col-12" >
+                  <h5 style="text-align: center;">Rating</h5>  
+                  <br>
+                  <form action="trainer_list.php" method = "POST">
+                    <div class="row" >
+                      <div class="form-group col-lg-4 col-12" >
+                        <input type="text" placeholder="From" class="form-control" id="s_r" name="s_r" aria-describedby="emailHelp">  
+                      </div>
+                      <div class="form-group col-lg-4 col-12">
+                        <input type="text" placeholder="To" class="form-control" id="f_r" name="f_r">
+                      </div>
+                      <div class="form-group col-lg-4 col-12">
+                        <button type="submit" class="btn btn-secondary">Search</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="form-group col-lg-4 col-12">
+                  <h5 style="text-align: center;">Salary</h5>
+                  <br>
+                  <form action="trainer_list.php" method = "POST">
+                    <div class="row">
+                      <div class="form-group col-lg-4 col-12">
+                        <input type="text" placeholder="From" class="form-control" id="s_s" name="s_s" aria-describedby="emailHelp">  
+                      </div>
+                      <div class="form-group col-lg-4 col-12">
+                        <input type="text" placeholder="To" class="form-control" id="f_s" name="f_s">
+                      </div>
+                      <div class="form-group col-lg-4 col-12">
+                        <button type="submit" class="btn btn-secondary">Search</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="form-group col-lg-4 col-12">
+                  <h5 style="text-align: center;">Age</h5>
+                  <br>
+                  <form action="trainer_list.php" method = "POST">
+                    <div class="row">
+                      <div class="form-group col-lg-4 col-12">
+                        <input type="text" placeholder="From" class="form-control" id="s_a" name="s_a" aria-describedby="emailHelp">  
+                      </div>
+                      <div class="form-group col-lg-4 col-12">
+                        <input type="text" placeholder="To" class="form-control" id="f_a" name="f_a">
+                      </div>
+                      <div class="form-group col-lg-4 col-12">
+                        <button type="submit" class="btn btn-secondary">Search</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        
         </div>
         
         <div class="bg-light clearfix">

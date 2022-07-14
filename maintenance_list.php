@@ -13,15 +13,14 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
 if (!$conn) {
   echo "sorry";
 } else {
-  if (isset($_POST['name'])) {
+  if (isset($_POST['name']) && isset($_POST['quantity'])) {
     $sql = "select *from equipment order by equipment_id desc";
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
     $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
     $trx_id = $row['EQUIPMENT_ID'] + 1;
-
     $name = $_POST['name'];
-    // $quantity = $_POST['quantity'];
+    $quantity = $_POST['quantity'];
     $brand = $_POST['brand'];
     $model = $_POST['model'];
     $sql = "select *from users where username='$uname'";
@@ -29,7 +28,7 @@ if (!$conn) {
     $r = oci_execute($stid);
     $roww = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
     $br_name = $roww['BR_NAME'];
-    $sql = "insert into equipment (equipment_id, equipment_name, equipment_brand, equipment_model, br_name) values($trx_id, '$name', '$brand', '$model','$br_name')";
+    $sql = "insert into equipment (equipment_id, equipment_name, equipment_quantity, equipment_available, equipment_brand, equipment_model, br_name) values($trx_id, '$name', $quantity, '0', '$brand', '$model','$br_name')";
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
 
@@ -37,32 +36,17 @@ if (!$conn) {
   }
   if (isset($_POST['equip_id'])) {
     $equip_id = $_POST['equip_id'];
-    $sql = "DELETE FROM equipment WHERE equipment_id = '$equip_id'";
+    $_SESSION['xxx'] = $equip_id;
+    $sql = "update maintenance set cur = '0' where EQUIPMENT_ID = $equip_id" ;
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
 
-    header("Location: equipments_list.php?un=d");
+    header("Location: maintenance_list.php?un=d");
   }
   if (isset($_POST['equip_id2'])) {
     $equip_id = $_POST['equip_id2'];
-    $rn = $_POST['rn'];
-    $contact = $_POST['contact'];
-    $rcn = $_POST['rcn'];
-    $dd = $_POST['dd'];
-    $cost = $_POST['cost'];
-    $sql = "select *from maintenance order by mai_id desc";
-    $stid = oci_parse($conn, $sql);
-    $r = oci_execute($stid);
-    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-    $trx_id = $row['MAI_ID'] + 1;
-    $sql = "select *from users where username='$uname'";
-    $stid = oci_parse($conn, $sql);
-    $r = oci_execute($stid);
-    $roww = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-    $br_name = $roww['BR_NAME'];
-    $_SESSION['xxx'] = $br_name;
-
-    $sql = "insert into maintenance (mai_id, mai_date, repairer_name, COST_OF_REPAIRING, REPAIRER_COMPANY_NAME, REPAIRER_CONTACT_NO, DELIVERY_DATE, EQUIPMENT_ID, cur) values($trx_id, SYSDATE, '$rn', $cost, '$rcn', '$contact', to_date('$dd', 'dd/mm/yyyy'), $equip_id, '1')";
+    $quantity = $_POST['quantity1'];
+    $sql = "update equipment set equipment_quantity = $quantity where equipment_id = $equip_id";
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
 
@@ -459,16 +443,16 @@ if (!$conn) {
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel1">Are you sure you want to remove equipment</h5>
+                <h5 class="modal-title" id="exampleModalLabel1">Are you sure?</h5>
                 <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button> -->
               </div>
               <div class="modal-body">
-                <form action="equipments_list.php" method="POST">
+                <form action="maintenance_list.php" method="POST">
                   <input type="hidden" name="equip_id" id="equip_id">
                   <div class="modal-body" style="float: right;">
-                    <button type="button" class="btn btn-secondary" onclick="window.location.href='equipments_list.php'">Cancel</button>
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='maintenance_list.php'">Cancel</button>
                     <button type="submit" class="btn btn-primary">Comfirm</button>
                   </div>
                 </form>
@@ -477,7 +461,6 @@ if (!$conn) {
             </div>
           </div>
         </div>
-        
         <?php
         if ($_GET) {
           if ($_GET['un'] == 'i') {
@@ -489,14 +472,14 @@ if (!$conn) {
             </div>";
           } elseif ($_GET['un'] == 'u') {
             echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-              Successfully added to Mainteance List
+              Successfully Updated
               <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
               <span aria-hidden='true'>&times;</span>
               </button>
             </div>";
           } elseif ($_GET['un'] == 'd') {
-            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
-              Successfully Deleted
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+              Maintenance Done
               <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
               <span aria-hidden='true'>&times;</span>
               </button>
@@ -508,25 +491,11 @@ if (!$conn) {
         <div class="bg-light clearfix">
           <div class="row" style="padding-top: 30px;">
             <div class="col-lg-6 col-md-12">
-              <h2 style="margin-left: 25px;">Equipments Info</h2>
+              <h2 style="margin-left: 25px;">Maintenance Info</h2>
             </div>
             <div class="col-lg-6 col-md-12" style="padding-top: 15px;padding-right:40px;">
               <!-- Insert Modal -->
-              <?php
-              if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
-                echo '
-                
-                <p>
-                ';
-                if($designation != "receptionist") {
-                echo '
-                <button type="button" class="insert btn btn-success float-right" data-toggle="modal" data-target="#exampleModal">Add New</button>';}
-                echo '<a href="maintenance_list.php"><button type="button" class="btn btn-warning float-right"> Maintenance List </button>
-                </p></a>
-
-                ';
-              }
-              ?>
+              
               <!-- Modal -->
               <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -543,11 +512,14 @@ if (!$conn) {
 
                           <input type="hidden" name="snoEdit" id="snoEdit">
                           <div class="row">
-                            <div class="form-group col-lg-12 col-12">
+                            <div class="form-group col-lg-6 col-12">
                               <label for="name">Equipment Name</label>
                               <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp">
                             </div>
-                            
+                            <div class="form-group col-lg-6 col-12">
+                              <label for="quantity">Quantity</label>
+                              <input type="text" class="form-control" id="quantity" name="quantity" aria-describedby="emailHelp">
+                            </div>
 
                           </div>
 
@@ -591,7 +563,7 @@ if (!$conn) {
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel2">Send to Maintenance</h5>
+                      <h5 class="modal-title" id="exampleModalLabel2">Edit Info</h5>
                       <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button> -->
@@ -602,34 +574,9 @@ if (!$conn) {
 
                           <input type="hidden" name="equip_id2" id="equip_id2">
                           <!-- <div class="row"> -->
-                          <div class="row">
-                            <div class="form-group col-lg-6 col-12">
-                              <label for="brand">Repairer Name</label>
-                              <input type="text" class="form-control" id="rn" name="rn" aria-describedby="emailHelp">
-                            </div>
-                            <div class="form-group col-lg-6 col-12">
-                              <label for="model">Contact</label>
-                              <input type="text" class="form-control" id="contact" name="contact" aria-describedby="emailHelp">
-                            </div>
-
-                          </div>
-                          <div class="row">
-                            <div class="form-group col-lg-12 col-12">
-                              <label for="brand">Repairer Company Name</label>
-                              <input type="text" class="form-control" id="rcn" name="rcn" aria-describedby="emailHelp">
-                            </div>
-
-                          </div>
-                          <div class="row">
-                            <div class="form-group col-lg-6 col-12">
-                              <label for="brand">Delivery Date</label>
-                              <input type="text" class="form-control" id="dd" name="dd" aria-describedby="emailHelp">
-                            </div>
-                            <div class="form-group col-lg-6 col-12">
-                              <label for="model"> Cost</label>
-                              <input type="text" class="form-control" id="cost" name="cost" aria-describedby="emailHelp">
-                            </div>
-
+                          <div class="form-group">
+                            <label for="quantity1">Quantity</label>
+                            <input type="text" class="form-control" id="quantity1" name="quantity1" aria-describedby="emailHelp">
                           </div>
                           <!-- <div class="form-group col-lg-6 col-12">
                               <label for="available1">Available</label>
@@ -665,9 +612,12 @@ if (!$conn) {
             <thead>
               <tr>
                 <th scope="col">Equipment ID</th>
-                <th scope="col">Equipment Name</th>
-                <th scope="col">Brand</th>
-                <th scope="col">Model</th>
+                <th scope="col">Repairer Name</th>
+                <th scope="col">Contact</th>
+                <th scope="col">Repairer Company Name</th>
+                <th scope="col">Maintenance Date</th>
+                <th scope="col">Delivery Date</th>
+                <th scope="col">Cost of Repairing</th>
                 <th scope="col">Status</th>
                 <?php
                 if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
@@ -679,48 +629,41 @@ if (!$conn) {
             </thead>
             <tbody>
               <?php
-              $sql = "select * from equipment where br_name = (select br_name from users where username = '$uname')";
+              $sql = "select * from maintenance natural join equipment where br_name = (select br_name from users where username = '$uname')";
               $stid = oci_parse($conn, $sql);
               $r = oci_execute($stid);
               while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
                 echo "
               <tr>
               <th scope='row'>" . $row['EQUIPMENT_ID'] . "</th>
-              <td>" . $row["EQUIPMENT_NAME"] . " </td>
-              <td>" . $row["EQUIPMENT_BRAND"] . "</td>
-              <td>" . $row["EQUIPMENT_MODEL"] . "</td>
+              <td>" . $row["REPAIRER_NAME"] . " </td>
+              <td>" . $row["REPAIRER_CONTACT_NO"] . "</td>
+              <td>" . $row["REPAIRER_COMPANY_NAME"] . "</td>
+              <td>" . $row["MAI_DATE"] . "</td>
+              <td>" . $row["DELIVERY_DATE"] . "</td>
+              <td>" . $row["COST_OF_REPAIRING"] . "</td>
               <td>"; 
-              $eq = $row['EQUIPMENT_ID'];
-              $sql = "select * from maintenance where equipment_id = '$eq'";
-              $stid5 = oci_parse($conn, $sql);
-              $r = oci_execute($stid5);
-              $flag = 0;
-              while($row4 = oci_fetch_array($stid5, OCI_ASSOC + OCI_RETURN_NULLS)) {
-                if($row4['CUR'] == '1') {
-                  $flag =1;
-                }
-              }
-              if($flag == 1) {
-                echo "Not Available";
-              }
+              if($row["CUR"] == '1') {
+                echo "Under Maintenance";
+              } 
               else {
-                echo "Available";
+                echo "Done";
               }
-              
               echo "</td>";
+              
                 if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
-                  echo "<td>";
-                  if($flag == 0) {
-                  echo "<button class='delete1 btn btn-sm btn-warning'>Maintenance</button>" ;
+                  if($row["CUR"] == '1' ) {
+                  echo "<td> <button class='delete btn btn-sm btn-danger'>Remove</button>";
                   }
-                  if($designation != "receptionist") {
-                  echo "<button class='delete btn btn-sm btn-danger'>Remove</button> </td>";
+                  else {
+                    echo "<td> </td>";
                   }
                 }
                 echo "</tr>
               ";
                 // ECHO var_dump($row);
               }
+
 
 
               ?>
@@ -808,19 +751,18 @@ if (!$conn) {
         $('#exampleModal1').modal('toggle');
       })
     })
-    updates = document.getElementsByClassName('delete1');
+    updates = document.getElementsByClassName('update');
     Array.from(updates).forEach((element) => {
       element.addEventListener("click", (e) => {
-        // console.log("update ", );
-
+        console.log("update ", );
         tr = e.target.parentNode.parentNode;
-        // // // uname.value = e.target.id;
-        // // // designation.value = tr.id;
+        // // uname.value = e.target.id;
+        // // designation.value = tr.id;
         equip_id2.value = tr.getElementsByTagName("th")[0].innerText;
-        // quantity1.value = tr.getElementsByTagName("td")[3].innerText;
-        // // available1.value = tr.getElementsByTagName("td")[4].innerText;
-        // console.log(equip_id2.value, quantity1.value);
-        console.log(equip_id2.value);
+        quantity1.value = tr.getElementsByTagName("td")[3].innerText;
+        // available1.value = tr.getElementsByTagName("td")[4].innerText;
+        console.log(equip_id2.value, quantity1.value);
+        // // console.log(emp_id);
         $('#exampleModal2').modal('toggle');
       })
     })

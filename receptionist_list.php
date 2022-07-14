@@ -1,7 +1,8 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $showname = $_SESSION['uname'];
-
+$ageActive = false;
+$salaryActive = false;
 if ($_GET != NULL && ($_GET['un'] != 'u' && $_GET['un'] != 'i' && $_GET['un'] != 'd' && $_GET['un'] != 'w')) {
   $uname = $_GET['un'];
 } else {
@@ -40,6 +41,16 @@ if (!$conn) {
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
       header("Location: receptionist_list.php?un=u");
+    }
+    if(isset($_POST['s_a']) && isset($_POST['f_a'])) {
+      $s_a = $_POST['s_a'];
+      $f_a = $_POST['f_a'];
+      $ageActive = true;
+    }
+    if(isset($_POST['s_s']) && isset($_POST['f_s'])) {
+      $s_s = $_POST['s_s'];
+      $f_s = $_POST['f_s'];
+      $salaryActive = true;
     }
   }
 }
@@ -437,6 +448,57 @@ if (!$conn) {
         }
         ?>
 
+<div class="alert alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <div class="bg-light clearfix">
+            <div class="row" style="padding-top: 30px;">
+              <div class="col-lg-6 col-md-12">
+                <h2 style="margin-left: 25px;"> Search Using</h2>
+              </div>
+            </div>
+            <br>
+            <div class="container" >
+              <div class="row">
+                
+                <div class="form-group col-lg-6 col-12">
+                  <h5 style="text-align: center;">Salary</h5>
+                  <br>
+                  <form action="receptionist_list.php" method = "POST">
+                    <div class="row">
+                      <div class="form-group col-lg-4 col-12">
+                        <input type="text" placeholder="From" class="form-control" id="s_s" name="s_s" aria-describedby="emailHelp">  
+                      </div>
+                      <div class="form-group col-lg-4 col-12">
+                        <input type="text" placeholder="To" class="form-control" id="f_s" name="f_s">
+                      </div>
+                      <div class="form-group col-lg-4 col-12">
+                        <button type="submit" class="btn btn-secondary">Search</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="form-group col-lg-6 col-12">
+                  <h5 style="text-align: center;">Age</h5>
+                  <br>
+                  <form action="receptionist_list.php" method = "POST">
+                    <div class="row">
+                      <div class="form-group col-lg-4 col-12">
+                        <input type="text" placeholder="From" class="form-control" id="s_a" name="s_a" aria-describedby="emailHelp">  
+                      </div>
+                      <div class="form-group col-lg-4 col-12">
+                        <input type="text" placeholder="To" class="form-control" id="f_a" name="f_a">
+                      </div>
+                      <div class="form-group col-lg-4 col-12">
+                        <button type="submit" class="btn btn-secondary">Search</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="bg-light clearfix">
           <div class="row" style="padding-top: 30px;">
             <div class="col-lg-6 col-md-12">
@@ -461,7 +523,6 @@ if (!$conn) {
           <table class="table table-hover table-striped" id='myTable'>
             <thead>
               <tr>
-                <th scope="col">Employee ID</th>
                 <th scope="col">Name</th>
                 <th scope="col">Gender</th>
                 <th scope="col">Age</th>
@@ -477,14 +538,22 @@ if (!$conn) {
             </thead>
             <tbody>
               <?php
-              $sql = "select EMP_ID, NAME, GENDER, SALARY, SYSDATE - DOB, USERNAME, BR_NAME, SHIFT from users natural join employee where br_name = (select br_name from users where username = '$uname') and designation = 'Receptionist'";
+              
+              if($ageActive) {
+                $sql = "select EMP_ID, NAME, GENDER, SALARY, SYSDATE - DOB, USERNAME, BR_NAME, SHIFT from users natural join employee where br_name = (select br_name from users where username = '$uname') and designation = 'Receptionist' and floor((SYSDATE - DOB)/365) >= $s_a and floor((SYSDATE - DOB)/365) <= $f_a";
+              }
+              elseif($salaryActive) {
+                $sql = "select EMP_ID, NAME, GENDER, SALARY, SYSDATE - DOB, USERNAME, BR_NAME, SHIFT from users natural join employee where br_name = (select br_name from users where username = '$uname') and designation = 'Receptionist' and salary >=$s_s and salary <= $f_s";
+              }
+              else {
+                $sql = "select EMP_ID, NAME, GENDER, SALARY, SYSDATE - DOB, USERNAME, BR_NAME, SHIFT from users natural join employee where br_name = (select br_name from users where username = '$uname') and designation = 'Receptionist'";
+              }
               $stid = oci_parse($conn, $sql);
               $r = oci_execute($stid);
               while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
                 $un = $row['USERNAME'];
                 echo "
               <tr id='Receptionist'>
-              <th scope='row'>" . $row['EMP_ID'] . "</th>
               <td>";
                 if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
                   echo "<a href='employee_profile.php?un =" . $un . "'>";
@@ -497,7 +566,15 @@ if (!$conn) {
               <td>" . $row["GENDER"] . "</td>
               <td>" . floor($row["SYSDATE-DOB"] / 365) . "</td>
               <td>" . $row["SALARY"] . "</td>
-              <td>" . $row["SHIFT"] . "</td>";
+              <td>";
+              if($row['SHIFT'] == 1) {
+                echo "Morning";
+              }
+              else {
+                echo "Evening";
+              }
+              
+               echo "</td>";
                 if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
                   echo "<td> <button class='delete btn btn-sm btn-danger' id=" . $row['USERNAME'] . ">Remove</button> <button class='update btn btn-sm btn-primary' id=" . $row['BR_NAME'] . ">Edit</button> </td>";
                 }
