@@ -385,6 +385,7 @@ if (!$conn) {
         </form>
       </section> -->
       <section class="content" style="margin-bottom:50px ;">
+      
         <?php
         if ($wrongUsername) {
           echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
