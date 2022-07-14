@@ -4,7 +4,7 @@ $uname = $_SESSION['uname'];
 $job= $_SESSION['profation'];
 
 
-$conn = oci_connect('Abrar', 'saif0rrahman', 'localhost/xe')
+$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
   echo "sorry";
@@ -36,9 +36,9 @@ if (!$conn) {
   <div class="wrapper">
 
     <!-- Preloader -->
-    <div class="preloader flex-column justify-content-center align-items-center">
+    <!-- <div class="preloader flex-column justify-content-center align-items-center">
       <img class="animation__wobble" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-    </div>
+    </div> -->
 
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-dark">
@@ -67,9 +67,9 @@ if (!$conn) {
  
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="#" class="brand-link">
       <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light"><?php echo $job; ?></span>
+      <span class="brand-text font-weight-light">Fitness Mania</span>
     </a>
 
     <!-- Sidebar -->
@@ -80,8 +80,9 @@ if (!$conn) {
           <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-        <a href="employee_profile.php" class="d-block"><?php echo $uname; ?>
-        </div>
+        <a href="admin_profile.html" class="d-block"><?php echo $uname; ?>
+        </a>  
+      </div>
       </div>
 
      

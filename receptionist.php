@@ -268,14 +268,16 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
               <!-- small box -->
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3><a href="add_maintanance.html" style="color: white;">Repair</a></h3>
+                  <h3 style="color: white;">Repair</h3>
 
-                  <p><a href="./add_maintanance.html" style="color: white;">Maintenance</a></p>
+                  <p style="color: white;">Maintenance</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="#" class="small-box-footer">Edit <i class="fas fa-arrow-circle-right"></i></a>
+                <?php
+                echo '<a href="add_maintanance.php?un='.$uname.'" class="small-box-footer">Edit <i class="fas fa-arrow-circle-right"></i></a>';
+                ?>
               </div>
             </div>
 

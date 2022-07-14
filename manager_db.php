@@ -1,6 +1,12 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
-$uname = $_SESSION['uname'];
+$showname = $_SESSION['uname'];
+if($_GET) {
+  $uname = $_GET['un'];
+}
+else  {
+  $uname = $_SESSION['uname'];
+}
 $_SESSION['designation'] = 'X'; 
 $branchExpenditure = 0;
 $branchRevenue = 0;
@@ -62,51 +68,143 @@ if (!$conn) {
       </div>
     </nav>
 
-
-
-    <!-- /.navbar -->
-
-    <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
-      <!-- Brand Logo -->
-      <a href="#" class="brand-link">
-        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">Fitness Mania</span>
-      </a>
-
-      <!-- Sidebar -->
-      <div class="sidebar">
-        <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-          <div class="image">
-            <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-          </div>
-          <div class="info">
-            <a href="employee_profile.php" class="d-block">
-              <?php echo $uname; ?>
-            </a>
-          </div>
-        </div>
-
-        <!-- SidebarSearch Form -->
-        <!-- <div class="form-inline">
-          <div class="input-group" data-widget="sidebar-search">
-            <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-            <div class="input-group-append">
-              <button class="btn btn-sidebar">
-                <i class="fas fa-search fa-fw"></i>
-              </button>
+    <?php
+      if($_GET == NULL) {
+        echo '
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+          <!-- Brand Logo -->
+          <a href="#" class="brand-link">
+            <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">Fitness Mania</span>
+          </a>
+    
+          <!-- Sidebar -->
+          <div class="sidebar">
+            <!-- Sidebar user panel (optional) -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+              <div class="image">
+                <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+              </div>
+              <div class="info">
+                <a href="employee_profile.php" class="d-block">';
+                  echo $uname;
+                echo '</a>
+              </div>
             </div>
-          </div>
-        </div> -->
+    
+            <!-- SidebarSearch Form -->
+            <!-- <div class="form-inline">
+              <div class="input-group" data-widget="sidebar-search">
+                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                <div class="input-group-append">
+                  <button class="btn btn-sidebar">
+                    <i class="fas fa-search fa-fw"></i>
+                  </button>
+                </div>
+              </div>
+            </div> -->
+    
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+              <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Add icons to the links using the .nav-icon class
+                   with font-awesome or any other icon font library -->
+                <li class="nav-item menu-open">
+                  <a href="#" class="nav-link active">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>
+                      Dashboard
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+    
+                    <li class="nav-item">
+                      <a href="manager_db.php" class="nav-link active">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Manager</p>
+                      </a>
+                    </li>
+    
+                  </ul>
+                </li>
+    
+    
+    
+    
+    
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="nav-icon far fa-envelope"></i>
+                    <p>
+                      Mailbox
+                      <i class="fas fa-angle-left right"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                      <a href="pages/mailbox/mailbox.html" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Inbox</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="pages/mailbox/compose.html" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Compose</p>
+                      </a>
+                    </li>
+    
+                  </ul>
+                </li>
+                
+    
+    
+    
+              </ul>
+              </li>
+    
+              </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+  </aside>
+  ';
+} 
+else {
+  echo '
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+<!-- Brand Logo -->
+<a href="#" class="brand-link">
+<img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+<span class="brand-text font-weight-light">Fitness Mania</span>
+</a>
 
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-            <li class="nav-item menu-open">
-              <a href="#" class="nav-link active">
+<!-- Sidebar -->
+<div class="sidebar">
+<!-- Sidebar user (optional) -->
+<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+  <div class="image">
+    <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+        <a href="admin_profile.html" class="d-block">';
+        echo $showname;  
+        echo '</a>  
+      </div>
+      </div>
+
+       
+      
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+      with font-awesome or any other icon font library -->
+      <li class="nav-item">
+      <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   Dashboard
@@ -116,9 +214,9 @@ if (!$conn) {
               <ul class="nav nav-treeview">
 
                 <li class="nav-item">
-                  <a href="manager_db.php" class="nav-link active">
+                  <a href="admin_db.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Manager</p>
+                    <p>Admin</p>
                   </a>
                 </li>
 
@@ -126,9 +224,11 @@ if (!$conn) {
             </li>
 
 
+          
+            <li class="nav-item">   
 
-
-
+            </li>
+          
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="nav-icon far fa-envelope"></i>
@@ -139,27 +239,61 @@ if (!$conn) {
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="pages/mailbox/mailbox.html" class="nav-link">
+                  <a href="pages/mailbox/mailbox.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Inbox</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="pages/mailbox/compose.html" class="nav-link">
+                  <a href="pages/mailbox/compose.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Compose</p>
                   </a>
                 </li>
-
+                
               </ul>
             </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-book"></i>
+                <p>
+                  Pages
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                   
+                <li class="nav-item">
+                  <a href="employee_profile2.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Profile</p>
+                  </a>
+                </li>
+                
+                 
+                
+                 <li class="nav-item">
+                  <a href="pages/examples/userreg.php" class="nav-link ">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Member Add</p>
+                  </a>
+                
+                
+                <li class="nav-item">
+                  <a href="pages/examples/Search-Manager.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Search Manager</p>
+                  </a>
+                </li>
+                 
+                
+  
+                
+              </ul>
+            </li>
+           
             
-
-
-
-          </ul>
-          </li>
-
+            
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
@@ -167,14 +301,31 @@ if (!$conn) {
       <!-- /.sidebar -->
     </aside>
 
-    <!-- Content Wrapper. Contains page content -->
+    ';
+  }
+?>
+
+
+         
+
+
+<!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
       <div class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">Manager</h1>
+            <h1 class="m-0">
+                <?php
+                  if($_GET) {
+                    echo "Branch Name: ". $userJoinBranch['BR_NAME'];
+                  }
+                  else {
+                    echo "Manager";
+                  }
+                ?>
+              </h1>
             </div><!-- /.col -->
 
           </div><!-- /.row -->
@@ -242,7 +393,12 @@ if (!$conn) {
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="member_list.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="member_list.php<?php 
+                  if($_GET) {
+                    echo "?un=".$_GET['un'];
+                  }
+                ?>
+                " class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
 
@@ -271,7 +427,11 @@ if (!$conn) {
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="trainer_list.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="trainer_list.php<?php 
+                  if($_GET) {
+                    echo "?un=".$_GET['un'];
+                  }
+                ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
 
@@ -300,7 +460,11 @@ if (!$conn) {
                 <div class="icon">
                   <i class="ion ion-person-add"></i>
                 </div>
-                <a href="receptionist_list.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="receptionist_list.php<?php 
+                  if($_GET) {
+                    echo "?un=".$_GET['un'];
+                  }
+                ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
 
@@ -330,7 +494,11 @@ if (!$conn) {
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="equipments_list.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="equipments_list.php<?php 
+                  if($_GET) {
+                    echo "?un=".$_GET['un'];
+                  }
+                ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
 
@@ -359,7 +527,11 @@ if (!$conn) {
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="packages_list.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="packages_list.php<?php 
+                  if($_GET) {
+                    echo "?un=".$_GET['un'];
+                  }
+                ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
 
@@ -388,7 +560,11 @@ if (!$conn) {
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="expenditure_list.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="expenditure_list.php<?php 
+                  if($_GET) {
+                    echo "?un=".$_GET['un'];
+                  }
+                ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
 
@@ -417,7 +593,11 @@ if (!$conn) {
                 <div class="icon">
                   <i class="ion ion-person-add"></i>
                 </div>
-                <a href="revenue_list.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="revenue_list.php<?php 
+                  if($_GET) {
+                    echo "?un=".$_GET['un'];
+                  }
+                ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
 

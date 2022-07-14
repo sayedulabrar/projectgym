@@ -276,7 +276,7 @@ else
               <!-- small box -->
               <div class="small-box bg-info">
                 <div class="inner">
-                  <p style="font-size: 20px; padding: 0px;margin: 0px;"><b style="font-size: 28px;padding-right: 40px;">
+                  <p style="font-size: 28px; padding: 0px;margin: 0px;"><b style="font-size: 28px;padding-right: 40px;">
                   <?php
                   $sql = "select trainer from member where username='$uname'";
                     $stid = oci_parse($conn, $sql);
@@ -403,6 +403,7 @@ else
                     </tr>
                   </thead>
                   <tbody>
+
                   <?php
                       $sql = "select DIET_ID from member where username='$uname'";
                       $stid = oci_parse($conn, $sql);
@@ -418,13 +419,7 @@ else
                       
                       
 
-
-                  
-
-                
-
-                    if($row){
-
+                      if($row){
                       echo  " <tr class='breakfast'>
                       <td>  Breakfast</td>
                       <td>".$row['B_VITAMIN']."</td>
@@ -474,15 +469,15 @@ else
                       <td>". $row['PST_WRK_CARBOHYDRATE']." </td>
                       <td>".$row['PST_WRK_CALORIES']. "</td></tr>";
 
+                    
+                  }
 
-                      
-                    }
+                  else
+                  {
 
-                    else
-                    {
-                     
-                    }
-                      ?>
+                  }
+
+                  ?>
                   </tbody>
                 </table>
               </div>
@@ -492,6 +487,8 @@ else
 
             <!-- /.card-footer -->
           </div>
+
+          
           <h1 style="text-align: center;">Routine</h1>
           <table class="table table-bordered">
                       <thead>
@@ -604,48 +601,7 @@ else
                           }
                         ?>
                         </tbody>
-                        <!-- <tr>
-                          <th scope="row">Sunday</th>
-                          <td>Mark</td>
-                          <td>Otto</td>
-                          <td>@mdo</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Monday</th>
-                          <td>Jacob</td>
-                          <td>Thornton</td>
-                          <td>@fat</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Tuesday</th>
-                          <td>Larry the Bird</td>
-                          <td>@twitter</td>
-                          <td></td>
-                        </tr>
-
-                        <tr>
-                          <th scope="row">Wednesday</th>
-                          <td>Jacob</td>
-                          <td>Thornton</td>
-                          <td>@fat</td>
-                        </tr>
-
-
-                        <tr>
-                          <th scope="row">Thursday</th>
-                          <td>Jacob</td>
-                          <td>Thornton</td>
-                          <td>@fat</td>
-                        </tr>
-
-
-                        <tr>
-                          <th scope="row">Friday</th>
-                          <td>Jacob</td>
-                          <td>Thornton</td>
-                          <td>@fat</td>
-                        </tr> -->
-
+                        
                         
                       
                     </table>
