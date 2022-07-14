@@ -38,11 +38,6 @@ if (!$conn) {
 <body class="hold-transition  sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <div class="wrapper">
 
-        <!-- Preloader -->
-        <!-- <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__wobble" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-        </div> -->
-
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-dark">
             <!-- Left navbar links -->
@@ -89,18 +84,6 @@ if (!$conn) {
                         </a>
                     </div>
                 </div>
-
-                <!-- SidebarSearch Form -->
-                <!-- <div class="form-inline">
-          <div class="input-group" data-widget="sidebar-search">
-            <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-            <div class="input-group-append">
-              <button class="btn btn-sidebar">
-                <i class="fas fa-search fa-fw"></i>
-              </button>
-            </div>
-          </div>
-        </div> -->
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
@@ -163,13 +146,7 @@ if (!$conn) {
                                 </a>
                                 </li>";
                                 ?>
-                                <!-- <li class="nav-item">
-                                    <a href="pages/mailbox/compose.html" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Compose</p>
-                                    </a>
-                                </li> -->
-
+                               
                             </ul>
                         </li>
 
@@ -199,9 +176,7 @@ if (!$conn) {
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
             </div>
-            <!-- /.content-header -->
-
-            <!-- Main content -->
+          
             <section class="content">
                 <div class="container-fluid">
 
@@ -298,14 +273,7 @@ if (!$conn) {
                     <div class="card">
                         <div class="card-header border-transparent" id="assigned_members">
                             <h1 class="d-flex justify-content-center">Assigned Members</h1>
-
                             <div class="card-tools">
-                                <!-- <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-tool" data-card-widget="remove">
-                  <i class="fas fa-times"></i>
-                </button> -->
                             </div>
                         </div>
 
@@ -324,73 +292,35 @@ if (!$conn) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- <tr class="tr_as_mem">
-                                            <td><a href=" member_profile.php">Abrar Faiyaz Khan</a></td>
-                                            <td>17.8</td>
-                                            <td>22</td>
-                                            <td>NULL &nbsp; &nbsp;<a href="diet.html" class="btn btn-success"
-                                                    role="button">Update</a></td>
-                                            <td>NULL &nbsp; &nbsp;<a href="routine.html" class="btn btn-success"
-                                                    role="button">Update</a></td>
-
-
-
-
-                                            </tr> -->
-
                                         <?php
 
                                         $sql = "select * from users natural join member where trainer='$uname'";
                                         $stid = oci_parse($conn, $sql);
                                         $r = oci_execute($stid);
 
-                                        while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                                        while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS))
+                                        {
                                             $un = $row['USERNAME'];
                                             $dateOfBirth = $row['DOB'];
-                                            $name1 = $row['NAME'];
-
-                                            //$sql1 = "select (sysdate-dob) from users,member where member.username = '$un' and trainer='$uname'";
-
-                                            // $sql1 = "SELECT TRUNC(MONTHS_BETWEEN(SYSDATE,DOB)/12) AS AGE FROM USERS,MEMBER WHERE MEMBER.USERNAME='$un' and TRAINER='$uname'";
-
-                                            // $gty = OCI_SYSDATE;
-
-                                            // $stid1 = oci_parse($conn, $sql1);
-                                            // $r1 = oci_execute($stid1);
-                                            // $row1 = oci_fetch_array($stid1, OCI_ASSOC + OCI_RETURN_NULLS);
-
-                                            
+                                            $name1 = $row['NAME'];                                            
                                             $sql1 = 'BEGIN :var :=AGE(:daofbi); END;';
                                             $stid1 = oci_parse($conn, $sql1);
                                             oci_bind_by_name($stid1,':daofbi',$dateOfBirth);
                                             oci_bind_by_name($stid1,':var',$age);
                                             $r1 = oci_execute($stid1);
-
-                                            $var = $row['DIET_ID'];
-                                            //echo $row1["(SYSDATE-DOB)"];
-                                            //    echo $un. ' '. $dateOfBirth. ' '. $name1; 
-                                            // $diff = date_diff($t_date,$row["DOB"]);
-                                            // $diff = date_diff(date_create($dateOfBirth date_create($t_date));
-
+                                            $var = $row['DIET_ID'];                                            
                                             $sql1 = "Select * from Member where username='$un'";
                                             $stid1 = oci_parse($conn, $sql1);
                                             $r1 = oci_execute($stid1);
                                             $mem = oci_fetch_array($stid1, OCI_ASSOC + OCI_RETURN_NULLS);
-
-
                                             $row["MEMB_BMI"] = number_format(($row["MEM_WEIGHT"] * 2.21 * 703) / ($row["MEM_HEIGHT"] * 0.39 * $row["MEM_HEIGHT"] * 0.39), 3);
                                             $val = $row["MEMB_BMI"];
-
                                             $query = "update Member set Memb_BMI='$val' where username='$un'";
                                             $p = oci_parse($conn, $query);
                                             $setting = oci_execute($p);
-
-
-
                                             echo "
                                                  <tr class='tr_as_mem'>
-                                                   <th scope='row'><a href='member_profile.php?un=" . $un . "'>" . $row["NAME"] . "</a></th>
-                                                  
+                                                   <th scope='row'><a href='member_profile.php?un=" . $un . "'>" . $row["NAME"] . "</a></th>                                                  
                                                    <td>" . $row["MEMB_BMI"] . "</td>
                                                    <td>" . $age . "</td>
                                                   
@@ -418,28 +348,12 @@ if (!$conn) {
                                                  </tr>
                                                 ";
                                         }
+                   ?>
 
-
-                                        ?>
-
-
-                                    </tbody>
+                                  </tbody>
                                 </table>
                             </div>
-                            <!-- /.table-responsive -->
                         </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
                     </div>
@@ -449,15 +363,11 @@ if (!$conn) {
             <div style="margin-bottom:30px ;"></div>
         </div>
         <!-- /.content-wrapper -->
-
-
-
-        <!-- Control Sidebar -->
+    <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
         </aside>
         <!-- /.control-sidebar -->
-
         <!-- Main Footer -->
         <footer class="main-footer">
             <strong>Copyright &copy; 2022 <a href="#">Gym Management System</a>.</strong>
