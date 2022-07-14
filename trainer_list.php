@@ -10,7 +10,7 @@ else {
 }
 
 $_SESSION['designation'] = 'Trainer'; 
-$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
+$conn = oci_connect('brownfalcon_gms2', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
   echo "sorry";
