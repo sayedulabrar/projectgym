@@ -1,9 +1,30 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
-$uname = $_SESSION['uname'];
+$showname = $_SESSION['uname'];
 $job = $_SESSION['profation'];
+$wrongPassword = false;
+$matchPassword = true;
+$nullPassword = false;
+if($_GET == NULL) {
+  $uname = $_SESSION['uname'];
+}
+else {
+  $uname = $_GET['un_'];
+  $_SESSION['xxx'] = $uname;
+  if($uname == 'w' || $uname == 'm' || $uname == 'n') {
+    if($uname == 'w') {
+      $wrongPassword = true;
+    }
+    else if($uname == 'm') {
+      $matchPassword = false;
+    }
+    else {
+      $nullPassword = true;
+    }
+    $uname =  $_SESSION['uname'];
+  }
 
-
+}
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
@@ -13,6 +34,75 @@ if (!$conn) {
   $stid = oci_parse($conn, $sql);
   $r = oci_execute($stid);
   $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+  if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if(isset($_POST['name1'])) {
+      $name = $_POST['name1'];
+      $gender = $_POST['gender1'];
+      $bloodgroup = $_POST['bloodgroup1'];
+      $dob = $_POST['dob1'];
+      $email = $_POST['email1'];
+      $address = $_POST['address1'];
+      $account = $_POST['account1'];
+      $_SESSION['xxx'] = $uname;
+      $sql = "update users set name = '$name', gender = '$gender', blood_grp = '$bloodgroup', dob= to_date('$dob', 'dd/mm/yyyy'), email = '$email', address= '$address', account_no = $account where username = '$uname'";
+      $stid = oci_parse($conn, $sql);
+      $r = oci_execute($stid);
+      $sql = "DELETE FROM USER_MOBILENO WHERE username = '$uname'";
+      $stid = oci_parse($conn, $sql);
+      $r = oci_execute($stid);
+
+      $mobileno = $_POST['mobile1'];
+      $array = explode(",", $mobileno);
+      $test = count($array);
+      $i = 0;
+      while ($test <> $i) {
+        $sql = "insert into user_mobileno (username, mobile_no) values ('$uname', '$array[$i]')";
+        $stid = oci_parse($conn, $sql);
+        $r = oci_execute($stid);
+        $i = $i + 1;
+      }
+      header("Location: admin_profile.php");
+    }
+    if(isset($_POST['oldpass'])) {
+      $sql = "select * from users where username = '$uname'";
+      $stid = oci_parse($conn, $sql);
+      $r = oci_execute($stid);
+      $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+      // echo $row['PASSWORD'];
+      $_SESSION['xxx'] = $row;
+      if($_POST['oldpass'] == $row['PASSWORD']) {
+        // echo "yes";
+        if($_POST['newpass'] == $_POST['cpass']) {
+          if($_POST['newpass'] == NULL) {
+            $nullPassword = true;
+          }
+          else {
+            $sql = "update users set password = '$_POST[newpass]' where username = '$uname'";
+            $stid = oci_parse($conn, $sql);
+            $r = oci_execute($stid);
+          }
+        }
+        else {
+          $matchPassword = false;
+        }
+      }
+      else {
+        $wrongPassword = true;
+      }
+    }
+    if($wrongPassword == true) {
+      header("Location: admin_profile.php?un_=w");
+    }
+    else if($matchPassword == false) {
+      header("Location: admin_profile.php?un_=m");
+    }
+    else if($nullPassword == true) {
+      header("Location: admin_profile.php?un_=n");
+    }
+    else {
+      header("Location: admin_profile.php");
+    }
+  }
 }
 ?>
 <!DOCTYPE html>
@@ -54,7 +144,7 @@ if (!$conn) {
           </button> -->
         </div>
         <div class="modal-body">
-          <form action="employee_profile.php" method="POST">
+          <form action="admin_profile.php" method="POST">
             <div class="modal-body">
               <input type="hidden" name="snoEdit" id="snoEdit">
               <div class="row">
@@ -75,7 +165,7 @@ if (!$conn) {
                   <input type="text" class="form-control" id="bloodgroup1" name="bloodgroup1" aria-describedby="emailHelp">
                 </div>
                 <div class="form-group col-lg-6 col-12">
-                  <label for="dob1">Date of Birth(eg. 11-NOV-98)</label>
+                  <label for="dob1">DOB(eg. dd/mm/yyyy)</label>
                   <input type="text" class="form-control" id="dob1" name="dob1" aria-describedby="emailHelp">
                 </div>
               </div>
@@ -103,7 +193,7 @@ if (!$conn) {
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" onclick="window.location.href='employee_profile.php'">Close</button>
+              <button type="button" class="btn btn-secondary" onclick="window.location.href='admin_profile.php'">Close</button>
               <button type="submit" class="btn btn-primary">Confirm</button>
             </div>
           </form>
@@ -124,7 +214,7 @@ if (!$conn) {
           </button> -->
         </div>
         <div class="modal-body">
-          <form action="employee_profile.php" method="POST">
+          <form action="admin_profile.php" method="POST">
 
             <div class="row">
               <div class="form-group col-lg-12 col-12">
@@ -147,7 +237,7 @@ if (!$conn) {
 
 
             <div class="modal-body" style="float: right;">
-              <button type="button" class="btn btn-secondary" onclick="window.location.href='employee_profile.php'">Cancel</button>
+              <button type="button" class="btn btn-secondary" onclick="window.location.href='admin_profile.php'">Cancel</button>
               <button type="submit" class="btn btn-primary">Comfirm</button>
             </div> 
           </form>
@@ -174,7 +264,7 @@ if (!$conn) {
             <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="admin_profile.php" class="d-block"><?php echo $uname; ?>
+            <a href="admin_profile.php" class="d-block"><?php echo $showname; ?>
             </a>
           </div>
         </div>
@@ -394,7 +484,21 @@ if (!$conn) {
         </div>
         <!-- /.row -->
         <div class="card-footer">
+        
           <div class="float-right">
+          <p style="color: red">
+          <?php
+            if($wrongPassword == true) {
+              echo "Wrong Password"; 
+            }
+            else if($matchPassword == false) {
+              echo "Password does not match";
+            }
+            else if($nullPassword == true) {
+              echo "Password can not be null";
+            }
+          ?>
+        </p>
           <button type="button" class="update btn btn-primary"  data-toggle="modal" data-target="#exampleModal">Edit Info</button>
           <button type="button" class="pass btn btn-primary"  data-toggle="modal" data-target="#exampleModal1">Change Password</button>
           </div>
@@ -465,6 +569,14 @@ if (!$conn) {
         $('#exampleModal').modal('toggle');
       })
     })
+  </script>
+  <script>
+    $(function() {
+      $("#datepicker").datepicker({
+        changeMonth: true,
+        changeYear: true
+      });
+    });
   </script>
   </body>
 </html>
