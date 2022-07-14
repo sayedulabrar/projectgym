@@ -1,23 +1,38 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
-
-
+$nullName = false;
+$insert = false;
+$samename = false;
 
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
   echo "sorry";
 } else {
-//   if($_SERVER['REQUEST METHOD']=='POST')
-//   {
-//     $nme=$_POST[''];
-//     $fee=$_POST['ctrl'];
-//     $sql = "update Branch set REG_FEE = $fee where BR_NAME=";
-//     $stid = oci_parse($conn, $sql);
-//     $r = oci_execute($stid);
-
-
-//   }
+  if($_SERVER['REQUEST_METHOD']=='POST')
+  {
+    $name = $_POST['name'];
+    $br_rent = $_POST['rent'];
+    $reg_fee = $_POST['reg'];
+    if($name == NULL) {
+      $nullName = true;
+    }
+    else {
+      $sql = "select * from branch where br_name = '$name'";
+      $stid = oci_parse($conn, $sql);
+      $r = oci_execute($stid);
+      $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+      if($row) {
+        $samename= true;
+      }
+      else {
+      $sql = "insert into branch (br_name, br_revenue, br_expenditure, br_rent, reg_fee) values('$name', 0, 0, $br_rent, $reg_fee)";
+      $stid = oci_parse($conn, $sql);
+      $r = oci_execute($stid);
+      $insert = true;
+      }
+    }
+  }
 }
 ?>
 
@@ -113,8 +128,8 @@ if (!$conn) {
           </li>
           
          
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
               <i class="nav-icon far fa-envelope"></i>
               <p>
                 Mailbox
@@ -208,8 +223,92 @@ if (!$conn) {
   <!-- Main content -->
   <div class="content-wrapper">
   <section class="content" style="margin-bottom:50px ;">
+    <?php
+      if($nullName) {
+        echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+              Branch name cannot be empty
+              <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+              <span aria-hidden='true'>&times;</span>
+              </button>
+            </div>";
+      }
+      if($insert) {
+        echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+              Successfully Created
+              <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+              <span aria-hidden='true'>&times;</span>
+              </button>
+            </div>";
+      }
+      if($samename) {
+        echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+              A branch has been already created using this name
+              <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+              <span aria-hidden='true'>&times;</span>
+              </button>
+            </div>";
+      }
+    ?>
+    <div class="bg-light clearfix">
+      <div class="row" style="padding-top: 30px;">
+        <div class="col-lg-6 col-md-12">
+          <h2 style="margin-left: 25px;">Branch Info</h2>
+        </div>
+        <div class="col-lg-6 col-md-12" style="padding-top: 15px;padding-right:40px;">
+          <!-- Insert Modal -->
+          <button type="button" class="insert btn btn-success float-right" data-toggle="modal" data-target="#exampleModal">Add New</button>
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Create a New Branch</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form action="branch_list.php" method="POST">
+                        <div class="modal-body">
 
-     <div class="d-flex justify-content-center" style=" padding-top:1%;text-decoration: lightslategray;"><h3><strong>Branch Info</strong></h3></div>
+                          <input type="hidden" name="snoEdit" id="snoEdit">
+                          <div class="row">
+                            <div class="form-group col-lg-12 col-12">
+                              <label for="name">Branch Name</label>
+                              <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp">
+                            </div>
+                            
+                          </div>
+                          <div class="row">
+                          <div class="form-group col-lg-12 col-12">
+                              <label for="rent">Branch Property Rent</label>
+                              <input type="text" class="form-control" id="rent" name="rent" aria-describedby="emailHelp">
+                            </div>
+
+                          </div>
+
+                          <div class="row">
+                            <div class="form-group col-lg-12 col-12">
+                              <label for="reg">Registration Fee</label>
+                              <input type="text" class="form-control" id="reg" name="reg" aria-describedby="emailHelp">
+                            </div>
+
+                          </div>
+
+                        </div>
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary">Add Equipment</button>
+                        </div>
+                      </form>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+        </div>
+      </div>
+    </div>
 
     <div class="card-body"style="margin-top:1%">
 
@@ -222,7 +321,7 @@ if (!$conn) {
 
           <th>Total Cost</th>
           <th>Total Profit</th>
-          <th>Reg Fee</th>
+          <th>Property Rent</th>
         </tr>
         </thead>
         
@@ -255,10 +354,49 @@ if (!$conn) {
 
           echo ">" . $row['BR_NAME'] . "</a></strong></td>
 
-            <td ><strong>" . $row['BR_REVENUE'] . "</strong></td>
-            <td ><strong>" . $row['BR_EXPENDITURE'] . "</strong></td>
-            <td ><strong>" . $row['BR_PROFIT'] . "</strong></td>
-            <td ><strong>" . $row['REG_FEE'] . "</strong></td>
+            <td ><strong>"; 
+            $sql = 'select br_name, inc_amount, CURRENT_TIMESTAMP-inc_dateandtime "differ" from income';
+            $stid2 = oci_parse($conn, $sql);
+            $r = oci_execute($stid2);
+            $ans = 0;
+            while ($row2 = oci_fetch_array($stid2, OCI_ASSOC + OCI_RETURN_NULLS)) {
+              
+              $array = explode(" ", $row2["differ"]);
+              $diff = $array[0];
+              $num = (int)$diff;
+              
+              if ($num <= 30 && $row2['BR_NAME'] == $row['BR_NAME']) {
+                $ans = $ans +  $row2["INC_AMOUNT"];
+              }
+            }
+            echo $ans;
+            $branchRevenue = $ans;
+            // $row['BR_REVENUE'];  
+            echo "</strong></td>
+            <td ><strong>";  
+            $sql = 'select br_name, amount, CURRENT_TIMESTAMP-exp_dateandtime "differ" from expenditure';
+            $stid2 = oci_parse($conn, $sql);
+            $r = oci_execute($stid2);
+            $thisMonth = 0;
+            $prevMonth = 0;
+            while ($row2 = oci_fetch_array($stid2, OCI_ASSOC + OCI_RETURN_NULLS)) {
+              $array = explode(" ", $row2["differ"]);
+              $diff = $array[0];
+              $num = (int)$diff;
+              if ($num <= 30 && $row2['BR_NAME'] == $row['BR_NAME']) {
+                $thisMonth = $thisMonth +  $row2["AMOUNT"];
+              } else if ($num <= 60) {
+                $prevMonth = $prevMonth + $row2["AMOUNT"];
+              }
+            }
+            echo $thisMonth;
+            $branchExpenditure = $thisMonth;
+            echo  "</strong></td>
+            <td ><strong>";  
+            echo $branchRevenue - $branchExpenditure;
+            echo  "</strong></td>
+            <td ><strong>". $row['BR_RENT'] .
+            "</strong></td>
             
             
           </tr> 

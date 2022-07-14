@@ -618,15 +618,17 @@ else {
                         <!-- <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 17%</span> -->
                         <h5 class="description-header">
                           <?php
-                          $sql = 'select inc_amount, CURRENT_TIMESTAMP-inc_dateandtime "differ" from income';
+                          $sql = 'select br_name, inc_amount, CURRENT_TIMESTAMP-inc_dateandtime "differ" from income';
                           $stid = oci_parse($conn, $sql);
                           $r = oci_execute($stid);
                           $ans = 0;
                           while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                           
                             $array = explode(" ", $row["differ"]);
                             $diff = $array[0];
                             $num = (int)$diff;
-                            if ($num <= 30) {
+                            
+                            if ($num <= 30 && $row['BR_NAME'] == $userJoinBranch['BR_NAME']) {
                               $ans = $ans +  $row["INC_AMOUNT"];
                             }
                           }
@@ -646,7 +648,7 @@ else {
                       <div class="description-block border-right">
                         <h5 class="description-header">
                           <?php
-                          $sql = 'select amount, CURRENT_TIMESTAMP-exp_dateandtime "differ" from expenditure';
+                          $sql = 'select br_name, amount, CURRENT_TIMESTAMP-exp_dateandtime "differ" from expenditure';
                           $stid = oci_parse($conn, $sql);
                           $r = oci_execute($stid);
                           $thisMonth = 0;
@@ -655,7 +657,7 @@ else {
                             $array = explode(" ", $row["differ"]);
                             $diff = $array[0];
                             $num = (int)$diff;
-                            if ($num <= 30) {
+                            if ($num <= 30 && $row['BR_NAME'] == $userJoinBranch['BR_NAME']) {
                               $thisMonth = $thisMonth +  $row["AMOUNT"];
                             } else if ($num <= 60) {
                               $prevMonth = $prevMonth + $row["AMOUNT"];

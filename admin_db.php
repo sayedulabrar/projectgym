@@ -142,8 +142,8 @@ if (!$conn) {
               
             </ul>
           </li>
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
+          <li class="nav-item ">
+            <a href="#" class="nav-link ">
               <i class="nav-icon fas fa-book"></i>
               <p>
                 Pages
@@ -329,14 +329,25 @@ if (!$conn) {
                   <div class="row">
                     <div class="col-sm-4 col-8">
                       <div class="description-block border-right">
-                        <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 17%</span>
+                        
                         <h5 class="description-header">
                         <?php
-                         $sql = "SELECT SUM(BR_REVENUE) FROM Branch";
-                         $stid = oci_parse($conn, $sql);
-                         $r = oci_execute($stid);
-                         $Branch = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                         echo $Branch['SUM(BR_REVENUE)'];
+                          $sql = 'select br_name, inc_amount, CURRENT_TIMESTAMP-inc_dateandtime "differ" from income';
+                          $stid = oci_parse($conn, $sql);
+                          $r = oci_execute($stid);
+                          $ans = 0;
+                          while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                           
+                            $array = explode(" ", $row["differ"]);
+                            $diff = $array[0];
+                            $num = (int)$diff;
+                            
+                            if ($num <= 30) {
+                              $ans = $ans +  $row["INC_AMOUNT"];
+                            }
+                          }
+                          echo $ans . " BDT";
+                          $branchRevenue = $ans;
                         ?>
                         </h5>
                         <span class="description-text">TOTAL REVENUE</span>
@@ -346,14 +357,26 @@ if (!$conn) {
                     <!-- /.col -->
                     <div class="col-sm-4 col-8">
                       <div class="description-block border-right">
-                        <span class="description-percentage text-warning"><i class="fas fa-caret-left"></i> 0%</span>
+                        
                         <h5 class="description-header">
                         <?php
-                         $sql = "SELECT SUM(BR_EXPENDITURE) FROM Branch";
+                         $sql = 'select br_name, amount, CURRENT_TIMESTAMP-exp_dateandtime "differ" from expenditure';
                          $stid = oci_parse($conn, $sql);
                          $r = oci_execute($stid);
-                         $Branch = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                        echo $Branch["SUM(BR_EXPENDITURE)"];
+                         $thisMonth = 0;
+                         $prevMonth = 0;
+                         while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                           $array = explode(" ", $row["differ"]);
+                           $diff = $array[0];
+                           $num = (int)$diff;
+                           if ($num <= 30) {
+                             $thisMonth = $thisMonth +  $row["AMOUNT"];
+                           } else if ($num <= 60) {
+                             $prevMonth = $prevMonth + $row["AMOUNT"];
+                           }
+                         }
+                         echo $thisMonth . " BDT";
+                         $branchExpenditure = $thisMonth;
                        ?>
                        </h5>
                         <span class="description-text">TOTAL COST</span>
@@ -363,14 +386,10 @@ if (!$conn) {
                     <!-- /.col -->
                     <div class="col-sm-4 col-8">
                       <div class="description-block border-right">
-                        <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 20%</span>
+                       
                         <h5 class="description-header">
                         <?php
-                        $sql = "SELECT SUM(BR_PROFIT) FROM Branch";
-                        $stid = oci_parse($conn, $sql);
-                        $r = oci_execute($stid);
-                        $Branch = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                        echo $Branch["SUM(BR_PROFIT)"];
+                        echo $branchRevenue - $branchExpenditure . " BDT";
                        ?>
                         </h5>
                         <span class="description-text">TOTAL PROFIT</span>
