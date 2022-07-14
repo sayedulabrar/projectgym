@@ -4,6 +4,7 @@ $uname = $_SESSION['uname'];
 $designation= $_SESSION['designation'];
 $test = NULL;
 $link = NULL;
+$wrongBranch = false;
 if($designation == 'Trainer'){
   $link='trainer_list.php';
 }
@@ -13,7 +14,7 @@ if($designation == 'Receptionist'){
 if($designation == 'Manager'){
   $link='manager_list.php';
 }
-$conn = oci_connect('Abrar', 'saif0rrahman', 'localhost/xe')
+$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
   echo "sorry";
@@ -23,66 +24,80 @@ if (!$conn) {
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
     $roww = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-    $br_name = $roww['BR_NAME'];
-    $name = $_POST['name'];
-    $gender = $_POST['gender'];
-    $email = $_POST['email'];
-    $dob = $_POST['datepicker'];
-    $address = $_POST['address'];
-    $accountno = $_POST['accountno'];
-    $salary = $_POST['salary'];
-    $shift = $_POST['shift'];
-    $experience = $_POST['experience'];
-    $bloodgrp = $_POST['bloodgrp'];
-    $education = $_POST['education'];
-    // $designation = 'Trainer';
-    $password = $name;
-
-    $sql = "select *from users";
-    $stid = oci_parse($conn, $sql);
-    $r = oci_execute($stid);
-    $num = 1;
-    while ($roww = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-      $num = $num + 1;
+    if($designation == 'Manager') {
+      $br_name = $_POST['br_name'];
     }
-    $username = $name . $num;
-
-
-
-    $mobileno = $_POST['mobileno'];
-    $array = explode(",", $mobileno);
-    $test = count($array);
-
-    $sql = "insert into users (username, password, dob, name, gender, email, address, blood_grp, account_no, br_name) values ('$username', '$password', to_date('$dob', 'dd-mm-yyyy'), '$name', '$gender', '$email', '$address', '$bloodgrp', $accountno, '$br_name')";
-    $stid = oci_parse($conn, $sql);
-    $r = oci_execute($stid);
-
-    $sql = "select *from employee order by emp_id desc";
+    else {
+      $br_name = $roww['BR_NAME'];
+    }
+    $sql = "select * from branch where br_name = '$br_name'";
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
     $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-    $emp_id = $row['EMP_ID'] + 1;
-    $date = date("Y/m/d");
+    if($row == NULL) {
+      $wrongBranch = true;
+    }
+    else {
+      $name = $_POST['name'];
+      $gender = $_POST['gender'];
+      $email = $_POST['email'];
+      $dob = $_POST['datepicker'];
+      $address = $_POST['address'];
+      $accountno = $_POST['accountno'];
+      $salary = $_POST['salary'];
+      $shift = $_POST['shift'];
+      $experience = $_POST['experience'];
+      $bloodgrp = $_POST['bloodgrp'];
+      $education = $_POST['education'];
+      // $designation = 'Trainer';
+      $password = $name;
 
-    // $bmi = ($weight) / (($height / 100) * ($height / 100));
-    $sql = "insert into employee(emp_id, username, salary, shift, experience, education, Num_of_rating, rating_value, designation) values($emp_id, '$username', $salary, $shift, '$experience', '$education', 0, 0, '$designation')";
-    $stid = oci_parse($conn, $sql);
-    $r = oci_execute($stid);
-    $i = 0;
-    while ($test <> $i) {
-      $sql = "insert into user_mobileno (username, mobile_no) values ('$username', '$array[$i]')";
+      $sql = "select *from users";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
-      $i = $i + 1;
-    }
-    if($designation == 'Trainer') {
-      header("Location: trainer_list.php");
-    }
-    elseif($designation == 'Receptionist') {
-      header("Location: receptionist_list.php");
-    }
-    elseif($designation == 'Manager') {
-      header("Location: manager_list.php");
+      $num = 1;
+      while ($roww = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+        $num = $num + 1;
+      }
+      $username = $name . $num;
+      $_SESSION['xxx'] = $username;
+
+
+      $mobileno = $_POST['mobileno'];
+      $array = explode(",", $mobileno);
+      $test = count($array);
+
+      $sql = "insert into users (username, password, dob, name, gender, email, address, blood_grp, account_no, br_name) values ('$username', '$password', to_date('$dob', 'dd-mm-yyyy'), '$name', '$gender', '$email', '$address', '$bloodgrp', $accountno, '$br_name')";
+      $stid = oci_parse($conn, $sql);
+      $r = oci_execute($stid);
+      
+      $sql = "select *from employee order by emp_id desc";
+      $stid = oci_parse($conn, $sql);
+      $r = oci_execute($stid);
+      $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+      $emp_id = $row['EMP_ID'] + 1;
+      $date = date("Y/m/d");
+
+      // $bmi = ($weight) / (($height / 100) * ($height / 100));
+      $sql = "insert into employee(emp_id, username, salary, shift, experience, education, Num_of_rating, rating_value, designation) values($emp_id, '$username', $salary, $shift, '$experience', '$education', 0, 0, '$designation')";
+      $stid = oci_parse($conn, $sql);
+      $r = oci_execute($stid);
+      $i = 0;
+      while ($test <> $i) {
+        $sql = "insert into user_mobileno (username, mobile_no) values ('$username', '$array[$i]')";
+        $stid = oci_parse($conn, $sql);
+        $r = oci_execute($stid);
+        $i = $i + 1;
+      }
+      if($designation == 'Trainer') {
+        header("Location: trainer_list.php");
+      }
+      elseif($designation == 'Receptionist') {
+        header("Location: receptionist_list.php");
+      }
+      elseif($designation == 'Manager') {
+        header("Location: manager_list.php");
+      }
     }
   }
 }
@@ -112,158 +127,285 @@ if (!$conn) {
   <!-- Site wrapper -->
   <div class="wrapper">
 
-
-    <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
-      <!-- Brand Logo -->
-      <a href="#" class="brand-link">
-        <img src="  dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">Fitness Mania</span>
-      </a>
-
-      <!-- Sidebar -->
-      <div class="sidebar">
-        <!-- Sidebar user (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-          <div class="image">
-            <img src="  dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+    <?php
+      if($designation == 'Manager') {
+        echo '
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+          <!-- Brand Logo -->
+          <a href="#" class="brand-link">
+            <img src="      dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">Fitness Maina</span>
+          </a>
+          <!-- Navbar -->
+          
+          <!-- Sidebar -->
+          <div class="sidebar">
+            <!-- Sidebar user (optional) -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+              <div class="image">
+                <img src="      dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+              </div>
+              <div class="info">
+                <a href="admin_profile.html" class="d-block">'.$_SESSION['uname'].'</a>
+              </div>
+            </div>
+      
+           
+      
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+              <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Add icons to the links using the .nav-icon class
+                     with font-awesome or any other icon font library -->
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>
+                      Dashboard
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                  
+                    <li class="nav-item">
+                      <a href="admin_db.php" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Admin</p>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  
+                </li>
+                
+                
+                <li class="nav-item">
+                  
+                </li>
+                
+               
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="nav-icon far fa-envelope"></i>
+                    <p>
+                      Mailbox
+                      <i class="fas fa-angle-left right"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                      <a href="   pages/mailbox/mailbox.html" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Inbox</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="   pages/mailbox/compose.html" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Compose</p>
+                      </a>
+                    </li>
+                    
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-book"></i>
+                    <p>
+                      Pages
+                      <i class="fas fa-angle-left right"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                       
+                    <li class="nav-item">
+                      <a href="admin_profile.html" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Profile</p>
+                      </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                      <a href="add_employee.php" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>  Add Employee</p>
+                      </a>
+                    </li>
+                    <!-- <li class="nav-item">
+                      <a href="   examples/Branch.html" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Branch</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="   examples/Search-Manager.html" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Search Manager</p>
+                      </a>
+                    </li>
+                      -->
+                    
+                    
+                    
+                  </ul>
+                </li>
+               
+                
+               
+              </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
           </div>
-          <div class="info">
-            <a href="employee_profile.php" class="d-block">
-              <?php echo $uname ?>
-            </a>
+          <!-- /.sidebar -->
+        </aside>
+      
+        ';
+      }
+      else {
+        echo '
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+          <!-- Brand Logo -->
+          <a href="#" class="brand-link">
+            <img src="  dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">Fitness Mania</span>
+          </a>
+    
+          <!-- Sidebar -->
+          <div class="sidebar">
+            <!-- Sidebar user (optional) -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+              <div class="image">
+                <img src="  dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+              </div>
+              <div class="info">
+                <a href="employee_profile.php" class="d-block">'.$uname.'
+                </a>
+              </div>
+            </div>
+    
+    
+    
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+              <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Add icons to the links using the .nav-icon class
+                   with font-awesome or any other icon font library -->
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>
+                      Dashboard
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+    
+                    <li class="nav-item">
+                      <a href="manager_db.php" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Manager</p>
+                      </a>
+                    </li>
+    
+                  </ul>
+                </li>
+    
+    
+    
+    
+    
+    
+                <li class="nav-item">
+    
+                </li>
+    
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="nav-icon far fa-envelope"></i>
+                    <p>
+                      Mailbox
+                      <i class="fas fa-angle-left right"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                      <a href=" pages/mailbox/mailbox.html" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Inbox</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href=" pages/mailbox/compose.html" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Compose</p>
+                      </a>
+                    </li>
+    
+                  </ul>
+                </li>
+                
+    
+    
+              </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
           </div>
-        </div>
-
-
-
-        <!-- Sidebar Menu -->
-        <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
-                <p>
-                  Dashboard
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-
-                <li class="nav-item">
-                  <a href="manager_db.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Manager</p>
-                  </a>
-                </li>
-
-              </ul>
-            </li>
-
-
-
-
-
-
-            <li class="nav-item">
-
-            </li>
-
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon far fa-envelope"></i>
-                <p>
-                  Mailbox
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href=" pages/mailbox/mailbox.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Inbox</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href=" pages/mailbox/compose.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Compose</p>
-                  </a>
-                </li>
-
-              </ul>
-            </li>
-            <li class="nav-item menu-open">
-              <a href="#" class="nav-link active">
-                <i class="nav-icon fas fa-book"></i>
-                <p>
-                  Pages
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-
-                <li class="nav-item">
-                  <a href="employee_profile.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Profile</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="add_employee.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p> Add Employee</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="add_member.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p> Add Member</p>
-                  </a>
-                </li>
-
-                <!-- <li class="nav-item">
-                <a href=" examples/Branch.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Branch</p>
-                </a>
-              <li class="nav-item">
-                <a href=" examples/Search-Manager.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Search Manager</p>
-                </a>
-              </li>-->
-
-
-
-
-              </ul>
-            </li>
-
-
-
-          </ul>
-        </nav>
-        <!-- /.sidebar-menu -->
-      </div>
-      <!-- /.sidebar -->
-    </aside>
-
+          <!-- /.sidebar -->
+        </aside>
+    
+        ';
+      }
+    ?>
+    
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper" style="margin-top: 0;">
       <!-- Content Header (Page header) -->
       <section class="content-header">
+      <?php 
+      if($wrongBranch) {
+        echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+              Given Branch does not exist
+              <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                <span aria-hidden='true'>&times;</span>
+              </button>
+            </div>";
+      }
+    ?>
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Add Employee</h1>
+
+              <h1>Add <?php 
+                  if($designation == 'Manager') {
+                    echo "Manager";
+                  }
+                  else {
+                    echo "Employee";
+                  }
+                ?></h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="manager_db.php">Home</a></li>
-                <li class="breadcrumb-item active"> Add Employee</li>
+                <li class="breadcrumb-item"><a href="
+                <?php
+                  if($designation == 'Manager') {
+                    echo "admin_db.php";
+                  }
+                  else echo "manager_db.php";
+                ?>
+                ">Home</a></li>
+                <li class="breadcrumb-item active"> Add <?php 
+                  if($designation == 'Manager') {
+                    echo "Manager";
+                  }
+                  else {
+                    echo "Employee";
+                  }
+                ?></li>
               </ol>
             </div>
           </div>
@@ -308,6 +450,15 @@ if (!$conn) {
                     <label for="bloodgrp">Blood Group</label>
                     <input type="text" id="bloodgrp" name="bloodgrp" class="form-control">
                   </div>
+                  <?php 
+                  if($designation == 'Manager') {
+                    echo '<div class="form-group">
+                    <label for="br_name">Branch Name</label>
+                    <input type="text" id="br_name" name="br_name" class="form-control">
+                  </div>';
+                  }
+                  
+                ?>
                   
 
                 </div>

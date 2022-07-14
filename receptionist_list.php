@@ -452,10 +452,9 @@ echo '</a>
               <!-- Insert Modal -->
               <?php 
                 if($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u') )) {
-                echo '
-                <button type="button" class="insert btn btn-success float-right" data-toggle="modal" data-target="#exampleModal">Add New</button>
-              
-                ';
+                  echo '<button type="button" class="insert btn btn-success float-right" data-toggle="modal"
+                  data-target="#exampleModal" onclick="window.location.href=\'add_employee.php?un='.$uname.'\'">Add
+                  New</button>';
                 }    
               ?>
 

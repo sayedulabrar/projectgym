@@ -26,7 +26,7 @@ if (!$conn) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Registration Fee list</title>
+  <title>Branch List</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -36,8 +36,9 @@ if (!$conn) {
   <link rel="stylesheet" href="      plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="      dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
 </head>
-<body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body class="hold-transition  sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
   
 
@@ -72,7 +73,7 @@ if (!$conn) {
           <img src="      dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="admin_profile.html" class="d-block">Alexander Pierce</a>
+          <a href="admin_profile.html" class="d-block"><?php echo $_SESSION['uname'] ?></a>
         </div>
       </div>
 
@@ -208,7 +209,7 @@ if (!$conn) {
   <div class="content-wrapper">
   <section class="content" style="margin-bottom:50px ;">
 
-     <div class="d-flex justify-content-center" style=" padding-top:1%;text-decoration: lightslategray;"><strong>Registration Info</strong></div>
+     <div class="d-flex justify-content-center" style=" padding-top:1%;text-decoration: lightslategray;"><h3><strong>Branch Info</strong></h3></div>
 
     <div class="card-body"style="margin-top:1%">
 
@@ -221,6 +222,7 @@ if (!$conn) {
 
           <th>Total Cost</th>
           <th>Total Profit</th>
+          <th>Reg Fee</th>
         </tr>
         </thead>
         
@@ -256,7 +258,7 @@ if (!$conn) {
             <td ><strong>" . $row['BR_REVENUE'] . "</strong></td>
             <td ><strong>" . $row['BR_EXPENDITURE'] . "</strong></td>
             <td ><strong>" . $row['BR_PROFIT'] . "</strong></td>
-            
+            <td ><strong>" . $row['REG_FEE'] . "</strong></td>
             
             
           </tr> 
@@ -315,6 +317,12 @@ if (!$conn) {
 <script src="      dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="      dist/js/demo.js"></script>
+<script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#myTable').DataTable();
+    });
+  </script>
 <!-- Page specific script -->
 
 </body>
