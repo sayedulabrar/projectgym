@@ -8,13 +8,9 @@ if ($_GET != NULL && ($_GET['un'] != 'u' && $_GET['un'] != 'i' && $_GET['un'] !=
   $uname = $_SESSION['uname'];
 }
 
-<<<<<<< HEAD
-$_SESSION['designation'] = 'Trainer'; 
-$conn = oci_connect('brownfalcon_gms2', 'saif0rrahman', 'localhost/xe')
-=======
+
 $_SESSION['designation'] = 'Trainer';
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
->>>>>>> 1b8f301aed25d8ddbcaed1ac7610400842dade68
   or die(oci_error());
 if (!$conn) {
   echo "sorry";
