@@ -2,7 +2,7 @@
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $uname = $_SESSION['uname'];
 $designation=$_SESSION['profation'];
-$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
+$conn = oci_connect('brownfalcon_gms2', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if(!$conn)
 {
@@ -439,8 +439,45 @@ else
             <!-- /.card-footer -->
           </div>
 
-          
-          <h1 style="text-align: center;">Routine</h1>
+          <div class="row mb-2 ">
+            <div class="col-sm-6 ">
+              <h1 class="m-0" style="color:violet;" >Routine</h1>
+            </div><!-- /.col -->
+
+            <div class="col-sm-6">
+                <h3 class="m-0 float-right">Followed Set: 
+                  <?php
+                    $sql = "select * from member where USERNAME = '$uname'";
+                    $stid = oci_parse($conn, $sql);
+                    $r = oci_execute($stid);
+                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                    $Fol_Set=NULL;
+                    if($row) {
+                      if($row['F_SET'] == 1) {
+                        echo "Beginner";
+                        $Fol_Set="Beginner";
+                      }
+                      else if($row['F_SET'] == 2) {
+                        echo "Indermediate";
+                        $Fol_Set="Indermediate";
+                      }
+                      else if($row['F_SET'] == 3) {
+                        echo "Advanced";
+                        $Fol_Set="Advanced";
+                      }
+                      else {
+                        echo "Not Set Yet";
+                      }
+                    }
+
+                    // echo var_dump($Fol_Set);
+                  ?>
+                    
+                </h3>
+            </div><!-- /.col -->
+            
+          </div><!-- /.row -->
+          <!-- <h1 style="text-align: center;">Routine</h1> -->
           <table class="table table-bordered">
                       <thead>
                         <tr>
@@ -459,9 +496,27 @@ else
                             users natural join routine natural join member where username='$uname' order by days";
                             $stid = oci_parse($conn, $sql);
                             $r = oci_execute($stid);
-                            $na="N/A";
+                            $na="Null";
                             while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)){
                                 // echo "<h1>Hello World</h1>";
+                                $Set=NULL;
+                                $Set_item=NULL;
+                                if($Fol_Set=="Beginner")
+                                {
+                                    $Set=$row['BEG_NUM_OF_SET'];
+                                    $Set_item=$row['BEG_PER_SET_ITEM'];
+                                }
+                                else if($Fol_Set=="Indermediate")
+                                {
+                                    $Set=$row['INTER_NUM_OF_SET'];
+                                    $Set_item=$row['INTER_PER_SET_ITEM'];
+
+                                }
+                                else
+                                {
+                                  $Set=$row['EXP_NUM_OF_SET'];
+                                  $Set_item=$row['EXP_PER_SET_ITEM'];
+                                }
                               if($row["DAYS"]==1)
                               {
                                 
@@ -470,8 +525,8 @@ else
                                 <td>".$row['EXE_ID']."</td>
                                 <td>".$row['EXE_NAME']."</td>
                                 <td>".$row['EXE_TYPE']."</td>
-                                <td>".$row['INTER_NUM_OF_SET']."</td>
-                                <td>".$row['INTER_PER_SET_ITEM']."</td>
+                                <td>".$Set."</td>
+                                <td>".$Set_item."</td>
                               </tr>";
                               }
 
@@ -482,8 +537,8 @@ else
                                 <td>".$row['EXE_ID']."</td>
                                 <td>".$row['EXE_NAME']."</td>
                                 <td>".$row['EXE_TYPE']."</td>
-                                <td>".$row['INTER_NUM_OF_SET']."</td>
-                                <td>".$row['INTER_PER_SET_ITEM']."</td>
+                                <td>".$Set."</td>
+                                <td>".$Set_item."</td>
                               </tr>";
                               }
 
@@ -494,8 +549,8 @@ else
                                 <td>".$row['EXE_ID']."</td>
                                 <td>".$row['EXE_NAME']."</td>
                                 <td>".$row['EXE_TYPE']."</td>
-                                <td>".$row['INTER_NUM_OF_SET']."</td>
-                                <td>".$row['INTER_PER_SET_ITEM']."</td>
+                                <td>".$Set."</td>
+                                <td>".$Set_item."</td>
                               </tr>";
                               }
 
@@ -507,8 +562,8 @@ else
                                 <td>".$row['EXE_ID']."</td>
                                 <td>".$row['EXE_NAME']."</td>
                                 <td>".$row['EXE_TYPE']."</td>
-                                <td>".$row['INTER_NUM_OF_SET']."</td>
-                                <td>".$row['INTER_PER_SET_ITEM']."</td>
+                                <td>".$Set."</td>
+                                <td>".$Set_item."</td>
                               </tr>";
                               }
 
@@ -519,8 +574,8 @@ else
                                 <td>".$row['EXE_ID']."</td>
                                 <td>".$row['EXE_NAME']."</td>
                                 <td>".$row['EXE_TYPE']."</td>
-                                <td>".$row['INTER_NUM_OF_SET']."</td>
-                                <td>".$row['INTER_PER_SET_ITEM']."</td>
+                                <td>".$Set."</td>
+                                <td>".$Set_item."</td>
                               </tr>";
                               }
 
@@ -531,8 +586,8 @@ else
                                 <td>".$row['EXE_ID']."</td>
                                 <td>".$row['EXE_NAME']."</td>
                                 <td>".$row['EXE_TYPE']."</td>
-                                <td>".$row['INTER_NUM_OF_SET']."</td>
-                                <td>".$row['INTER_PER_SET_ITEM']."</td>
+                                <td>".$Set."</td>
+                                <td>".$Set_item."</td>
                               </tr>";
                               }
 
@@ -543,8 +598,8 @@ else
                                 <td>".$row['EXE_ID']."</td>
                                 <td>".$row['EXE_NAME']."</td>
                                 <td>".$row['EXE_TYPE']."</td>
-                                <td>".$row['INTER_NUM_OF_SET']."</td>
-                                <td>".$row['INTER_PER_SET_ITEM']."</td>
+                                <td>".$Set."</td>
+                                <td>".$Set_item."</td>
                               </tr>";
                               }
 
