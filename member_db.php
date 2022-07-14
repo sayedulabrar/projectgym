@@ -2,7 +2,7 @@
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $uname = $_SESSION['uname'];
 $designation=$_SESSION['profation'];
-$conn = oci_connect('brownfalcon_gms2', 'saif0rrahman', 'localhost/xe')
+$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if(!$conn)
 {
@@ -11,6 +11,11 @@ if(!$conn)
 else
 {
   // echo "Connection Successful";
+  $sql = "select * from member natural join users where USERNAME = '$uname'";
+  $stid = oci_parse($conn, $sql);
+  $r = oci_execute($stid);
+  $memberjoinusers = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+
 }
 
 ?>
@@ -80,11 +85,7 @@ else
           <div class="info">
             <a href="member_profile.php" class="d-block">
               <?php
-                $sql = "select name from users where username='$uname'";
-                $stid = oci_parse($conn, $sql);
-                $r = oci_execute($stid);
-                $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                echo $row['NAME'];
+                echo $uname;
               ?>
             </a>
           </div>
@@ -155,61 +156,7 @@ else
 
               </ul>
             </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-book"></i>
-                <p>
-                  Pages
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-
-                </li>
-                <li class="nav-item">
-                  <a href="member_profile.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Profile</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="package.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Packages</p>
-                  </a>
-                </li>
-                <!-- <li class="nav-item">
-                  <a href="add_employee.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p> Add Employee</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="add_member.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p> Add Member</p>
-                  </a>
-                </li> -->
-                <!-- <li class="nav-item">
-                  <a href="pages/examples/Branch.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Branch</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/examples/Search-Manager.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Search Manager</p>
-                  </a>
-                </li> -->
-
-
-
-
-              </ul>
-            </li>
-
+            
 
 
 
@@ -244,34 +191,38 @@ else
 
 
           <div class="row d-flex justify-content-around">
-            <div class="col-lg-3 col-12">
+          <div class="col-lg-3 col-12">
               <!-- small box -->
-              <div class="small-box bg-success">
+              <div class="small-box bg-danger">
                 <div class="inner">
                   <h3>
-
-
-               
-                  <?php
-                  $sql = "select mem_weight from member where username='$uname'";
+                    <?php
+                    $br_name = $memberjoinusers["BR_NAME"];
+                    $sql = "select *from br_pkg where br_name in('$br_name')";
                     $stid = oci_parse($conn, $sql);
                     $r = oci_execute($stid);
-                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    $wght=$row['MEM_WEIGHT'];
-                    echo $wght ."kg ";
-                    
-                    
-                  ?>
+
+                    $num = 0;
+                    while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                      $num = $num + 1;
+                    }
+                    echo $num;
+
+                    ?>
                   </h3>
-                  <p>Weight</p>
+
+                  <p>Packages</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="#" class="small-box-footer"> <i class="fas"></i></a>
+                <a href="packages_list.php<?php
+                if ($_GET) {
+                  echo "?un=" . $_GET['un'];
+                }
+                ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
-
             <div class="col-lg-3 col-12">
               <!-- small box -->
               <div class="small-box bg-info">
