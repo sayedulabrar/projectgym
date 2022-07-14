@@ -251,17 +251,18 @@ else
                   <h3>
 
 
-                  </h3>
+               
                   <?php
                   $sql = "select mem_weight from member where username='$uname'";
                     $stid = oci_parse($conn, $sql);
                     $r = oci_execute($stid);
                     $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                    $wght=$row['MEM_WEIGHT'];
+                    echo $wght ."kg ";
                     
-                    echo $row['MEM_WEIGHT']."kg";
                     
-                   
                   ?>
+                  </h3>
                   <p>Weight</p>
                 </div>
                 <div class="icon">
@@ -275,7 +276,7 @@ else
               <!-- small box -->
               <div class="small-box bg-info">
                 <div class="inner">
-                  <p style="font-size: 20px; padding: 0px;margin: 0px;"><b style="font-size: 32px;padding-right: 40px;">
+                  <p style="font-size: 20px; padding: 0px;margin: 0px;"><b style="font-size: 28px;padding-right: 40px;">
                   <?php
                   $sql = "select trainer from member where username='$uname'";
                     $stid = oci_parse($conn, $sql);
@@ -287,13 +288,14 @@ else
                     $stid = oci_parse($conn, $sql);
                     $r = oci_execute($stid);
                     $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    echo $row['NAME'] ;
+                    $nm=$row['NAME'];
+                    echo $nm ;
                     
                    
                     ?>
                 
                 </b> -trainer</p>
-                  <input type="text" class="form-control" placeholder="Rate out of 5" aria-label="Username" aria-describedby="basic-addon1">
+                  <!-- <input type="text" class="form-control" placeholder="Rate out of 5" aria-label="Username" aria-describedby="basic-addon1"> -->
                   <button type="button" class="btn btn-primary">Rate</button>
                 </div>
                 <div class="icon">
@@ -412,7 +414,7 @@ else
                       $stid = oci_parse($conn, $sql);
                       $r = oci_execute($stid);
                       $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                     
+                      $appli="N/A";
                       
                       
 
@@ -423,7 +425,7 @@ else
 
                     if($row){
 
-                      echo  " <tr class='lunch'>
+                      echo  " <tr class='breakfast'>
                       <td>  Breakfast</td>
                       <td>".$row['B_VITAMIN']."</td>
                       <td>". $row['B_FAT']. "</td>
@@ -444,7 +446,7 @@ else
                       <td>".$row['L_CALORIES']. "</td></tr>";
                         
 
-                      echo  " <tr class='lunch'>
+                      echo  " <tr class='dinner'>
                       <td>  Dinner</td>
                       <td>".$row['D_VITAMIN']."</td>
                       <td>". $row['D_FAT']. "</td>
@@ -453,22 +455,22 @@ else
                       <td>". $row['D_CARBOHYDRATE']." </td>
                       <td>".$row['D_CALORIES']. "</td></tr>";
 
-                      echo  " <tr class='lunch'>
+                      echo  " <tr class='prework'>
                       <td>  PreWorkout</td>
-                      <td>N/A</td>
-                      <td>N/A</td>
+                      <td>". $appli."</td>
+                      <td>". $appli."</td>
                       <td>". $row['PR_WRK_PROTEIN']. "</td>
-                      <td> N/A</td>
+                      <td>".  $appli."</td>
                       <td>". $row['PR_WRK_CARBOHYDRATE']." </td>
                       <td>".$row['PR_WRK_CALORIES']. "</td></tr>";
 
 
-                      echo  " <tr class='lunch'>
-                      <td>Postworkout</td>
-                      <td>N/A</td>
-                      <td>N/A</td>
+                      echo  " <tr class='postwork'>
+                      <td>  PreWorkout</td>
+                      <td>". $appli."</td>
+                      <td>". $appli."</td>
                       <td>". $row['PST_WRK_PROTEIN']. "</td>
-                      <td> N/A</td>
+                      <td>".  $appli."</td>
                       <td>". $row['PST_WRK_CARBOHYDRATE']." </td>
                       <td>".$row['PST_WRK_CALORIES']. "</td></tr>";
 
@@ -491,565 +493,163 @@ else
             <!-- /.card-footer -->
           </div>
           <h1 style="text-align: center;">Routine</h1>
-          <div class="card">
-            <div class="card-header border-transparent" id="day_exe">
-              <h4 class="d-flex">Saturday</h4>
-            </div>
+          <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th scope="col">Day</th>
+                          <th scope="col">Exercise ID</th>
+                          <th scope="col">Exercise Name</th>
+                          <th scope="col">Exercise Type</th>
+                          <th scope="col">Number of Set</th>
+                          <th scope="col">Number of item per set</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                        <?php
+                            $sql = "select * from EXERCISES_LIST natural join
+                            users natural join routine natural join member where username='$uname' order by days";
+                            $stid = oci_parse($conn, $sql);
+                            $r = oci_execute($stid);
+                            $na="N/A";
+                            while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)){
+                                // echo "<h1>Hello World</h1>";
+                              if($row["DAYS"]==1)
+                              {
+                                
+                                echo "<tr>
+                                <th scope='row'>Saturday</th>
+                                <td>".$row['EXE_ID']."</td>
+                                <td>".$row['EXE_NAME']."</td>
+                                <td>".$row['EXE_TYPE']."</td>
+                                <td>".$row['INTER_NUM_OF_SET']."</td>
+                                <td>".$row['INTER_PER_SET_ITEM']."</td>
+                              </tr>";
+                              }
+
+                               if($row["DAYS"]==2)
+                              {
+                                echo "<tr>
+                                <th scope='row'>Sunday</th>
+                                <td>".$row['EXE_ID']."</td>
+                                <td>".$row['EXE_NAME']."</td>
+                                <td>".$row['EXE_TYPE']."</td>
+                                <td>".$row['INTER_NUM_OF_SET']."</td>
+                                <td>".$row['INTER_PER_SET_ITEM']."</td>
+                              </tr>";
+                              }
+
+                               if($row["DAYS"]==3)
+                              {
+                                echo "<tr>
+                                <th scope='row'>Monday</th>
+                                <td>".$row['EXE_ID']."</td>
+                                <td>".$row['EXE_NAME']."</td>
+                                <td>".$row['EXE_TYPE']."</td>
+                                <td>".$row['INTER_NUM_OF_SET']."</td>
+                                <td>".$row['INTER_PER_SET_ITEM']."</td>
+                              </tr>";
+                              }
+
+
+                              if($row["DAYS"]==4)
+                              {
+                                echo "<tr>
+                                <th scope='row'>Tuesday</th>
+                                <td>".$row['EXE_ID']."</td>
+                                <td>".$row['EXE_NAME']."</td>
+                                <td>".$row['EXE_TYPE']."</td>
+                                <td>".$row['INTER_NUM_OF_SET']."</td>
+                                <td>".$row['INTER_PER_SET_ITEM']."</td>
+                              </tr>";
+                              }
+
+                               if($row["DAYS"]==5)
+                              {
+                                echo "<tr>
+                                <th scope='row'>Wednesday</th>
+                                <td>".$row['EXE_ID']."</td>
+                                <td>".$row['EXE_NAME']."</td>
+                                <td>".$row['EXE_TYPE']."</td>
+                                <td>".$row['INTER_NUM_OF_SET']."</td>
+                                <td>".$row['INTER_PER_SET_ITEM']."</td>
+                              </tr>";
+                              }
+
+                               if($row["DAYS"]==6)
+                              {
+                                echo "<tr>
+                                <th scope='row'>Thursday</th>
+                                <td>".$row['EXE_ID']."</td>
+                                <td>".$row['EXE_NAME']."</td>
+                                <td>".$row['EXE_TYPE']."</td>
+                                <td>".$row['INTER_NUM_OF_SET']."</td>
+                                <td>".$row['INTER_PER_SET_ITEM']."</td>
+                              </tr>";
+                              }
+
+                               if($row["DAYS"]==7)
+                              {
+                                echo "<tr>
+                                <th scope='row'>Friday</th>
+                                <td>".$row['EXE_ID']."</td>
+                                <td>".$row['EXE_NAME']."</td>
+                                <td>".$row['EXE_TYPE']."</td>
+                                <td>".$row['INTER_NUM_OF_SET']."</td>
+                                <td>".$row['INTER_PER_SET_ITEM']."</td>
+                              </tr>";
+                              }
+
+        
+                          }
+                        ?>
+                        </tbody>
+                        <!-- <tr>
+                          <th scope="row">Sunday</th>
+                          <td>Mark</td>
+                          <td>Otto</td>
+                          <td>@mdo</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Monday</th>
+                          <td>Jacob</td>
+                          <td>Thornton</td>
+                          <td>@fat</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Tuesday</th>
+                          <td>Larry the Bird</td>
+                          <td>@twitter</td>
+                          <td></td>
+                        </tr>
+
+                        <tr>
+                          <th scope="row">Wednesday</th>
+                          <td>Jacob</td>
+                          <td>Thornton</td>
+                          <td>@fat</td>
+                        </tr>
+
+
+                        <tr>
+                          <th scope="row">Thursday</th>
+                          <td>Jacob</td>
+                          <td>Thornton</td>
+                          <td>@fat</td>
+                        </tr>
+
+
+                        <tr>
+                          <th scope="row">Friday</th>
+                          <td>Jacob</td>
+                          <td>Thornton</td>
+                          <td>@fat</td>
+                        </tr> -->
+
+                        
+                      
+                    </table>
 
-            <div class="card-body p-0">
-              <div class="table-responsive">
-                <table class="table m-0">
-                  <thead>
-                    <tr>
-                      <th>Exercise Id</th>
-                      <th>Exercise Name</th>
-                      <th>Exercise Type</th>
-                      <!-- <th></th> -->
-
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="mem_routine">
-                      <td>
-                        <a href="exercise_details.html">E_001</a>
-
-                      </td>
-                      <td>
-                        Push Up
-                      </td>
-                      <td>
-                        Fitness
-                      </td>
-                      <!-- <td>
-                      <a href="routine.html" class="btn btn-success" role="button">Delete</a>
-                    </td>
-                       -->
-                    </tr>
-
-
-                    <tr class="mem_routine">
-                      <td>
-                        <a href="exercise_details.html">E_001</a>
-                      </td>
-                      <td>
-                        Push Up
-                      </td>
-                      <td>
-                        Body Building
-                      </td>
-                      <!-- <td>
-                        <a href="routine.html" class="btn btn-success" role="button">Delete</a>
-                      </td> -->
-                    </tr>
-
-                    <tr class="mem_routine">
-                      <td>
-                        <a href="exercise_details.html">E_001</a>
-                      </td>
-                      <td>
-                        Push Up
-                      </td>
-                      <td>
-                        Jumping
-                      </td>
-
-                    </tr>
-
-
-
-
-
-
-                  </tbody>
-                </table>
-
-              </div>
-              <!-- /.table-responsive -->
-
-            </div>
-
-
-            <!-- </div> -->
-
-            <!-- <div class="card" > -->
-            <div class="card-header border-transparent" id="day_exe">
-              <h4 class="d-flex">Sunday</h4>
-            </div>
-
-            <div class="card-body p-0">
-              <div class="table-responsive">
-                <table class="table m-0">
-                  <thead>
-                    <tr>
-                      <th>Exercise Id</th>
-                      <th>Exercise Name</th>
-                      <th>Exercise Type</th>
-                      <!-- <th></th> -->
-
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="mem_routine">
-                      <td>
-                        <a href="exercise_details.html">E_001</a>
-
-                      </td>
-                      <td>
-                        Push Up
-                      </td>
-                      <td>
-                        Fitness
-                      </td>
-                      <!-- <td>
-                      <a href="routine.html" class="btn btn-success" role="button">Delete</a>
-                    </td>
-                       -->
-                    </tr>
-
-
-                    <tr class="mem_routine">
-                      <td>
-                        <a href="exercise_details.html">E_001</a>
-                      </td>
-                      <td>
-                        Push Up
-                      </td>
-                      <td>
-                        Body Building
-                      </td>
-                      <!-- <td>
-                        <a href="routine.html" class="btn btn-success" role="button">Delete</a>
-                      </td> -->
-                    </tr>
-
-                    <tr class="mem_routine">
-                      <td>
-                        <a href="exercise_details.html">E_001</a>
-                      </td>
-                      <td>
-                        Push Up
-                      </td>
-                      <td>
-                        Jumping
-                      </td>
-
-                    </tr>
-
-
-
-
-
-
-                  </tbody>
-                </table>
-
-              </div>
-              <!-- /.table-responsive -->
-
-            </div>
-
-
-            <!-- </div> -->
-
-            <!-- <div class="card" > -->
-            <div class="card-header border-transparent" id="day_exe">
-              <h4 class="d-flex">Monday</h4>
-            </div>
-
-            <div class="card-body p-0">
-              <div class="table-responsive">
-                <table class="table m-0">
-                  <thead>
-                    <tr>
-                      <th>Exercise Id</th>
-                      <th>Exercise Name</th>
-                      <th>Exercise Type</th>
-                      <!-- <th></th> -->
-
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="mem_routine">
-                      <td>
-                        <a href="exercise_details.html">E_001</a>
-
-                      </td>
-                      <td>
-                        Push Up
-                      </td>
-                      <td>
-                        Fitness
-                      </td>
-                      <!-- <td>
-                      <a href="routine.html" class="btn btn-success" role="button">Delete</a>
-                    </td>
-                       -->
-                    </tr>
-
-
-                    <tr class="mem_routine">
-                      <td>
-                        <a href="exercise_details.html">E_001</a>
-                      </td>
-                      <td>
-                        Push Up
-                      </td>
-                      <td>
-                        Body Building
-                      </td>
-                      <!-- <td>
-                        <a href="routine.html" class="btn btn-success" role="button">Delete</a>
-                      </td> -->
-                    </tr>
-
-                    <tr class="mem_routine">
-                      <td>
-                        <a href="exercise_details.html">E_001</a>
-                      </td>
-                      <td>
-                        Push Up
-                      </td>
-                      <td>
-                        Jumping
-                      </td>
-
-                    </tr>
-
-
-
-
-
-
-                  </tbody>
-                </table>
-
-              </div>
-              <!-- /.table-responsive -->
-
-            </div>
-
-
-            <!-- </div> -->
-
-            <!-- <div class="card" > -->
-            <div class="card-header border-transparent" id="day_exe">
-              <h4 class="d-flex">Tuesday</h4>
-            </div>
-
-            <div class="card-body p-0">
-              <div class="table-responsive">
-                <table class="table m-0">
-                  <thead>
-                    <tr>
-                      <th>Exercise Id</th>
-                      <th>Exercise Name</th>
-                      <th>Exercise Type</th>
-                      <!-- <th></th> -->
-
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="mem_routine">
-                      <td>
-                        <a href="exercise_details.html">E_001</a>
-
-                      </td>
-                      <td>
-                        Push Up
-                      </td>
-                      <td>
-                        Fitness
-                      </td>
-                      <!-- <td>
-                      <a href="routine.html" class="btn btn-success" role="button">Delete</a>
-                    </td>
-                       -->
-                    </tr>
-
-
-                    <tr class="mem_routine">
-                      <td>
-                        <a href="exercise_details.html">E_001</a>
-                      </td>
-                      <td>
-                        Push Up
-                      </td>
-                      <td>
-                        Body Building
-                      </td>
-                      <!-- <td>
-                        <a href="routine.html" class="btn btn-success" role="button">Delete</a>
-                      </td> -->
-                    </tr>
-
-                    <tr class="mem_routine">
-                      <td>
-                        <a href="exercise_details.html">E_001</a>
-                      </td>
-                      <td>
-                        Push Up
-                      </td>
-                      <td>
-                        Jumping
-                      </td>
-
-                    </tr>
-
-
-
-
-
-
-                  </tbody>
-                </table>
-
-              </div>
-              <!-- /.table-responsive -->
-
-            </div>
-
-
-            <!-- </div> -->
-
-            <!-- <div class="card" > -->
-            <div class="card-header border-transparent" id="day_exe">
-              <h4 class="d-flex">Wednesday</h4>
-            </div>
-
-            <div class="card-body p-0">
-              <div class="table-responsive">
-                <table class="table m-0">
-                  <thead>
-                    <tr>
-                      <th>Exercise Id</th>
-                      <th>Exercise Name</th>
-                      <th>Exercise Type</th>
-                      <!-- <th></th> -->
-
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="mem_routine">
-                      <td>
-                        <a href="exercise_details.html">E_001</a>
-
-                      </td>
-                      <td>
-                        Push Up
-                      </td>
-                      <td>
-                        Fitness
-                      </td>
-                      <!-- <td>
-                      <a href="routine.html" class="btn btn-success" role="button">Delete</a>
-                    </td>
-                       -->
-                    </tr>
-
-
-                    <tr class="mem_routine">
-                      <td>
-                        <a href="exercise_details.html">E_001</a>
-                      </td>
-                      <td>
-                        Push Up
-                      </td>
-                      <td>
-                        Body Building
-                      </td>
-                      <!-- <td>
-                        <a href="routine.html" class="btn btn-success" role="button">Delete</a>
-                      </td> -->
-                    </tr>
-
-                    <tr class="mem_routine">
-                      <td>
-                        <a href="exercise_details.html">E_001</a>
-                      </td>
-                      <td>
-                        Push Up
-                      </td>
-                      <td>
-                        Jumping
-                      </td>
-
-                    </tr>
-
-
-
-
-
-
-                  </tbody>
-                </table>
-
-              </div>
-              <!-- /.table-responsive -->
-
-            </div>
-
-
-            <!-- </div> -->
-
-            <!-- <div class="card" > -->
-            <div class="card-header border-transparent" id="day_exe">
-              <h4 class="d-flex">Thursday</h4>
-            </div>
-
-            <div class="card-body p-0">
-              <div class="table-responsive">
-                <table class="table m-0">
-                  <thead>
-                    <tr>
-                      <th>Exercise Id</th>
-                      <th>Exercise Name</th>
-                      <th>Exercise Type</th>
-                      <!-- <th></th> -->
-
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="mem_routine">
-                      <td>
-                        <a href="exercise_details.html">E_001</a>
-
-                      </td>
-                      <td>
-                        Push Up
-                      </td>
-                      <td>
-                        Fitness
-                      </td>
-                      <!-- <td>
-                      <a href="routine.html" class="btn btn-success" role="button">Delete</a>
-                    </td>
-                       -->
-                    </tr>
-
-
-                    <tr class="mem_routine">
-                      <td>
-                        <a href="exercise_details.html">E_001</a>
-                      </td>
-                      <td>
-                        Push Up
-                      </td>
-                      <td>
-                        Body Building
-                      </td>
-                      <!-- <td>
-                        <a href="routine.html" class="btn btn-success" role="button">Delete</a>
-                      </td> -->
-                    </tr>
-
-                    <tr class="mem_routine">
-                      <td>
-                        <a href="exercise_details.html">E_001</a>
-                      </td>
-                      <td>
-                        Push Up
-                      </td>
-                      <td>
-                        Jumping
-                      </td>
-
-                    </tr>
-
-
-
-
-
-
-                  </tbody>
-                </table>
-
-              </div>
-              <!-- /.table-responsive -->
-
-            </div>
-
-
-            <!-- </div> -->
-
-            <!-- <div class="card" > -->
-            <div class="card-header border-transparent" id="day_exe">
-              <h4 class="d-flex">Friday</h4>
-            </div>
-
-            <div class="card-body p-0">
-              <div class="table-responsive">
-                <table class="table m-0">
-                  <thead>
-                    <tr>
-                      <th>Exercise Id</th>
-                      <th>Exercise Name</th>
-                      <th>Exercise Type</th>
-                      <!-- <th></th> -->
-
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="mem_routine">
-                      <td>
-                        <a href="exercise_details.html">E_001</a>
-
-                      </td>
-                      <td>
-                        Push Up
-                      </td>
-                      <td>
-                        Fitness
-                      </td>
-                      <!-- <td>
-                      <a href="routine.html" class="btn btn-success" role="button">Delete</a>
-                    </td>
-                       -->
-                    </tr>
-
-
-                    <tr class="mem_routine">
-                      <td>
-                        <a href="exercise_details.html">E_001</a>
-                      </td>
-                      <td>
-                        Push Up
-                      </td>
-                      <td>
-                        Body Building
-                      </td>
-                      <!-- <td>
-                        <a href="routine.html" class="btn btn-success" role="button">Delete</a>
-                      </td> -->
-                    </tr>
-
-                    <tr class="mem_routine">
-                      <td>
-                        <a href="exercise_details.html">E_001</a>
-                      </td>
-                      <td>
-                        Push Up
-                      </td>
-                      <td>
-                        Jumping
-                      </td>
-
-                    </tr>
-
-
-
-
-
-
-                  </tbody>
-                </table>
-
-              </div>
-              <!-- /.table-responsive -->
-
-            </div>
-
-
-          </div>
 
 
 
