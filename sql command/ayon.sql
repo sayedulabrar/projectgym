@@ -21,3 +21,13 @@ RETURN Var;
 
 END;
 
+--3.
+CREATE TABLE FIXED_BY_TRAINER
+(
+        Trainer varchar2(50),
+        Username varchar2(50),
+        Diet_Id NUMBER,
+        Fixed_Date DATE DEFAULT SYSDATE,
+        Fixed_Time TIMESTAMP DEFAULT SYSTIMESTAMP
+);
+
