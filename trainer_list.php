@@ -591,7 +591,7 @@ if (!$conn) {
             <tbody>
               <?php
               if($ratingActive) {
-                $sql = "select EMP_ID, NAME, GENDER, RATING_VALUE, SALARY, SYSDATE - DOB, USERNAME, BR_NAME, SHIFT from users natural join employee where br_name = (select br_name from users where username = '$uname') and designation = 'Trainer' and rating_value >=$s_r and rating_value <=$f_r";
+                $sql = "select EMP_ID, NAME, GENDER, RATING_VALUE, SALARY, SYSDATE - DOB, USERNAME, BR_NAME, SHIFT from users natural join employee where br_name = (select br_name from users where username = '$uname') and designation = 'Trainer'";
               }
               elseif($ageActive) {
                 $sql = "select EMP_ID, NAME, GENDER, RATING_VALUE, SALARY, SYSDATE - DOB, USERNAME, BR_NAME, SHIFT from users natural join employee where br_name = (select br_name from users where username = '$uname') and designation = 'Trainer' and floor((SYSDATE - DOB)/365) >= $s_a and floor((SYSDATE - DOB)/365) <= $f_a";
@@ -607,6 +607,33 @@ if (!$conn) {
               $r = oci_execute($stid);
               while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
                 $un = $row['USERNAME'];
+                $unm = $row["USERNAME"];
+                $sql = "select * from member where trainer='$unm'";
+                $stid1 = oci_parse($conn, $sql);
+                $r = oci_execute($stid1);
+                
+                $s=0;
+                $cnt=0;
+                while($row1 = oci_fetch_array($stid1, OCI_ASSOC + OCI_RETURN_NULLS))
+                {
+                        
+                        if($row1['RATING']<>NULL)
+                        {
+                            $s=$s+$row1['RATING'];
+                            $cnt=$cnt+1;
+                            
+                        }
+                }
+                    if($cnt==0)
+                    {
+                        $ratei =  0;
+                    }
+                    else
+                    {
+                        $ratei =  number_format($s/$cnt,2);
+                    }
+                  if($ratingActive == false || ($ratingActive && $ratei >=$s_r && $ratei <=$f_r)) {
+  
                 echo "
               <tr id='Trainer'>
               <td>";
@@ -619,7 +646,11 @@ if (!$conn) {
                 }
                 echo "</td>
               <td>" . $row["GENDER"] . "</td>
-              <td>" . $row["RATING_VALUE"] . "</td>
+              <td>";
+              
+              echo $ratei;
+              
+              echo "</td>
               <td>" . floor($row["SYSDATE-DOB"] / 365) . "</td>
               <td>" . $row["SALARY"] . "</td>
               <td>";
@@ -638,7 +669,7 @@ if (!$conn) {
               ";
                 // ECHO var_dump($row);
               }
-
+            }
 
               ?>
 
