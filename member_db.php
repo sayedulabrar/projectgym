@@ -230,7 +230,7 @@ else
               <!-- small box -->
               <div class="small-box bg-info">
                 <div class="inner">
-                  <p style="font-size: 22px; padding: 0px;margin: 0px;"><b style="font-size: 26px;padding-right: 40px;">
+                  <p style="font-size: 22px; padding: 0px;margin: 0px;"><b style="font-size: 25px;padding-right: 40px;">
                   <?php
                   $sql = "select trainer from member where username='$uname'";
                     $stid = oci_parse($conn, $sql);
@@ -482,7 +482,7 @@ else
                       $stid = oci_parse($conn, $sql);
                       $r = oci_execute($stid);
                       $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                      $appli="N/A";
+                      $appli="NULL";
                       
                       
 

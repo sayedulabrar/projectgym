@@ -214,7 +214,30 @@ if (!$conn) {
                             <!-- small box -->
                             <div class="small-box bg-warning">
                                 <div class="inner">
-                                    <h3>4.5</h3>
+                                    <h3>
+                                        <?php
+
+                                            $sql = "select * from member where trainer='$uname'";
+                                            $stid = oci_parse($conn, $sql);
+                                            $r = oci_execute($stid);
+                                            
+                                            $s=0;
+                                            $cnt=0;
+                                            while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS))
+                                            {
+                                                    
+                                                    if($row['RATING']<>NULL)
+                                                    {
+                                                        $s=$s+$row['RATING'];
+                                                        $cnt=$cnt+1;
+                                                        
+                                                    }
+                                            }
+                                                echo number_format($s/$cnt,2);
+                                              
+                                        ?>
+                                        
+                                    </h3>
 
                                     <p>Rating</p>
                                 </div>
