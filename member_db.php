@@ -36,6 +36,9 @@ else
   <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" type="text/css" href="rating.css">
+  <script  type="text/javascript" src="rating.js"></script>
+ 
 </head>
 
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -227,7 +230,7 @@ else
               <!-- small box -->
               <div class="small-box bg-info">
                 <div class="inner">
-                  <p style="font-size: 28px; padding: 0px;margin: 0px;"><b style="font-size: 28px;padding-right: 40px;">
+                  <p style="font-size: 22px; padding: 0px;margin: 0px;"><b style="font-size: 26px;padding-right: 40px;">
                   <?php
                   $sql = "select trainer from member where username='$uname'";
                     $stid = oci_parse($conn, $sql);
@@ -247,7 +250,120 @@ else
                 
                 </b> -trainer</p>
                   <!-- <input type="text" class="form-control" placeholder="Rate out of 5" aria-label="Username" aria-describedby="basic-addon1"> -->
-                  <button type="button" class="btn btn-primary">Rate</button>
+                  <!-- <button type="button" class="btn btn-primary">Rate</button> -->
+
+
+
+                    <!-- <button type="button" class="insert btn btn-success float-right" data-toggle="modal" data-target="#exampleModal">Add New</button> -->
+                    <div class="col-lg-6 col-md-12" style="padding-top: 15px;padding-right:40px;">
+              <!-- Insert Modal -->
+              <?php
+              
+                echo '
+              
+                <button type="button" class="insert btn btn-success " data-toggle="modal" data-target="#exampleModal" >Rate</button>
+              
+                ';
+              
+              ?>
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Rate The Trainer out of 5</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <!-- <form action="member_db.php" method="POST"> -->
+                        <div class="modal-body">
+
+                         
+                                          <form class="rating" method="POST" >
+                                          <label>
+                                          <input type="radio" name="stars" value="1" />
+                                          <span class="icon">★</span>
+                                        </label>
+                                        <label>
+                                          <input type="radio" name="stars" value="2" />
+                                          <span class="icon">★</span>
+                                          <span class="icon">★</span>
+                                        </label>
+                                        <label>
+                                          <input type="radio" name="stars" value="3" />
+                                          <span class="icon">★</span>
+                                          <span class="icon">★</span>
+                                          <span class="icon">★</span>   
+                                          <?php  
+                                          // echo "<br><br>";
+                                          // echo isset($_POST['stars']);
+                                          
+                                  ?>
+                                          
+                                          
+
+                                        </label>
+                                        <label>
+                                          <input type="radio" name="stars" value="4" />
+                                          <span class="icon">★</span>
+                                          <span class="icon">★</span>
+                                          <span class="icon">★</span>
+                                          <span class="icon">★</span>
+                                        </label>
+                                        <label>
+                                          <input type="radio" name="stars" value="5" />
+                                          <span class="icon">★</span>
+                                          <span class="icon">★</span>
+                                          <span class="icon">★</span>
+                                          <span class="icon">★</span>
+                                          <span class="icon">★</span>
+                                        </label>
+                              
+                          
+
+                        </div>
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                      </form>
+                      
+                    </div>
+
+                    <?php
+                           if(isset($_POST['stars']))
+                           {
+                             // echo isset($_POST['stars']);
+                             $amt=$_POST['stars'];
+                             // echo $amt;
+                              $sql = "update member set RATING='$amt' where username='$uname'";
+                               $stid = oci_parse($conn, $sql);
+                               $r = oci_execute($stid);
+                               // $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                               // echo var_dump($row);
+                           }
+                    ?>
+
+                  </div>
+                </div>
+              </div>
+              <!-- /Insert Modal -->
+
+              
+            </div>
+
+            
+
+
+
+
+
+
+
+
+
                 </div>
                 <div class="icon">
                   <i class="ion ion-bag"></i>
@@ -279,7 +395,7 @@ else
                 <div class="icon">
                   <i class="ion ion-person-add"></i>
                 </div>
-                <!-- <a href="receptionist_list.php" class="small-box-footer"><i class="fas"></i></a> -->
+                <a href="#" class="small-box-footer"><i class="fas"></i></a>
               </div>
             </div>
 
