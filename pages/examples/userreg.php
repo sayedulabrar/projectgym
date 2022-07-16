@@ -4,7 +4,7 @@ $uname = $_SESSION['uname'];
 $link = 'manager_list.php';
 $designation = 'Manager';
 
-$conn = oci_connect('Abrar', 'saif0rrahman', 'localhost/xe')
+$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
   echo "sorry";

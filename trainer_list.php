@@ -30,7 +30,6 @@ if (!$conn) {
       // $stid = oci_parse($conn, $sql);
       // $r = oci_execute($stid);
       $sql = "select * from member where trainer = '$username'";
-      $_SESSION['xxx'] = $username;
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
       $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
@@ -45,11 +44,15 @@ if (!$conn) {
     }
 
     if (isset($_POST['uname']) && isset($_POST['emp_id'])) {
+      
       $br_name = $_POST['uname'];
       $salary = $_POST['salary'];
       $emp_id = $_POST['emp_id'];
+      
       $designation = $_POST['designation'];
+      
       $shift = $_POST['shift'];
+      $_SESSION['xxx'] = $shift;
       $sql = "update employee set salary = $salary, shift = $shift, designation = '$designation'  where emp_id = $emp_id";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
@@ -433,7 +436,12 @@ if (!$conn) {
                       </div>
                       <div class="form-group col-lg-6 col-12">
                         <label for="shift">Shift</label>
-                        <input type="text" class="form-control" id="shift" name="shift" aria-describedby="emailHelp">
+                        <select name="shift" id="shift" class="form-select" aria-label="Default select example" style="width: 208px; height: 37px;">
+                          <option value="1">Morning</option>
+                          <option value="2">Evening</option>
+                          
+                        </select>
+                        <!-- <input type="text" class="form-control" id="shift" name="shift" aria-describedby="emailHelp"> -->
                       </div>
                     </div>
 
@@ -574,6 +582,7 @@ if (!$conn) {
           <table class="table table-hover table-striped" id='myTable'>
             <thead>
               <tr>
+                <th scope="col">ID</th>
                 <th scope="col">Name</th>
                 <th scope="col">Gender</th>
                 <th scope="col">Rating</th>
@@ -636,6 +645,7 @@ if (!$conn) {
   
                 echo "
               <tr id='Trainer'>
+              <th>" . $row["EMP_ID"] . "</th>
               <td>";
                 if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
                   echo "<a href='employee_profile.php?un =" . $un . " '>";
@@ -748,14 +758,14 @@ if (!$conn) {
     updates = document.getElementsByClassName('update');
     Array.from(updates).forEach((element) => {
       element.addEventListener("click", (e) => {
-        // console.log("update ", );
+        console.log("update ", );
         tr = e.target.parentNode.parentNode;
         uname.value = e.target.id;
         designation.value = tr.id;
-        shift.value = tr.getElementsByTagName("td")[5].innerText;
+        // shift.value = tr.getElementsByTagName("td")[5].innerText;
         salary.value = tr.getElementsByTagName("td")[4].innerText;
         emp_id.value = tr.getElementsByTagName("th")[0].innerText;
-        console.log(emp_id);
+        // console.log(tr);
         $('#exampleModal1').modal('toggle');
       })
     })

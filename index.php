@@ -21,7 +21,7 @@ if (!$conn) {
       $_SESSION['profation']='Admin';
       header("Location: admin_db.php");
     }
-    else if ($row == NULL) {
+    elseif ($row == NULL) {
       $wrongInfo = true;
     } else {
       $sql = "select * from employee where USERNAME = '$username'";
