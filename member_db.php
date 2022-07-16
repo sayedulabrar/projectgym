@@ -378,12 +378,39 @@ else
                 <div class="inner">
                   <h3>
                   <?php
+                //   if(isset($_SESSION['pk_id'])){
+                //   $package_id=$_SESSION['pk_id'];
+                // }
+                $flag=0;
+                
+                 if([$_SESSION['pk_id']]<> NULL && $flag==1)
+                 {
+                   $package_id =  $_SESSION['pk_id'];
+                   echo $package_id;
+                   $sql2 = "select PKG_DURATION from PACKAGE natural join users natural join M_pkg where PKG_ID='$package_id'";
+                   $stid = oci_parse($conn, $sql2);
+                   $r = oci_execute($stid);
+                   $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                    // echo var_dump($row);
+                    // if($row['PKG_DURATION']==true){
+                      // echo var_dump($row);
+                      //  $dur = $row['PKG_DURATION'];
+                      //  echo $dur;
+                //  }
+
+                 }
+
                   $sql = "select MEMBERSHIP_EXPIRY from member where username='$uname'";
-                    $stid = oci_parse($conn, $sql);
-                    $r = oci_execute($stid);
-                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    
-                    echo $row['MEMBERSHIP_EXPIRY'];
+                  $stid = oci_parse($conn, $sql);
+                  $r = oci_execute($stid);
+                  $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                  $exp=$row['MEMBERSHIP_EXPIRY'];
+                  // $sql2 = "select PKG_DURATION from PACKAGE where PKG_ID='$package_id'";
+                  //   $stid = oci_parse($conn, $sql2);
+                  //   $r = oci_execute($stid);
+                  //   $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                  //   $dur=$row['PKG_DURATION'];
+                    echo $exp;
                     
                    
                     ?>
@@ -541,7 +568,9 @@ else
 
                   else
                   {
-
+                    // $dur = $row['PKG_DURATION'];
+                    // echo $dur;
+                    // echo $_SESSION['pk_id'];
                   }
 
                   ?>

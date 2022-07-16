@@ -2,6 +2,8 @@
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $showname = $_SESSION['uname'];
 $designation = $_SESSION['profation'];
+$_SESSION['pk_amount']=NULL;
+$_SESSION['pk_id']=NULL;
 if ($_GET != NULL && ($_GET['un'] != 'u' && $_GET['un'] != 'i' && $_GET['un'] != 'd' && $_GET['un'] != 'w')) {
   $uname = $_GET['un'];
 } else {
@@ -55,7 +57,10 @@ if (!$conn) {
         $stid = oci_parse($conn, $sql);
         $r = oci_execute($stid);
         $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+        $_SESSION['pk_id']=$row['PKG_ID'];
         $amount = $row['PKG_CHARGE'];
+        $_SESSION['pk_amount']=$amount;
+        $mm=$_SESSION['pk_amount'];
         $sql = "insert into income (trx_id, username, inc_amount, br_name, inc_type, inc_dateandtime) values($trx_id, '$uname', $amount, '$br_name', 'Member Payment', SYSTIMESTAMP)";
         $stid = oci_parse($conn, $sql);
         $r = oci_execute($stid);
@@ -657,6 +662,7 @@ if (!$conn) {
                 <th scope="col">Charge</th>
                 <th scope="col">Duration (months)</th>
                 <?php
+                
                 if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
                   echo '<th scope="col">Action</th>';
                 }
@@ -679,6 +685,7 @@ if (!$conn) {
               <td>" . $row["PKG_DURATION"] . "</td>";
               if($designation == 'Member') {
                 echo "<td> <button class='delete btn btn-sm btn-success'>Purchase</button>";
+                
               }
               else {
                 if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
@@ -692,6 +699,7 @@ if (!$conn) {
             </tbody>
           </table>
       </section>
+      
       <!-- /.content -->
       <div style="margin-bottom:30px ;"></div>
     </div>
@@ -701,6 +709,9 @@ if (!$conn) {
       <!-- Control sidebar content goes here -->
     </aside>
     <!-- /.control-sidebar -->
+
+           
+
     <!-- Main Footer -->
     <footer class="main-footer dark-mode" style="color: #869099">
       <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
