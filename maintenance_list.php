@@ -2,6 +2,11 @@
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $showname = $_SESSION['uname'];
 $designation = $_SESSION['profation'];
+$donewithin = false;
+$history = false;
+$costl = false;
+$costg = false;
+$company = false;
 if ($_GET != NULL && ($_GET['un'] != 'u' && $_GET['un'] != 'i' && $_GET['un'] != 'd' && $_GET['un'] != 'w')) {
   $uname = $_GET['un'];
 } else {
@@ -51,6 +56,27 @@ if (!$conn) {
     $r = oci_execute($stid);
 
     header("Location: equipments_list.php?un=u");
+  }
+  if(isset($_POST['dw'])) {
+    $dw = $_POST['dw'];
+    $donewithin = true;
+  }
+  if(isset($_POST['hp'])) {
+    $hp = $_POST['hp'];
+    $history = true;
+    // $_SESSION['xxx'] = $_POST['hp'];
+  }
+  if(isset($_POST['em'])) {
+    $em = $_POST['em'];
+    $costg = true;
+  }
+  if(isset($_POST['el'])) {
+    $el = $_POST['el'];
+    $costl = true;
+  }
+  if(isset($_POST['un'])) {
+    $un = $_POST['un'];
+    $company = true;
   }
 }
 
@@ -439,6 +465,107 @@ if (!$conn) {
       <section class="content" style="margin-bottom:50px ;">
 
 
+      <div class="alert alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <div class="bg-light clearfix">
+            <div class="row" style="padding-top: 30px;">
+              <div class="col-lg-6 col-md-12">
+                <h2 style="margin-left: 25px;"> Search Using</h2>
+              </div>
+            </div>
+            <br>
+            <div class="container" >
+              <div class="row">
+                
+                <div class="form-group col-lg-5 col-12">
+                  
+                  <div class="row">
+                    <div class="form-group col-lg-6 col-12">
+                      <h5 style="text-align: center;">Done Within</h5>
+                       <br>
+                      <form action="maintenance_list.php" method = "POST">
+                        <div class="row">
+                          <div class="form-group col-lg-7 col-12">
+                            <input type="text" placeholder="Days" class="form-control" id="dw" name="dw">
+                          </div>
+                          <div class="form-group col-lg-5 col-12">
+                            <button type="submit" class="btn btn-secondary">Search</button>
+                            
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="form-group col-lg-6 col-12">
+                    <h5 style="text-align: center;">History of Previous</h5>
+                     <br>
+                      <form action="maintenance_list.php" method = "POST">
+                        <div class="row">
+                          <div class="form-group col-lg-7 col-12">
+                            <input type="text" placeholder="Days" class="form-control" id="hp" name="hp">
+                          </div>
+                          <div class="form-group col-lg-5 col-12">
+                            <button type="submit" class="btn btn-secondary">Search</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="form-group col-lg-5 col-12">
+                  <h5 style="text-align: center;">Cost</h5>
+                  <br>
+                  <div class="row">
+                  
+                    <div class="form-group col-lg-6 col-12">
+                      
+                      <form action="maintenance_list.php" method = "POST">
+                        <div class="row">
+                          <div class="form-group col-lg-7 col-12">
+                            <input type="text" placeholder="Equal or less" class="form-control" id="el" name="el">
+                          </div>
+                          <div class="form-group col-lg-5 col-12">
+                            <button type="submit" class="btn btn-secondary">Search</button>
+                            
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="form-group col-lg-6 col-12">
+                      <form action="maintenance_list.php" method = "POST">
+                        <div class="row">
+                          <div class="form-group col-lg-7 col-12">
+                            <input type="text" placeholder="Equal or More" class="form-control" id="em" name="em">
+                          </div>
+                          <div class="form-group col-lg-5 col-12">
+                            <button type="submit" class="btn btn-secondary">Search</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  
+                </div>
+                <div class="form-group col-lg-2 col-12" >
+                  <h5 style="text-align: center;">Company Name</h5>  
+                  <br>
+                  <form action="maintenance_list.php" method = "POST">
+                    <div class="row" >
+                      <div class="form-group col-lg-8 col-12">
+                        <input type="text" placeholder="Name" class="form-control" id="un" name="un">
+                      </div>
+                      <div class="form-group col-lg-4 col-12">
+                        <button type="submit" class="btn btn-secondary">Search</button>
+                        
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -629,7 +756,28 @@ if (!$conn) {
             </thead>
             <tbody>
               <?php
-              $sql = "select * from maintenance natural join equipment where br_name = (select br_name from users where username = '$uname')";
+              if($donewithin) {
+                $sql = "select * from maintenance natural join equipment where br_name = (select br_name from users where username = '$uname') and (DELIVERY_DATE-SYSDATE) <= $dw";
+              }
+              elseif($company) {
+                $sql = "select * from maintenance natural join equipment where br_name = (select br_name from users where username = '$uname') and REPAIRER_COMPANY_NAME = '$un'";
+              }
+              elseif($costg) {
+                $sql = "select * from maintenance natural join equipment where br_name = (select br_name from users where username = '$uname') and COST_OF_REPAIRING >= $em";
+
+              }
+              elseif($costl) {
+                $sql = "select * from maintenance natural join equipment where br_name = (select br_name from users where username = '$uname') and COST_OF_REPAIRING <= $el";
+
+              }
+              elseif($history) {
+                $sql = "select * from maintenance natural join equipment where br_name = (select br_name from users where username = '$uname') and (SYSDATE - MAI_DATE) <= $hp";
+
+              }
+              else {
+                $sql = "select * from maintenance natural join equipment where br_name = (select br_name from users where username = '$uname')";
+              }
+              
               $stid = oci_parse($conn, $sql);
               $r = oci_execute($stid);
               while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {

@@ -30,7 +30,6 @@ if (!$conn) {
       // $stid = oci_parse($conn, $sql);
       // $r = oci_execute($stid);
       $sql = "select * from member where trainer = '$username'";
-      $_SESSION['xxx'] = $username;
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
       $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
@@ -45,11 +44,15 @@ if (!$conn) {
     }
 
     if (isset($_POST['uname']) && isset($_POST['emp_id'])) {
+      
       $br_name = $_POST['uname'];
       $salary = $_POST['salary'];
       $emp_id = $_POST['emp_id'];
+      
       $designation = $_POST['designation'];
+      
       $shift = $_POST['shift'];
+      $_SESSION['xxx'] = $shift;
       $sql = "update employee set salary = $salary, shift = $shift, designation = '$designation'  where emp_id = $emp_id";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
@@ -433,7 +436,12 @@ if (!$conn) {
                       </div>
                       <div class="form-group col-lg-6 col-12">
                         <label for="shift">Shift</label>
-                        <input type="text" class="form-control" id="shift" name="shift" aria-describedby="emailHelp">
+                        <select name="shift" id="shift" class="form-select" aria-label="Default select example" style="width: 208px; height: 37px;">
+                          <option value="1">Morning</option>
+                          <option value="2">Evening</option>
+                          
+                        </select>
+                        <!-- <input type="text" class="form-control" id="shift" name="shift" aria-describedby="emailHelp"> -->
                       </div>
                     </div>
 
@@ -574,6 +582,7 @@ if (!$conn) {
           <table class="table table-hover table-striped" id='myTable'>
             <thead>
               <tr>
+                <th scope="col">ID</th>
                 <th scope="col">Name</th>
                 <th scope="col">Gender</th>
                 <th scope="col">Rating</th>
@@ -591,7 +600,7 @@ if (!$conn) {
             <tbody>
               <?php
               if($ratingActive) {
-                $sql = "select EMP_ID, NAME, GENDER, RATING_VALUE, SALARY, SYSDATE - DOB, USERNAME, BR_NAME, SHIFT from users natural join employee where br_name = (select br_name from users where username = '$uname') and designation = 'Trainer' and rating_value >=$s_r and rating_value <=$f_r";
+                $sql = "select EMP_ID, NAME, GENDER, RATING_VALUE, SALARY, SYSDATE - DOB, USERNAME, BR_NAME, SHIFT from users natural join employee where br_name = (select br_name from users where username = '$uname') and designation = 'Trainer'";
               }
               elseif($ageActive) {
                 $sql = "select EMP_ID, NAME, GENDER, RATING_VALUE, SALARY, SYSDATE - DOB, USERNAME, BR_NAME, SHIFT from users natural join employee where br_name = (select br_name from users where username = '$uname') and designation = 'Trainer' and floor((SYSDATE - DOB)/365) >= $s_a and floor((SYSDATE - DOB)/365) <= $f_a";
@@ -607,8 +616,36 @@ if (!$conn) {
               $r = oci_execute($stid);
               while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
                 $un = $row['USERNAME'];
+                $unm = $row["USERNAME"];
+                $sql = "select * from member where trainer='$unm'";
+                $stid1 = oci_parse($conn, $sql);
+                $r = oci_execute($stid1);
+                
+                $s=0;
+                $cnt=0;
+                while($row1 = oci_fetch_array($stid1, OCI_ASSOC + OCI_RETURN_NULLS))
+                {
+                        
+                        if($row1['RATING']<>NULL)
+                        {
+                            $s=$s+$row1['RATING'];
+                            $cnt=$cnt+1;
+                            
+                        }
+                }
+                    if($cnt==0)
+                    {
+                        $ratei =  0;
+                    }
+                    else
+                    {
+                        $ratei =  number_format($s/$cnt,2);
+                    }
+                  if($ratingActive == false || ($ratingActive && $ratei >=$s_r && $ratei <=$f_r)) {
+  
                 echo "
               <tr id='Trainer'>
+              <th>" . $row["EMP_ID"] . "</th>
               <td>";
                 if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
                   echo "<a href='employee_profile.php?un =" . $un . " '>";
@@ -619,7 +656,11 @@ if (!$conn) {
                 }
                 echo "</td>
               <td>" . $row["GENDER"] . "</td>
-              <td>" . $row["RATING_VALUE"] . "</td>
+              <td>";
+              
+              echo $ratei;
+              
+              echo "</td>
               <td>" . floor($row["SYSDATE-DOB"] / 365) . "</td>
               <td>" . $row["SALARY"] . "</td>
               <td>";
@@ -638,7 +679,7 @@ if (!$conn) {
               ";
                 // ECHO var_dump($row);
               }
-
+            }
 
               ?>
 
@@ -717,14 +758,14 @@ if (!$conn) {
     updates = document.getElementsByClassName('update');
     Array.from(updates).forEach((element) => {
       element.addEventListener("click", (e) => {
-        // console.log("update ", );
+        console.log("update ", );
         tr = e.target.parentNode.parentNode;
         uname.value = e.target.id;
         designation.value = tr.id;
-        shift.value = tr.getElementsByTagName("td")[5].innerText;
+        // shift.value = tr.getElementsByTagName("td")[5].innerText;
         salary.value = tr.getElementsByTagName("td")[4].innerText;
         emp_id.value = tr.getElementsByTagName("th")[0].innerText;
-        console.log(emp_id);
+        // console.log(tr);
         $('#exampleModal1').modal('toggle');
       })
     })

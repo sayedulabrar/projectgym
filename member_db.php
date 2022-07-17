@@ -2,7 +2,7 @@
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $uname = $_SESSION['uname'];
 $designation=$_SESSION['profation'];
-$conn = oci_connect('brownfalcon_gms2', 'saif0rrahman', 'localhost/xe')
+$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if(!$conn)
 {
@@ -256,6 +256,7 @@ else
 
                     <!-- <button type="button" class="insert btn btn-success float-right" data-toggle="modal" data-target="#exampleModal">Add New</button> -->
                     <div class="col-lg-6 col-md-12" style="padding-top: 15px;padding-right:40px;">
+                    
               <!-- Insert Modal -->
               <?php
               
@@ -266,6 +267,8 @@ else
                 ';
               
               ?>
+              
+              
               <!-- Modal -->
               <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -276,6 +279,7 @@ else
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
+                    
                     <div class="modal-body">
                       <!-- <form action="member_db.php" method="POST"> -->
                         <div class="modal-body">
@@ -324,11 +328,13 @@ else
                           
 
                         </div>
+                        
                         <div class="modal-footer">
                           <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
                           <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                       </form>
+                      
                       
                     </div>
 
@@ -368,7 +374,7 @@ else
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <!-- <a href="#" class="small-box-footer">Rate Trainer <i class="fas fa-arrow-circle-right"></i></a> -->
+                <a href="#" class="small-box-footer"><i class="fas"></i></a>
               </div>
             </div>
 
