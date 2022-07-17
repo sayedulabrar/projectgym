@@ -9,7 +9,7 @@ if ($_GET != NULL && ($_GET['un'] != 'u' && $_GET['un'] != 'i' && $_GET['un'] !=
 } else {
   $uname = $_SESSION['uname'];
 }
-$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
+$conn = oci_connect('brownfalcon_gms2', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
   echo "sorry";
@@ -64,6 +64,21 @@ if (!$conn) {
         $sql = "insert into income (trx_id, username, inc_amount, br_name, inc_type, inc_dateandtime) values($trx_id, '$uname', $amount, '$br_name', 'Member Payment', SYSTIMESTAMP)";
         $stid = oci_parse($conn, $sql);
         $r = oci_execute($stid);
+        //updating month of the user
+        $package_ID= $_SESSION['pk_id'];
+        $sql = "select PKG_DURATION from PACKAGE where PKG_ID= $package_ID";
+        $stid = oci_parse($conn, $sql);
+        $r = oci_execute($stid);
+        $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+        $dur=$row['PKG_DURATION'];
+        echo $dur;
+        $sql = "update member set MEMBERSHIP_EXPIRY =ADD_MONTHS(MEMBERSHIP_EXPIRY,$dur)  where username='$uname'";
+        $stid = oci_parse($conn, $sql);
+        $r = oci_execute($stid);
+         $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+         echo var_dump($row);
+
+
       }
       else {
         $pkg_id = $_POST['pkg_id'];
@@ -699,7 +714,11 @@ if (!$conn) {
             </tbody>
           </table>
       </section>
+      <?php   
       
+      //For checking the error
+      
+      ?>
       <!-- /.content -->
       <div style="margin-bottom:30px ;"></div>
     </div>

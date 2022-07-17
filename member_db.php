@@ -2,7 +2,7 @@
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $uname = $_SESSION['uname'];
 $designation=$_SESSION['profation'];
-$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
+$conn = oci_connect('brownfalcon_gms2', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if(!$conn)
 {
@@ -603,14 +603,15 @@ else
                     $r = oci_execute($stid);
                     $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
                     $Fol_Set=NULL;
+                    // echo var_dump($row);
                     if($row) {
                       if($row['F_SET'] == 1) {
                         echo "Beginner";
-                        $Fol_Set="Beginner";
+                         $Fol_Set="Beginner";
                       }
                       else if($row['F_SET'] == 2) {
                         echo "Indermediate";
-                        $Fol_Set="Indermediate";
+                         $Fol_Set="Indermediate";
                       }
                       else if($row['F_SET'] == 3) {
                         echo "Advanced";
