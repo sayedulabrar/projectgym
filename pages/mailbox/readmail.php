@@ -5,6 +5,8 @@ $mid = $_GET['us'] ;
 $unm= $_GET['nm'];
 $rnm= $_GET['rnm'];
 
+$job= $_SESSION['profation'];
+
 
 $conn = oci_connect('Abrar', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
@@ -51,7 +53,7 @@ if (!$conn) {
     <a href="../../index3.html" class="brand-link">
       <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
         style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <span class="brand-text font-weight-light">Fitness Mania</span>
     </a>
 
     <!-- Sidebar -->
@@ -82,12 +84,35 @@ if (!$conn) {
             </a>
             <ul class="nav nav-treeview">
 
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a href="../../f1.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard v2</p>
                 </a>
-              </li>
+              </li> -->
+
+              <?php
+
+                if($job=="trainer")
+                {
+                    echo ' <li class="nav-item">
+                    <a href="../../trainer_db.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Trainer</p>
+                    </a>
+                    </li>';
+                }
+                if($job=="receptionist")
+                {
+                    echo ' <li class="nav-item">
+                    <a href="../../receptionist.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Receptionist</p>
+                    </a>
+                    </li>';
+                }
+
+?>
 
             </ul>
           </li>
@@ -125,7 +150,7 @@ if (!$conn) {
 
             </ul>
           </li>
-          <li class="nav-item menu-open">
+          <!-- <li class="nav-item menu-open">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-book"></i>
               <p>
@@ -161,7 +186,56 @@ if (!$conn) {
 
 
             </ul>
-          </li>
+          </li> -->
+
+          <?php
+
+if($job=="trainer" || $job=="receptionist")
+{
+
+}
+else
+{
+  echo '<li class="nav-item menu-open">
+  <a href="#" class="nav-link active">
+    <i class="nav-icon fas fa-book"></i>
+    <p>
+      UserPages
+      <i class="fas fa-angle-left right"></i>
+    </p>
+  </a>
+  <ul class="nav nav-treeview">
+
+    <li class="nav-item">
+      <a href="../examples/profilev2.html" class="nav-link">
+        <i class="far fa-circle nav-icon"></i>
+        <p>Profile</p>
+      </a>
+    </li>
+
+
+
+    <li class="nav-item">
+      <a href="../examples/package.html" class="nav-link ">
+        <i class="far fa-circle nav-icon"></i>
+        <p>Package</p>
+      </a>
+
+    <li class="nav-item">
+      <a href="../examples/Search-Trainer.html" class="nav-link ">
+        <i class="far fa-circle nav-icon"></i>
+        <p>Search Trainer</p>
+      </a>
+
+
+
+
+
+  </ul>
+</li>';
+}
+
+?>
 
 
 
