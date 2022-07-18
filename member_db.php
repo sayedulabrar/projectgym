@@ -144,7 +144,7 @@ else
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                   <a href="pages/mailbox/mailbox.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Inbox</p>
@@ -155,7 +155,31 @@ else
                     <i class="far fa-circle nav-icon"></i>
                     <p>Compose</p>
                   </a>
-                </li>
+                </li> -->
+
+                <?php
+                                echo "<li class='nav-item'>
+
+                                
+                                    
+                                         <a href='pages/mailbox/mailbox.php?un=" . $uname . "' class='nav-link'>
+                                        <i class='far fa-circle nav-icon'></i>
+                                        <p>Inbox</p>
+                                         </a>
+
+                                   
+                                </li>";
+                                ?>
+
+
+                                <?php
+                                echo "<li class='nav-item'>                    
+                                <a href='pages/mailbox/compose.php?un=" . $uname . "' class='nav-link'>
+                                <i class='far fa-circle nav-icon'></i>
+                                <p>Compose</p>
+                                </a>
+                                </li>";
+                                ?>x
 
               </ul>
             </li>
@@ -230,7 +254,7 @@ else
               <!-- small box -->
               <div class="small-box bg-info">
                 <div class="inner">
-                  <p style="font-size: 22px; padding: 0px;margin: 0px;"><b style="font-size: 25px;padding-right: 40px;">
+                  <p ><b>
                   <?php
                   $sql = "select trainer from member where username='$uname'";
                     $stid = oci_parse($conn, $sql);
@@ -699,7 +723,7 @@ else
                                 echo "<tr>
                                 <th scope='row'>Monday</th>
                                 <td>".$row['EXE_ID']."</td>
-                                <td>".$row['EXE_NAME']."</td>
+                                <td><a href='exercise_details.php?un=". $row['EXE_ID']."'>".$row['EXE_NAME']."</a></td>
                                 <td>".$row['EXE_TYPE']."</td>
                                 <td>".$Set."</td>
                                 <td>".$Set_item."</td>
