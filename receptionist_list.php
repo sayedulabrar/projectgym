@@ -404,7 +404,11 @@ if (!$conn) {
                       </div>
                       <div class="form-group col-lg-6 col-12">
                         <label for="shift">Shift</label>
-                        <input type="text" class="form-control" id="shift" name="shift" aria-describedby="emailHelp">
+                        <select name="shift" id="shift" class="form-select" aria-label="Default select example" style="width: 208px; height: 37px;">
+                          <option value="1">Morning</option>
+                          <option value="2">Evening</option>
+                          
+                        </select>
                       </div>
                     </div>
 
@@ -523,6 +527,7 @@ if (!$conn) {
           <table class="table table-hover table-striped" id='myTable'>
             <thead>
               <tr>
+              <th scope="col">ID</th>
                 <th scope="col">Name</th>
                 <th scope="col">Gender</th>
                 <th scope="col">Age</th>
@@ -554,6 +559,7 @@ if (!$conn) {
                 $un = $row['USERNAME'];
                 echo "
               <tr id='Receptionist'>
+              <th>" . $row["EMP_ID"] . "</th>
               <td>";
                 if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
                   echo "<a href='employee_profile.php?un =" . $un . "'>";

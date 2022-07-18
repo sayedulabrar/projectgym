@@ -3,7 +3,7 @@ session_start();
 $uname = $_SESSION['uname'];
 $ex = $_GET['un'];
 $designation = null;
-$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
+$conn = oci_connect('brownfalcon_gms2', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
   echo "sorry";

@@ -144,7 +144,7 @@ else
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                   <a href="pages/mailbox/mailbox.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Inbox</p>
@@ -155,7 +155,31 @@ else
                     <i class="far fa-circle nav-icon"></i>
                     <p>Compose</p>
                   </a>
-                </li>
+                </li> -->
+
+                <?php
+                                echo "<li class='nav-item'>
+
+                                
+                                    
+                                         <a href='pages/mailbox/mailbox.php?un=" . $uname . "' class='nav-link'>
+                                        <i class='far fa-circle nav-icon'></i>
+                                        <p>Inbox</p>
+                                         </a>
+
+                                   
+                                </li>";
+                                ?>
+
+
+                                <?php
+                                echo "<li class='nav-item'>                    
+                                <a href='pages/mailbox/compose.php?un=" . $uname . "' class='nav-link'>
+                                <i class='far fa-circle nav-icon'></i>
+                                <p>Compose</p>
+                                </a>
+                                </li>";
+                                ?>x
 
               </ul>
             </li>
@@ -230,7 +254,7 @@ else
               <!-- small box -->
               <div class="small-box bg-info">
                 <div class="inner">
-                  <p style="font-size: 22px; padding: 0px;margin: 0px;"><b style="font-size: 25px;padding-right: 40px;">
+                  <p ><b>
                   <?php
                   $sql = "select trainer from member where username='$uname'";
                     $stid = oci_parse($conn, $sql);
@@ -256,6 +280,7 @@ else
 
                     <!-- <button type="button" class="insert btn btn-success float-right" data-toggle="modal" data-target="#exampleModal">Add New</button> -->
                     <div class="col-lg-6 col-md-12" style="padding-top: 15px;padding-right:40px;">
+                    
               <!-- Insert Modal -->
               <?php
               
@@ -266,6 +291,8 @@ else
                 ';
               
               ?>
+              
+              
               <!-- Modal -->
               <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -276,6 +303,7 @@ else
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
+                    
                     <div class="modal-body">
                       <!-- <form action="member_db.php" method="POST"> -->
                         <div class="modal-body">
@@ -324,11 +352,13 @@ else
                           
 
                         </div>
+                        
                         <div class="modal-footer">
                           <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
                           <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                       </form>
+                      
                       
                     </div>
 
@@ -368,7 +398,7 @@ else
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <!-- <a href="#" class="small-box-footer">Rate Trainer <i class="fas fa-arrow-circle-right"></i></a> -->
+                <a href="#" class="small-box-footer"><i class="fas"></i></a>
               </div>
             </div>
 
@@ -378,12 +408,39 @@ else
                 <div class="inner">
                   <h3>
                   <?php
+                //   if(isset($_SESSION['pk_id'])){
+                //   $package_id=$_SESSION['pk_id'];
+                // }
+                $flag=0;
+                
+                 if([$_SESSION['pk_id']]<> NULL && $flag==1)
+                 {
+                   $package_id =  $_SESSION['pk_id'];
+                   echo $package_id;
+                   $sql2 = "select PKG_DURATION from PACKAGE natural join users natural join M_pkg where PKG_ID='$package_id'";
+                   $stid = oci_parse($conn, $sql2);
+                   $r = oci_execute($stid);
+                   $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                    // echo var_dump($row);
+                    // if($row['PKG_DURATION']==true){
+                      // echo var_dump($row);
+                      //  $dur = $row['PKG_DURATION'];
+                      //  echo $dur;
+                //  }
+
+                 }
+
                   $sql = "select MEMBERSHIP_EXPIRY from member where username='$uname'";
-                    $stid = oci_parse($conn, $sql);
-                    $r = oci_execute($stid);
-                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    
-                    echo $row['MEMBERSHIP_EXPIRY'];
+                  $stid = oci_parse($conn, $sql);
+                  $r = oci_execute($stid);
+                  $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                  $exp=$row['MEMBERSHIP_EXPIRY'];
+                  // $sql2 = "select PKG_DURATION from PACKAGE where PKG_ID='$package_id'";
+                  //   $stid = oci_parse($conn, $sql2);
+                  //   $r = oci_execute($stid);
+                  //   $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                  //   $dur=$row['PKG_DURATION'];
+                    echo $exp;
                     
                    
                     ?>
@@ -541,7 +598,9 @@ else
 
                   else
                   {
-
+                    // $dur = $row['PKG_DURATION'];
+                    // echo $dur;
+                    // echo $_SESSION['pk_id'];
                   }
 
                   ?>
@@ -568,14 +627,15 @@ else
                     $r = oci_execute($stid);
                     $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
                     $Fol_Set=NULL;
+                    // echo var_dump($row);
                     if($row) {
                       if($row['F_SET'] == 1) {
                         echo "Beginner";
-                        $Fol_Set="Beginner";
+                         $Fol_Set="Beginner";
                       }
                       else if($row['F_SET'] == 2) {
                         echo "Indermediate";
-                        $Fol_Set="Indermediate";
+                         $Fol_Set="Indermediate";
                       }
                       else if($row['F_SET'] == 3) {
                         echo "Advanced";
@@ -663,7 +723,7 @@ else
                                 echo "<tr>
                                 <th scope='row'>Monday</th>
                                 <td>".$row['EXE_ID']."</td>
-                                <td>".$row['EXE_NAME']."</td>
+                                <td><a href='exercise_details.php?un=". $row['EXE_ID']."'>".$row['EXE_NAME']."</a></td>
                                 <td>".$row['EXE_TYPE']."</td>
                                 <td>".$Set."</td>
                                 <td>".$Set_item."</td>
