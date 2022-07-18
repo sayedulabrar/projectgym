@@ -464,17 +464,53 @@ if (!$conn) {
     <div class="content-wrapper">
       <section class="content" style="margin-bottom:50px ;">
 
+      <?php
+        if ($_GET) {
+          if ($_GET['un'] == 'i') {
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+              Successfully inserted
+              <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+              <span aria-hidden='true'>&times;</span>
+              </button>
+            </div>";
+          } elseif ($_GET['un'] == 'u') {
+            echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+              Successfully Updated
+              <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+              <span aria-hidden='true'>&times;</span>
+              </button>
+            </div>";
+          } elseif ($_GET['un'] == 'd') {
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+              Maintenance Done
+              <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+              <span aria-hidden='true'>&times;</span>
+              </button>
+            </div>";
+          }
+        }
+        ?>
+        <div class="container-fluid">
+          <!-- <form action="Manager-results.html"> -->
+          <div class="row">
+              
+            <div class="col-md-12">
+              <div class="card card-secondary">
+                <div class="card-header">
+                  <h3 class="card-title">Search Using</h3>
 
-      <div class="alert alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <div class="bg-light clearfix">
-            <div class="row" style="padding-top: 30px;">
-              <div class="col-lg-6 col-md-12">
-                <h2 style="margin-left: 25px;"> Search Using</h2>
-              </div>
-            </div>
-            <br>
-            <div class="container" >
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                              title="Collapse">
+                    <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="bg-light clearfix">
+                    
+                    <br>
+                    <div class="container" >
               <div class="row">
                 
                 <div class="form-group col-lg-5 col-12">
@@ -563,9 +599,19 @@ if (!$conn) {
                 </div>
               </div>
             </div>
+                  </div>
+
+                </div>
+                      <!-- /.card-body -->
+              </div>
+                  <!-- /.card -->
+            </div>
+
           </div>
         </div>
+      
 
+      
         <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -588,33 +634,7 @@ if (!$conn) {
             </div>
           </div>
         </div>
-        <?php
-        if ($_GET) {
-          if ($_GET['un'] == 'i') {
-            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-              Successfully inserted
-              <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-              <span aria-hidden='true'>&times;</span>
-              </button>
-            </div>";
-          } elseif ($_GET['un'] == 'u') {
-            echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
-              Successfully Updated
-              <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-              <span aria-hidden='true'>&times;</span>
-              </button>
-            </div>";
-          } elseif ($_GET['un'] == 'd') {
-            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
-              Maintenance Done
-              <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-              <span aria-hidden='true'>&times;</span>
-              </button>
-            </div>";
-          }
-        }
-        ?>
-
+        
         <div class="bg-light clearfix">
           <div class="row" style="padding-top: 30px;">
             <div class="col-lg-6 col-md-12">
@@ -801,7 +821,7 @@ if (!$conn) {
               
                 if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
                   if($row["CUR"] == '1' ) {
-                  echo "<td> <button class='delete btn btn-sm btn-danger'>Remove</button>";
+                  echo "<td> <button class='delete btn btn-sm btn-success'>Done</button>";
                   }
                   else {
                     echo "<td> </td>";

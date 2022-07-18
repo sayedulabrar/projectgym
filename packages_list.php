@@ -4,6 +4,9 @@ $showname = $_SESSION['uname'];
 $designation = $_SESSION['profation'];
 $_SESSION['pk_amount']=NULL;
 $_SESSION['pk_id']=NULL;
+$costActive = false;
+$packActive = false;
+$durationActive = false;
 if ($_GET != NULL && ($_GET['un'] != 'u' && $_GET['un'] != 'i' && $_GET['un'] != 'd' && $_GET['un'] != 'w')) {
   $uname = $_GET['un'];
 } else {
@@ -102,6 +105,20 @@ if (!$conn) {
 
       header("Location: packages_list.php?un=u");
     }
+    if(isset($_POST['s_a']) && isset($_POST['f_a'])) {
+      $s_a = $_POST['s_a'];
+      $f_a = $_POST['f_a'];
+      $costActive = true;
+    }
+    if(isset($_POST['pt'])) {
+      $pt = $_POST['pt'];
+      $packActive = true;
+    }
+    if(isset($_POST['du'])) {
+      $du = $_POST['du'];
+      $durationActive = true;
+    }
+
   }
 }
 ?>
@@ -487,9 +504,11 @@ if (!$conn) {
     }
   }
     ?>
+    
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <section class="content" style="margin-bottom:50px ;">
+<<<<<<< HEAD
         <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -522,6 +541,9 @@ if (!$conn) {
           </div>
         </div>
         <?php
+=======
+      <?php
+>>>>>>> 670d4b66bda5d6b435bab90a9b1c93da3c82bfae
         if ($_GET) {
           if ($_GET['un'] == 'i') {
             echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
@@ -547,6 +569,118 @@ if (!$conn) {
           }
         }
         ?>
+        <div class="container-fluid">
+          <!-- <form action="Manager-results.html"> -->
+          <div class="row">
+              
+            <div class="col-md-12">
+              <div class="card card-secondary">
+                <div class="card-header">
+                  <h3 class="card-title">Search Using</h3>
+
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                              title="Collapse">
+                    <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="bg-light clearfix">
+                    
+                    <br>
+                    <div class="container" >
+                      <div class="row">
+                        
+                        <div class="form-group col-lg-3 col-12">
+                          <h5 style="text-align: center;">Package Type</h5>
+                          <br>
+                          <div class="row">
+                            <div class="form-group col-lg-12 col-12">
+                              <form action="packages_list.php" method = "POST">
+                                <div class="row">
+                                  <div class="form-group col-lg-7 col-12">
+                                    <input type="text" placeholder="Type" class="form-control" id="pt" name="pt">
+                                  </div>
+                                  <div class="form-group col-lg-5 col-12">
+                                    <button type="submit" class="btn btn-secondary">Search</button>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                          
+                        </div>
+                        <div class="form-group col-lg-5 col-12" >
+                          <h5 style="text-align: center;">Charge</h5>  
+                          <br>
+                          <form action="packages_list.php" method = "POST">
+                            <div class="row" >
+                              <div class="form-group col-lg-5 col-12" >
+                                <input type="text" placeholder="From" class="form-control" id="s_a" name="s_a" aria-describedby="emailHelp">  
+                              </div>
+                              <div class="form-group col-lg-4 col-12">
+                                <input type="text" placeholder="To" class="form-control" id="f_a" name="f_a">
+                              </div>
+                              <div class="form-group col-lg-3 col-12">
+                                <button type="submit" class="btn btn-secondary">Search</button>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="form-group col-lg-4 col-12" >
+                          <h5 style="text-align: center;">Duration</h5>  
+                          <br>
+                          <form action="packages_list.php" method = "POST">
+                            <div class="row" >
+                              <div class="form-group col-lg-8 col-12">
+                                <input type="text" placeholder="Months" class="form-control" id="du" name="du">
+                              </div>
+                              <div class="form-group col-lg-4 col-12">
+                                <button type="submit" class="btn btn-secondary">Search</button>
+                                
+                              </div>
+                            </div>
+                            
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                      <!-- /.card-body -->
+              </div>
+                  <!-- /.card -->
+            </div>
+
+          </div>
+        </div>
+      
+      
+
+        <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">Are you sure you want to remove this package?</h5>
+                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button> -->
+              </div>
+              <div class="modal-body">
+                <form action="packages_list.php" method="POST">
+                  <input type="hidden" name="pkg_id" id="pkg_id">
+                  <div class="modal-body" style="float: right;">
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='packages_list.php'">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Comfirm</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        
 
         <div class="bg-light clearfix">
           <div class="row" style="padding-top: 30px;">
@@ -698,7 +832,20 @@ if (!$conn) {
             <tbody>
               <?php
               // $br_name = $packageInfo["BR_NAME"];
-              $sql = "select *from branch natural join br_pkg natural join package where br_name = (select br_name from users where username = '$uname')";
+              if($costActive) {
+                $sql = "select *from branch natural join br_pkg natural join package where br_name = (select br_name from users where username = '$uname') and $s_a <= PKG_CHARGE and $f_a >= PKG_CHARGE";
+              }
+              elseif($durationActive) {
+                $_SESSION['xxx'] = $du;
+                $sql = "select *from branch natural join br_pkg natural join package where br_name = (select br_name from users where username = '$uname') and PKG_DURATION	 = $du";
+              }
+              elseif($packActive) {
+                $sql = "select *from branch natural join br_pkg natural join package where br_name = (select br_name from users where username = '$uname') and PKG_TYPE = '$pt'";
+              }
+              else {
+                $sql = "select *from branch natural join br_pkg natural join package where br_name = (select br_name from users where username = '$uname')";
+              }
+              
               $stid = oci_parse($conn, $sql);
               $r = oci_execute($stid);
               while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {

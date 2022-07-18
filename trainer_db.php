@@ -282,7 +282,12 @@ if (!$conn) {
                                 <div class="inner">
                                     <h3>
                                         <?php
-                                        echo $tra["SHIFT"] . ".00 am";
+                                            if($tra["SHIFT"] == 1) {
+                                                echo "Morning";
+                                            }
+                                            else {
+                                                echo "Evening";
+                                            }
                                         ?>
                                     </h3>
 

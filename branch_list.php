@@ -296,7 +296,7 @@ if (!$conn) {
                         </div>
                         <div class="modal-footer">
                           <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-primary">Add Equipment</button>
+                          <button type="submit" class="btn btn-primary">Create Branch</button>
                         </div>
                       </form>
                     </div>

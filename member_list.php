@@ -438,93 +438,113 @@ if (!$conn) {
                 </div>";
         }
         ?>
-        <div class="alert alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <div class="bg-light clearfix">
-            <div class="row" style="padding-top: 30px;">
-              <div class="col-lg-6 col-md-12">
-                <h2 style="margin-left: 25px;"> Search Using</h2>
-              </div>
-            </div>
-            <br>
-            <div class="container" >
-              <div class="row">
-                
-                <div class="form-group col-lg-5 col-12">
-                  <h5 style="text-align: center;">Membership Left</h5>
-                  <br>
-                  <div class="row">
-                    <div class="form-group col-lg-6 col-12">
-                      <form action="member_list.php" method = "POST">
-                        <div class="row">
-                          <div class="form-group col-lg-7 col-12">
-                            <input type="text" placeholder="Days or less" class="form-control" id="ml" name="ml">
-                          </div>
-                          <div class="form-group col-lg-5 col-12">
-                            <button type="submit" class="btn btn-secondary">Search</button>
-                            
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                    <div class="form-group col-lg-6 col-12">
-                      <form action="member_list.php" method = "POST">
-                        <div class="row">
-                          <div class="form-group col-lg-7 col-12">
-                            <input type="text" placeholder="Days or More" class="form-control" id="mo" name="mo">
-                          </div>
-                          <div class="form-group col-lg-5 col-12">
-                            <button type="submit" class="btn btn-secondary">Search</button>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
+        <div class="container-fluid">
+          <!-- <form action="Manager-results.html"> -->
+          <div class="row">
+              
+            <div class="col-md-12">
+              <div class="card card-secondary">
+                <div class="card-header">
+                  <h3 class="card-title">Search Using</h3>
+
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                              title="Collapse">
+                    <i class="fas fa-minus"></i>
+                    </button>
                   </div>
-                  
                 </div>
-                <div class="form-group col-lg-4 col-12" >
-                  <h5 style="text-align: center;">Age</h5>  
-                  <br>
-                  <form action="member_list.php" method = "POST">
-                    <div class="row" >
-                      <div class="form-group col-lg-5 col-12" >
-                        <input type="text" placeholder="From" class="form-control" id="s_a" name="s_a" aria-describedby="emailHelp">  
-                      </div>
-                      <div class="form-group col-lg-4 col-12">
-                        <input type="text" placeholder="To" class="form-control" id="f_a" name="f_a">
-                      </div>
-                      <div class="form-group col-lg-3 col-12">
-                        <button type="submit" class="btn btn-secondary">Search</button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-                <div class="form-group col-lg-3 col-12" >
-                  <h5 style="text-align: center;">Trainer</h5>  
-                  <br>
-                  <form action="member_list.php" method = "POST">
-                    <div class="row" >
-                      <div class="form-group col-lg-8 col-12">
-                        <input type="text" placeholder="Username" class="form-control" id="un" name="un">
-                      </div>
-                      <div class="form-group col-lg-4 col-12">
-                        <button type="submit" class="btn btn-secondary">Search</button>
+                <div class="card-body">
+                  <div class="bg-light clearfix">
+                    
+                    <br>
+                    <div class="container" >
+                    <div class="row">
+                      
+                      <div class="form-group col-lg-5 col-12">
+                        <h5 style="text-align: center;">Membership Left</h5>
+                        <br>
+                        <div class="row">
+                          <div class="form-group col-lg-6 col-12">
+                            <form action="member_list.php" method = "POST">
+                              <div class="row">
+                                <div class="form-group col-lg-7 col-12">
+                                  <input type="text" placeholder="Days or less" class="form-control" id="ml" name="ml">
+                                </div>
+                                <div class="form-group col-lg-5 col-12">
+                                  <button type="submit" class="btn btn-secondary">Search</button>
+                                  
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                          <div class="form-group col-lg-6 col-12">
+                            <form action="member_list.php" method = "POST">
+                              <div class="row">
+                                <div class="form-group col-lg-7 col-12">
+                                  <input type="text" placeholder="Days or More" class="form-control" id="mo" name="mo">
+                                </div>
+                                <div class="form-group col-lg-5 col-12">
+                                  <button type="submit" class="btn btn-secondary">Search</button>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
                         
                       </div>
+                      <div class="form-group col-lg-4 col-12" >
+                        <h5 style="text-align: center;">Age</h5>  
+                        <br>
+                        <form action="member_list.php" method = "POST">
+                          <div class="row" >
+                            <div class="form-group col-lg-5 col-12" >
+                              <input type="text" placeholder="From" class="form-control" id="s_a" name="s_a" aria-describedby="emailHelp">  
+                            </div>
+                            <div class="form-group col-lg-4 col-12">
+                              <input type="text" placeholder="To" class="form-control" id="f_a" name="f_a">
+                            </div>
+                            <div class="form-group col-lg-3 col-12">
+                              <button type="submit" class="btn btn-secondary">Search</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="form-group col-lg-3 col-12" >
+                        <h5 style="text-align: center;">Trainer</h5>  
+                        <br>
+                        <form action="member_list.php" method = "POST">
+                          <div class="row" >
+                            <div class="form-group col-lg-8 col-12">
+                              <input type="text" placeholder="Username" class="form-control" id="un" name="un">
+                            </div>
+                            <div class="form-group col-lg-4 col-12">
+                              <button type="submit" class="btn btn-secondary">Search</button>
+                              
+                            </div>
+                          </div>
+                          <?php
+                                    if($wrongUname) {
+                                      echo '
+                                      <p style="color: red;"> Wrong Username</p>
+                                      ';
+                                    } 
+                                  ?>
+                        </form>
+                      </div>
                     </div>
-                    <?php
-                              if($wrongUname) {
-                                echo '
-                                <p style="color: red;"> Wrong Username</p>
-                                ';
-                              } 
-                            ?>
-                  </form>
+                  </div>
+
                 </div>
+                      <!-- /.card-body -->
               </div>
+                  <!-- /.card -->
             </div>
+
           </div>
         </div>
+      
+        
         <div class="bg-light clearfix">
           <div class="row" style="padding-top: 30px;">
             <div class="col-lg-6 col-md-12">
@@ -596,14 +616,14 @@ if (!$conn) {
                   echo "</a>";
                 }
                 echo "</td>
-                                <td>" . $row["GENDER"] . "</td>
-                                <td>";
-                                echo floor($row["SYSDATE-DOB"] / 365);
-                                echo "</td>
-                                <td>" . $row["TRAINER"] . "</td>
-                                <td>" . $row["MEMBERSHIP_EXPIRY"] . "</td>
-                                </tr>
-                                ";
+                <td>" . $row["GENDER"] . "</td>
+                <td>";
+                echo floor($row["SYSDATE-DOB"] / 365);
+                echo "</td>
+                <td>" . $row["TRAINER"] . "</td>
+                <td>" . $row["MEMBERSHIP_EXPIRY"] . "</td>
+                </tr>
+                ";
               }
 
 

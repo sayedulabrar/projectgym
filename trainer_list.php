@@ -20,15 +20,6 @@ if (!$conn) {
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['username'])) {
       $username = $_POST['username'];
-      // $sql = "DELETE FROM message WHERE username = '$username'";
-      // $stid = oci_parse($conn, $sql);
-      // $r = oci_execute($stid);
-      // $sql = "DELETE FROM user_mobileno WHERE username = '$username'";
-      // $stid = oci_parse($conn, $sql);
-      // $r = oci_execute($stid);
-      // $sql = "DELETE FROM employee WHERE username = '$username'";
-      // $stid = oci_parse($conn, $sql);
-      // $r = oci_execute($stid);
       $sql = "select * from member where trainer = '$username'";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
@@ -490,16 +481,27 @@ if (!$conn) {
           }
         }
         ?>
-        <div class="alert alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <div class="bg-light clearfix">
-            <div class="row" style="padding-top: 30px;">
-              <div class="col-lg-6 col-md-12">
-                <h2 style="margin-left: 25px;"> Search Using</h2>
-              </div>
-            </div>
-            <br>
-            <div class="container" >
+        <div class="container-fluid">
+          <!-- <form action="Manager-results.html"> -->
+          <div class="row">
+              
+            <div class="col-md-12">
+              <div class="card card-secondary">
+                <div class="card-header">
+                  <h3 class="card-title">Search Using</h3>
+
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                              title="Collapse">
+                    <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="bg-light clearfix">
+                    
+                    <br>
+                    <div class="container" >
               <div class="row">
                 <div class="form-group col-lg-4 col-12" >
                   <h5 style="text-align: center;">Rating</h5>  
@@ -554,8 +556,18 @@ if (!$conn) {
                 </div>
               </div>
             </div>
+                  </div>
+
+                </div>
+                      <!-- /.card-body -->
+              </div>
+                  <!-- /.card -->
+            </div>
+
           </div>
         </div>
+      
+        
         
         <div class="bg-light clearfix">
           <div class="row" style="padding-top: 30px;">
