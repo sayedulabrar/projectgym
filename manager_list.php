@@ -1,5 +1,7 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output et
+$ageActive = false;
+$salaryActive = false;
 $uname = $_SESSION['uname'];
 
 $_SESSION['designation'] = 'Manager';
@@ -33,6 +35,16 @@ if (!$conn) {
       $sql = "UPDATE USERS SET BR_NAME = '$br_name' where USERNAME = '$username'";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
+    }
+    if(isset($_POST['s_a']) && isset($_POST['f_a'])) {
+      $s_a = $_POST['s_a'];
+      $f_a = $_POST['f_a'];
+      $ageActive = true;
+    }
+    if(isset($_POST['s_s']) && isset($_POST['f_s'])) {
+      $s_s = $_POST['s_s'];
+      $f_s = $_POST['f_s'];
+      $salaryActive = true;
     }
   }
 }
@@ -296,6 +308,76 @@ if (!$conn) {
           </div>
         </div>
 
+        <div class="container-fluid">
+          <!-- <form action="Manager-results.html"> -->
+          <div class="row">
+              
+            <div class="col-md-12">
+              <div class="card card-secondary">
+                <div class="card-header">
+                  <h3 class="card-title">Search Using</h3>
+
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                              title="Collapse">
+                    <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="bg-light clearfix">
+                    
+                    <br>
+                    <div class="container" >
+              <div class="row">
+                
+                <div class="form-group col-lg-6 col-12">
+                  <h5 style="text-align: center;">Salary</h5>
+                  <br>
+                  <form action="manager_list.php" method = "POST">
+                    <div class="row">
+                      <div class="form-group col-lg-4 col-12">
+                        <input type="text" placeholder="From" class="form-control" id="s_s" name="s_s" aria-describedby="emailHelp">  
+                      </div>
+                      <div class="form-group col-lg-4 col-12">
+                        <input type="text" placeholder="To" class="form-control" id="f_s" name="f_s">
+                      </div>
+                      <div class="form-group col-lg-4 col-12">
+                        <button type="submit" class="btn btn-secondary">Search</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="form-group col-lg-6 col-12">
+                  <h5 style="text-align: center;">Age</h5>
+                  <br>
+                  <form action="manager_list.php" method = "POST">
+                    <div class="row">
+                      <div class="form-group col-lg-4 col-12">
+                        <input type="text" placeholder="From" class="form-control" id="s_a" name="s_a" aria-describedby="emailHelp">  
+                      </div>
+                      <div class="form-group col-lg-4 col-12">
+                        <input type="text" placeholder="To" class="form-control" id="f_a" name="f_a">
+                      </div>
+                      <div class="form-group col-lg-4 col-12">
+                        <button type="submit" class="btn btn-secondary">Search</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+                  </div>
+
+                </div>
+                      <!-- /.card-body -->
+              </div>
+                  <!-- /.card -->
+            </div>
+
+          </div>
+        </div>
+
 
         <div class="bg-light clearfix">
           <div class="row" style="padding-top: 30px;">
@@ -319,7 +401,7 @@ if (!$conn) {
                 <th scope="col">Employee ID</th>
                 <th scope="col">Name</th>
                 <th scope="col">Gender</th>
-
+                <th scope="col">Age</th>
                 <th scope="col">Salary</th>
                 <th scope="col">Shift</th>
                 <th scope="col">Action</th>
@@ -328,7 +410,16 @@ if (!$conn) {
             </thead>
             <tbody>
               <?php
+              if($ageActive) {
+                $sql = "select EMP_ID, NAME, GENDER, SALARY, SYSDATE - DOB, USERNAME, BR_NAME, SHIFT from users natural join employee where designation = 'Manager' and floor((SYSDATE - DOB)/365) >= $s_a and floor((SYSDATE - DOB)/365) <= $f_a";
+                
+              }
+              elseif($salaryActive) {
+                $sql = "select EMP_ID, NAME, GENDER, SALARY, SYSDATE - DOB, USERNAME, BR_NAME, SHIFT from users natural join employee where designation = 'Manager' and salary >=$s_s and salary <= $f_s";
+              }
+              else {
               $sql = "select EMP_ID, NAME, GENDER, SALARY, SYSDATE - DOB, USERNAME, BR_NAME, SHIFT from users natural join employee where designation = 'Manager'";
+              }
               $stid = oci_parse($conn, $sql);
               $r = oci_execute($stid);
               while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
@@ -338,10 +429,18 @@ if (!$conn) {
               <th scope='row'>" . $row['EMP_ID'] . "</th>
               <td><a href='employee_profile.php?un =" . $un . " '>" . $row["NAME"] . "</a></td>
               <td>" . $row["GENDER"] . "</td>
-              
+              <td>" . floor($row["SYSDATE-DOB"] / 365) . "</td>
               <td>" . $row["SALARY"] . "</td>
-              <td>" . $row["SHIFT"] . "</td>
-              <td> <button class='delete btn btn-sm btn-danger' id=" . $row['USERNAME'] . ">Remove</button> <button class='update btn btn-sm btn-primary' id=" . $row['BR_NAME'] . ">Edit</button> </td>
+              <td>";
+              if($row['SHIFT'] == 1) {
+                echo "Morning";
+              }
+              else {
+                echo "Evening";
+              }
+              
+               echo "</td>";
+              echo "<td> <button class='delete btn btn-sm btn-danger' id=" . $row['USERNAME'] . ">Remove</button> <button class='update btn btn-sm btn-primary' id=" . $row['BR_NAME'] . ">Edit</button> </td>
               </tr>
               ";
                 // ECHO var_dump($row);

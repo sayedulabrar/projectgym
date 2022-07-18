@@ -41,7 +41,7 @@ if (!$conn) {
     $array = explode(",", $mobileno);
     $test = count($array);
 
-    $sql = "insert into users (username, password, dob, name, gender, email, address, blood_grp, account_no, br_name) values ('$username', '$password', to_date('$dob', 'dd-mon-yy'), '$name', '$gender', '$email', '$address', '$bloodgrp', $accountno, '$br_name')";
+    $sql = "insert into users (username, password, dob, name, gender, email, address, blood_grp, account_no, br_name) values ('$username', '$password', to_date('$dob', 'mm/dd/yyyy'), '$name', '$gender', '$email', '$address', '$bloodgrp', $accountno, '$br_name')";
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
 
@@ -83,6 +83,8 @@ if (!$conn) {
   <link rel="stylesheet" href="  plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="  dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
 </head>
 
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -216,10 +218,14 @@ if (!$conn) {
                   </div>
                   <div class="form-group">
                     <label for="gender">Gender</label>
-                    <input type="text" id="gender" name="gender" class="form-control">
+                    <br>
+                    <select name="gender" id="gender" class="form-select" aria-label="Default select example" style="width: 576px; height: 37px;">
+                      <option selected value="Male">Male</option>
+                      <option value="Female">Female</option>
+                    </select>
                   </div>
                   <div class="form-group">
-                    <label for="dob"> Date of Birth (eg. 31-MAR-00)</label>
+                    <label for="dob"> Date of Birth</label>
                     <input type="text" id="dob" name="dob" class="form-control">
                   </div>
                   <div class="form-group">
@@ -248,15 +254,15 @@ if (!$conn) {
                 <div class="card-body">
                   <div class="form-group">
                     <label for="accountno">Account No</label>
-                    <input type="text" id="accountno" name="accountno" class="form-control">
+                    <input type="number" id="accountno" name="accountno" class="form-control">
                   </div>
                   <div class="form-group">
                     <label for="height">Height</label>
-                    <input type="text" id="height" name="height" class="form-control">
+                    <input type="number" id="height" name="height" class="form-control">
                   </div>
                   <div class="form-group">
                     <label for="weight">Weight</label>
-                    <input type="text" id="weight" name="weight" class="form-control">
+                    <input type="number" id="weight" name="weight" class="form-control">
                   </div>
                   <div class="form-group">
                     <label for="outcome">Expected Outcome</label>
@@ -268,7 +274,18 @@ if (!$conn) {
                   </div>
                   <div class="form-group">
                     <label for="bloodgrp">Blood Group</label>
-                    <input type="text" id="bloodgrp" name="bloodgrp" class="form-control">
+                    <br>
+                    <select name="bloodgrp" id="bloodgrp" class="form-select" aria-label="Default select example" style="width: 576px; height: 37px;">
+                      <option selected value="A+">A+</option>
+                      <option value="A-">A-</option>
+                      <option value="B+">B+</option>
+                      <option value="B-">B-</option>
+                      <option value="O+">O+</option>
+                      <option value="O-">O-</option>
+                      <option value="AB+">AB+</option>
+                      <option value="AB-">AB-</option>
+                      
+                    </select>
                   </div>
 
                 </div>
@@ -307,6 +324,16 @@ if (!$conn) {
   <script src="  dist/js/adminlte.min.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="  dist/js/demo.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+  <script>
+    $(function() {
+      $("#dob").datepicker({
+        changeMonth: true,
+        changeYear: true
+      });
+    });
+  </script>
 </body>
 
 </html>

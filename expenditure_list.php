@@ -2,7 +2,9 @@
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 
 $showname = $_SESSION['uname'];
-
+$leActive = false;
+$meActive = false;
+$historyActive = false;
 if ($_GET != NULL && ($_GET['un'] != 'u' && $_GET['un'] != 'i' && $_GET['un'] != 'd' && $_GET['un'] != 'w')) {
   $uname = $_GET['un'];
 } else {
@@ -36,6 +38,18 @@ if (!$conn) {
     $r = oci_execute($stid);
 
     header("Location: expenditure_list.php?un=i");
+  }
+  if(isset($_POST['le'])) {
+    $xx = $_POST['le'];
+    $leActive = true;
+  }
+  if(isset($_POST['me'])) {
+    $xx = $_POST['me'];
+    $meActive = true;
+  }
+  if(isset($_POST['his'])) {
+    $xx = $_POST['his'];
+    $historyActive = true;
   }
 }
 
@@ -336,7 +350,91 @@ if (!$conn) {
           </div>";
         }
         ?>
+        <div class="container-fluid">
+          <!-- <form action="Manager-results.html"> -->
+          <div class="row">
+              
+            <div class="col-md-12">
+              <div class="card card-secondary">
+                <div class="card-header">
+                  <h3 class="card-title">Search Using</h3>
 
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                              title="Collapse">
+                    <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="bg-light clearfix">
+                    
+                    <br>
+                    <div class="container" >
+              <div class="row">
+                
+                <div class="form-group col-lg-7 col-12">
+                  <h5 style="text-align: center;">Amount</h5>
+                  <br>
+                  <div class="row">
+                    <div class="form-group col-lg-6 col-12">
+                      <form action="expenditure_list.php" method = "POST">
+                        <div class="row">
+                          <div class="form-group col-lg-7 col-12">
+                            <input type="text" placeholder="Less or Equal" class="form-control" id="le" name="le">
+                          </div>
+                          <div class="form-group col-lg-5 col-12">
+                            <button type="submit" class="btn btn-secondary">Search</button>
+                            
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="form-group col-lg-6 col-12">
+                      <form action="expenditure_list.php" method = "POST">
+                        <div class="row">
+                          <div class="form-group col-lg-7 col-12">
+                            <input type="text" placeholder="More or Equal" class="form-control" id="me" name="me">
+                          </div>
+                          <div class="form-group col-lg-5 col-12">
+                            <button type="submit" class="btn btn-secondary">Search</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  
+                </div>
+                
+                <div class="form-group col-lg-4 col-12" >
+                  <h5 style="text-align: center;">History</h5>  
+                  <br>
+                  <form action="expenditure_list.php" method = "POST">
+                    <div class="row" >
+                      <div class="form-group col-lg-8 col-12">
+                        <input type="text" placeholder="Days" class="form-control" id="his" name="his">
+                      </div>
+                      <div class="form-group col-lg-4 col-12">
+                        <button type="submit" class="btn btn-secondary">Search</button>
+                        
+                      </div>
+                    </div>
+                   
+                  </form>
+                </div>
+              </div>
+            </div>
+                  </div>
+
+                </div>
+                      <!-- /.card-body -->
+              </div>
+                  <!-- /.card -->
+            </div>
+
+          </div>
+        </div>
+        
 
         <div class="bg-light clearfix">
           <div class="row" style="padding-top: 30px;">
@@ -413,7 +511,19 @@ if (!$conn) {
             </thead>
             <tbody>
               <?php
-              $sql = "select * from expenditure where br_name = (select br_name from users where username = '$uname')";
+              if($leActive) {
+                $sql = "select * from expenditure where br_name = (select br_name from users where username = '$uname') and $xx >= AMOUNT";
+              }
+              elseif($meActive) {
+                $sql = "select * from expenditure where br_name = (select br_name from users where username = '$uname') and $xx <= AMOUNT";
+              }
+              elseif($historyActive) {
+                $sql = "select * from expenditure where br_name = (select br_name from users where username = '$uname') and (extract(day from (CURRENT_TIMESTAMP - EXP_DATEANDTIME))) <=$xx-1";
+              }
+              else {
+                $sql = "select * from expenditure where br_name = (select br_name from users where username = '$uname')";
+              }
+              
               $stid = oci_parse($conn, $sql);
               $r = oci_execute($stid);
               while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
