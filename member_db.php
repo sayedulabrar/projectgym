@@ -411,16 +411,16 @@ else
                 //   if(isset($_SESSION['pk_id'])){
                 //   $package_id=$_SESSION['pk_id'];
                 // }
-                $flag=0;
+               
                 
-                 if([$_SESSION['pk_id']]<> NULL && $flag==1)
-                 {
-                   $package_id =  $_SESSION['pk_id'];
-                   echo $package_id;
-                   $sql2 = "select PKG_DURATION from PACKAGE natural join users natural join M_pkg where PKG_ID='$package_id'";
-                   $stid = oci_parse($conn, $sql2);
-                   $r = oci_execute($stid);
-                   $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                 
+                
+                  //  $package_id =  $_SESSION['pk_id'];
+                  //  echo $package_id;
+                  //  $sql2 = "select PKG_DURATION from PACKAGE natural join users natural join M_pkg where PKG_ID='$package_id'";
+                  //  $stid = oci_parse($conn, $sql2);
+                  //  $r = oci_execute($stid);
+                  //  $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
                     // echo var_dump($row);
                     // if($row['PKG_DURATION']==true){
                       // echo var_dump($row);
@@ -428,7 +428,7 @@ else
                       //  echo $dur;
                 //  }
 
-                 }
+                 
 
                   $sql = "select MEMBERSHIP_EXPIRY from member where username='$uname'";
                   $stid = oci_parse($conn, $sql);
@@ -711,7 +711,7 @@ else
                                 echo "<tr>
                                 <th scope='row'>Sunday</th>
                                 <td>".$row['EXE_ID']."</td>
-                                <td>".$row['EXE_NAME']."</td>
+                                <td><a href='exercise_details.php?un=". $row['EXE_ID']."'>".$row['EXE_NAME']."</a></td>
                                 <td>".$row['EXE_TYPE']."</td>
                                 <td>".$Set."</td>
                                 <td>".$Set_item."</td>
@@ -736,7 +736,7 @@ else
                                 echo "<tr>
                                 <th scope='row'>Tuesday</th>
                                 <td>".$row['EXE_ID']."</td>
-                                <td>".$row['EXE_NAME']."</td>
+                                <td><a href='exercise_details.php?un=". $row['EXE_ID']."'>".$row['EXE_NAME']."</a></td>
                                 <td>".$row['EXE_TYPE']."</td>
                                 <td>".$Set."</td>
                                 <td>".$Set_item."</td>
@@ -748,7 +748,7 @@ else
                                 echo "<tr>
                                 <th scope='row'>Wednesday</th>
                                 <td>".$row['EXE_ID']."</td>
-                                <td>".$row['EXE_NAME']."</td>
+                                <td><a href='exercise_details.php?un=". $row['EXE_ID']."'>".$row['EXE_NAME']."</a></td>
                                 <td>".$row['EXE_TYPE']."</td>
                                 <td>".$Set."</td>
                                 <td>".$Set_item."</td>
@@ -760,7 +760,7 @@ else
                                 echo "<tr>
                                 <th scope='row'>Thursday</th>
                                 <td>".$row['EXE_ID']."</td>
-                                <td>".$row['EXE_NAME']."</td>
+                                <td><a href='exercise_details.php?un=". $row['EXE_ID']."'>".$row['EXE_NAME']."</a></td>
                                 <td>".$row['EXE_TYPE']."</td>
                                 <td>".$Set."</td>
                                 <td>".$Set_item."</td>
@@ -772,7 +772,7 @@ else
                                 echo "<tr>
                                 <th scope='row'>Friday</th>
                                 <td>".$row['EXE_ID']."</td>
-                                <td>".$row['EXE_NAME']."</td>
+                                <td><a href='exercise_details.php?un=". $row['EXE_ID']."'>".$row['EXE_NAME']."</a></td>
                                 <td>".$row['EXE_TYPE']."</td>
                                 <td>".$Set."</td>
                                 <td>".$Set_item."</td>
@@ -822,10 +822,10 @@ else
 
     <!-- Main Footer -->
     <footer class="main-footer">
-      <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+      <strong>Copyright &copy; 2022-2027 <a href="#">Gym Management System</a>.</strong>
       All rights reserved.
       <div class="float-right d-none d-sm-inline-block">
-        <b>Version</b> 3.2.0-rc
+        <!-- <b>Version</b> 3.2.0-rc -->
       </div>
     </footer>
   </div>

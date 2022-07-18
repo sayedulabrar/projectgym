@@ -57,27 +57,28 @@ if (!$conn) {
         $stid = oci_parse($conn, $sql);
         $r = oci_execute($stid);
         $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-        $_SESSION['pk_id']=$row['PKG_ID'];
+         $_SESSION['pk_id']=$row['PKG_ID'];
         $amount = $row['PKG_CHARGE'];
         $_SESSION['pk_amount']=$amount;
-        $mm=$_SESSION['pk_amount'];
+         $mm=$_SESSION['pk_amount'];
         $sql = "insert into income (trx_id, username, inc_amount, br_name, inc_type, inc_dateandtime) values($trx_id, '$uname', $amount, '$br_name', 'Member Payment', SYSTIMESTAMP)";
         $stid = oci_parse($conn, $sql);
         $r = oci_execute($stid);
         //updating month of the user
         $package_ID= $_SESSION['pk_id'];
-        $sql = "select PKG_DURATION from PACKAGE where PKG_ID= $package_ID";
-        $stid = oci_parse($conn, $sql);
-        $r = oci_execute($stid);
-        $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-        $dur=$row['PKG_DURATION'];
-        echo $dur;
-        $sql = "update member set MEMBERSHIP_EXPIRY =ADD_MONTHS(MEMBERSHIP_EXPIRY,$dur)  where username='$uname'";
-        $stid = oci_parse($conn, $sql);
-        $r = oci_execute($stid);
+        
+         $sql = "select PKG_DURATION from PACKAGE where PKG_ID= $package_ID";
+         $stid = oci_parse($conn, $sql);
+         $r = oci_execute($stid);
          $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-         echo var_dump($row);
-
+         $dur=$row['PKG_DURATION'];
+         echo $dur;
+         $sql = "update member set MEMBERSHIP_EXPIRY =ADD_MONTHS(MEMBERSHIP_EXPIRY,$dur)  where username='$uname'";
+         $stid = oci_parse($conn, $sql);
+         $r = oci_execute($stid);
+          $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+          echo var_dump($row);
+      
 
       }
       else {
@@ -493,7 +494,17 @@ if (!$conn) {
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel1">Are you sure you want to remove this package?</h5>
+                <?php
+                if($designation=='Member'){
+                  echo "<h5 class='modal-title' id='exampleModalLabel1'>Are you sure you want to Purchase this package?</h5>";
+                }
+
+                else
+                {
+                  echo "<h5 class='modal-title' id='exampleModalLabel1'>Are you sure you want to remove this package?</h5>";
+                }
+
+                ?>
                 <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button> -->
@@ -733,10 +744,10 @@ if (!$conn) {
 
     <!-- Main Footer -->
     <footer class="main-footer dark-mode" style="color: #869099">
-      <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+      <strong>Copyright &copy; 2014-2021 <a href="#">Gym Management System</a>.</strong>
       All rights reserved.
       <div class="float-right d-none d-sm-inline-block">
-        <b>Version</b> 3.2.0-rc
+        <!-- <b>Version</b> 3.2.0-rc -->
       </div>
     </footer>
   </div>
