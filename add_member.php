@@ -26,26 +26,20 @@ if (!$conn) {
     $trainer = $_POST['trainer'];
 
     $password = $name;
-
     $sql = "select PER_MEM_ID_SQ.NEXTVAL from dual";
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
     $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
     $x = $row['NEXTVAL'];
     $username = $name . $x;
-
-
-
     $mobileno = $_POST['mobileno'];
     $array = explode(",", $mobileno);
     $test = count($array);
-
     $sql = "insert into users (username, password, dob, name, gender, email, address, blood_grp, account_no, br_name) values ('$username', '$password', to_date('$dob', 'mm/dd/yyyy'), '$name', '$gender', '$email', '$address', '$bloodgrp', $accountno, '$br_name')";
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
     $date = date("Y/m/d");
     $bmi = ($weight) / (($height / 100) * ($height / 100));
-    
     $sql = "insert into member(mem_id, username, mem_height, mem_weight, expected_outcome, trainer, memb_bmi, membership_expiry) values(PER_MEM_ID_SQ.CURRVAL, '$username', $height, $weight, '$outcome', '$trainer', $bmi, to_date('$date', 'yyyy/mm/dd')+30)";
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
@@ -59,17 +53,13 @@ if (!$conn) {
     header("Location: member_list.php?un=a");
   }
 }
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Add Member</title>
-
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -82,12 +72,9 @@ if (!$conn) {
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
     <!-- Theme style -->
 </head>
-
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
   <!-- Site wrapper -->
   <div class="wrapper">
-
-
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
@@ -95,7 +82,6 @@ if (!$conn) {
         <img src="  dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Fitness Mania</span>
       </a>
-
       <!-- Sidebar -->
       <div class="sidebar">
         <!-- Sidebar user (optional) -->
@@ -109,9 +95,6 @@ if (!$conn) {
             </a>
           </div>
         </div>
-
-
-
         <!-- Sidebar Menu -->
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -126,26 +109,16 @@ if (!$conn) {
                 </p>
               </a>
               <ul class="nav nav-treeview">
-
                 <li class="nav-item">
                   <a href="manager_db.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Manager</p>
                   </a>
                 </li>
-
               </ul>
             </li>
-
-
-
-
-
-
             <li class="nav-item">
-
             </li>
-
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="nav-icon far fa-envelope"></i>
@@ -167,19 +140,15 @@ if (!$conn) {
                     <p>Compose</p>
                   </a>
                 </li>
-
               </ul>
             </li>
             
-
-
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
       </div>
       <!-- /.sidebar -->
     </aside>
-
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper" style="margin-top: 0;">
       <!-- Content Header (Page header) -->
@@ -198,7 +167,6 @@ if (!$conn) {
           </div>
         </div><!-- /.container-fluid -->
       </section>
-
       <!-- Main content -->
       <section class="content" style="margin-bottom:50px ;">
         <form action="add_member.php" method="POST">
@@ -228,18 +196,14 @@ if (!$conn) {
                     <label for="email">Email <span style="color:#FF0000">*</span></label>
                     <input type="email" id="email" name="email" class="form-control" required>
                   </div>
-
                   <div class="form-group">
                     <label for="mobileno">Mobile No</label>
                     <input type="text" id="mobileno" name="mobileno" class="form-control">
                   </div>
-
                   <div class="form-group">
                     <label for="address">Address</label>
                     <input type="text" id="address" name="address" class="form-control">
                   </div>
-
-
                 </div>
                 <!-- /.card-body -->
               </div>
@@ -252,7 +216,6 @@ if (!$conn) {
                     <label for="select2">Assigned Trainer <span style="color:#FF0000">*</span></label>
                     <select class="select2" name="trainer" id = "trainer" style="width: 100%; height: 38px;">
                     <?php
-
                       $sql = "select *from users where username = '$uname'";
                       $stid = oci_parse($conn, $sql);
                       $r = oci_execute($stid);
@@ -302,11 +265,9 @@ if (!$conn) {
                       
                     </select>
                   </div>
-
                 </div>
               </div>
             </div>
-
           </div>
           <div class="row">
             <div class="col-12">
@@ -320,9 +281,6 @@ if (!$conn) {
       <div style="margin-bottom:30px ;"></div>
     </div>
     <!-- /.content-wrapper -->
-
-
-
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
       <!-- Control sidebar content goes here -->
@@ -330,7 +288,6 @@ if (!$conn) {
     <!-- /.control-sidebar -->
   </div>
   <!-- ./wrapper -->
-
   <!-- jQuery -->
   
   <script src="plugins/jquery/jquery.min.js"></script>
@@ -363,7 +320,5 @@ if (!$conn) {
     });
   </script>
   
-
 </body>
-
 </html>

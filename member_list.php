@@ -469,7 +469,7 @@ if (!$conn) {
                             <form action="member_list.php" method = "POST">
                               <div class="row">
                                 <div class="form-group col-lg-7 col-12">
-                                  <input type="text" placeholder="Days or less" class="form-control" id="ml" name="ml">
+                                  <input type="number" placeholder="Days or less" class="form-control" id="ml" name="ml">
                                 </div>
                                 <div class="form-group col-lg-5 col-12">
                                   <button type="submit" class="btn btn-secondary">Search</button>
@@ -482,7 +482,7 @@ if (!$conn) {
                             <form action="member_list.php" method = "POST">
                               <div class="row">
                                 <div class="form-group col-lg-7 col-12">
-                                  <input type="text" placeholder="Days or More" class="form-control" id="mo" name="mo">
+                                  <input type="number" placeholder="Days or More" class="form-control" id="mo" name="mo">
                                 </div>
                                 <div class="form-group col-lg-5 col-12">
                                   <button type="submit" class="btn btn-secondary">Search</button>
@@ -499,10 +499,10 @@ if (!$conn) {
                         <form action="member_list.php" method = "POST">
                           <div class="row" >
                             <div class="form-group col-lg-5 col-12" >
-                              <input type="text" placeholder="From" class="form-control" id="s_a" name="s_a" aria-describedby="emailHelp">  
+                              <input type="number" placeholder="From" class="form-control" id="s_a" name="s_a" aria-describedby="emailHelp">  
                             </div>
                             <div class="form-group col-lg-4 col-12">
-                              <input type="text" placeholder="To" class="form-control" id="f_a" name="f_a">
+                              <input type="number" placeholder="To" class="form-control" id="f_a" name="f_a">
                             </div>
                             <div class="form-group col-lg-3 col-12">
                               <button type="submit" class="btn btn-secondary">Search</button>
