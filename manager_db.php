@@ -2,6 +2,7 @@
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $showname = $_SESSION['uname'];
 
+  $_SESSION['profation'] = 'Trainer';
 $_SESSION['xxx'] = $_SESSION['profation'];
 if ($_GET) {
   $uname = $_GET['un'];
@@ -12,7 +13,7 @@ $_SESSION['designation'] = 'X';
 $branchExpenditure = 0;
 $branchRevenue = 0;
 
-$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
+$conn = oci_connect('Abrar', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
   echo "sorry";
@@ -238,20 +239,20 @@ if (!$conn) {
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="pages/mailbox/mailbox.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Inbox</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/mailbox/compose.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Compose</p>
-                  </a>
-                </li>
-                
-              </ul>
+              <li class="nav-item">
+                <a href="pages/mailbox/mailbox.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Inbox</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/mailbox/compose.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Compose</p>
+                </a>
+              </li>
+
+            </ul>
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link">
@@ -617,28 +618,73 @@ if (!$conn) {
                         <!-- <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 17%</span> -->
                         <h5 class="description-header">
                           <?php
-                          $sql = 'select br_name, inc_amount, CURRENT_TIMESTAMP-inc_dateandtime "differ" from income';
+                          $sql="select EXTRACT(MONTH FROM SYSDATE)-1 AS KP  from dual";
                           $stid = oci_parse($conn, $sql);
                           $r = oci_execute($stid);
-                          $ans = 0;
-                          while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                          $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
 
-                            $array = explode(" ", $row["differ"]);
-                            $diff = $array[0];
-                            $num = (int)$diff;
+                           $ddt = $row['KP'];
+                           $ddt2=$ddt-1;
 
-                            if ($num <= 30 && $row['BR_NAME'] == $userJoinBranch['BR_NAME']) {
-                              $ans = $ans +  $row["INC_AMOUNT"];
-                            }
+                          $sql="select  SUM(INC_AMOUNT) from income WHERE EXTRACT(MONTH FROM INC_DATEANDTIME)=(select EXTRACT(MONTH FROM SYSDATE)-1  from dual) AND BR_NAME='$br_name'";
+                          $stid = oci_parse($conn, $sql);
+                          $r = oci_execute($stid);
+                          $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+
+                          
+                           $ans = $row['SUM(INC_AMOUNT)'];
+                          
+
+
+
+
+
+                          $curs = oci_new_cursor($conn);
+                          $stid = oci_parse($conn, "begin myproc2(:cursbv); end;");
+                          oci_bind_by_name($stid, ":cursbv", $curs, -1, OCI_B_CURSOR);
+                          oci_execute($stid);
+                          
+                          oci_execute($curs);  // Execute the REF CURSOR like a normal statement id
+                          $f_month2=0;
+                          $s_month2=0;
+                          while (($row = oci_fetch_array($curs, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
+                              
+
+                              if($row['DT']==$ddt && $row['BR_NAME']==$br_name)
+                              {
+                                $f_month2=$f_month2+$row['INC_AMOUNT'];
+
+                              }else if($row['DT']==$ddt2 && $row['BR_NAME']==$br_name)
+                              {
+                                $s_month2=$s_month2+$row['INC_AMOUNT'];
+                              }
+
+                              
                           }
+                          
+
+                          oci_free_statement($stid);
+                          oci_free_statement($curs);
+
+
+                          $bn1=  $f_month2 ;
+                          $bn2=  $s_month2 ;
+                          $bn3=round(($bn1-$bn2)/$bn1,2)*100 ;
+
+                          echo"<p class='text-success'>".$bn3."%</p> ";
+
+
+
                           echo $ans . " BDT";
-                          $branchRevenue = $ans;
-                          // $x = EXTRACT( YEAR FROM TO_DATE( '31-Dec-1999 15:30:20 ',  'DD-Mon-YYYY HH24:MI:SS' ) ) YEAR;
 
+
+
+                          
+                          
+                  
                           ?>
-
                         </h5>
-                        <span class="description-text">BRANCH REVENUE</span>
+                        <span class="description-text">TOTAL REVENUE</span>
                       </div>
                       <!-- /.description-block -->
                     </div>
@@ -646,25 +692,53 @@ if (!$conn) {
                     <div class="col-sm-4 col-8">
                       <div class="description-block border-right">
                         <h5 class="description-header">
-                          <?php
-                          $sql = 'select br_name, amount, CURRENT_TIMESTAMP-exp_dateandtime "differ" from expenditure';
-                          $stid = oci_parse($conn, $sql);
-                          $r = oci_execute($stid);
-                          $thisMonth = 0;
-                          $prevMonth = 0;
-                          while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-                            $array = explode(" ", $row["differ"]);
-                            $diff = $array[0];
-                            $num = (int)$diff;
-                            if ($num <= 30 && $row['BR_NAME'] == $userJoinBranch['BR_NAME']) {
-                              $thisMonth = $thisMonth +  $row["AMOUNT"];
-                            } else if ($num <= 60) {
-                              $prevMonth = $prevMonth + $row["AMOUNT"];
-                            }
-                          }
-                          echo $thisMonth . " BDT";
-                          $branchExpenditure = $thisMonth;
-                          ?>
+                        <?php
+
+$sql=" select  SUM(AMOUNT) from expenditure WHERE EXTRACT(MONTH FROM EXP_DATEANDTIME)=(select EXTRACT(MONTH FROM SYSDATE)-1  from dual) AND BR_NAME='$br_name'";
+$stid = oci_parse($conn, $sql);
+$r = oci_execute($stid);
+$row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+
+
+$ans2 = $row['SUM(AMOUNT)'];
+
+
+$curs = oci_new_cursor($conn);
+$stid = oci_parse($conn, "begin myproc(:cursbv); end;");
+oci_bind_by_name($stid, ":cursbv", $curs, -1, OCI_B_CURSOR);
+oci_execute($stid);
+
+oci_execute($curs);  // Execute the REF CURSOR like a normal statement id
+$f_month=0;
+$s_month=0;
+while (($row = oci_fetch_array($curs, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
+   
+
+   if($row['DT']==$ddt && $row['BR_NAME']==$br_name)
+   {
+     $f_month=$f_month+$row['AMOUNT'];
+
+   }else if ($row['DT']==$ddt2 && $row['BR_NAME']==$br_name)
+   {
+     $s_month=$s_month+$row['AMOUNT'];
+   }
+
+   
+}
+
+
+
+oci_free_statement($stid);
+oci_free_statement($curs);
+
+$bn1=  $f_month ;
+$bn2=  $s_month ;
+$bn3=round(($bn1-$bn2)/$bn1,2)*100 ;
+
+echo"<p class='text-success'>".$bn3."%</p> ";
+
+echo $ans2 . " BDT";
+?>
                         </h5>
                         <span class="description-text">BRANCH EXPENDITURE</span>
                       </div>
@@ -676,7 +750,13 @@ if (!$conn) {
                         <!-- <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 20%</span> -->
                         <h5 class="description-header">
                           <?php
-                          echo $branchRevenue - $branchExpenditure . " BDT";
+                          $bn1= $f_month2 - $f_month ;
+                          $bn2= $s_month2 - $s_month ;
+                          $bn3=round(($bn1-$bn2)/$bn1,2)*100 ;
+
+                          echo"<p class='text-success'>".$bn3."%</p> ";
+
+                       echo $ans - $ans2 . " BDT";
                           ?>
                         </h5>
                         <span class="description-text">BRANCH PROFIT</span>
