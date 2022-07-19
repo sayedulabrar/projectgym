@@ -36,6 +36,7 @@ if (!$conn) {
     if ($row == NULL) {
       $wrongBranch = true;
     } else {
+      // PER_EMP_ID_SQ
       $name = $_POST['name'];
       $gender = $_POST['gender'];
       $email = $_POST['email'];
@@ -50,15 +51,12 @@ if (!$conn) {
       // $designation = 'Trainer';
       $password = $name;
 
-      $sql = "select *from users";
+      $sql = "select PER_EMP_ID_SQ.NEXTVAL from dual";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
-      $num = 1;
-      while ($roww = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-        $num = $num + 1;
-      }
-      $username = $name . $num;
-      $_SESSION['xxx'] = $username;
+      $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+      $x = $row['NEXTVAL'];
+      $username = $name . $x;
 
 
       $mobileno = $_POST['mobileno'];
@@ -69,15 +67,10 @@ if (!$conn) {
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
 
-      $sql = "select *from employee order by emp_id desc";
-      $stid = oci_parse($conn, $sql);
-      $r = oci_execute($stid);
-      $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-      $emp_id = $row['EMP_ID'] + 1;
       $date = date("Y/m/d");
 
       // $bmi = ($weight) / (($height / 100) * ($height / 100));
-      $sql = "insert into employee(emp_id, username, salary, shift, experience, education, Num_of_rating, rating_value, designation) values($emp_id, '$username', $salary, $shift, '$experience', '$education', 0, 0, '$designation')";
+      $sql = "insert into employee(emp_id, username, salary, shift, experience, education, Num_of_rating, rating_value, designation) values(PER_EMP_ID_SQ.currval, '$username', $salary, $shift, '$experience', '$education', 0, 0, '$designation')";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
       $i = 0;

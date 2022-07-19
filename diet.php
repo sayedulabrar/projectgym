@@ -16,7 +16,7 @@
   $trainer = $_SESSION['uname'];
   
 
-  $conn = oci_connect('brownfalcon_gms2', 'saif0rrahman', 'localhost/xe')
+  $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
     or die(oci_error());
 
     if (!$conn) {
@@ -34,10 +34,12 @@
    
 
 
-    //header("location: diet.php?un=$uname");
-      
-    }
-    
+
+
+  //header("location: diet.php?un=$uname");
+
+}
+
 
 ?>
 
@@ -156,24 +158,24 @@
                 </p>
               </a>
               <ul class="nav nav-treeview">
-              <?php
-                  echo "<li class='nav-item'>                    
-                  <a href='pages/mailbox/mailbox.php?un=".$trainer."' class='nav-link'>
+                <?php
+                echo "<li class='nav-item'>                    
+                  <a href='pages/mailbox/mailbox.php?un=" . $trainer . "' class='nav-link'>
                   <i class='far fa-circle nav-icon'></i>
                   <p>Inbox</p>
                   </a>
 </li>";
-              ?>
+                ?>
 
 
-              <?php
-                  echo "<li class='nav-item'>                    
-                  <a href='pages/mailbox/compose.php?un=".$trainer."' class='nav-link'>
+                <?php
+                echo "<li class='nav-item'>                    
+                  <a href='pages/mailbox/compose.php?un=" . $trainer . "' class='nav-link'>
                   <i class='far fa-circle nav-icon'></i>
                   <p>Compose</p>
                   </a>
                   </li>";
-              ?>
+                ?>
                 <!-- <li class="nav-item">
                   <a href="pages/mailbox/compose.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
@@ -237,21 +239,18 @@
                 <?php
 
 
-                  if($mem['DIET_ID'] == NULL)
-                  {
-                    echo "DIET ID: Null" ;
-                  }
-                  else
-                  {
-                    
-                    
-                    //else{
-                      echo "DIET ID: ".$mem['DIET_ID'];
-                    //}
-                  }
-                  
-                  
-                
+                if ($mem['DIET_ID'] == NULL) {
+                  echo "DIET ID: Null";
+                } else {
+
+
+                  //else{
+                  echo "DIET ID: " . $mem['DIET_ID'];
+                  //}
+                }
+
+
+
 
                 ?>
               </h5>
@@ -264,15 +263,14 @@
 
 
       <?php
-        if($mem['DIET_ID'] == NULL) {
-          $row = NULL;
-        }
-        else {
-          $sql = "select * from diet_chart where diet_id = $mem[DIET_ID]";
-          $stid = oci_parse($conn, $sql);
-          $r = oci_execute($stid);
-          $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-        }
+      if ($mem['DIET_ID'] == NULL) {
+        $row = NULL;
+      } else {
+        $sql = "select * from diet_chart where diet_id = $mem[DIET_ID]";
+        $stid = oci_parse($conn, $sql);
+        $r = oci_execute($stid);
+        $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+      }
       ?>
 
       <form action="diet_extra.php" method="post">
@@ -293,48 +291,46 @@
             <tbody>
               <tr>
                 <td>
-                  <input class="form-control" type="number" value = "<?php  
-                    if(isset($row['B_VITAMIN'])) echo $row['B_VITAMIN'];
-                    else echo "0"; 
-                   ?>" name="breakfast_vitamin" >
-                  
-                </td>
-                <td>
-                  <input class="form-control" type="number"  value = "<?php  
-                    if(isset($row['B_PROTEIN'])) echo $row['B_PROTEIN'];
-                    else echo "0"; 
-                   ?>" name="breakfast_protein" >
+                  <input class="form-control" type="number" value="<?php
+                                                                    if (isset($row['B_VITAMIN'])) echo $row['B_VITAMIN'];
+                                                                    else echo "0";
+                                                                    ?>" name="breakfast_vitamin">
 
                 </td>
                 <td>
-                  <input class="form-control" type="number"  value = "<?php  
-                    if(isset($row['B_CARBOHYDRATE'])) echo $row['B_CARBOHYDRATE'];
-                    else echo "0"; 
-                   ?>" name="breakfast_carbohydrate" >
-
-                 
-                </td>
-                <td>
-                  <input class="form-control" type="number"  value = "<?php  
-                    if(isset($row['B_MINERALS'])) echo $row['B_MINERALS'];
-                    else echo "0"; 
-                   ?>" 
-                  
-                  name="breakfast_minerals" >
-                  
-                </td>
-                <td>
-                  <input class="form-control" type="number" value = "<?php  
-                    if(isset($row['B_FAT'])) echo $row['B_FAT'];
-                    else echo "0"; 
-                   ?>" name="breakfast_fat" >
+                  <input class="form-control" type="number" value="<?php
+                                                                    if (isset($row['B_PROTEIN'])) echo $row['B_PROTEIN'];
+                                                                    else echo "0";
+                                                                    ?>" name="breakfast_protein">
 
                 </td>
                 <td>
-                  <input class="form-control" type="number" value = "<?php  
-                    if(isset($row['B_CALORIES'])) echo $row['B_CALORIES'];
-                    else echo "0"; 
-                   ?>" name="breakfast_calory" >
+                  <input class="form-control" type="number" value="<?php
+                                                                    if (isset($row['B_CARBOHYDRATE'])) echo $row['B_CARBOHYDRATE'];
+                                                                    else echo "0";
+                                                                    ?>" name="breakfast_carbohydrate">
+
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" value="<?php
+                                                                    if (isset($row['B_MINERALS'])) echo $row['B_MINERALS'];
+                                                                    else echo "0";
+                                                                    ?>" name="breakfast_minerals">
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" value="<?php
+                                                                    if (isset($row['B_FAT'])) echo $row['B_FAT'];
+                                                                    else echo "0";
+                                                                    ?>" name="breakfast_fat">
+
+                </td>
+                <td>
+                  <input class="form-control" type="number" value="<?php
+                                                                    if (isset($row['B_CALORIES'])) echo $row['B_CALORIES'];
+                                                                    else echo "0";
+                                                                    ?>" name="breakfast_calory">
 
                 </td>
               </tr>
@@ -360,49 +356,44 @@
             <tbody>
               <tr>
                 <td>
-                  <input class="form-control" type="number"
-                  value = "<?php  
-                    if(isset($row['L_VITAMIN'])) echo $row['L_VITAMIN'];
-                    else echo "0"; 
-                   ?>" name="lunch_vitamin" >
+                  <input class="form-control" type="number" value="<?php
+                                                                    if (isset($row['L_VITAMIN'])) echo $row['L_VITAMIN'];
+                                                                    else echo "0";
+                                                                    ?>" name="lunch_vitamin">
 
                 </td>
                 <td>
-                  <input class="form-control" type="number" 
-                  value = "<?php  
-                    if(isset($row['L_PROTEIN'])) echo $row['L_PROTEIN'];
-                    else echo "0"; 
-                   ?>" name="lunch_protein" >
+                  <input class="form-control" type="number" value="<?php
+                                                                    if (isset($row['L_PROTEIN'])) echo $row['L_PROTEIN'];
+                                                                    else echo "0";
+                                                                    ?>" name="lunch_protein">
 
                 </td>
                 <td>
-                  <input class="form-control" type="number" value = "<?php  
-                    if(isset($row['L_CARBOHYDRATE'])) echo $row['L_CARBOHYDRATE'];
-                    else echo "0"; 
-                   ?>" name="lunch_carbohydrate">
+                  <input class="form-control" type="number" value="<?php
+                                                                    if (isset($row['L_CARBOHYDRATE'])) echo $row['L_CARBOHYDRATE'];
+                                                                    else echo "0";
+                                                                    ?>" name="lunch_carbohydrate">
 
                 </td>
                 <td>
-                  <input class="form-control" type="number" 
-                  value = "<?php  
-                    if(isset($row['L_MINERALS'])) echo $row['L_MINERALS'];
-                    else echo "0"; 
-                   ?>"  name="lunch_minerals">
+                  <input class="form-control" type="number" value="<?php
+                                                                    if (isset($row['L_MINERALS'])) echo $row['L_MINERALS'];
+                                                                    else echo "0";
+                                                                    ?>" name="lunch_minerals">
 
                 </td>
                 <td>
-                  <input class="form-control" type="number" value = "<?php  
-                    if(isset($row['L_FAT'])) echo $row['L_FAT'];
-                    else echo "0"; 
-                   ?>" name="lunch_fat">
+                  <input class="form-control" type="number" value="<?php
+                                                                    if (isset($row['L_FAT'])) echo $row['L_FAT'];
+                                                                    else echo "0";
+                                                                    ?>" name="lunch_fat">
                 </td>
                 <td>
-                  <input class="form-control" type="number" 
-                  value = "<?php  
-                    if(isset($row['L_CALORIES'])) echo $row['L_CALORIES'];
-                    else echo "0"; 
-                   ?>"
-                   name="lunch_calory">
+                  <input class="form-control" type="number" value="<?php
+                                                                    if (isset($row['L_CALORIES'])) echo $row['L_CALORIES'];
+                                                                    else echo "0";
+                                                                    ?>" name="lunch_calory">
                 </td>
               </tr>
 
@@ -426,53 +417,45 @@
             <tbody>
               <tr>
                 <td>
-                  <input class="form-control" type="number" 
-                  value = "<?php  
-                    if(isset($row['D_VITAMIN'])) echo $row['D_VITAMIN'];
-                    else echo "0"; 
-                   ?>" name="dinner_vitamin">
+                  <input class="form-control" type="number" value="<?php
+                                                                    if (isset($row['D_VITAMIN'])) echo $row['D_VITAMIN'];
+                                                                    else echo "0";
+                                                                    ?>" name="dinner_vitamin">
 
                 </td>
                 <td>
-                  <input class="form-control" type="number" 
-                  value = "<?php  
-                    if(isset($row['L_PROTEIN'])) echo $row['L_PROTEIN'];
-                    else echo "0"; 
-                   ?>"
-                  name="dinner_protein">
+                  <input class="form-control" type="number" value="<?php
+                                                                    if (isset($row['L_PROTEIN'])) echo $row['L_PROTEIN'];
+                                                                    else echo "0";
+                                                                    ?>" name="dinner_protein">
 
                 </td>
                 <td>
-                  <input class="form-control" type="number"
-                  value = "<?php  
-                    if(isset($row['D_CARBOHYDRATE'])) echo $row['D_CARBOHYDRATE'];
-                    else echo "0"; 
-                   ?>"  name="dinner_carbohydrate">
+                  <input class="form-control" type="number" value="<?php
+                                                                    if (isset($row['D_CARBOHYDRATE'])) echo $row['D_CARBOHYDRATE'];
+                                                                    else echo "0";
+                                                                    ?>" name="dinner_carbohydrate">
 
                 </td>
                 <td>
-                  <input class="form-control" type="number" 
-                  value = "<?php  
-                    if(isset($row['D_MINERALS'])) echo $row['D_MINERALS'];
-                    else echo "0"; 
-                   ?>" name="dinner_minerals">
+                  <input class="form-control" type="number" value="<?php
+                                                                    if (isset($row['D_MINERALS'])) echo $row['D_MINERALS'];
+                                                                    else echo "0";
+                                                                    ?>" name="dinner_minerals">
 
                 </td>
                 <td>
-                  <input class="form-control" type="number" 
-                  value = "<?php  
-                    if(isset($row['D_FAT'])) echo $row['D_FAT'];
-                    else echo "0"; 
-                   ?>" name="dinner_fat">
+                  <input class="form-control" type="number" value="<?php
+                                                                    if (isset($row['D_FAT'])) echo $row['D_FAT'];
+                                                                    else echo "0";
+                                                                    ?>" name="dinner_fat">
 
                 </td>
                 <td>
-                  <input class="form-control" type="number" 
-                  value = "<?php  
-                    if(isset($row['D_CALORIES'])) echo $row['D_CALORIES'];
-                    else echo "0"; 
-                   ?>"
-                  name="dinner_calory">
+                  <input class="form-control" type="number" value="<?php
+                                                                    if (isset($row['D_CALORIES'])) echo $row['D_CALORIES'];
+                                                                    else echo "0";
+                                                                    ?>" name="dinner_calory">
 
                 </td>
               </tr>
@@ -494,30 +477,26 @@
             <tbody>
               <tr>
                 <td>
-                  <input class="form-control" type="number" 
-                  value = "<?php  
-                    if(isset($row['PR_WRK_PROTEIN'])) echo $row['PR_WRK_PROTEIN'];
-                    else echo "0"; 
-                   ?>" name="pre_wrk_protein">
+                  <input class="form-control" type="number" value="<?php
+                                                                    if (isset($row['PR_WRK_PROTEIN'])) echo $row['PR_WRK_PROTEIN'];
+                                                                    else echo "0";
+                                                                    ?>" name="pre_wrk_protein">
 
                 </td>
                 <td>
-                  <input class="form-control" type="number" 
-                  value = "<?php  
-                    if(isset($row['PR_WRK_CARBOHYDRATE'])) echo $row['PR_WRK_CARBOHYDRATE'];
-                    else echo "0"; 
-                   ?>" name="pre_wrk_carbohydrate">
+                  <input class="form-control" type="number" value="<?php
+                                                                    if (isset($row['PR_WRK_CARBOHYDRATE'])) echo $row['PR_WRK_CARBOHYDRATE'];
+                                                                    else echo "0";
+                                                                    ?>" name="pre_wrk_carbohydrate">
 
 
 
                 </td>
                 <td>
-                  <input class="form-control" type="number" 
-                  value = "<?php  
-                    if(isset($row['PR_WRK_CALORIES'])) echo $row['PR_WRK_CALORIES'];
-                    else echo "0"; 
-                   ?>"
-                  name="pre_wrk_calory">
+                  <input class="form-control" type="number" value="<?php
+                                                                    if (isset($row['PR_WRK_CALORIES'])) echo $row['PR_WRK_CALORIES'];
+                                                                    else echo "0";
+                                                                    ?>" name="pre_wrk_calory">
 
 
 
@@ -541,31 +520,24 @@
             <tbody>
               <tr>
                 <td>
-                  <input class="form-control" type="number" 
-                  value = "<?php  
-                    if(isset($row['PST_WRK_PROTEIN'])) echo $row['PST_WRK_PROTEIN'];
-                    else echo "0"; 
-                   ?>"
-                  
-                  name="post_wrk_protein">
+                  <input class="form-control" type="number" value="<?php
+                                                                    if (isset($row['PST_WRK_PROTEIN'])) echo $row['PST_WRK_PROTEIN'];
+                                                                    else echo "0";
+                                                                    ?>" name="post_wrk_protein">
 
                 </td>
                 <td>
-                  <input class="form-control" type="number" 
-                  value = "<?php  
-                    if(isset($row['PST_WRK_CARBOHYDRATE'])) echo $row['PST_WRK_CARBOHYDRATE'];
-                    else echo "0"; 
-                   ?>"
-                  name="post_wrk_carbohydrate">
+                  <input class="form-control" type="number" value="<?php
+                                                                    if (isset($row['PST_WRK_CARBOHYDRATE'])) echo $row['PST_WRK_CARBOHYDRATE'];
+                                                                    else echo "0";
+                                                                    ?>" name="post_wrk_carbohydrate">
 
                 </td>
                 <td>
-                  <input class="form-control" type="number" 
-                  value = "<?php  
-                    if(isset($row['PST_WRK_CALORIES'])) echo $row['PST_WRK_CALORIES'];
-                    else echo "0"; 
-                   ?>"
-                  name="post_wrk_calory">
+                  <input class="form-control" type="number" value="<?php
+                                                                    if (isset($row['PST_WRK_CALORIES'])) echo $row['PST_WRK_CALORIES'];
+                                                                    else echo "0";
+                                                                    ?>" name="post_wrk_calory">
 
                 </td>
               </tr>
@@ -582,11 +554,11 @@
       </form>
 
 
-      
-      
-      
 
-    
+
+
+
+
 
 
 
@@ -644,7 +616,7 @@
 
   <?php
 
-        echo "<script>
+  echo "<script>
         
 
       
@@ -663,15 +635,15 @@
         
         
         </script>";
-          
 
 
-          
 
 
-      ?>
 
-  
+
+  ?>
+
+
 </body>
 
 </html>

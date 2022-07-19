@@ -27,14 +27,12 @@ if (!$conn) {
 
     $password = $name;
 
-    $sql = "select *from users";
+    $sql = "select PER_MEM_ID_SQ.NEXTVAL from dual";
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
-    $num = 1;
-    while ($roww = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-      $num = $num + 1;
-    }
-    $username = $name . $num;
+    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+    $x = $row['NEXTVAL'];
+    $username = $name . $x;
 
 
 
@@ -45,16 +43,10 @@ if (!$conn) {
     $sql = "insert into users (username, password, dob, name, gender, email, address, blood_grp, account_no, br_name) values ('$username', '$password', to_date('$dob', 'mm/dd/yyyy'), '$name', '$gender', '$email', '$address', '$bloodgrp', $accountno, '$br_name')";
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
-
-    $sql = "select *from member order by mem_id desc";
-    $stid = oci_parse($conn, $sql);
-    $r = oci_execute($stid);
-    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-    $mem_id = $row['MEM_ID'] + 1;
     $date = date("Y/m/d");
     $bmi = ($weight) / (($height / 100) * ($height / 100));
-    $sql = "insert into member(mem_id, username, mem_height, mem_weight, expected_outcome, trainer, memb_bmi, membership_expiry) values($mem_id, '$username', $height, $weight, '$outcome', '$trainer', $bmi, to_date('$date', 'yyyy/mm/dd')+30)";
-
+    
+    $sql = "insert into member(mem_id, username, mem_height, mem_weight, expected_outcome, trainer, memb_bmi, membership_expiry) values(PER_MEM_ID_SQ.CURRVAL, '$username', $height, $weight, '$outcome', '$trainer', $bmi, to_date('$date', 'yyyy/mm/dd')+30)";
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
     $i = 0;
@@ -266,7 +258,6 @@ if (!$conn) {
                       $r = oci_execute($stid);
                       $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
                       $br_name = $row['BR_NAME'];
-                      $_SESSION['xxx'] = $br_name;
                       $sql = "select *from employee natural join users where br_name = '$br_name' and designation = 'Trainer'";
                       $stid = oci_parse($conn, $sql);
                       $r = oci_execute($stid);

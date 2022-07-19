@@ -2,7 +2,7 @@
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $uname = $_SESSION['uname'];
 $designation = $_SESSION['profation'];   // aita get method dia ante hobe link er shathe pataia.
-$conn = oci_connect('Abrar', 'saif0rrahman', 'localhost/xe')
+$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
   echo "sorry";
@@ -103,7 +103,44 @@ if (!$conn) {
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard v2</p>
                 </a>
+<<<<<<< HEAD
+              </li> -->
+
+              <?php
+
+                  if($designation=="trainer")
+                  {
+                    echo ' <li class="nav-item">
+                    <a href="../../trainer_db.php" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Trainer</p>
+                    </a>
+                  </li>';
+                  }
+                  if($designation=="receptionist")
+                  {
+                    echo ' <li class="nav-item">
+                    <a href="../../receptionist.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Receptionist</p>
+                    </a>
+                    </li>';
+                  }
+                  if($designation=="manager")
+                  {
+                    echo '<li class="nav-item">
+                    <a href="../../manager_db.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Manager</p>
+                    </a>
+                    </li>';
+                  }
+
+
+                ?>
+=======
               </li>
+>>>>>>> c976d95964800a1192366acf673d685ccbd6b17f
 
             </ul>
           </li>
@@ -138,6 +175,57 @@ if (!$conn) {
 
             </ul>
           </li>
+<<<<<<< HEAD
+          
+            <?php
+
+                  if($designation=="trainer" || $designation=="receptionist" || $designation=="manager")
+                  {
+
+                  }
+                  else
+                  {
+                    echo '<li class="nav-item menu-open">
+                    <a href="#" class="nav-link active">
+                      <i class="nav-icon fas fa-book"></i>
+                      <p>
+                        UserPages
+                        <i class="fas fa-angle-left right"></i>
+                      </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+      
+                      <li class="nav-item">
+                        <a href="../examples/profilev2.html" class="nav-link">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Profile</p>
+                        </a>
+                      </li>
+      
+      
+      
+                      <li class="nav-item">
+                        <a href="../examples/package.html" class="nav-link ">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Package</p>
+                        </a>
+      
+                      <li class="nav-item">
+                        <a href="../examples/Search-Trainer.html" class="nav-link ">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Search Trainer</p>
+                        </a>
+      
+      
+      
+      
+      
+                    </ul>
+                  </li>';
+                  }
+
+            ?>
+=======
           <li class="nav-item menu-open">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-book"></i>
@@ -180,8 +268,7 @@ if (!$conn) {
 
             </ul>
           </li>
-
-
+>>>>>>> c976d95964800a1192366acf673d685ccbd6b17f
 
 
         </ul>
