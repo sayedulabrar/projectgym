@@ -392,7 +392,6 @@ if (!$conn) {
                         <select name="designation" id="designation" class="form-select" aria-label="Default select example" style="width: 208px; height: 37px;">
                           <option selected value="Trainer">Trainer</option>
                           <option value="Receptionist">Receptionist</option>
-                          <option value="Manager">Manager</option>
                         </select>
                       </div>
                     </div>
@@ -402,8 +401,10 @@ if (!$conn) {
                         <label for="salary">Salary</label>
                         <input type="text" class="form-control" id="salary" name="salary" aria-describedby="emailHelp">
                       </div>
+                      
                       <div class="form-group col-lg-6 col-12">
                         <label for="shift">Shift</label>
+                        
                         <select name="shift" id="shift" class="form-select" aria-label="Default select example" style="width: 208px; height: 37px;">
                           <option value="1">Morning</option>
                           <option value="2">Evening</option>

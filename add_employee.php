@@ -480,12 +480,12 @@ if (!$conn) {
                     <input type="text" id="datepicker" name="datepicker" class="form-control">
                   </div>
                   <div class="form-group">
-                    <label for="accountno">Account No</label>
-                    <input type="number" id="accountno" name="accountno" class="form-control">
+                    <label for="accountno">Account No  <span style="color:#FF0000">*</span></label>
+                    <input type="number" id="accountno" name="accountno" class="form-control" required>
                   </div>
                   <div class="form-group">
                     <label for="experience">Experience (Years)</label>
-                    <input type="text" id="experience" name="experience" class="form-control">
+                    <input type="number" id="experience" name="experience" class="form-control">
                   </div>
                   <div class="form-group">
                     <label for="salary">Salary (BDT) <span style="color:#FF0000">*</span></label>
@@ -541,7 +541,7 @@ if (!$conn) {
   <script src="  dist/js/adminlte.min.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="  dist/js/demo.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.6.0.js"></script> -->
   <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
   <script>
     $(function() {

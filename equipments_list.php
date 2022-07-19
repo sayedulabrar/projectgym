@@ -48,7 +48,7 @@ if (!$conn) {
     $rn = $_POST['rn'];
     $contact = $_POST['contact'];
     $rcn = $_POST['rcn'];
-    $dd = $_POST['dd'];
+    $dd = $_POST['datepicker'];
     $cost = $_POST['cost'];
     $sql = "select *from maintenance order by mai_id desc";
     $stid = oci_parse($conn, $sql);
@@ -62,7 +62,7 @@ if (!$conn) {
     $br_name = $roww['BR_NAME'];
     $_SESSION['xxx'] = $br_name;
 
-    $sql = "insert into maintenance (mai_id, mai_date, repairer_name, COST_OF_REPAIRING, REPAIRER_COMPANY_NAME, REPAIRER_CONTACT_NO, DELIVERY_DATE, EQUIPMENT_ID, cur) values($trx_id, SYSDATE, '$rn', $cost, '$rcn', '$contact', to_date('$dd', 'dd/mm/yyyy'), $equip_id, '1')";
+    $sql = "insert into maintenance (mai_id, mai_date, repairer_name, COST_OF_REPAIRING, REPAIRER_COMPANY_NAME, REPAIRER_CONTACT_NO, DELIVERY_DATE, EQUIPMENT_ID, cur) values($trx_id, SYSDATE, '$rn', $cost, '$rcn', '$contact', to_date('$dd', 'mm/dd/yyyy'), $equip_id, '1')";
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
 
@@ -90,6 +90,8 @@ if (!$conn) {
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -623,11 +625,11 @@ if (!$conn) {
                           <div class="row">
                             <div class="form-group col-lg-6 col-12">
                               <label for="brand">Delivery Date</label>
-                              <input type="text" class="form-control" id="dd" name="dd" aria-describedby="emailHelp">
+                              <input type="text" class="form-control" id="datepicker" name="datepicker" aria-describedby="emailHelp">
                             </div>
                             <div class="form-group col-lg-6 col-12">
                               <label for="model"> Cost</label>
-                              <input type="text" class="form-control" id="cost" name="cost" aria-describedby="emailHelp">
+                              <input type="number" class="form-control" id="cost" name="cost" aria-describedby="emailHelp">
                             </div>
 
                           </div>
@@ -785,6 +787,8 @@ if (!$conn) {
 
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
   <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+  <!-- <script src="https://code.jquery.com/jquery-3.6.0.js"></script> -->
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
   <script>
     $(document).ready(function() {
       $('#myTable').DataTable();
@@ -824,6 +828,14 @@ if (!$conn) {
         $('#exampleModal2').modal('toggle');
       })
     })
+  </script>
+  <script>
+    $(function() {
+      $("#datepicker").datepicker({
+        changeMonth: true,
+        changeYear: true
+      });
+    });
   </script>
 </body>
 

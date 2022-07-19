@@ -4,7 +4,7 @@ $showname = $_SESSION['uname'];
 $ratingActive = false;
 $ageActive = false;
 $salaryActive = false;
-if ($_GET != NULL && ($_GET['un'] != 'u' && $_GET['un'] != 'i' && $_GET['un'] != 'd' && $_GET['un'] != 'w')) {
+if ($_GET != NULL && ($_GET['un'] != 'u' && $_GET['un'] != 'i' && $_GET['un'] != 'd' && $_GET['un'] != 'w' && $_GET['un'] != 'e' )) {
   $uname = $_GET['un'];
 } else {
   $uname = $_SESSION['uname'];
@@ -42,21 +42,31 @@ if (!$conn) {
       
       $designation = $_POST['designation'];
       
-      $shift = $_POST['shift'];
-      $_SESSION['xxx'] = $shift;
-      $sql = "update employee set salary = $salary, shift = $shift, designation = '$designation'  where emp_id = $emp_id";
-      $stid = oci_parse($conn, $sql);
-      $r = oci_execute($stid);
-      $sql = "select * from employee where emp_id = $emp_id";
+      $sql = "select * from branch where br_name = '$br_name'";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
       $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-      $username = $row['USERNAME'];
-      $sql = "update users set br_name = '$br_name' where username = '$username'";
-      $stid = oci_parse($conn, $sql);
-      $r = oci_execute($stid);
+      if($row) {
 
-      header("Location: trainer_list.php?un=u");
+        $shift = $_POST['shift'];
+        $_SESSION['xxx'] = $shift;
+        $sql = "update employee set salary = $salary, shift = $shift, designation = '$designation'  where emp_id = $emp_id";
+        $stid = oci_parse($conn, $sql);
+        $r = oci_execute($stid);
+        $sql = "select * from employee where emp_id = $emp_id";
+        $stid = oci_parse($conn, $sql);
+        $r = oci_execute($stid);
+        $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+        $username = $row['USERNAME'];
+        $sql = "update users set br_name = '$br_name' where username = '$username'";
+        $stid = oci_parse($conn, $sql);
+        $r = oci_execute($stid);
+
+        header("Location: trainer_list.php?un=u");
+      }
+      else {
+        header("Location: trainer_list.php?un=e");
+      }
     }
     if(isset($_POST['s_a']) && isset($_POST['f_a'])) {
       $s_a = $_POST['s_a'];
@@ -128,7 +138,7 @@ if (!$conn) {
     <!-- /.navbar -->
 
     <?php
-    if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+    if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u' || $_GET['un'] == 'e'))) {
       echo '
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -415,7 +425,6 @@ if (!$conn) {
                         <select name="designation" id="designation" class="form-select" aria-label="Default select example" style="width: 208px; height: 37px;">
                           <option selected value="Trainer">Trainer</option>
                           <option value="Receptionist">Receptionist</option>
-                          <option value="Manager">Manager</option>
                         </select>
                       </div>
                     </div>
@@ -479,7 +488,16 @@ if (!$conn) {
               </button>
             </div>";
           }
+          elseif ($_GET['un'] == 'e') {
+            echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+              Given Branch Name does not exist
+              <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+              <span aria-hidden='true'>&times;</span>
+              </button>
+            </div>";
+          }
         }
+
         ?>
         <div class="container-fluid">
           <!-- <form action="Manager-results.html"> -->
@@ -577,7 +595,7 @@ if (!$conn) {
             <div class="col-lg-6 col-md-12" style="padding-top: 15px;padding-right:40px;">
               <!-- Insert Modal -->
               <?php
-              if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+              if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u' || $_GET['un'] == 'e' ))) {
                 echo '<button type="button" class="insert btn btn-success float-right" data-toggle="modal"
                   data-target="#exampleModal" onclick="window.location.href=\'add_employee.php?un=' . $uname . '\'">Add
                   New</button>';
@@ -602,7 +620,7 @@ if (!$conn) {
                 <th scope="col">Salary</th>
                 <th scope="col">Shift</th>
                 <?php
-                if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+                if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u' || $_GET['un'] == 'e'))) {
                   echo '<th scope="col">Action</th>';
                 }
                 ?>
@@ -659,11 +677,11 @@ if (!$conn) {
               <tr id='Trainer'>
               <th>" . $row["EMP_ID"] . "</th>
               <td>";
-                if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+                if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u' || $_GET['un'] == 'e'))) {
                   echo "<a href='employee_profile.php?un =" . $un . " '>";
                 }
                 echo $row["NAME"];
-                if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+                if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u' || $_GET['un'] == 'e'))) {
                   echo  "</a>";
                 }
                 echo "</td>
@@ -684,7 +702,7 @@ if (!$conn) {
               }
               
                echo "</td>";
-                if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+                if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u' || $_GET['un'] == 'e'))) {
                   echo "<td> <button class='delete btn btn-sm btn-danger' id=" . $row['USERNAME'] . ">Remove</button> <button class='update btn btn-sm btn-primary' id=" . $row['BR_NAME'] . ">Edit</button> </td>";
                 }
                 echo "</tr>

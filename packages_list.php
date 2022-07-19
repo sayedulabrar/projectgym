@@ -716,7 +716,7 @@ if (!$conn) {
                           <div class="row">
                             <div class="form-group col-lg-6 col-12">
                               <label for="amount">Charge</label>
-                              <input type="text" class="form-control" id="amount" name="amount" aria-describedby="emailHelp">
+                              <input type="number" class="form-control" id="amount" name="amount" aria-describedby="emailHelp">
                             </div>
                             <div class="form-group col-lg-6 col-12">
                               <label for="type">Package Type</label>
@@ -734,7 +734,7 @@ if (!$conn) {
                           </div>
                           <div class="form-group">
                             <label for="duration">Duration</label>
-                            <input type="text" class="form-control" id="duration" name="duration" aria-describedby="emailHelp">
+                            <input type="number" class="form-control" id="duration" name="duration" aria-describedby="emailHelp">
                           </div>
                         </div>
                         <div class="modal-footer">
@@ -775,11 +775,11 @@ if (!$conn) {
                           <div class="row">
                             <div class="form-group col-lg-6 col-12">
                               <label for="amount1">Charge</label>
-                              <input type="text" class="form-control" id="amount1" name="amount1" aria-describedby="emailHelp">
+                              <input type="number" class="form-control" id="amount1" name="amount1" aria-describedby="emailHelp">
                             </div>
                             <div class="form-group col-lg-6 col-12">
                               <label for="duration1">Duration</label>
-                              <input type="text" class="form-control" id="duration1" name="duration1" aria-describedby="emailHelp">
+                              <input type="number" class="form-control" id="duration1" name="duration1" aria-describedby="emailHelp">
                             </div>
 
                           </div>

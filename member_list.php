@@ -596,7 +596,7 @@ if (!$conn) {
                 $sql = "select NAME, GENDER, USERNAME, BR_NAME, SYSDATE - DOB, TRAINER, MEMBERSHIP_EXPIRY from users natural join member where br_name = (select br_name from users where username = '$uname') and (MEMBERSHIP_EXPIRY - SYSDATE) <= $xx";
               }
               elseif($mo) {
-                $sql = "select NAME, GENDER, USERNAME, BR_NAME, SYSDATE - DOB, TRAINER, MEMBERSHIP_EXPIRY,  from users natural join member where br_name = (select br_name from users where username = '$uname') and (MEMBERSHIP_EXPIRY - SYSDATE) >= $xx";
+                $sql = "select NAME, GENDER, USERNAME, BR_NAME, SYSDATE - DOB, TRAINER, MEMBERSHIP_EXPIRY from users natural join member where br_name = (select br_name from users where username = '$uname') and (MEMBERSHIP_EXPIRY - SYSDATE) >= $xx";
               }
               else {
                 $sql = "select NAME, GENDER, USERNAME, BR_NAME, SYSDATE - DOB, TRAINER, MEMBERSHIP_EXPIRY from users natural join member where br_name = (select br_name from users where username = '$uname')";
