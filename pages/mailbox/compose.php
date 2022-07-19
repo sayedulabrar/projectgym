@@ -301,17 +301,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if($x< 1)
   {
 
+
     $sql = "select MEM_ID from MEMBER where USERNAME='$username'";
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
     $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
 
+    if($row!=NULL)
+    {
+      $sub=$_POST['subject'];
+      $des=$_POST['details'];
+      $sid=$senderid;
+      $to=$row['MEM_ID'];
+  
+    }else
+    {
+      echo"<div class='alert alert-warning alert-dismissible fade show my-4' role='alert'>
+  <strong>Sorry !</strong> Invalid Username.
+  <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+    <span aria-hidden='true'>&times;</span>
+  </button>
+</div>" ;
 
-    $sub=$_POST['subject'];
-    $des=$_POST['details'];
-    $sid=$senderid;
-    $to=$row['MEM_ID'];
+  $_POST = array();
+    }
 
+
+
+   
     
 
 

@@ -295,7 +295,7 @@ if (!$conn) {
                   echo "
                 <tr >
                 <th scope='row'>" . $nm . "</th>
-                <td><a href='readmail.php?us=".$us."&nm=".$nm."&rnm=Admin'>" . $sb. "</a></td>
+                <td><a href='readmail.php?us=".$us."&nm=".$nm."&rnm=".$job."'>" . $sb. "</a></td>
                 <td>" . $rc . "</td>
                 </tr>";
 
@@ -333,7 +333,7 @@ if (!$conn) {
                 echo "
               <tr >
               <th scope='row'>" . $nm . "</th>
-              <td><a href='readmail.php?us=".$us."&nm=".$nm."&rnm=Admin'>" . $sb. "</a></td>
+              <td><a href='readmail.php?us=".$us."&nm=".$nm."&rnm=".$job.">" . $sb. "</a></td>
               <td>" . $rc . "</td>
               </tr>";
 
