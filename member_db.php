@@ -467,20 +467,26 @@ else
                     $r = oci_execute($stid);
                     $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
                     
-                    $weight=$row['MEM_WEIGHT'];
+                    $w=$row['MEM_WEIGHT'];
 
                     $sql = "select mem_height from member where username='$uname'";
                     $stid = oci_parse($conn, $sql);
                     $r = oci_execute($stid);
                     $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    $height=$row['MEM_HEIGHT'];
+                    $h=$row['MEM_HEIGHT'];
                     
 
-                    $height=$height/100;
+                    // $height=$height/100;
                     
-                    $height=$height**2;
-                   
-                    $bmi=number_format($weight/$height,2);
+                    // $height=$height**2;
+                    $stid = oci_parse($conn, 'begin :r := BMI(:w,:h); end;');
+                    oci_bind_by_name($stid, ':w', $w);
+                    oci_bind_by_name($stid, ':h', $h);
+                    oci_bind_by_name($stid, ':r', $r, 40);
+
+                    oci_execute($stid);
+                      $bmi=$r;
+                     $bmi=number_format($bmi,2);
                 
                     echo $bmi;
 
