@@ -694,7 +694,7 @@ if (!$conn) {
                   echo "<tr>
                                 <th scope='row'>Saturday</th>
                                 <td>" . $row['EXE_ID'] . "</td>
-                                <td>" . $row['EXE_NAME'] . "</td>
+                                <td><a href='exercise_details.php?un=" . $row['EXE_ID'] . "'>" . $row['EXE_NAME'] . "</a></td>
                                 <td>" . $row['EXE_TYPE'] . "</td>
                                 <td>" . $Set . "</td>
                                 <td>" . $Set_item . "</td>
