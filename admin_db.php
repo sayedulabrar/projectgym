@@ -293,6 +293,13 @@ if (!$conn) {
                         <h5 class="description-header">
                           <?php
 
+                          $sql="select EXTRACT(MONTH FROM SYSDATE)-1 AS KP  from dual";
+                          $stid = oci_parse($conn, $sql);
+                          $r = oci_execute($stid);
+                          $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+
+                           $ddt = $row['KP'];
+                           $ddt2=$ddt-1;
 
                           $sql="select  SUM(INC_AMOUNT) from income WHERE EXTRACT(MONTH FROM INC_DATEANDTIME)=(select EXTRACT(MONTH FROM SYSDATE)-1  from dual)";
                           $stid = oci_parse($conn, $sql);
@@ -301,7 +308,54 @@ if (!$conn) {
 
                           
                            $ans = $row['SUM(INC_AMOUNT)'];
+                          
+
+
+
+
+
+                          $curs = oci_new_cursor($conn);
+                          $stid = oci_parse($conn, "begin myproc2(:cursbv); end;");
+                          oci_bind_by_name($stid, ":cursbv", $curs, -1, OCI_B_CURSOR);
+                          oci_execute($stid);
+                          
+                          oci_execute($curs);  // Execute the REF CURSOR like a normal statement id
+                          $f_month2=0;
+                          $s_month2=0;
+                          while (($row = oci_fetch_array($curs, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
+                              
+
+                              if($row['DT']==$ddt)
+                              {
+                                $f_month2=$f_month2+$row['INC_AMOUNT'];
+
+                              }else
+                              {
+                                $s_month2=$s_month2+$row['INC_AMOUNT'];
+                              }
+
+                              
+                          }
+                          
+
+                          oci_free_statement($stid);
+                          oci_free_statement($curs);
+
+
+                          $bn1=  $f_month2 ;
+                          $bn2=  $s_month2 ;
+                          $bn3=round(($bn1-$bn2)/$bn1,2)*100 ;
+
+                          echo"<p class='text-success'>".$bn3."%</p> ";
+
+
+
                           echo $ans . " BDT";
+
+
+
+                          
+                          
                   
                           ?>
                         </h5>
@@ -323,6 +377,42 @@ if (!$conn) {
 
                           
                            $ans2 = $row['SUM(AMOUNT)'];
+                          
+
+                          $curs = oci_new_cursor($conn);
+                          $stid = oci_parse($conn, "begin myproc(:cursbv); end;");
+                          oci_bind_by_name($stid, ":cursbv", $curs, -1, OCI_B_CURSOR);
+                          oci_execute($stid);
+                          
+                          oci_execute($curs);  // Execute the REF CURSOR like a normal statement id
+                          $f_month=0;
+                          $s_month=0;
+                          while (($row = oci_fetch_array($curs, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
+                              
+
+                              if($row['DT']==$ddt)
+                              {
+                                $f_month=$f_month+$row['AMOUNT'];
+
+                              }else
+                              {
+                                $s_month=$s_month+$row['AMOUNT'];
+                              }
+
+                              
+                          }
+                          
+
+                  
+                          oci_free_statement($stid);
+                          oci_free_statement($curs);
+
+                          $bn1=  $f_month ;
+                          $bn2=  $s_month ;
+                          $bn3=round(($bn1-$bn2)/$bn1,2)*100 ;
+
+                          echo"<p class='text-success'>".$bn3."%</p> ";
+
                           echo $ans2 . " BDT";
                           ?>
                         </h5>
@@ -336,7 +426,17 @@ if (!$conn) {
 
                         <h5 class="description-header">
                           <?php
+
+
+                             $bn1= $f_month2 - $f_month ;
+                             $bn2= $s_month2 - $s_month ;
+                             $bn3=round(($bn1-$bn2)/$bn1,2)*100 ;
+
+                             echo"<p class='text-success'>".$bn3."%</p> ";
+
                           echo $ans - $ans2 . " BDT";
+                          
+
                           ?>
                         </h5>
                         <span class="description-text">TOTAL PROFIT</span>
