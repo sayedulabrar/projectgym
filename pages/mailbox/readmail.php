@@ -4,6 +4,7 @@ $uname = $_SESSION['uname'];
 $mid = $_GET['us'] ;
 $unm= $_GET['nm'];
 $rnm= $_GET['rnm'];
+$job= $_SESSION['profation'];
 
 
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
@@ -32,7 +33,7 @@ if (!$conn) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Read Mail</title>
+  <title>Read Mail</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -51,7 +52,7 @@ if (!$conn) {
     <a href="../../index3.html" class="brand-link">
       <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
         style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <span class="brand-text font-weight-light">Fitness Mania</span>
     </a>
 
     <!-- Sidebar -->
@@ -82,12 +83,60 @@ if (!$conn) {
             </a>
             <ul class="nav nav-treeview">
 
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a href="../../f1.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard v2</p>
                 </a>
-              </li>
+              </li> -->
+
+              <?php
+                if($job=="member")
+                {
+                  echo '<li class="nav-item">
+                  <a href="../../member_db.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Member</p>
+                  </a>
+                </li>';
+                }
+                elseif($job=="trainer")
+                {
+                  echo '<li class="nav-item">
+                  <a href="../../trainer_db.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Trainer</p>
+                  </a>
+                </li>';
+                }
+                elseif($job=="manager")
+                {
+                  echo '<li class="nav-item">
+                  <a href="../../manager_db.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Manager</p>
+                  </a>
+                </li>';
+                }
+                elseif($job=="Receptionist")
+                {
+                  echo '<li class="nav-item">
+                  <a href="../../receptionist.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Receptionist</p>
+                  </a>
+                </li>';
+                }
+                else
+                {
+                  echo '<li class="nav-item">
+                  <a href="../../admin_db.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Admin</p>
+                  </a>
+                </li>';
+                }
+                ?>
 
             </ul>
           </li>
@@ -111,13 +160,13 @@ if (!$conn) {
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../mailbox/mailbox.html" class="nav-link active">
+                <a href="mailbox.php" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Inbox</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../mailbox/compose.html" class="nav-link">
+                <a href="compose.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Compose</p>
                 </a>
@@ -125,43 +174,7 @@ if (!$conn) {
 
             </ul>
           </li>
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-book"></i>
-              <p>
-                UserPages
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-
-              <li class="nav-item">
-                <a href="../examples/profilev2.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Profile</p>
-                </a>
-              </li>
-
-
-
-              <li class="nav-item">
-                <a href="../examples/package.html" class="nav-link ">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Package</p>
-                </a>
-
-              <li class="nav-item">
-                <a href="../examples/Search-Trainer.html" class="nav-link ">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Search Trainer</p>
-                </a>
-
-
-
-
-
-            </ul>
-          </li>
+         
 
 
 
