@@ -146,7 +146,7 @@ if (!$conn) {
                                 </a>
                                 </li>";
                                 ?>
-                               
+
                             </ul>
                         </li>
 
@@ -176,7 +176,7 @@ if (!$conn) {
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
             </div>
-          
+
             <section class="content">
                 <div class="container-fluid">
 
@@ -217,34 +217,28 @@ if (!$conn) {
                                     <h3>
                                         <?php
 
-                                            $sql = "select * from member where trainer='$uname'";
-                                            $stid = oci_parse($conn, $sql);
-                                            $r = oci_execute($stid);
-                                            
-                                            $s=0;
-                                            $cnt=0;
-                                            while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS))
-                                            {
-                                                    
-                                                    if($row['RATING']<>NULL)
-                                                    {
-                                                        $s=$s+$row['RATING'];
-                                                        $cnt=$cnt+1;
-                                                        
-                                                    }
+                                        $sql = "select * from member where trainer='$uname'";
+                                        $stid = oci_parse($conn, $sql);
+                                        $r = oci_execute($stid);
+
+                                        $s = 0;
+                                        $cnt = 0;
+                                        while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+
+                                            if ($row['RATING'] <> NULL) {
+                                                $s = $s + $row['RATING'];
+                                                $cnt = $cnt + 1;
                                             }
-                                                if($cnt==0)
-                                                {
-                                                    echo "0";
-                                                }
-                                                else
-                                                {
-                                                    echo number_format($s/$cnt,2);
-                                                }
-                                                
-                                              
+                                        }
+                                        if ($cnt == 0) {
+                                            echo "0";
+                                        } else {
+                                            echo number_format($s / $cnt, 2);
+                                        }
+
+
                                         ?>
-                                        
+
                                     </h3>
 
                                     <p>Rating</p>
@@ -282,12 +276,11 @@ if (!$conn) {
                                 <div class="inner">
                                     <h3>
                                         <?php
-                                            if($tra["SHIFT"] == 1) {
-                                                echo "Morning";
-                                            }
-                                            else {
-                                                echo "Evening";
-                                            }
+                                        if ($tra["SHIFT"] == 1) {
+                                            echo "Morning";
+                                        } else {
+                                            echo "Evening";
+                                        }
                                         ?>
                                     </h3>
 
@@ -334,17 +327,16 @@ if (!$conn) {
                                         $stid = oci_parse($conn, $sql);
                                         $r = oci_execute($stid);
 
-                                        while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS))
-                                        {
+                                        while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
                                             $un = $row['USERNAME'];
                                             $dateOfBirth = $row['DOB'];
-                                            $name1 = $row['NAME'];                                            
+                                            $name1 = $row['NAME'];
                                             $sql1 = 'BEGIN :var :=AGE(:daofbi); END;';
                                             $stid1 = oci_parse($conn, $sql1);
-                                            oci_bind_by_name($stid1,':daofbi',$dateOfBirth);
-                                            oci_bind_by_name($stid1,':var',$age);
+                                            oci_bind_by_name($stid1, ':daofbi', $dateOfBirth);
+                                            oci_bind_by_name($stid1, ':var', $age);
                                             $r1 = oci_execute($stid1);
-                                            $var = $row['DIET_ID'];                                            
+                                            $var = $row['DIET_ID'];
                                             $sql1 = "Select * from Member where username='$un'";
                                             $stid1 = oci_parse($conn, $sql1);
                                             $r1 = oci_execute($stid1);
@@ -366,7 +358,7 @@ if (!$conn) {
                                             } else {
                                                 echo "Not set yet";
                                             }
-                                                echo "</td><td>";
+                                            echo "</td><td>";
                                             echo "&nbsp; &nbsp;<a href='diet.php?un=" . $un . "' class='btn btn-success' role='button'>Add/Edit</a></td>
                                                    <td>";
                                             $sql1 = "Select * from Routine where username='$un'";
@@ -384,9 +376,9 @@ if (!$conn) {
                                                  </tr>
                                                 ";
                                         }
-                   ?>
+                                        ?>
 
-                                  </tbody>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -399,7 +391,7 @@ if (!$conn) {
             <div style="margin-bottom:30px ;"></div>
         </div>
         <!-- /.content-wrapper -->
-    <!-- Control Sidebar -->
+        <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
         </aside>
@@ -439,13 +431,12 @@ if (!$conn) {
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="dist/js/pages/dashboard2.js"></script>
     <script src="dist/js/pages/dashboard2.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.js"
-        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script>
-    $(document).ready(function() {
-        $('#myTable').DataTable();
-    });
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+        });
     </script>
 </body>
 

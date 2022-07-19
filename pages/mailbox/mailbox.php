@@ -9,7 +9,7 @@ $uname = $_SESSION['uname'];
 $job= $_SESSION['profation'];
 
 
-$conn = oci_connect('Abrar', 'saif0rrahman', 'localhost/xe')
+$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
   echo "sorry";
@@ -295,7 +295,7 @@ if (!$conn) {
                   echo "
                 <tr >
                 <th scope='row'>" . $nm . "</th>
-                <td><a href='readmail.php?us=".$us."&nm=".$nm."&rnm=Admin'>" . $sb. "</a></td>
+                <td><a href='readmail.php?us=".$us."&nm=".$nm."&rnm=".$job."'>" . $sb. "</a></td>
                 <td>" . $rc . "</td>
                 </tr>";
 
@@ -333,7 +333,7 @@ if (!$conn) {
                 echo "
               <tr >
               <th scope='row'>" . $nm . "</th>
-              <td><a href='readmail.php?us=".$us."&nm=".$nm."&rnm=Admin'>" . $sb. "</a></td>
+              <td><a href='readmail.php?us=".$us."&nm=".$nm."&rnm=".$job.">" . $sb. "</a></td>
               <td>" . $rc . "</td>
               </tr>";
 

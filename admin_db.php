@@ -141,45 +141,7 @@ if (!$conn) {
 
               </ul>
             </li>
-            <li class="nav-item ">
-              <a href="#" class="nav-link ">
-                <i class="nav-icon fas fa-book"></i>
-                <p>
-                  Pages
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-
-                <li class="nav-item">
-                  <a href="employee_profile2.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Profile</p>
-                  </a>
-                </li>
-
-
-
-                <li class="nav-item">
-                  <a href="pages/examples/userreg.php" class="nav-link ">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Member Add</p>
-                  </a>
-
-
-                <li class="nav-item">
-                  <a href="pages/examples/Search-Manager.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Search Manager</p>
-                  </a>
-                </li>
-
-
-
-
-              </ul>
-            </li>
-
+            
 
 
           </ul>
@@ -331,7 +293,23 @@ if (!$conn) {
 
                         <h5 class="description-header">
                           <?php
-                          $sql = 'select br_name, inc_amount, CURRENT_TIMESTAMP-inc_dateandtime "differ" from income';
+
+                          $sql=" select to_char(SYSDATE,'Month') AS mnt from dual";
+                          $stid = oci_parse($conn, $sql);
+                          $r = oci_execute($stid);
+                          $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)
+
+                          $dt=$row['mnt'];
+
+
+                          $sql="  select to_char(INC_DATEANDTIME,'Month') AS mnt from income;";
+                          $stid = oci_parse($conn, $sql);
+                          $r = oci_execute($stid);
+                          $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)
+
+                          $dt2=$row['mnt'];
+
+                          $sql = 'select sum(inc_amount) from income where ';
                           $stid = oci_parse($conn, $sql);
                           $r = oci_execute($stid);
                           $ans = 0;

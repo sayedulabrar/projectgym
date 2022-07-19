@@ -709,7 +709,10 @@ if (!$conn) {
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="<?php
-                  if($trainer) {
+                  if($designation = 'Admin') {
+                    echo "admin_db.php";
+                  }
+                  elseif($trainer) {
                     echo "trainer_db.php";
                   }
                   else {
