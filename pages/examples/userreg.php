@@ -4,7 +4,7 @@ $uname = $_SESSION['uname'];
 $link = 'manager_list.php';
 $designation = 'Manager';
 
-$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
+$conn = oci_connect('Abrar', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
   echo "sorry";
@@ -36,6 +36,7 @@ if (!$conn) {
   <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
 </head>
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <!-- Site wrapper -->
@@ -242,7 +243,7 @@ if (!$conn) {
                   </div>
                   <div class="form-group">
                     <label for="dob"> Date of Birth (DD-MM-YYYY format)</label>
-                    <input type="text" id="dob" name="dob" class="form-control">
+                    <input type="text" id="dob" id="datepicker" name="dob" class="form-control">
                   </div>
                   <div class="form-group">
                     <label for="email">Email</label>
@@ -366,7 +367,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $i = $i + 1;
   }
 
-  $_POST = array();
+  
   
   
   
@@ -399,6 +400,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!-- AdminLTE App -->
 <script src="../../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="../../dist/js/demo.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+  } );
+  </script>
 </body>
 </html>

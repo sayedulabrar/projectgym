@@ -9,7 +9,7 @@ session_start(); // this NEEDS TO BE AT THE TOP of the page before any output et
 $uname = $_SESSION['extra'];
 $trainer = $_SESSION['uname'];
 $showuname = $_SESSION['uname'];
-$conn = oci_connect('brownfalcon_gms2', 'saif0rrahman', 'localhost/xe')
+$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 
 if (!$conn) {
@@ -144,30 +144,27 @@ if (!$conn) {
 
         // $trig="CREATE or REPLACE TRIGGER FIXED_BY_TRAINER_TRIGGER
         // AFTER UPDATE OF DIET_ID
-        // ON MEMBER
+        // ON DIET_CHART
         // FOR EACH ROW
         // DECLARE 
         // v varchar2(12);
         // f varchar2(52);
+        // user varchar2(52);
+        // tra varchar2(52);
+        // diet number;
         // BEGIN
         // dbms_output.put_line('trigger called');
         // v := 'Updated';
+        // diet := :old.diet_id;
         // select TO_CHAR(SYSDATE, 'HH:MI:SS AM')  into f from dual;
+        // select username into user from member where diet_id=diet;
+        // select trainer into tra from member where diet_id=diet;
 
-        // INSERT INTO Fixed_By_Trainer VALUES (Action_NO_SEQ.nextval,:new.Trainer,:new.Username,:new.Diet_Id, SYSDATE,'f','v');
+        // INSERT INTO Fixed_By_Trainer VALUES (Action_NO_SEQ.nextval,tra,user,diet, SYSDATE,'f','v');
         // END;
         // ";
         // $stid=oci_parse($conn,$trig);
         // $r=oci_execute($stid);
-        
-
-       
-
-        // $sql = "update Diet_Chart set B_VITAMIN='$b_vitamin',B_PROTEIN='$b_protein',B_CARBOHYDRATE='$b_carbohydrate',B_FAT='$b_fat',B_MINERALS='$b_minerals',B_CALORIES='$b_calory', L_VITAMIN='$l_vitamin',L_PROTEIN='$l_protein',L_CARBOHYDRATE='$l_carbohydrate',L_FAT='$l_fat',L_MINERALS='$l_minerals',L_CALORIES='$l_calory', D_VITAMIN='$d_vitamin',D_PROTEIN='$d_protein',D_CARBOHYDRATE='$d_carbohydrate',D_FAT='$d_fat',D_MINERALS='$d_minerals',D_CALORIES='$d_calory',PR_WRK_CARBOHYDRATE='$pr_wrk_carbohydrate',PR_WRK_PROTEIN='$pr_wrk_protein',PR_WRK_CALORIES='$pr_wrk_calory, PST_WRK_CARBOHYDRATE='$po_wrk_carbohydrate',PST_WRK_PROTEIN='$po_wrk_protein',PST_WRK_CALORIES='$po_wrk_calory' where Diet_Id=$diet_id";
-
-        // $stid = oci_parse($conn,$sql);
-        // $r=oci_execute($stid);
-
         
 
       }
@@ -185,5 +182,3 @@ if (!$conn) {
 
   
 }
-
-?>

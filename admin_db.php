@@ -5,7 +5,7 @@ $job = $_SESSION['profation'];
 $_SESSION['profation'] = 'Admin';
 
 
-$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
+$conn = oci_connect('Abrar', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
   echo "sorry";
@@ -141,45 +141,7 @@ if (!$conn) {
 
               </ul>
             </li>
-            <li class="nav-item ">
-              <a href="#" class="nav-link ">
-                <i class="nav-icon fas fa-book"></i>
-                <p>
-                  Pages
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-
-                <li class="nav-item">
-                  <a href="employee_profile2.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Profile</p>
-                  </a>
-                </li>
-
-
-
-                <li class="nav-item">
-                  <a href="pages/examples/userreg.php" class="nav-link ">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Member Add</p>
-                  </a>
-
-
-                <li class="nav-item">
-                  <a href="pages/examples/Search-Manager.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Search Manager</p>
-                  </a>
-                </li>
-
-
-
-
-              </ul>
-            </li>
-
+            
 
 
           </ul>
@@ -331,22 +293,17 @@ if (!$conn) {
 
                         <h5 class="description-header">
                           <?php
-                          $sql = 'select br_name, inc_amount, CURRENT_TIMESTAMP-inc_dateandtime "differ" from income';
+
+
+                          $sql="select  SUM(INC_AMOUNT) from income WHERE EXTRACT(MONTH FROM INC_DATEANDTIME)=(select EXTRACT(MONTH FROM SYSDATE)-1  from dual)";
                           $stid = oci_parse($conn, $sql);
                           $r = oci_execute($stid);
-                          $ans = 0;
-                          while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                          $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
 
-                            $array = explode(" ", $row["differ"]);
-                            $diff = $array[0];
-                            $num = (int)$diff;
-
-                            if ($num <= 30) {
-                              $ans = $ans +  $row["INC_AMOUNT"];
-                            }
-                          }
+                          
+                           $ans = $row['SUM(INC_AMOUNT)'];
                           echo $ans . " BDT";
-                          $branchRevenue = $ans;
+                  
                           ?>
                         </h5>
                         <span class="description-text">TOTAL REVENUE</span>
@@ -359,23 +316,15 @@ if (!$conn) {
 
                         <h5 class="description-header">
                           <?php
-                          $sql = 'select br_name, amount, CURRENT_TIMESTAMP-exp_dateandtime "differ" from expenditure';
+
+                           $sql=" select  SUM(AMOUNT) from expenditure WHERE EXTRACT(MONTH FROM EXP_DATEANDTIME)=(select EXTRACT(MONTH FROM SYSDATE)-1  from dual)";
                           $stid = oci_parse($conn, $sql);
                           $r = oci_execute($stid);
-                          $thisMonth = 0;
-                          $prevMonth = 0;
-                          while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-                            $array = explode(" ", $row["differ"]);
-                            $diff = $array[0];
-                            $num = (int)$diff;
-                            if ($num <= 30) {
-                              $thisMonth = $thisMonth +  $row["AMOUNT"];
-                            } else if ($num <= 60) {
-                              $prevMonth = $prevMonth + $row["AMOUNT"];
-                            }
-                          }
-                          echo $thisMonth . " BDT";
-                          $branchExpenditure = $thisMonth;
+                          $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+
+                          
+                           $ans2 = $row['SUM(AMOUNT)'];
+                          echo $ans2 . " BDT";
                           ?>
                         </h5>
                         <span class="description-text">TOTAL COST</span>
@@ -388,7 +337,7 @@ if (!$conn) {
 
                         <h5 class="description-header">
                           <?php
-                          echo $branchRevenue - $branchExpenditure . " BDT";
+                          echo $ans - $ans2 . " BDT";
                           ?>
                         </h5>
                         <span class="description-text">TOTAL PROFIT</span>

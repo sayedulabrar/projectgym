@@ -1,7 +1,7 @@
 <?php
 session_start();
 $wrongInfo = false;
-$conn = oci_connect('brownfalcon_gms2', 'saif0rrahman', 'localhost/xe')
+$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
   echo "sorry";
@@ -16,12 +16,10 @@ if (!$conn) {
     $r = oci_execute($stid);
     $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
 
-    if($username=='Admin1' && $password=='admin')
-    {
-      $_SESSION['profation']='Admin';
+    if ($username == 'Admin1' && $password == 'admin') {
+      $_SESSION['profation'] = 'Admin';
       header("Location: admin_db.php");
-    }
-    elseif ($row == NULL) {
+    } elseif ($row == NULL) {
       $wrongInfo = true;
     } else {
       $sql = "select * from employee where USERNAME = '$username'";
@@ -29,25 +27,23 @@ if (!$conn) {
       $r = oci_execute($stid);
       $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
       if ($row == NULL) {
-        $_SESSION['profation']='Member';
+        $_SESSION['profation'] = 'Member';
         header("Location: member_db.php");
       } else {
         if ($row['DESIGNATION'] == 'Manager') {
-          $_SESSION['profation']='Manager';
+          $_SESSION['profation'] = 'Manager';
           header("Location: manager_db.php");
         } elseif ($row['DESIGNATION'] == 'Trainer') {
-          $_SESSION['profation']='Trainer';
+          $_SESSION['profation'] = 'Trainer';
           header("Location: trainer_db.php");
-        } elseif ($row['DESIGNATION'] == 'Receptionist')  {
-          $_SESSION['profation']='Receptionist';
+        } elseif ($row['DESIGNATION'] == 'Receptionist') {
+          $_SESSION['profation'] = 'Receptionist';
           header("Location: receptionist.php");
-        }
-        else {
-          $_SESSION['profation']='Admin';
+        } else {
+          $_SESSION['profation'] = 'Admin';
           header("Location: admin_db.php");
         }
       }
-      
     }
   }
 }

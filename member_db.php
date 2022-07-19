@@ -1,21 +1,17 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $uname = $_SESSION['uname'];
-$designation=$_SESSION['profation'];
-$conn = oci_connect('brownfalcon_gms2', 'saif0rrahman', 'localhost/xe')
+$designation = $_SESSION['profation'];
+$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
-if(!$conn)
-{
+if (!$conn) {
   echo "Sorry";
-}
-else
-{
+} else {
   // echo "Connection Successful";
   $sql = "select * from member natural join users where USERNAME = '$uname'";
   $stid = oci_parse($conn, $sql);
   $r = oci_execute($stid);
   $memberjoinusers = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-
 }
 
 ?>
@@ -37,8 +33,8 @@ else
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <link rel="stylesheet" type="text/css" href="rating.css">
-  <script  type="text/javascript" src="rating.js"></script>
- 
+  <script type="text/javascript" src="rating.js"></script>
+
 </head>
 
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -88,7 +84,7 @@ else
           <div class="info">
             <a href="member_profile.php" class="d-block">
               <?php
-                echo $uname;
+              echo $uname;
               ?>
             </a>
           </div>
@@ -158,7 +154,7 @@ else
                 </li> -->
 
                 <?php
-                                echo "<li class='nav-item'>
+                echo "<li class='nav-item'>
 
                                 
                                     
@@ -169,21 +165,21 @@ else
 
                                    
                                 </li>";
-                                ?>
+                ?>
 
 
-                                <?php
-                                echo "<li class='nav-item'>                    
+                <?php
+                echo "<li class='nav-item'>                    
                                 <a href='pages/mailbox/compose.php?un=" . $uname . "' class='nav-link'>
                                 <i class='far fa-circle nav-icon'></i>
                                 <p>Compose</p>
                                 </a>
                                 </li>";
-                                ?>x
+                ?>
 
               </ul>
             </li>
-            
+
 
 
 
@@ -218,7 +214,7 @@ else
 
 
           <div class="row d-flex justify-content-around">
-          <div class="col-lg-3 col-12">
+            <div class="col-lg-3 col-12">
               <!-- small box -->
               <div class="small-box bg-danger">
                 <div class="inner">
@@ -244,147 +240,146 @@ else
                   <i class="ion ion-bag"></i>
                 </div>
                 <a href="packages_list.php<?php
-                if ($_GET) {
-                  echo "?un=" . $_GET['un'];
-                }
-                ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                                          if ($_GET) {
+                                            echo "?un=" . $_GET['un'];
+                                          }
+                                          ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <div class="col-lg-3 col-12">
               <!-- small box -->
               <div class="small-box bg-info">
                 <div class="inner">
-                  <p ><b>
-                  <?php
-                  $sql = "select trainer from member where username='$uname'";
-                    $stid = oci_parse($conn, $sql);
-                    $r = oci_execute($stid);
-                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    
-                    $tr_name=$row['TRAINER'];
-                    $sql = "select name from users where username='$tr_name'";
-                    $stid = oci_parse($conn, $sql);
-                    $r = oci_execute($stid);
-                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    $nm=$row['NAME'];
-                    echo $nm ;
-                    
-                   
-                    ?>
-                
-                </b> -trainer</p>
+                  <p><b>
+                      <?php
+                      $sql = "select trainer from member where username='$uname'";
+                      $stid = oci_parse($conn, $sql);
+                      $r = oci_execute($stid);
+                      $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+
+                      $tr_name = $row['TRAINER'];
+                      $sql = "select name from users where username='$tr_name'";
+                      $stid = oci_parse($conn, $sql);
+                      $r = oci_execute($stid);
+                      $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                      $nm = $row['NAME'];
+                      echo $nm;
+
+
+                      ?>
+
+                    </b> -trainer</p>
                   <!-- <input type="text" class="form-control" placeholder="Rate out of 5" aria-label="Username" aria-describedby="basic-addon1"> -->
                   <!-- <button type="button" class="btn btn-primary">Rate</button> -->
 
 
 
-                    <!-- <button type="button" class="insert btn btn-success float-right" data-toggle="modal" data-target="#exampleModal">Add New</button> -->
-                    <div class="col-lg-6 col-md-12" style="padding-top: 15px;padding-right:40px;">
-                    
-              <!-- Insert Modal -->
-              <?php
-              
-                echo '
+                  <!-- <button type="button" class="insert btn btn-success float-right" data-toggle="modal" data-target="#exampleModal">Add New</button> -->
+                  <div class="col-lg-6 col-md-12" style="padding-top: 15px;padding-right:40px;">
+
+                    <!-- Insert Modal -->
+                    <?php
+
+                    echo '
               
                 <button type="button" class="insert btn btn-success " data-toggle="modal" data-target="#exampleModal" >Rate</button>
               
                 ';
-              
-              ?>
-              
-              
-              <!-- Modal -->
-              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Rate The Trainer out of 5</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    
-                    <div class="modal-body">
-                      <!-- <form action="member_db.php" method="POST"> -->
-                        <div class="modal-body">
 
-                         
-                                          <form class="rating" method="POST" >
-                                          <label>
-                                          <input type="radio" name="stars" value="1" />
-                                          <span class="icon">★</span>
-                                        </label>
-                                        <label>
-                                          <input type="radio" name="stars" value="2" />
-                                          <span class="icon">★</span>
-                                          <span class="icon">★</span>
-                                        </label>
-                                        <label>
-                                          <input type="radio" name="stars" value="3" />
-                                          <span class="icon">★</span>
-                                          <span class="icon">★</span>
-                                          <span class="icon">★</span>   
-                                          <?php  
-                                          // echo "<br><br>";
-                                          // echo isset($_POST['stars']);
-                                          
-                                  ?>
-                                          
-                                          
-
-                                        </label>
-                                        <label>
-                                          <input type="radio" name="stars" value="4" />
-                                          <span class="icon">★</span>
-                                          <span class="icon">★</span>
-                                          <span class="icon">★</span>
-                                          <span class="icon">★</span>
-                                        </label>
-                                        <label>
-                                          <input type="radio" name="stars" value="5" />
-                                          <span class="icon">★</span>
-                                          <span class="icon">★</span>
-                                          <span class="icon">★</span>
-                                          <span class="icon">★</span>
-                                          <span class="icon">★</span>
-                                        </label>
-                              
-                          
-
-                        </div>
-                        
-                        <div class="modal-footer">
-                          <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                      </form>
-                      
-                      
-                    </div>
-
-                    <?php
-                           if(isset($_POST['stars']))
-                           {
-                             // echo isset($_POST['stars']);
-                             $amt=$_POST['stars'];
-                             // echo $amt;
-                              $sql = "update member set RATING='$amt' where username='$uname'";
-                               $stid = oci_parse($conn, $sql);
-                               $r = oci_execute($stid);
-                               // $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                               // echo var_dump($row);
-                           }
                     ?>
 
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Rate The Trainer out of 5</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+
+                          <div class="modal-body">
+                            <!-- <form action="member_db.php" method="POST"> -->
+                            <div class="modal-body">
+
+
+                              <form class="rating" method="POST">
+                                <label>
+                                  <input type="radio" name="stars" value="1" />
+                                  <span class="icon">★</span>
+                                </label>
+                                <label>
+                                  <input type="radio" name="stars" value="2" />
+                                  <span class="icon">★</span>
+                                  <span class="icon">★</span>
+                                </label>
+                                <label>
+                                  <input type="radio" name="stars" value="3" />
+                                  <span class="icon">★</span>
+                                  <span class="icon">★</span>
+                                  <span class="icon">★</span>
+                                  <?php
+                                  // echo "<br><br>";
+                                  // echo isset($_POST['stars']);
+
+                                  ?>
+
+
+
+                                </label>
+                                <label>
+                                  <input type="radio" name="stars" value="4" />
+                                  <span class="icon">★</span>
+                                  <span class="icon">★</span>
+                                  <span class="icon">★</span>
+                                  <span class="icon">★</span>
+                                </label>
+                                <label>
+                                  <input type="radio" name="stars" value="5" />
+                                  <span class="icon">★</span>
+                                  <span class="icon">★</span>
+                                  <span class="icon">★</span>
+                                  <span class="icon">★</span>
+                                  <span class="icon">★</span>
+                                </label>
+
+
+
+                            </div>
+
+                            <div class="modal-footer">
+                              <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                            </form>
+
+
+                          </div>
+
+                          <?php
+                          if (isset($_POST['stars'])) {
+                            // echo isset($_POST['stars']);
+                            $amt = $_POST['stars'];
+                            // echo $amt;
+                            $sql = "update member set RATING='$amt' where username='$uname'";
+                            $stid = oci_parse($conn, $sql);
+                            $r = oci_execute($stid);
+                            // $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                            // echo var_dump($row);
+                          }
+                          ?>
+
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Insert Modal -->
+
+
                   </div>
-                </div>
-              </div>
-              <!-- /Insert Modal -->
 
-              
-            </div>
 
-            
 
 
 
@@ -407,42 +402,42 @@ else
               <div class="small-box bg-warning">
                 <div class="inner">
                   <h3>
-                  <?php
-                //   if(isset($_SESSION['pk_id'])){
-                //   $package_id=$_SESSION['pk_id'];
-                // }
-               
-                
-                 
-                
-                  //  $package_id =  $_SESSION['pk_id'];
-                  //  echo $package_id;
-                  //  $sql2 = "select PKG_DURATION from PACKAGE natural join users natural join M_pkg where PKG_ID='$package_id'";
-                  //  $stid = oci_parse($conn, $sql2);
-                  //  $r = oci_execute($stid);
-                  //  $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                    <?php
+                    //   if(isset($_SESSION['pk_id'])){
+                    //   $package_id=$_SESSION['pk_id'];
+                    // }
+
+
+
+
+                    //  $package_id =  $_SESSION['pk_id'];
+                    //  echo $package_id;
+                    //  $sql2 = "select PKG_DURATION from PACKAGE natural join users natural join M_pkg where PKG_ID='$package_id'";
+                    //  $stid = oci_parse($conn, $sql2);
+                    //  $r = oci_execute($stid);
+                    //  $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
                     // echo var_dump($row);
                     // if($row['PKG_DURATION']==true){
-                      // echo var_dump($row);
-                      //  $dur = $row['PKG_DURATION'];
-                      //  echo $dur;
-                //  }
+                    // echo var_dump($row);
+                    //  $dur = $row['PKG_DURATION'];
+                    //  echo $dur;
+                    //  }
 
-                 
 
-                  $sql = "select MEMBERSHIP_EXPIRY from member where username='$uname'";
-                  $stid = oci_parse($conn, $sql);
-                  $r = oci_execute($stid);
-                  $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                  $exp=$row['MEMBERSHIP_EXPIRY'];
-                  // $sql2 = "select PKG_DURATION from PACKAGE where PKG_ID='$package_id'";
-                  //   $stid = oci_parse($conn, $sql2);
-                  //   $r = oci_execute($stid);
-                  //   $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                  //   $dur=$row['PKG_DURATION'];
+
+                    $sql = "select MEMBERSHIP_EXPIRY from member where username='$uname'";
+                    $stid = oci_parse($conn, $sql);
+                    $r = oci_execute($stid);
+                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                    $exp = $row['MEMBERSHIP_EXPIRY'];
+                    // $sql2 = "select PKG_DURATION from PACKAGE where PKG_ID='$package_id'";
+                    //   $stid = oci_parse($conn, $sql2);
+                    //   $r = oci_execute($stid);
+                    //   $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                    //   $dur=$row['PKG_DURATION'];
                     echo $exp;
-                    
-                   
+
+
                     ?>
 
                   </h3>
@@ -461,8 +456,8 @@ else
               <div class="small-box bg-danger">
                 <div class="inner">
                   <h3>
-                  <?php
-                  $sql = "select mem_weight from member where username='$uname'";
+                    <?php
+                    $sql = "select mem_weight from member where username='$uname'";
                     $stid = oci_parse($conn, $sql);
                     $r = oci_execute($stid);
                     $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
@@ -491,8 +486,8 @@ else
                     echo $bmi;
 
                     $query = "update Member set Memb_BMI='$bmi' where username='$uname'";
-                    $p=oci_parse($conn,$query);
-                    $setting=oci_execute($p);
+                    $p = oci_parse($conn, $query);
+                    $setting = oci_execute($p);
 
 
                     ?>
@@ -534,91 +529,86 @@ else
                   </thead>
                   <tbody>
 
-                  <?php
-                      $sql = "select DIET_ID from member where username='$uname'";
-                      $stid = oci_parse($conn, $sql);
-                      $r = oci_execute($stid);
-                      $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                      
-                      $d_id= $row['DIET_ID'];
+                    <?php
+                    $sql = "select DIET_ID from member where username='$uname'";
+                    $stid = oci_parse($conn, $sql);
+                    $r = oci_execute($stid);
+                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
 
-                      // $sql = "select * from DIET_CHART where DIET_ID='$d_id'";
-                      // $stid = oci_parse($conn, $sql);
-                      // $r = oci_execute($stid);
-                      // $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                       $appli="NULL";
-                      $x=$d_id;
-                     $curs = oci_new_cursor($conn);
+                    $d_id = $row['DIET_ID'];
+
+                    // $sql = "select * from DIET_CHART where DIET_ID='$d_id'";
+                    // $stid = oci_parse($conn, $sql);
+                    // $r = oci_execute($stid);
+                    // $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                    $appli = "NULL";
+                    $x = $d_id;
+                    $curs = oci_new_cursor($conn);
                     $stid = oci_parse($conn, "begin myproc2(:cursbv,:x); end;");
                     oci_bind_by_name($stid, ":cursbv", $curs, -1, OCI_B_CURSOR);
-                     oci_bind_by_name($stid, ":x", $x, -1);
+                    oci_bind_by_name($stid, ":x", $x, -1);
                     oci_execute($stid);
-  
-                    $ff=oci_execute($curs);
-                    $row = oci_fetch_array($curs, OCI_ASSOC + OCI_RETURN_NULLS);
-                      
 
-                      if($row){
+                    $ff = oci_execute($curs);
+                    $row = oci_fetch_array($curs, OCI_ASSOC + OCI_RETURN_NULLS);
+
+
+                    if ($row) {
                       echo  " <tr class='breakfast'>
                       <td>  Breakfast</td>
-                      <td>".$row['B_VITAMIN']."</td>
-                      <td>". $row['B_FAT']. "</td>
-                      <td>". $row['B_PROTEIN']. "</td>
-                      <td>". $row['B_MINERALS']." </td>
-                      <td>". $row['B_CARBOHYDRATE']." </td>
-                      <td>".$row['B_CALORIES']. "</td>
+                      <td>" . $row['B_VITAMIN'] . "</td>
+                      <td>" . $row['B_FAT'] . "</td>
+                      <td>" . $row['B_PROTEIN'] . "</td>
+                      <td>" . $row['B_MINERALS'] . " </td>
+                      <td>" . $row['B_CARBOHYDRATE'] . " </td>
+                      <td>" . $row['B_CALORIES'] . "</td>
                       </tr>";
-                      
-                    
-                    echo  " <tr class='lunch'>
+
+
+                      echo  " <tr class='lunch'>
                       <td>  Lunch</td>
-                      <td>".$row['L_VITAMIN']."</td>
-                      <td>". $row['L_FAT']. "</td>
-                      <td>". $row['L_PROTEIN']. "</td>
-                      <td>". $row['L_MINERALS']." </td>
-                      <td>". $row['L_CARBOHYDRATE']." </td>
-                      <td>".$row['L_CALORIES']. "</td></tr>";
-                        
+                      <td>" . $row['L_VITAMIN'] . "</td>
+                      <td>" . $row['L_FAT'] . "</td>
+                      <td>" . $row['L_PROTEIN'] . "</td>
+                      <td>" . $row['L_MINERALS'] . " </td>
+                      <td>" . $row['L_CARBOHYDRATE'] . " </td>
+                      <td>" . $row['L_CALORIES'] . "</td></tr>";
+
 
                       echo  " <tr class='dinner'>
                       <td>  Dinner</td>
-                      <td>".$row['D_VITAMIN']."</td>
-                      <td>". $row['D_FAT']. "</td>
-                      <td>". $row['D_PROTEIN']. "</td>
-                      <td>". $row['D_MINERALS']." </td>
-                      <td>". $row['D_CARBOHYDRATE']." </td>
-                      <td>".$row['D_CALORIES']. "</td></tr>";
+                      <td>" . $row['D_VITAMIN'] . "</td>
+                      <td>" . $row['D_FAT'] . "</td>
+                      <td>" . $row['D_PROTEIN'] . "</td>
+                      <td>" . $row['D_MINERALS'] . " </td>
+                      <td>" . $row['D_CARBOHYDRATE'] . " </td>
+                      <td>" . $row['D_CALORIES'] . "</td></tr>";
 
                       echo  " <tr class='prework'>
                       <td>  PreWorkout</td>
-                      <td>". $appli."</td>
-                      <td>". $appli."</td>
-                      <td>". $row['PR_WRK_PROTEIN']. "</td>
-                      <td>".  $appli."</td>
-                      <td>". $row['PR_WRK_CARBOHYDRATE']." </td>
-                      <td>".$row['PR_WRK_CALORIES']. "</td></tr>";
+                      <td>" . $appli . "</td>
+                      <td>" . $appli . "</td>
+                      <td>" . $row['PR_WRK_PROTEIN'] . "</td>
+                      <td>" .  $appli . "</td>
+                      <td>" . $row['PR_WRK_CARBOHYDRATE'] . " </td>
+                      <td>" . $row['PR_WRK_CALORIES'] . "</td></tr>";
 
 
                       echo  " <tr class='postwork'>
                       <td>  PreWorkout</td>
-                      <td>". $appli."</td>
-                      <td>". $appli."</td>
-                      <td>". $row['PST_WRK_PROTEIN']. "</td>
-                      <td>".  $appli."</td>
-                      <td>". $row['PST_WRK_CARBOHYDRATE']." </td>
-                      <td>".$row['PST_WRK_CALORIES']. "</td></tr>";
+                      <td>" . $appli . "</td>
+                      <td>" . $appli . "</td>
+                      <td>" . $row['PST_WRK_PROTEIN'] . "</td>
+                      <td>" .  $appli . "</td>
+                      <td>" . $row['PST_WRK_CARBOHYDRATE'] . " </td>
+                      <td>" . $row['PST_WRK_CALORIES'] . "</td></tr>";
+                    } else {
+                      // $dur = $row['PKG_DURATION'];
+                      // echo $dur;
+                      // echo $_SESSION['pk_id'];
+                    }
 
-                    
-                  }
-
-                  else
-                  {
-                    // $dur = $row['PKG_DURATION'];
-                    // echo $dur;
-                    // echo $_SESSION['pk_id'];
-                  }
-
-                  ?>
+                    ?>
                   </tbody>
                 </table>
               </div>
@@ -631,177 +621,159 @@ else
 
           <div class="row mb-2 ">
             <div class="col-sm-6 ">
-              <h1 class="m-0" style="color:violet;" >Routine</h1>
+              <h1 class="m-0" style="color:violet;">Routine</h1>
             </div><!-- /.col -->
 
             <div class="col-sm-6">
-                <h3 class="m-0 float-right">Followed Set: 
-                  <?php
-                    $sql = "select * from member where USERNAME = '$uname'";
-                    $stid = oci_parse($conn, $sql);
-                    $r = oci_execute($stid);
-                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    $Fol_Set=NULL;
-                    // echo var_dump($row);
-                    if($row) {
-                      if($row['F_SET'] == 1) {
-                        echo "Beginner";
-                         $Fol_Set="Beginner";
-                      }
-                      else if($row['F_SET'] == 2) {
-                        echo "Indermediate";
-                         $Fol_Set="Indermediate";
-                      }
-                      else if($row['F_SET'] == 3) {
-                        echo "Advanced";
-                        $Fol_Set="Advanced";
-                      }
-                      else {
-                        echo "Not Set Yet";
-                      }
-                    }
+              <h3 class="m-0 float-right">Followed Set:
+                <?php
+                $sql = "select * from member where USERNAME = '$uname'";
+                $stid = oci_parse($conn, $sql);
+                $r = oci_execute($stid);
+                $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                $Fol_Set = NULL;
+                // echo var_dump($row);
+                if ($row) {
+                  if ($row['F_SET'] == 1) {
+                    echo "Beginner";
+                    $Fol_Set = "Beginner";
+                  } else if ($row['F_SET'] == 2) {
+                    echo "Indermediate";
+                    $Fol_Set = "Indermediate";
+                  } else if ($row['F_SET'] == 3) {
+                    echo "Advanced";
+                    $Fol_Set = "Advanced";
+                  } else {
+                    echo "Not Set Yet";
+                  }
+                }
 
-                    // echo var_dump($Fol_Set);
-                  ?>
-                    
-                </h3>
+                // echo var_dump($Fol_Set);
+                ?>
+
+              </h3>
             </div><!-- /.col -->
-            
+
           </div><!-- /.row -->
           <!-- <h1 style="text-align: center;">Routine</h1> -->
           <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th scope="col">Day</th>
-                          <th scope="col">Exercise ID</th>
-                          <th scope="col">Exercise Name</th>
-                          <th scope="col">Exercise Type</th>
-                          <th scope="col">Number of Set</th>
-                          <th scope="col">Number of item per set</th>
-                        </tr>
-                      </thead>
-                      <tbody>
+            <thead>
+              <tr>
+                <th scope="col">Day</th>
+                <th scope="col">Exercise ID</th>
+                <th scope="col">Exercise Name</th>
+                <th scope="col">Exercise Type</th>
+                <th scope="col">Number of Set</th>
+                <th scope="col">Number of item per set</th>
+              </tr>
+            </thead>
+            <tbody>
 
-                        <?php
-                            $sql = "select * from EXERCISES_LIST natural join
+              <?php
+              $sql = "select * from EXERCISES_LIST natural join
                             users natural join routine natural join member where username='$uname' order by days";
-                            $stid = oci_parse($conn, $sql);
-                            $r = oci_execute($stid);
-                            $na="Null";
-                            while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)){
-                                // echo "<h1>Hello World</h1>";
-                                $Set=NULL;
-                                $Set_item=NULL;
-                                if($Fol_Set=="Beginner")
-                                {
-                                    $Set=$row['BEG_NUM_OF_SET'];
-                                    $Set_item=$row['BEG_PER_SET_ITEM'];
-                                }
-                                else if($Fol_Set=="Indermediate")
-                                {
-                                    $Set=$row['INTER_NUM_OF_SET'];
-                                    $Set_item=$row['INTER_PER_SET_ITEM'];
+              $stid = oci_parse($conn, $sql);
+              $r = oci_execute($stid);
+              $na = "Null";
+              while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                // echo "<h1>Hello World</h1>";
+                $Set = NULL;
+                $Set_item = NULL;
+                if ($Fol_Set == "Beginner") {
+                  $Set = $row['BEG_NUM_OF_SET'];
+                  $Set_item = $row['BEG_PER_SET_ITEM'];
+                } else if ($Fol_Set == "Indermediate") {
+                  $Set = $row['INTER_NUM_OF_SET'];
+                  $Set_item = $row['INTER_PER_SET_ITEM'];
+                } else {
+                  $Set = $row['EXP_NUM_OF_SET'];
+                  $Set_item = $row['EXP_PER_SET_ITEM'];
+                }
+                if ($row["DAYS"] == 1) {
 
-                                }
-                                else
-                                {
-                                  $Set=$row['EXP_NUM_OF_SET'];
-                                  $Set_item=$row['EXP_PER_SET_ITEM'];
-                                }
-                              if($row["DAYS"]==1)
-                              {
-                                
-                                echo "<tr>
+                  echo "<tr>
                                 <th scope='row'>Saturday</th>
-                                <td>".$row['EXE_ID']."</td>
-                                <td>".$row['EXE_NAME']."</td>
-                                <td>".$row['EXE_TYPE']."</td>
-                                <td>".$Set."</td>
-                                <td>".$Set_item."</td>
+                                <td>" . $row['EXE_ID'] . "</td>
+                                <td>" . $row['EXE_NAME'] . "</td>
+                                <td>" . $row['EXE_TYPE'] . "</td>
+                                <td>" . $Set . "</td>
+                                <td>" . $Set_item . "</td>
                               </tr>";
-                              }
+                }
 
-                               if($row["DAYS"]==2)
-                              {
-                                echo "<tr>
+                if ($row["DAYS"] == 2) {
+                  echo "<tr>
                                 <th scope='row'>Sunday</th>
-                                <td>".$row['EXE_ID']."</td>
-                                <td><a href='exercise_details.php?un=". $row['EXE_ID']."'>".$row['EXE_NAME']."</a></td>
-                                <td>".$row['EXE_TYPE']."</td>
-                                <td>".$Set."</td>
-                                <td>".$Set_item."</td>
+                                <td>" . $row['EXE_ID'] . "</td>
+                                <td><a href='exercise_details.php?un=" . $row['EXE_ID'] . "'>" . $row['EXE_NAME'] . "</a></td>
+                                <td>" . $row['EXE_TYPE'] . "</td>
+                                <td>" . $Set . "</td>
+                                <td>" . $Set_item . "</td>
                               </tr>";
-                              }
+                }
 
-                               if($row["DAYS"]==3)
-                              {
-                                echo "<tr>
+                if ($row["DAYS"] == 3) {
+                  echo "<tr>
                                 <th scope='row'>Monday</th>
-                                <td>".$row['EXE_ID']."</td>
-                                <td><a href='exercise_details.php?un=". $row['EXE_ID']."'>".$row['EXE_NAME']."</a></td>
-                                <td>".$row['EXE_TYPE']."</td>
-                                <td>".$Set."</td>
-                                <td>".$Set_item."</td>
+                                <td>" . $row['EXE_ID'] . "</td>
+                                <td><a href='exercise_details.php?un=" . $row['EXE_ID'] . "'>" . $row['EXE_NAME'] . "</a></td>
+                                <td>" . $row['EXE_TYPE'] . "</td>
+                                <td>" . $Set . "</td>
+                                <td>" . $Set_item . "</td>
                               </tr>";
-                              }
+                }
 
 
-                              if($row["DAYS"]==4)
-                              {
-                                echo "<tr>
+                if ($row["DAYS"] == 4) {
+                  echo "<tr>
                                 <th scope='row'>Tuesday</th>
-                                <td>".$row['EXE_ID']."</td>
-                                <td><a href='exercise_details.php?un=". $row['EXE_ID']."'>".$row['EXE_NAME']."</a></td>
-                                <td>".$row['EXE_TYPE']."</td>
-                                <td>".$Set."</td>
-                                <td>".$Set_item."</td>
+                                <td>" . $row['EXE_ID'] . "</td>
+                                <td><a href='exercise_details.php?un=" . $row['EXE_ID'] . "'>" . $row['EXE_NAME'] . "</a></td>
+                                <td>" . $row['EXE_TYPE'] . "</td>
+                                <td>" . $Set . "</td>
+                                <td>" . $Set_item . "</td>
                               </tr>";
-                              }
+                }
 
-                               if($row["DAYS"]==5)
-                              {
-                                echo "<tr>
+                if ($row["DAYS"] == 5) {
+                  echo "<tr>
                                 <th scope='row'>Wednesday</th>
-                                <td>".$row['EXE_ID']."</td>
-                                <td><a href='exercise_details.php?un=". $row['EXE_ID']."'>".$row['EXE_NAME']."</a></td>
-                                <td>".$row['EXE_TYPE']."</td>
-                                <td>".$Set."</td>
-                                <td>".$Set_item."</td>
+                                <td>" . $row['EXE_ID'] . "</td>
+                                <td><a href='exercise_details.php?un=" . $row['EXE_ID'] . "'>" . $row['EXE_NAME'] . "</a></td>
+                                <td>" . $row['EXE_TYPE'] . "</td>
+                                <td>" . $Set . "</td>
+                                <td>" . $Set_item . "</td>
                               </tr>";
-                              }
+                }
 
-                               if($row["DAYS"]==6)
-                              {
-                                echo "<tr>
+                if ($row["DAYS"] == 6) {
+                  echo "<tr>
                                 <th scope='row'>Thursday</th>
-                                <td>".$row['EXE_ID']."</td>
-                                <td><a href='exercise_details.php?un=". $row['EXE_ID']."'>".$row['EXE_NAME']."</a></td>
-                                <td>".$row['EXE_TYPE']."</td>
-                                <td>".$Set."</td>
-                                <td>".$Set_item."</td>
+                                <td>" . $row['EXE_ID'] . "</td>
+                                <td><a href='exercise_details.php?un=" . $row['EXE_ID'] . "'>" . $row['EXE_NAME'] . "</a></td>
+                                <td>" . $row['EXE_TYPE'] . "</td>
+                                <td>" . $Set . "</td>
+                                <td>" . $Set_item . "</td>
                               </tr>";
-                              }
+                }
 
-                               if($row["DAYS"]==7)
-                              {
-                                echo "<tr>
+                if ($row["DAYS"] == 7) {
+                  echo "<tr>
                                 <th scope='row'>Friday</th>
-                                <td>".$row['EXE_ID']."</td>
-                                <td><a href='exercise_details.php?un=". $row['EXE_ID']."'>".$row['EXE_NAME']."</a></td>
-                                <td>".$row['EXE_TYPE']."</td>
-                                <td>".$Set."</td>
-                                <td>".$Set_item."</td>
+                                <td>" . $row['EXE_ID'] . "</td>
+                                <td><a href='exercise_details.php?un=" . $row['EXE_ID'] . "'>" . $row['EXE_NAME'] . "</a></td>
+                                <td>" . $row['EXE_TYPE'] . "</td>
+                                <td>" . $Set . "</td>
+                                <td>" . $Set_item . "</td>
                               </tr>";
-                              }
+                }
+              }
+              ?>
+            </tbody>
 
-        
-                          }
-                        ?>
-                        </tbody>
-                        
-                        
-                      
-                    </table>
+
+
+          </table>
 
 
 
