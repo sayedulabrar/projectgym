@@ -12,7 +12,7 @@ if ($_GET != NULL && ($_GET['un'] != 'u' && $_GET['un'] != 'i' && $_GET['un'] !=
 } else {
   $uname = $_SESSION['uname'];
 }
-$conn = oci_connect('brownfalcon_gms2', 'saif0rrahman', 'localhost/xe')
+$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
   echo "sorry";
@@ -508,7 +508,6 @@ if (!$conn) {
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <section class="content" style="margin-bottom:50px ;">
-<<<<<<< HEAD
         <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -541,9 +540,6 @@ if (!$conn) {
           </div>
         </div>
         <?php
-=======
-      <?php
->>>>>>> 670d4b66bda5d6b435bab90a9b1c93da3c82bfae
         if ($_GET) {
           if ($_GET['un'] == 'i') {
             echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>

@@ -128,12 +128,12 @@ if (!$conn) {
                   }
                   if($designation=="manager")
                   {
-                    echo ' <li class="nav-item">
+                    echo '<li class="nav-item">
                     <a href="../../manager_db.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Manager</p>
                     </a>
-                    </li>
+                    </li>';
                   }
 
 
@@ -172,54 +172,12 @@ if (!$conn) {
 
             </ul>
           </li>
-          <!-- <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-book"></i>
-              <p>
-                Pages
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-
-              <li class="nav-item">
-                <a href="../examples/profilev2.html" class="nav-link ">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Profile</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="../examples/userreg.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p> Manager Add</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="../examples/Branch.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Branch</p>
-                </a>
-              </li>
-
-
-              <li class="nav-item">
-                <a href="../examples/Search-Manager.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Search Manager</p>
-                </a>
-              </li>
-
-
-
-
-            </ul>
-          </li> -->
-
-          <?php
+          
+            <?php
 
                   if($designation=="trainer" || $designation=="receptionist" || $designation=="manager")
                   {
-                    
+
                   }
                   else
                   {
@@ -263,8 +221,6 @@ if (!$conn) {
                   }
 
             ?>
-
-
 
 
         </ul>
