@@ -1,8 +1,7 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $uname = $_SESSION['uname'];
-$designation = $_SESSION['profation'];  
- // aita get method dia ante hobe link er shathe pataia.
+$designation = $_SESSION['profation'];   // aita get method dia ante hobe link er shathe pataia.
 $conn = oci_connect('Abrar', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
@@ -99,11 +98,12 @@ if (!$conn) {
             </a>
             <ul class="nav nav-treeview">
 
-              <!-- <li class="nav-item">
+              <li class="nav-item">
                 <a href="../../admin_db.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard v2</p>
                 </a>
+<<<<<<< HEAD
               </li> -->
 
               <?php
@@ -138,6 +138,9 @@ if (!$conn) {
 
 
                 ?>
+=======
+              </li>
+>>>>>>> c976d95964800a1192366acf673d685ccbd6b17f
 
             </ul>
           </li>
@@ -158,13 +161,13 @@ if (!$conn) {
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="mailbox.php" class="nav-link">
+                <a href="../mailbox/mailbox.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Inbox</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="compose.php" class="nav-link active">
+                <a href="../mailbox/compose.php" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Compose</p>
                 </a>
@@ -172,6 +175,7 @@ if (!$conn) {
 
             </ul>
           </li>
+<<<<<<< HEAD
           
             <?php
 
@@ -221,6 +225,50 @@ if (!$conn) {
                   }
 
             ?>
+=======
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Pages
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+
+              <li class="nav-item">
+                <a href="../examples/profilev2.html" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Profile</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../examples/userreg.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p> Manager Add</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../examples/Branch.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Branch</p>
+                </a>
+              </li>
+
+
+              <li class="nav-item">
+                <a href="../examples/Search-Manager.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Search Manager</p>
+                </a>
+              </li>
+
+
+
+
+            </ul>
+          </li>
+>>>>>>> c976d95964800a1192366acf673d685ccbd6b17f
 
 
         </ul>
@@ -349,6 +397,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $sub=$_POST['subject'];
     $des=$_POST['details'];
     $sid=$senderid;
+    $to=$row['MEM_ID'];
 
     
 
@@ -366,6 +415,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $sub=$_POST['subject'];
     $des=$_POST['details'];
     $sid=$senderid;
+    $to=$row['EMP_ID'];
 
   }
 
@@ -375,16 +425,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 if($row!=NULL)
 {
-  $to=$row['EMP_ID'];
-  $sql=" INSERT INTO MESSAGE(
-    MES_ID,RECIEVER_ID,SUBJECT,DESCRIPTION,S_DATE,SENDER_ID
-  )VALUES(
-    per_mes_id_sq.NEXTVAL,'$to','$sub','$des',SYSDATE,'$sid'
-  )";  
+  
+  $sql="INSERT INTO MESSAGE( MES_ID,RECIEVER_ID,SUBJECT,DESCRIPTION,S_DATE,SENDER_ID )VALUES(  PER_MES_ID_SQ.NEXTVAL,$to,'$sub','$des',SYSDATE,$sid )";  
   $stid = oci_parse($conn, $sql);
   $r = oci_execute($stid);
-  
-  $_POST = array();
+  // $_POST = array();
 }else
 {
   echo"<div class='alert alert-warning alert-dismissible fade show my-4' role='alert'>

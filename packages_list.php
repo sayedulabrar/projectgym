@@ -69,10 +69,31 @@ if (!$conn) {
         $amount = $row['PKG_CHARGE'];
         $_SESSION['pk_amount']=$amount;
          $mm=$_SESSION['pk_amount'];
-        $sql = "insert into income (trx_id, username, inc_amount, br_name, inc_type, inc_dateandtime) values($trx_id, '$uname', $amount, '$br_name', 'Member Payment', SYSTIMESTAMP)";
-        $stid = oci_parse($conn, $sql);
-        $r = oci_execute($stid);
+        // $sql = "insert into income (trx_id, username, inc_amount, br_name, inc_type, inc_dateandtime) values($trx_id, '$uname', $amount, '$br_name', 'Member Payment', SYSTIMESTAMP)";
+        // $stid = oci_parse($conn, $sql);
+        // $r = oci_execute($stid);
         //updating month of the user
+        $trig="CREATE or REPLACE TRIGGER TRIGGER_INCOME
+        AFTER UPDATE OF MEMBERSHIP_EXPIRY
+        ON MEMBER
+        FOR EACH ROW
+        DECLARE
+        var1 NUMBER;
+        var2 varchar2(50);
+        var3 varchar2(50);
+        var4 varchar2(50);
+        var5 varchar2(5);
+        BEGIN
+        dbms_output.put_line('trigger called');
+        var2:= :new.username;
+        var4:= 'Member Payment';
+        SELECT PKG_CHARGE INTO var1 FROM PACKAGE NATURAL JOIN M_PKG WHERE USERNAME='var2';
+        SELECT BR_NAME INTO var3 FROM USERS NATURAL JOIN M_PKG WHERE USERNAME='var2';
+        INSERT INTO Income(TRX_ID,USERNAME,INC_AMOUNT,BR_NAME,INC_TYPE,INC_DATEANDTIME) VALUES (TRX_ID_GENERATE_SEQUENCE.nextval,var2,var1,var3,var4,SYSTIMESTAMP);
+        END;
+        ";
+        $stid=oci_parse($conn,$trig);
+        $r=oci_execute($stid);
         $package_ID= $_SESSION['pk_id'];
         
          $sql = "select PKG_DURATION from PACKAGE where PKG_ID= $package_ID";
@@ -538,7 +559,7 @@ if (!$conn) {
                   <input type="hidden" name="pkg_id" id="pkg_id">
                   <div class="modal-body" style="float: right;">
                     <button type="button" class="btn btn-secondary" onclick="window.location.href='packages_list.php'">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Comfirm</button>
+                    <button type="submit" class="btn btn-primary">Confirm</button>
                   </div>
                 </form>
               </div>
