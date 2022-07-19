@@ -1,8 +1,8 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
-$_SESSION['profation'] = "trainer";
 $_SESSION['routine'] = NULL;
 $uname = $_SESSION['uname'];
+$designation = $_SESSION['profation'];
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
     or die(oci_error());
 if (!$conn) {
@@ -77,7 +77,7 @@ if (!$conn) {
                         <img src="dist/img/enan_pinki.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="employee_profile.php?un_=trainer" class="d-block">
+                        <a href="employee_profile.php" class="d-block">
                             <?php
                             echo $uname;
                             ?>

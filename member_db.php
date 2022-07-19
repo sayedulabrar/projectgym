@@ -141,13 +141,13 @@ if (!$conn) {
               </a>
               <ul class="nav nav-treeview">
                 <!-- <li class="nav-item">
-                  <a href="pages/mailbox/mailbox.html" class="nav-link">
+                  <a href="pages/mailbox/mailbox.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Inbox</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="pages/mailbox/compose.html" class="nav-link">
+                  <a href="pages/mailbox/compose.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Compose</p>
                   </a>
@@ -462,20 +462,26 @@ if (!$conn) {
                     $r = oci_execute($stid);
                     $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
 
-                    $weight = $row['MEM_WEIGHT'];
+                    $w = $row['MEM_WEIGHT'];
 
                     $sql = "select mem_height from member where username='$uname'";
                     $stid = oci_parse($conn, $sql);
                     $r = oci_execute($stid);
                     $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    $height = $row['MEM_HEIGHT'];
+                    $h = $row['MEM_HEIGHT'];
 
 
-                    $height = $height / 100;
+                    // $height=$height/100;
 
-                    $height = $height ** 2;
+                    // $height=$height**2;
+                    $stid = oci_parse($conn, 'begin :r := BMI(:w,:h); end;');
+                    oci_bind_by_name($stid, ':w', $w);
+                    oci_bind_by_name($stid, ':h', $h);
+                    oci_bind_by_name($stid, ':r', $r, 40);
 
-                    $bmi = number_format($weight / $height, 2);
+                    oci_execute($stid);
+                    $bmi = $r;
+                    $bmi = number_format($bmi, 2);
 
                     echo $bmi;
 
@@ -688,7 +694,7 @@ if (!$conn) {
                   echo "<tr>
                                 <th scope='row'>Saturday</th>
                                 <td>" . $row['EXE_ID'] . "</td>
-                                <td>" . $row['EXE_NAME'] . "</td>
+                                <td><a href='exercise_details.php?un=" . $row['EXE_ID'] . "'>" . $row['EXE_NAME'] . "</a></td>
                                 <td>" . $row['EXE_TYPE'] . "</td>
                                 <td>" . $Set . "</td>
                                 <td>" . $Set_item . "</td>

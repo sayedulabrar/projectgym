@@ -37,6 +37,7 @@ if (!$conn) {
       $wrongBranch = true;
     } else {
       // PER_EMP_ID_SQ
+
       $name = $_POST['name'];
       $gender = $_POST['gender'];
       $email = $_POST['email'];
@@ -50,7 +51,6 @@ if (!$conn) {
       $education = $_POST['education'];
       // $designation = 'Trainer';
       $password = $name;
-
       $sql = "select PER_EMP_ID_SQ.NEXTVAL from dual";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
@@ -58,18 +58,15 @@ if (!$conn) {
       $x = $row['NEXTVAL'];
       $username = $name . $x;
 
+      $_SESSION['xxx'] = $username;
 
       $mobileno = $_POST['mobileno'];
       $array = explode(",", $mobileno);
       $test = count($array);
-
-      $sql = "insert into users (username, password, dob, name, gender, email, address, blood_grp, account_no, br_name) values ('$username', '$password', to_date('$dob', 'dd-mm-yyyy'), '$name', '$gender', '$email', '$address', '$bloodgrp', $accountno, '$br_name')";
+      $sql = "insert into users (username, password, dob, name, gender, email, address, blood_grp, account_no, br_name) values ('$username', '$password', to_date('$dob', 'mm/dd/yyyy'), '$name', '$gender', '$email', '$address', '$bloodgrp', $accountno, '$br_name')";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
-
       $date = date("Y/m/d");
-
-      // $bmi = ($weight) / (($height / 100) * ($height / 100));
       $sql = "insert into employee(emp_id, username, salary, shift, experience, education, Num_of_rating, rating_value, designation) values(PER_EMP_ID_SQ.currval, '$username', $salary, $shift, '$experience', '$education', 0, 0, '$designation')";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
@@ -90,9 +87,7 @@ if (!$conn) {
     }
   }
 }
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -100,14 +95,12 @@ if (!$conn) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Add Employee</title>
-
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="  plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="  dist/css/adminlte.min.css">
-
   <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
 </head>
@@ -115,7 +108,6 @@ if (!$conn) {
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
   <!-- Site wrapper -->
   <div class="wrapper">
-
     <?php
     if ($designation == 'Manager') {
       echo '
@@ -186,13 +178,13 @@ if (!$conn) {
                   </a>
                   <ul class="nav nav-treeview">
                     <li class="nav-item">
-                      <a href="   pages/mailbox/mailbox.html" class="nav-link">
+                      <a href="   pages/mailbox/mailbox.php" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Inbox</p>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href="   pages/mailbox/compose.html" class="nav-link">
+                      <a href="   pages/mailbox/compose.php" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Compose</p>
                       </a>
@@ -321,13 +313,13 @@ if (!$conn) {
                   </a>
                   <ul class="nav nav-treeview">
                     <li class="nav-item">
-                      <a href=" pages/mailbox/mailbox.html" class="nav-link">
+                      <a href=" pages/mailbox/mailbox.php" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Inbox</p>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href=" pages/mailbox/compose.html" class="nav-link">
+                      <a href=" pages/mailbox/compose.php" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Compose</p>
                       </a>
@@ -348,7 +340,6 @@ if (!$conn) {
         ';
     }
     ?>
-
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper" style="margin-top: 0;">
       <!-- Content Header (Page header) -->
@@ -366,7 +357,6 @@ if (!$conn) {
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-
               <h1>Add <?php
                       if ($designation == 'Manager') {
                         echo "Manager";
@@ -396,10 +386,8 @@ if (!$conn) {
           </div>
         </div><!-- /.container-fluid -->
       </section>
-
       <!-- Main content -->
       <section class="content" style="margin-bottom:50px ;">
-
         <form action="add_employee.php" method="POST">
           <div class="row">
             <div class="col-lg-6 col-md-12">
@@ -418,22 +406,18 @@ if (!$conn) {
                       <option value="Female">Female</option>
                     </select>
                   </div>
-
                   <div class="form-group">
                     <label for="email">Email <span style="color:#FF0000">*</span></label>
                     <input type="email" id="email" name="email" class="form-control" required>
                   </div>
-
                   <div class="form-group">
                     <label for="mobileno">Mobile No</label>
                     <input type="text" id="mobileno" name="mobileno" class="form-control">
                   </div>
-
                   <div class="form-group">
                     <label for="address">Address</label>
                     <input type="text" id="address" name="address" class="form-control">
                   </div>
-
                   <div class="form-group">
                     <label for="bloodgrp">Blood Group</label>
                     <select name="bloodgrp" id="bloodgrp" class="form-select" aria-label="Default select example" style="width: 576px; height: 37px;">
@@ -445,7 +429,7 @@ if (!$conn) {
                       <option value="O-">O-</option>
                       <option value="AB+">AB+</option>
                       <option value="AB-">AB-</option>
-                      
+
                     </select>
                   </div>
                   <?php
@@ -455,10 +439,7 @@ if (!$conn) {
                     <input type="text" id="br_name" name="br_name" class="form-control" required>
                   </div>';
                   }
-
                   ?>
-
-
                 </div>
                 <!-- /.card-body -->
               </div>
@@ -466,19 +447,18 @@ if (!$conn) {
             </div>
             <div class="col-lg-6 col-md-12">
               <div class="card card-primary">
-
                 <div class="card-body">
                   <div class="form-group">
                     <label for="dob">Date of Birth <span style="color:#FF0000">*</span></label>
                     <input type="text" id="datepicker" name="datepicker" class="form-control">
                   </div>
                   <div class="form-group">
-                    <label for="accountno">Account No  <span style="color:#FF0000">*</span></label>
+                    <label for="accountno">Account No <span style="color:#FF0000">*</span></label>
                     <input type="number" id="accountno" name="accountno" class="form-control" required>
                   </div>
                   <div class="form-group">
-                    <label for="experience">Experience (Years)</label>
-                    <input type="number" id="experience" name="experience" class="form-control">
+                    <label for="experience">Experience (Years) <span style="color:#FF0000">*</span></label>
+                    <input type="number" id="experience" name="experience" class="form-control" required>
                   </div>
                   <div class="form-group">
                     <label for="salary">Salary (BDT) <span style="color:#FF0000">*</span></label>
@@ -489,19 +469,16 @@ if (!$conn) {
                     <select name="shift" id="shift" class="form-select" aria-label="Default select example" style="width: 576px; height: 37px;">
                       <option value="1">Morning</option>
                       <option value="2">Evening</option>
-                      
+
                     </select>
                   </div>
                   <div class="form-group">
                     <label for="education">Education (Hightest Degree Only)</label>
                     <input type="text" id="education" name="education" class="form-control">
                   </div>
-
-
                 </div>
               </div>
             </div>
-
           </div>
           <div class="row">
             <div class="col-12">
@@ -515,9 +492,6 @@ if (!$conn) {
       <div style="margin-bottom:30px ;"></div>
     </div>
     <!-- /.content-wrapper -->
-
-
-
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
       <!-- Control sidebar content goes here -->
@@ -525,7 +499,6 @@ if (!$conn) {
     <!-- /.control-sidebar -->
   </div>
   <!-- ./wrapper -->
-
   <!-- jQuery -->
   <script src="  plugins/jquery/jquery.min.js"></script>
   <!-- Bootstrap 4 -->

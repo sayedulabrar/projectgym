@@ -98,14 +98,18 @@ if (!$conn) {
   <title>Trainers List</title>
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -215,13 +219,13 @@ if (!$conn) {
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="pages/mailbox/mailbox.html" class="nav-link">
+                            <a href="pages/mailbox/mailbox.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Inbox</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/mailbox/compose.html" class="nav-link">
+                            <a href="pages/mailbox/compose.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Compose</p>
                             </a>
@@ -416,8 +420,22 @@ if (!$conn) {
 
                     <div class="row">
                       <div class="form-group col-lg-6 col-12">
-                        <label for="uname">Branch Name</label>
-                        <input type="text" class="form-control" id="uname" name="uname" aria-describedby="emailHelp">
+                        <label for="select2">Branch Name</label>
+                        <select class="select2" name="uname" id = "uname" style="width: 100%; height: 38px;">
+                        <?php
+
+                          $sql = "select *from branch";
+                          $stid = oci_parse($conn, $sql);
+                          $r = oci_execute($stid);
+                          $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                          while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS))
+                          {
+                            echo '<option value="'.$row["BR_NAME"].'">'.$row["BR_NAME"].'</option>';
+                          }
+                          
+                        ?>
+                        </select>
+                       
                       </div>
                       <div class="form-group col-lg-6 col-12">
                         <label for="designation">Designation</label>
@@ -432,7 +450,7 @@ if (!$conn) {
                     <div class="row">
                       <div class="form-group col-lg-6 col-12">
                         <label for="salary">Salary</label>
-                        <input type="text" class="form-control" id="salary" name="salary" aria-describedby="emailHelp">
+                        <input type="number" class="form-control" id="salary" name="salary" aria-describedby="emailHelp">
                       </div>
                       <div class="form-group col-lg-6 col-12">
                         <label for="shift">Shift</label>
@@ -527,10 +545,10 @@ if (!$conn) {
                   <form action="trainer_list.php" method = "POST">
                     <div class="row" >
                       <div class="form-group col-lg-4 col-12" >
-                        <input type="text" placeholder="From" class="form-control" id="s_r" name="s_r" aria-describedby="emailHelp">  
+                        <input type="number" placeholder="From" class="form-control" id="s_r" name="s_r" aria-describedby="emailHelp">  
                       </div>
                       <div class="form-group col-lg-4 col-12">
-                        <input type="text" placeholder="To" class="form-control" id="f_r" name="f_r">
+                        <input type="number" placeholder="To" class="form-control" id="f_r" name="f_r">
                       </div>
                       <div class="form-group col-lg-4 col-12">
                         <button type="submit" class="btn btn-secondary">Search</button>
@@ -544,10 +562,10 @@ if (!$conn) {
                   <form action="trainer_list.php" method = "POST">
                     <div class="row">
                       <div class="form-group col-lg-4 col-12">
-                        <input type="text" placeholder="From" class="form-control" id="s_s" name="s_s" aria-describedby="emailHelp">  
+                        <input type="number" placeholder="From" class="form-control" id="s_s" name="s_s" aria-describedby="emailHelp">  
                       </div>
                       <div class="form-group col-lg-4 col-12">
-                        <input type="text" placeholder="To" class="form-control" id="f_s" name="f_s">
+                        <input type="number" placeholder="To" class="form-control" id="f_s" name="f_s">
                       </div>
                       <div class="form-group col-lg-4 col-12">
                         <button type="submit" class="btn btn-secondary">Search</button>
@@ -561,10 +579,10 @@ if (!$conn) {
                   <form action="trainer_list.php" method = "POST">
                     <div class="row">
                       <div class="form-group col-lg-4 col-12">
-                        <input type="text" placeholder="From" class="form-control" id="s_a" name="s_a" aria-describedby="emailHelp">  
+                        <input type="number" placeholder="From" class="form-control" id="s_a" name="s_a" aria-describedby="emailHelp">  
                       </div>
                       <div class="form-group col-lg-4 col-12">
-                        <input type="text" placeholder="To" class="form-control" id="f_a" name="f_a">
+                        <input type="number" placeholder="To" class="form-control" id="f_a" name="f_a">
                       </div>
                       <div class="form-group col-lg-4 col-12">
                         <button type="submit" class="btn btn-secondary">Search</button>
@@ -748,9 +766,9 @@ if (!$conn) {
 
   <!-- REQUIRED SCRIPTS -->
   <!-- jQuery -->
-  <script src="plugins/jquery/jquery.min.js"></script>
+  
   <!-- Bootstrap -->
-  <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  
   <!-- overlayScrollbars -->
   <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
   <!-- AdminLTE App -->
@@ -766,13 +784,21 @@ if (!$conn) {
   <script src="plugins/chart.js/Chart.min.js"></script>
 
   <!-- AdminLTE for demo purposes -->
-  <script src="dist/js/demo.js"></script>
+  
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   <script src="dist/js/pages/dashboard2.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
   <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+  <!-- <script src="plugins/jquery/jquery.min.js"></script> -->
+  <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="plugins/select2/js/select2.full.min.js"></script>
+  <script src="dist/js/adminlte.min.js"></script>
+  <script src="dist/js/demo.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+  
+  
   <script>
     deletes = document.getElementsByClassName('delete');
     Array.from(deletes).forEach((element) => {
@@ -800,12 +826,17 @@ if (!$conn) {
       })
     })
   </script>
-
+  <script>
+    $('#uname').select2({
+        dropdownParent: $('#exampleModal1')
+    });
+</script>
   <script>
     $(document).ready(function() {
       $('#myTable').DataTable();
     });
   </script>
+  
 </body>
 
 </html>

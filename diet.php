@@ -1,37 +1,35 @@
 <?php
-  session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
-  $_SESSION['profation']="trainer";
-  if ($_GET == NULL) {
-    $uname = $_SESSION['uname'];
-    
-    //$va1=$uname;
-  } else {
-    $uname = $_GET['un'];
-    $_SESSION['extra'] = $uname;
-    //$va2=$uname;
-  }
-  //$uname = $_GET['un'];
+session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 
-  
-  $trainer = $_SESSION['uname'];
-  
+if ($_GET == NULL) {
+  $uname = $_SESSION['uname'];
 
-  $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
-    or die(oci_error());
+  //$va1=$uname;
+} else {
+  $uname = $_GET['un'];
+  $_SESSION['extra'] = $uname;
+  //$va2=$uname;
+}
+//$uname = $_GET['un'];
 
-    if (!$conn) {
-      echo "sorry";
-    } 
 
-    else{
-      
-      $sql1 = "Select * from Member where username='$uname'";
-      $stid1 = oci_parse($conn, $sql1);
-      $r1 = oci_execute($stid1);
-      $mem = oci_fetch_array($stid1, OCI_ASSOC + OCI_RETURN_NULLS);
-      $diet_id=0;
-    
-   
+$trainer = $_SESSION['uname'];
+
+
+$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
+  or die(oci_error());
+
+if (!$conn) {
+  echo "sorry";
+} else {
+
+  $sql1 = "Select * from Member where username='$uname'";
+  $stid1 = oci_parse($conn, $sql1);
+  $r1 = oci_execute($stid1);
+  $mem = oci_fetch_array($stid1, OCI_ASSOC + OCI_RETURN_NULLS);
+  $diet_id = 0;
+
+
 
 
 
@@ -177,7 +175,7 @@
                   </li>";
                 ?>
                 <!-- <li class="nav-item">
-                  <a href="pages/mailbox/compose.html" class="nav-link">
+                  <a href="pages/mailbox/compose.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Compose</p>
                   </a>
@@ -185,31 +183,7 @@
 
               </ul>
             </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-book"></i>
-                <p>
-                  Pages
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-
-                </li>
-                <li class="nav-item">
-                  <a href="employee_profile.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Profile</p>
-                  </a>
-                </li>
-
-
-
-
-
-              </ul>
-            </li>
+            
 
 
 

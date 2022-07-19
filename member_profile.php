@@ -4,19 +4,16 @@ $showuname = $_SESSION['uname'];
 $wrongPassword = false;
 $matchPassword = true;
 $nullPassword = false;
-if($_GET == NULL) {
+if ($_GET == NULL) {
   $uname = $_SESSION['uname'];
-}
-else {
-  $uname = $_GET['un'] ;
-  if($uname == 'w' || $uname == 'm' || $uname == 'n') {
-    if($uname == 'w') {
+} else {
+  $uname = $_GET['un'];
+  if ($uname == 'w' || $uname == 'm' || $uname == 'n') {
+    if ($uname == 'w') {
       $wrongPassword = true;
-    }
-    else if($uname == 'm') {
+    } else if ($uname == 'm') {
       $matchPassword = false;
-    }
-    else {
+    } else {
       $nullPassword = true;
     }
     $uname =  $_SESSION['uname'];
@@ -38,8 +35,8 @@ if (!$conn) {
   $stid = oci_parse($conn, $sql);
   $r = oci_execute($stid);
   $userJoinMember = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-  if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if(isset($_POST['name1'])) {
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['name1'])) {
       $name = $_POST['name1'];
       $gender = $_POST['gender1'];
       $bloodgroup = $_POST['bloodgroup1'];
@@ -47,7 +44,7 @@ if (!$conn) {
       $email = $_POST['email1'];
       $address = $_POST['address1'];
       $account = $_POST['account1'];
-      
+
       $sql = "update users set name = '$name', gender = '$gender', blood_grp = '$bloodgroup', dob= to_date('$dob', 'dd-mon-yy'), email = '$email', address= '$address', account_no = $account where username = '$uname'";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
@@ -66,45 +63,38 @@ if (!$conn) {
         $i = $i + 1;
       }
     }
-    if(isset($_POST['oldpass'])) {
+    if (isset($_POST['oldpass'])) {
       $sql = "select * from users where username = '$uname'";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
       $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
       echo $row['PASSWORD'];
-      if($_POST['oldpass'] == $row['PASSWORD']) {
+      if ($_POST['oldpass'] == $row['PASSWORD']) {
         echo "yes";
-        if($_POST['newpass'] == $_POST['cpass']) {
-          if($_POST['newpass'] == NULL) {
+        if ($_POST['newpass'] == $_POST['cpass']) {
+          if ($_POST['newpass'] == NULL) {
             $nullPassword = true;
-          }
-          else {
+          } else {
             $sql = "update users set password = '$_POST[newpass]' where username = '$uname'";
             $stid = oci_parse($conn, $sql);
             $r = oci_execute($stid);
           }
-        }
-        else {
+        } else {
           $matchPassword = false;
         }
-      }
-      else {
+      } else {
         $wrongPassword = true;
       }
     }
-    if($wrongPassword == true) {
+    if ($wrongPassword == true) {
       header("Location: member_profile.php?un=w");
-    }
-    else if($matchPassword == false) {
+    } else if ($matchPassword == false) {
       header("Location: member_profile.php?un=m");
-    }
-    else if($nullPassword == true) {
+    } else if ($nullPassword == true) {
       header("Location: member_profile.php?un=n");
-    }
-    else {
+    } else {
       header("Location: member_profile.php");
     }
-    
   }
 }
 ?>
@@ -127,7 +117,7 @@ if (!$conn) {
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -150,9 +140,9 @@ if (!$conn) {
                   <input type="text" class="form-control" id="gender1" name="gender1" aria-describedby="emailHelp">
                 </div>
               </div>
-              
+
               <div class="row">
-                
+
                 <div class="form-group col-lg-6 col-12">
                   <label for="bloodgroup1">Blood Group</label>
                   <input type="text" class="form-control" id="bloodgroup1" name="bloodgroup1" aria-describedby="emailHelp">
@@ -163,7 +153,7 @@ if (!$conn) {
                 </div>
               </div>
               <div class="row">
-                
+
                 <div class="form-group col-lg-6 col-12">
                   <label for="email1">Email</label>
                   <input type="email" class="form-control" id="email1" name="email1" aria-describedby="emailHelp">
@@ -232,7 +222,7 @@ if (!$conn) {
             <div class="modal-body" style="float: right;">
               <button type="button" class="btn btn-secondary" onclick="window.location.href='member_profile.php'">Cancel</button>
               <button type="submit" class="btn btn-primary">Comfirm</button>
-            </div> 
+            </div>
           </form>
         </div>
 
@@ -245,8 +235,8 @@ if (!$conn) {
   <div class="wrapper">
 
     <?php
-      if($_GET == NULL || $wrongPassword == true || $matchPassword == false || $nullPassword == true) {
-        echo '
+    if ($_GET == NULL || $wrongPassword == true || $matchPassword == false || $nullPassword == true) {
+      echo '
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
           <!-- Brand Logo -->
@@ -264,8 +254,8 @@ if (!$conn) {
               </div>
               <div class="info">
                 <a href="member_profile.php" class="d-block">';
-                echo $uname;
-                echo '</a>
+      echo $uname;
+      echo '</a>
               </div>
             </div>
     
@@ -320,13 +310,13 @@ if (!$conn) {
                   </a>
                   <ul class="nav nav-treeview">
                     <li class="nav-item">
-                      <a href="pages/mailbox/mailbox.html" class="nav-link">
+                      <a href="pages/mailbox/mailbox.php" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Inbox</p>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href="pages/mailbox/compose.html" class="nav-link">
+                      <a href="pages/mailbox/compose.php" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Compose</p>
                       </a>
@@ -403,9 +393,8 @@ if (!$conn) {
         </aside>
     
         ';
-      }
-      else {
-        echo '
+    } else {
+      echo '
       <!-- Main Sidebar Container -->
       <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
@@ -423,8 +412,8 @@ if (!$conn) {
             </div>
             <div class="info">
               <a href="employee_profile.php" class="d-block">';
-              echo $_SESSION['uname'];
-             echo '</a>
+      echo $_SESSION['uname'];
+      echo '</a>
             </div>
           </div>
   
@@ -471,13 +460,13 @@ if (!$conn) {
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href=" pages/mailbox/mailbox.html" class="nav-link">
+                    <a href=" pages/mailbox/mailbox.php" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Inbox</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href=" pages/mailbox/compose.html" class="nav-link">
+                    <a href=" pages/mailbox/compose.php" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Compose</p>
                     </a>
@@ -493,10 +482,9 @@ if (!$conn) {
       </aside>
   
       ';
-        
-      }
+    }
     ?>
-    
+
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper dark-mode" style="margin-top: 0;">
       <!-- Content Header (Page header) -->
@@ -509,13 +497,12 @@ if (!$conn) {
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="<?php
-                  if($_GET == NULL || $wrongPassword == true || $matchPassword == false || $nullPassword == true) {
-                    echo "member_db.php";
-                  }
-                  else {
-                    echo "manager_db.php";
-                  }
-                ?>">Home</a></li>
+                                                      if ($_GET == NULL || $wrongPassword == true || $matchPassword == false || $nullPassword == true) {
+                                                        echo "member_db.php";
+                                                      } else {
+                                                        echo "manager_db.php";
+                                                      }
+                                                      ?>">Home</a></li>
                 <li class="breadcrumb-item active">User Profile</li>
               </ol>
             </div>
@@ -538,7 +525,7 @@ if (!$conn) {
 
                   <h3 class="profile-username text-center">
                     <?php
-                      echo $userJoinMember["USERNAME"]
+                    echo $userJoinMember["USERNAME"]
                     ?>
                   </h3>
 
@@ -550,73 +537,73 @@ if (!$conn) {
                         <li class="list-group-item">
                           <b>Name</b> <a class="float-right">
                             <?php
-                              echo $userJoinMember["NAME"];
+                            echo $userJoinMember["NAME"];
                             ?>
                           </a>
                         </li>
                         <li class="list-group-item">
                           <b>Email</b> <a class="float-right">
-                          <?php
-                              echo $userJoinMember["EMAIL"];
+                            <?php
+                            echo $userJoinMember["EMAIL"];
                             ?>
                           </a>
                         </li>
                         <li class="list-group-item">
                           <b>Gender</b> <a class="float-right">
-                          <?php
-                              echo $userJoinMember["GENDER"];
+                            <?php
+                            echo $userJoinMember["GENDER"];
                             ?>
                           </a>
                         </li>
                         <li class="list-group-item">
                           <b>Date of Birth</b> <a class="float-right">
-                          <?php
-                              echo $userJoinMember["DOB"];
+                            <?php
+                            echo $userJoinMember["DOB"];
                             ?>
                           </a>
                         </li>
                         <li class="list-group-item">
                           <b>Address</b> <a class="float-right">
-                          <?php
-                              echo $userJoinMember["ADDRESS"];
+                            <?php
+                            echo $userJoinMember["ADDRESS"];
                             ?>
                           </a>
                         </li>
                         <li class="list-group-item">
                           <b>Account Number</b> <a class="float-right">
-                          <?php
-                              echo $userJoinMember["ACCOUNT_NO"];
+                            <?php
+                            echo $userJoinMember["ACCOUNT_NO"];
                             ?>
                           </a>
                         </li>
                         <li class="list-group-item">
                           <b>Mobile_No</b> <a class="float-right">
-                          <?php
-                              $sql = "select *from user_mobileno where username = '$uname'";
-                              $stid = oci_parse($conn, $sql);
-                              $r = oci_execute($stid);
-                              $num = 0;
-                              while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-                                $num = $num + 1;
+                            <?php
+                            $sql = "select *from user_mobileno where username = '$uname'";
+                            $stid = oci_parse($conn, $sql);
+                            $r = oci_execute($stid);
+                            $num = 0;
+                            while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                              $num = $num + 1;
+                            }
+                            $stid = oci_parse($conn, $sql);
+                            $r = oci_execute($stid);
+                            $n = 0;
+                            while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                              $n = $n + 1;
+                              if ($n == $num) {
+                                echo $row["MOBILE_NO"];
+                              } else {
+                                echo $row["MOBILE_NO"] . ', ';
                               }
-                              $stid = oci_parse($conn, $sql);
-                              $r = oci_execute($stid);
-                              $n = 0;
-                              while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-                                $n = $n + 1;
-                                if ($n == $num) {
-                                  echo $row["MOBILE_NO"];
-                                } else {
-                                  echo $row["MOBILE_NO"] . ', ';
-                                }
-                              }
+                            }
                             ?>
                           </a>
                         </li>
                         <li class="list-group-item">
                           <b>Blood Group</b> <a class="float-right">
-                          <?php
-                              echo $userJoinMember["BLOOD_GRP"];
+                            <?php
+                            echo $userJoinMember["BLOOD_GRP"];
                             ?>
                           </a>
                         </li>
@@ -627,51 +614,51 @@ if (!$conn) {
                       <ul class="list-group list-group-unbordered mb-3">
                         <li class="list-group-item">
                           <b>Member ID</b> <a class="float-right">
-                          <?php
-                              echo $userJoinMember["MEM_ID"];
+                            <?php
+                            echo $userJoinMember["MEM_ID"];
                             ?>
                           </a>
                         </li>
 
                         <li class="list-group-item">
                           <b>Height</b> <a class="float-right">
-                          <?php
-                              echo $userJoinMember["MEM_HEIGHT"];
+                            <?php
+                            echo $userJoinMember["MEM_HEIGHT"];
                             ?>
                           </a>
                         </li>
                         <li class="list-group-item">
                           <b>Weight</b> <a class="float-right">
-                          <?php
-                              echo $userJoinMember["MEM_WEIGHT"];
+                            <?php
+                            echo $userJoinMember["MEM_WEIGHT"];
                             ?>
                           </a>
                         </li>
                         <li class="list-group-item">
                           <b>BMI</b> <a class="float-right">
-                          <?php
-                              echo $userJoinMember["MEMB_BMI"];
+                            <?php
+                            echo $userJoinMember["MEMB_BMI"];
                             ?>
                           </a>
                         </li>
                         <li class="list-group-item">
                           <b>Branch Name</b> <a class="float-right">
-                          <?php
-                              echo $userJoinMember["BR_NAME"];
+                            <?php
+                            echo $userJoinMember["BR_NAME"];
                             ?>
                           </a>
                         </li>
                         <li class="list-group-item">
                           <b>Membership Expiry Date</b> <a class="float-right">
-                          <?php
-                              echo $userJoinMember["MEMBERSHIP_EXPIRY"];
+                            <?php
+                            echo $userJoinMember["MEMBERSHIP_EXPIRY"];
                             ?>
                           </a>
                         </li>
                         <li class="list-group-item">
                           <b>Assigned Trainer</b> <a class="float-right">
-                          <?php
-                              echo $userJoinMember["TRAINER"];
+                            <?php
+                            echo $userJoinMember["TRAINER"];
                             ?>
                           </a>
                         </li>
@@ -682,24 +669,22 @@ if (!$conn) {
                         <div class="col-md-12 bg-dark text-right">
                           <p style="color: red">
                             <?php
-                              if($wrongPassword == true) {
-                                echo "Wrong Password"; 
-                              }
-                              else if($matchPassword == false) {
-                                echo "Password does not match";
-                              }
-                              else if($nullPassword == true) {
-                                echo "Password can not be null";
-                              }
+                            if ($wrongPassword == true) {
+                              echo "Wrong Password";
+                            } else if ($matchPassword == false) {
+                              echo "Password does not match";
+                            } else if ($nullPassword == true) {
+                              echo "Password can not be null";
+                            }
                             ?>
                           </p>
                           <?php
-                            if($_GET == NULL || $wrongPassword == true || $matchPassword == false || $nullPassword == true) {
-                              echo '
+                          if ($_GET == NULL || $wrongPassword == true || $matchPassword == false || $nullPassword == true) {
+                            echo '
                               <button type="button" class="update btn btn-primary"  data-toggle="modal" data-target="#exampleModal">Edit Info</button>
                               <button type="button" class="pass btn btn-primary"  data-toggle="modal" data-target="#exampleModal1">Change Password</button>
                               ';
-                            } 
+                          }
                           ?>
                         </div>
                       </div>
@@ -755,33 +740,33 @@ if (!$conn) {
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   <script>
     updates = document.getElementsByClassName('update');
-    Array.from(updates).forEach((element)=>{
-      element.addEventListener("click", (e)=>{
+    Array.from(updates).forEach((element) => {
+      element.addEventListener("click", (e) => {
         tr = e.target.parentNode.parentNode.parentNode.parentNode;
         div1 = tr.getElementsByTagName("div")[0];
         cont1 = div1.getElementsByTagName("ul")[0];
 
         cont11 = cont1.getElementsByTagName("li")[0];
         name1.value = cont11.getElementsByTagName("a")[0].innerText;
-        
+
         cont11 = cont1.getElementsByTagName("li")[1];
         email1.value = cont11.getElementsByTagName("a")[0].innerText;
-        
+
         cont11 = cont1.getElementsByTagName("li")[2];
         gender1.value = cont11.getElementsByTagName("a")[0].innerText;
-        
+
         cont11 = cont1.getElementsByTagName("li")[4];
         address1.value = cont11.getElementsByTagName("a")[0].innerText;
-        
+
         cont11 = cont1.getElementsByTagName("li")[5];
         account1.value = cont11.getElementsByTagName("a")[0].innerText;
-        
+
         cont11 = cont1.getElementsByTagName("li")[3];
         dob1.value = cont11.getElementsByTagName("a")[0].innerText;
-        
+
         cont11 = cont1.getElementsByTagName("li")[6];
         mobile1.value = cont11.getElementsByTagName("a")[0].innerText;
-        
+
         cont11 = cont1.getElementsByTagName("li")[7];
         bloodgroup1.value = cont11.getElementsByTagName("a")[0].innerText;
 

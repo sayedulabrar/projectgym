@@ -48,7 +48,7 @@ if (!$conn) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Mailbox</title>
+  <title>Mailbox</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet"
@@ -72,7 +72,7 @@ if (!$conn) {
       <a href="../../index3.html" class="brand-link">
         <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
           style="opacity: .8">
-        <span class="brand-text font-weight-light"><?php echo $job; ?></span>
+        <span class="brand-text font-weight-light">Fitness Mania</span>
       </a>
 
       <!-- Sidebar -->
@@ -103,12 +103,60 @@ if (!$conn) {
               </a>
               <ul class="nav nav-treeview">
 
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                   <a href="../../f1.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Dashboard v2</p>
                   </a>
-                </li>
+                </li> -->
+
+                <?php
+                if($job=="member")
+                {
+                  echo '<li class="nav-item">
+                  <a href="../../member_db.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Member</p>
+                  </a>
+                </li>';
+                }
+                elseif($job=="trainer")
+                {
+                  echo '<li class="nav-item">
+                  <a href="../../trainer_db.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Trainer</p>
+                  </a>
+                </li>';
+                }
+                elseif($job=="manager")
+                {
+                  echo '<li class="nav-item">
+                  <a href="../../manager_db.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Manager</p>
+                  </a>
+                </li>';
+                }
+                elseif($job=="Receptionist")
+                {
+                  echo '<li class="nav-item">
+                  <a href="../../receptionist.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Receptionist</p>
+                  </a>
+                </li>';
+                }
+                else
+                {
+                  echo '<li class="nav-item">
+                  <a href="../../admin_db.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Admin</p>
+                  </a>
+                </li>';
+                }
+                ?>
 
               </ul>
             </li>
@@ -132,13 +180,13 @@ if (!$conn) {
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="../mailbox/mailbox.php" class="nav-link active">
+                  <a href="mailbox.php" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Inbox</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../mailbox/compose.php" class="nav-link">
+                  <a href="compose.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Compose</p>
                   </a>
