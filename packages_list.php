@@ -1,7 +1,6 @@
 <?php
 session_start();
  // this NEEDS TO BE AT THE TOP of the page before any output etc
-
  $showname = $_SESSION['uname'];
 $designation = $_SESSION['profation'];
 $_SESSION['pk_amount']=NULL;
@@ -87,8 +86,8 @@ if (!$conn) {
         dbms_output.put_line('trigger called');
         var2:= :new.username;
         var4:= 'Member Payment';
-        SELECT PKG_CHARGE INTO var1 FROM PACKAGE NATURAL JOIN M_PKG WHERE USERNAME='var2';
-        SELECT BR_NAME INTO var3 FROM USERS NATURAL JOIN M_PKG WHERE USERNAME='var2';
+        SELECT PKG_CHARGE INTO var1 FROM PACKAGE NATURAL JOIN M_PKG WHERE USERNAME=var2;
+        SELECT BR_NAME INTO var3 FROM USERS NATURAL JOIN M_PKG WHERE USERNAME=var2;
         INSERT INTO Income(TRX_ID,USERNAME,INC_AMOUNT,BR_NAME,INC_TYPE,INC_DATEANDTIME) VALUES (TRX_ID_GENERATE_SEQUENCE.nextval,var2,var1,var3,var4,SYSTIMESTAMP);
         END;
         ";
@@ -150,6 +149,7 @@ if (!$conn) {
   }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
