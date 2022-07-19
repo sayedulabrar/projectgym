@@ -276,16 +276,57 @@ if (!$conn) {
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
+                    <ul class="nav nav-treeview">';
 
-                        <li class="nav-item">
-                            <a href="manager_db.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Manager</p>
-                            </a>
-                        </li>
+                
+                if($designation=="member")
+                {
+                  echo '<li class="nav-item">
+                  <a href="member_db.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Member</p>
+                  </a>
+                </li>';
+                }
+                elseif($designation=="trainer")
+                {
+                  echo '<li class="nav-item">
+                  <a href="trainer_db.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Trainer</p>
+                  </a>
+                </li>';
+                }
+                elseif($designation=="manager")
+                {
+                  echo '<li class="nav-item">
+                  <a href="manager_db.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Manager</p>
+                  </a>
+                </li>';
+                }
+                elseif($designation=="Receptionist")
+                {
+                  echo '<li class="nav-item">
+                  <a href="receptionist.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Receptionist</p>
+                  </a>
+                </li>';
+                }
+                else
+                {
+                  echo '<li class="nav-item">
+                  <a href="admin_db.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Admin</p>
+                  </a>
+                </li>';
+                }
+                
 
-                    </ul>
+                  echo '</ul>
                 </li>
 
 

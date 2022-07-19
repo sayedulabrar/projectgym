@@ -2,6 +2,7 @@
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $_SESSION['routine'] = NULL;
 $uname = $_SESSION['uname'];
+$designation = $_SESSION['profation'];
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
     or die(oci_error());
 if (!$conn) {
