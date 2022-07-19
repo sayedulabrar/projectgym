@@ -1,8 +1,7 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $uname = $_SESSION['uname'];
-$designation = $_SESSION['profation'];  
- // aita get method dia ante hobe link er shathe pataia.
+$designation = $_SESSION['profation'];   // aita get method dia ante hobe link er shathe pataia.
 $conn = oci_connect('Abrar', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
@@ -99,45 +98,12 @@ if (!$conn) {
             </a>
             <ul class="nav nav-treeview">
 
-              <!-- <li class="nav-item">
+              <li class="nav-item">
                 <a href="../../admin_db.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard v2</p>
                 </a>
-              </li> -->
-
-              <?php
-
-                  if($designation=="trainer")
-                  {
-                    echo ' <li class="nav-item">
-                    <a href="../../trainer_db.php" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Trainer</p>
-                    </a>
-                  </li>';
-                  }
-                  if($designation=="receptionist")
-                  {
-                    echo ' <li class="nav-item">
-                    <a href="../../receptionist.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Receptionist</p>
-                    </a>
-                    </li>';
-                  }
-                  if($designation=="manager")
-                  {
-                    echo ' <li class="nav-item">
-                    <a href="../../manager_db.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Manager</p>
-                    </a>
-                    </li>
-                  }
-
-
-                ?>
+              </li>
 
             </ul>
           </li>
@@ -158,13 +124,13 @@ if (!$conn) {
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="mailbox.php" class="nav-link">
+                <a href="../mailbox/mailbox.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Inbox</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="compose.php" class="nav-link active">
+                <a href="../mailbox/compose.php" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Compose</p>
                 </a>
@@ -172,7 +138,7 @@ if (!$conn) {
 
             </ul>
           </li>
-          <!-- <li class="nav-item menu-open">
+          <li class="nav-item menu-open">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-book"></i>
               <p>
@@ -213,56 +179,7 @@ if (!$conn) {
 
 
             </ul>
-          </li> -->
-
-          <?php
-
-                  if($designation=="trainer" || $designation=="receptionist" || $designation=="manager")
-                  {
-                    
-                  }
-                  else
-                  {
-                    echo '<li class="nav-item menu-open">
-                    <a href="#" class="nav-link active">
-                      <i class="nav-icon fas fa-book"></i>
-                      <p>
-                        UserPages
-                        <i class="fas fa-angle-left right"></i>
-                      </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-      
-                      <li class="nav-item">
-                        <a href="../examples/profilev2.html" class="nav-link">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Profile</p>
-                        </a>
-                      </li>
-      
-      
-      
-                      <li class="nav-item">
-                        <a href="../examples/package.html" class="nav-link ">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Package</p>
-                        </a>
-      
-                      <li class="nav-item">
-                        <a href="../examples/Search-Trainer.html" class="nav-link ">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Search Trainer</p>
-                        </a>
-      
-      
-      
-      
-      
-                    </ul>
-                  </li>';
-                  }
-
-            ?>
+          </li>
 
 
 
@@ -393,6 +310,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $sub=$_POST['subject'];
     $des=$_POST['details'];
     $sid=$senderid;
+    $to=$row['MEM_ID'];
 
     
 
@@ -410,6 +328,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $sub=$_POST['subject'];
     $des=$_POST['details'];
     $sid=$senderid;
+    $to=$row['EMP_ID'];
 
   }
 
@@ -419,16 +338,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 if($row!=NULL)
 {
-  $to=$row['EMP_ID'];
-  $sql=" INSERT INTO MESSAGE(
-    MES_ID,RECIEVER_ID,SUBJECT,DESCRIPTION,S_DATE,SENDER_ID
-  )VALUES(
-    per_mes_id_sq.NEXTVAL,'$to','$sub','$des',SYSDATE,'$sid'
-  )";  
+  
+  $sql="INSERT INTO MESSAGE( MES_ID,RECIEVER_ID,SUBJECT,DESCRIPTION,S_DATE,SENDER_ID )VALUES(  PER_MES_ID_SQ.NEXTVAL,$to,'$sub','$des',SYSDATE,$sid )";  
   $stid = oci_parse($conn, $sql);
   $r = oci_execute($stid);
-  
-  $_POST = array();
+  // $_POST = array();
 }else
 {
   echo"<div class='alert alert-warning alert-dismissible fade show my-4' role='alert'>

@@ -48,7 +48,7 @@ if (!$conn) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><?php echo $job ?> | Mailbox</title>
+  <title>AdminLTE 3 | Mailbox</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet"
@@ -103,45 +103,12 @@ if (!$conn) {
               </a>
               <ul class="nav nav-treeview">
 
-                <!-- <li class="nav-item">
+                <li class="nav-item">
                   <a href="../../f1.html" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Dashboard v2</p>
                   </a>
-                </li> -->
-
-                <?php
-
-                  if($job=="trainer")
-                  {
-                    echo ' <li class="nav-item">
-                    <a href="../../trainer_db.php" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Trainer</p>
-                    </a>
-                  </li>';
-                  }
-                  if($job=="receptionist")
-                {
-                    echo ' <li class="nav-item">
-                    <a href="../../receptionist.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Receptionist</p>
-                    </a>
-                    </li>';
-                }
-
-                if($job=="manager")
-                {
-                    echo ' <li class="nav-item">
-                    <a href="../../manager_db.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Manager</p>
-                    </a>
-                    </li>';
-                }
-
-                ?>
+                </li>
 
               </ul>
             </li>
@@ -179,93 +146,7 @@ if (!$conn) {
 
               </ul>
             </li>
-            <!-- <li class="nav-item menu-open">
-              <a href="#" class="nav-link active">
-                <i class="nav-icon fas fa-book"></i>
-                <p>
-                  UserPages
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-
-                <li class="nav-item">
-                  <a href="../examples/profilev2.html" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Profile</p>
-                  </a>
-                </li>
-
-
-
-                <li class="nav-item">
-                  <a href="../examples/package.html" class="nav-link ">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Package</p>
-                  </a>
-
-                <li class="nav-item">
-                  <a href="../examples/Search-Trainer.html" class="nav-link ">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Search Trainer</p>
-                  </a>
-
-
-
-
-
-              </ul>
-            </li> -->
-
-
-            <?php
-
-                  if($job=="trainer" || $job=="receptionist" || $job=="manager")
-                  {
-
-                  }
-                  else
-                  {
-                    echo '<li class="nav-item menu-open">
-                    <a href="#" class="nav-link active">
-                      <i class="nav-icon fas fa-book"></i>
-                      <p>
-                        UserPages
-                        <i class="fas fa-angle-left right"></i>
-                      </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-      
-                      <li class="nav-item">
-                        <a href="../examples/profilev2.html" class="nav-link">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Profile</p>
-                        </a>
-                      </li>
-      
-      
-      
-                      <li class="nav-item">
-                        <a href="../examples/package.html" class="nav-link ">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Package</p>
-                        </a>
-      
-                      <li class="nav-item">
-                        <a href="../examples/Search-Trainer.html" class="nav-link ">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Search Trainer</p>
-                        </a>
-      
-      
-      
-      
-      
-                    </ul>
-                  </li>';
-                  }
-
-            ?>
+        
 
 
 
