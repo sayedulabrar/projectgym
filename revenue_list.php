@@ -83,6 +83,10 @@ if (!$conn) {
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
 
 </head>
 
@@ -451,7 +455,7 @@ if (!$conn) {
                               <form action="revenue_list.php" method = "POST">
                                 <div class="row">
                                   <div class="form-group col-lg-7 col-12">
-                                    <input type="text" placeholder="Less or Equal" class="form-control" id="le" name="le">
+                                    <input type="number" placeholder="Less or Equal" class="form-control" id="le" name="le">
                                   </div>
                                   <div class="form-group col-lg-5 col-12">
                                     <button type="submit" class="btn btn-secondary">Search</button>
@@ -464,7 +468,7 @@ if (!$conn) {
                               <form action="revenue_list.php" method = "POST">
                                 <div class="row">
                                   <div class="form-group col-lg-7 col-12">
-                                    <input type="text" placeholder="More or Equal" class="form-control" id="me" name="me">
+                                    <input type="number" placeholder="More or Equal" class="form-control" id="me" name="me">
                                   </div>
                                   <div class="form-group col-lg-5 col-12">
                                     <button type="submit" class="btn btn-secondary">Search</button>
@@ -482,7 +486,7 @@ if (!$conn) {
                           <form action="revenue_list.php" method = "POST">
                             <div class="row" >
                               <div class="form-group col-lg-8 col-12">
-                                <input type="text" placeholder="Days" class="form-control" id="his" name="his">
+                                <input type="number" placeholder="Days" class="form-control" id="his" name="his">
                               </div>
                               <div class="form-group col-lg-4 col-12">
                                 <button type="submit" class="btn btn-secondary">Search</button>
@@ -538,12 +542,31 @@ if (!$conn) {
                           <input type="hidden" name="snoEdit" id="snoEdit">
                           <div class="form-group">
                             <label for="username">Sender Username</label>
-                            <input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp">
+                            <!-- <input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp"> -->
+                            <select class="select2" name="username" id = "username" style="width: 100%; height: 38px;">
+                            <?php
+
+                              $sql = "select *from users where username = '$uname'";
+                              $stid = oci_parse($conn, $sql);
+                              $r = oci_execute($stid);
+                              $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                              $br_name = $row['BR_NAME'];
+                              $_SESSION['xxx'] = $br_name;
+                              $sql = "select *from users where br_name = '$br_name'";
+                              $stid = oci_parse($conn, $sql);
+                              $r = oci_execute($stid);
+                              while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS))
+                              {
+                                echo '<option value="'.$row["USERNAME"].'">'.$row["USERNAME"].'</option>';
+                              }
+                              
+                            ?>
+                            </select>
                           </div>
                           <div class="row">
                             <div class="form-group col-lg-6 col-12">
                               <label for="amount">Amount</label>
-                              <input type="text" class="form-control" id="amount" name="amount" aria-describedby="emailHelp">
+                              <input type="number" class="form-control" id="amount" name="amount" aria-describedby="emailHelp">
                             </div>
                             <div class="form-group col-lg-6 col-12">
                               <label for="type">Income Type</label>
@@ -671,8 +694,9 @@ if (!$conn) {
   <!-- overlayScrollbars -->
   <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
   <!-- AdminLTE App -->
+  
+  <script src="plugins/select2/js/select2.full.min.js"></script>
   <script src="dist/js/adminlte.js"></script>
-
   <!-- PAGE PLUGINS -->
   <!-- jQuery Mapael -->
   <script src="plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
@@ -702,6 +726,11 @@ if (!$conn) {
         // $('#exampleModal').modal('toggle');
       })
     })
+  </script>
+  <script>
+      $(function () {
+          $('.select2').select2()
+      });
   </script>
 </body>
 
