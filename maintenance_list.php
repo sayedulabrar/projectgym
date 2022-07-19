@@ -522,7 +522,7 @@ if (!$conn) {
                       <form action="maintenance_list.php" method = "POST">
                         <div class="row">
                           <div class="form-group col-lg-7 col-12">
-                            <input type="text" placeholder="Days" class="form-control" id="dw" name="dw">
+                            <input type="number" placeholder="Days" class="form-control" id="dw" name="dw">
                           </div>
                           <div class="form-group col-lg-5 col-12">
                             <button type="submit" class="btn btn-secondary">Search</button>
@@ -537,7 +537,7 @@ if (!$conn) {
                       <form action="maintenance_list.php" method = "POST">
                         <div class="row">
                           <div class="form-group col-lg-7 col-12">
-                            <input type="text" placeholder="Days" class="form-control" id="hp" name="hp">
+                            <input type="number" placeholder="Days" class="form-control" id="hp" name="hp">
                           </div>
                           <div class="form-group col-lg-5 col-12">
                             <button type="submit" class="btn btn-secondary">Search</button>
@@ -558,7 +558,7 @@ if (!$conn) {
                       <form action="maintenance_list.php" method = "POST">
                         <div class="row">
                           <div class="form-group col-lg-7 col-12">
-                            <input type="text" placeholder="Equal or less" class="form-control" id="el" name="el">
+                            <input type="number" placeholder="Equal or less" class="form-control" id="el" name="el">
                           </div>
                           <div class="form-group col-lg-5 col-12">
                             <button type="submit" class="btn btn-secondary">Search</button>
@@ -571,7 +571,7 @@ if (!$conn) {
                       <form action="maintenance_list.php" method = "POST">
                         <div class="row">
                           <div class="form-group col-lg-7 col-12">
-                            <input type="text" placeholder="Equal or More" class="form-control" id="em" name="em">
+                            <input type="number" placeholder="Equal or More" class="form-control" id="em" name="em">
                           </div>
                           <div class="form-group col-lg-5 col-12">
                             <button type="submit" class="btn btn-secondary">Search</button>

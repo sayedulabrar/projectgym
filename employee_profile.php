@@ -25,13 +25,16 @@ else {
     }
     $uname =  $_SESSION['uname'];
   }
-  if($uname == 'trainer') {
-    $trainer = true;
-    $uname =  $_SESSION['uname'];
+  else {
+    $uname = $_GET['un_'];
   }
-  if($designation <> 'Trainer' && $designation <> 'Admin') {
-    $uname = $_SESSION['uname'];
-  }
+  // if($uname == 'trainer') {
+  //   $trainer = true;
+  //   $uname =  $_SESSION['uname'];
+  // }
+  // if($designation <> 'Trainer' && $designation <> 'Admin') {
+  //   $uname = $_SESSION['uname'];
+  // }
 
   
 
@@ -709,10 +712,11 @@ if (!$conn) {
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="<?php
-                  if($designation = 'Admin') {
+                  $_SESSION['xxx'] = $designation;
+                  if($designation == 'Admin') {
                     echo "admin_db.php";
                   }
-                  elseif($trainer) {
+                  elseif($designation == 'Trainer') {
                     echo "trainer_db.php";
                   }
                   else {
@@ -896,7 +900,8 @@ if (!$conn) {
                             ?>
                           </p>
                           <?php
-                            if($_GET == NULL || $_GET['un_'] == 'trainer') {
+                            $_SESSION['xxx'] = $_GET;
+                            if($_GET == NULL || $_GET['un_'] == 'w' || $_GET['un_'] == 'm' || $_GET['un_'] == 'n') {
                               echo '
                               <button type="button" class="update btn btn-primary"  data-toggle="modal" data-target="#exampleModal">Edit Info</button>
                               <button type="button" class="pass btn btn-primary"  data-toggle="modal" data-target="#exampleModal1">Change Password</button>

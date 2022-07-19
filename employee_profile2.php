@@ -1,6 +1,7 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
-
+$_SESSION['xxx'] = $_SESSION['profation'];
+$designation = $_SESSION['profation'];
 if($_GET == NULL) {
   $uname = $_SESSION['uname'];
 }

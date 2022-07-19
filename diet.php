@@ -1,6 +1,6 @@
 <?php
   session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
-  $_SESSION['profation']="trainer";
+
   if ($_GET == NULL) {
     $uname = $_SESSION['uname'];
     

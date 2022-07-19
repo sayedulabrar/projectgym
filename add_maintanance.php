@@ -1,6 +1,5 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
-$_SESSION['profation'] = "receptionist";
 $uname = $_SESSION['uname'];
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
     or die(oci_error());

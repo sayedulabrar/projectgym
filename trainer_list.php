@@ -798,6 +798,7 @@ if (!$conn) {
   <script src="dist/js/demo.js"></script>
   <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
   
+  
   <script>
     deletes = document.getElementsByClassName('delete');
     Array.from(deletes).forEach((element) => {
