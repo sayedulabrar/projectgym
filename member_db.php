@@ -535,12 +535,21 @@ else
                       $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
                       
                       $d_id= $row['DIET_ID'];
-                      $sql = "select * from DIET_CHART where DIET_ID='$d_id'";
-                      $stid = oci_parse($conn, $sql);
-                      $r = oci_execute($stid);
-                      $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                      $appli="NULL";
-                      
+
+                      // $sql = "select * from DIET_CHART where DIET_ID='$d_id'";
+                      // $stid = oci_parse($conn, $sql);
+                      // $r = oci_execute($stid);
+                      // $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                       $appli="NULL";
+                      $x=$d_id;
+                     $curs = oci_new_cursor($conn);
+                    $stid = oci_parse($conn, "begin myproc2(:cursbv,:x); end;");
+                    oci_bind_by_name($stid, ":cursbv", $curs, -1, OCI_B_CURSOR);
+                     oci_bind_by_name($stid, ":x", $x, -1);
+                    oci_execute($stid);
+  
+                    $ff=oci_execute($curs);
+                    $row = oci_fetch_array($curs, OCI_ASSOC + OCI_RETURN_NULLS);
                       
 
                       if($row){
