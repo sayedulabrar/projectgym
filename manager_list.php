@@ -24,6 +24,12 @@ if (!$conn) {
       $emp_id = $_POST['emp_id'];
       $designation = $_POST['designation'];
       $shift = $_POST['shift'];
+      if($shift == 'Morning') {
+        $shift = 1;
+      }
+      else {
+        $shift = 2;
+      }
       $sql = "UPDATE EMPLOYEE SET SALARY = $salary, SHIFT = $shift, DESIGNATION = '$designation'  where EMP_ID = $emp_id";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
@@ -278,6 +284,8 @@ if (!$conn) {
                         <!-- <input type="text" class="form-control" id="designation" name="designation" aria-describedby="emailHelp"> -->
                         <select name="designation" id="designation" class="form-select" aria-label="Default select example" style="width: 208px; height: 37px;">
                           <option selected value="Manager">Manager</option>
+                          <option selected value="Trainer">Trainer</option>
+                          <option selected value="Receptionist">Receptionist</option>
 
 
                         </select>
@@ -291,7 +299,14 @@ if (!$conn) {
                       </div>
                       <div class="form-group col-lg-6 col-12">
                         <label for="shift">Shift</label>
-                        <input type="text" class="form-control" id="shift" name="shift" aria-describedby="emailHelp">
+                        
+                        <select name="shift" id="shift" class="form-select" aria-label="Default select example" style="width: 208px; height: 37px;">
+                          <option selected value="Morning">Morning</option>
+                          <option value="Evening">Evening</option>
+                          
+
+
+                        </select>
                       </div>
                     </div>
 
@@ -527,8 +542,8 @@ if (!$conn) {
         tr = e.target.parentNode.parentNode;
         uname.value = e.target.id;
         designation.value = tr.id;
-        shift.value = tr.getElementsByTagName("td")[3].innerText;
-        salary.value = tr.getElementsByTagName("td")[2].innerText;
+        shift.value = tr.getElementsByTagName("td")[4].innerText;
+        salary.value = tr.getElementsByTagName("td")[3].innerText;
         emp_id.value = tr.getElementsByTagName("th")[0].innerText;
         console.log(emp_id);
         $('#exampleModal1').modal('toggle');

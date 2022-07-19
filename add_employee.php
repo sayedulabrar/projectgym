@@ -415,17 +415,20 @@ if (!$conn) {
                   <!-- username and password jokhon ekjon member ke add kora hobe by default dewa hobe or name and password o oita  -->
                   <!-- pore user oita change korte parbe anytime jokhon e o cay from his profile -->
                   <div class="form-group">
-                    <label for="name"> Name</label>
-                    <input type="text" id="name" name="name" class="form-control">
+                    <label for="name"> Name <span style="color:#FF0000">*</span></label>
+                    <input type="text" id="name" name="name" class="form-control" required>
                   </div>
                   <div class="form-group">
                     <label for="gender">Gender</label>
-                    <input type="text" id="gender" name="gender" class="form-control">
+                    <select name="gender" id="gender" class="form-select" aria-label="Default select example" style="width: 576px; height: 37px;">
+                      <option selected value="Male">Male</option>
+                      <option value="Female">Female</option>
+                    </select>
                   </div>
 
                   <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" class="form-control">
+                    <label for="email">Email <span style="color:#FF0000">*</span></label>
+                    <input type="email" id="email" name="email" class="form-control" required>
                   </div>
 
                   <div class="form-group">
@@ -440,13 +443,23 @@ if (!$conn) {
 
                   <div class="form-group">
                     <label for="bloodgrp">Blood Group</label>
-                    <input type="text" id="bloodgrp" name="bloodgrp" class="form-control">
+                    <select name="bloodgrp" id="bloodgrp" class="form-select" aria-label="Default select example" style="width: 576px; height: 37px;">
+                      <option value="A+">A+</option>
+                      <option value="A-">A-</option>
+                      <option value="B+">B+</option>
+                      <option value="B-">B-</option>
+                      <option value="O+">O+</option>
+                      <option value="O-">O-</option>
+                      <option value="AB+">AB+</option>
+                      <option value="AB-">AB-</option>
+                      
+                    </select>
                   </div>
                   <?php
                   if ($designation == 'Manager') {
                     echo '<div class="form-group">
-                    <label for="br_name">Branch Name</label>
-                    <input type="text" id="br_name" name="br_name" class="form-control">
+                    <label for="br_name">Branch Name <span style="color:#FF0000">*</span></label>
+                    <input type="text" id="br_name" name="br_name" class="form-control" required>
                   </div>';
                   }
 
@@ -463,27 +476,31 @@ if (!$conn) {
 
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="dob">Date of Birth (DD-MM-YYYY)</label>
+                    <label for="dob">Date of Birth <span style="color:#FF0000">*</span></label>
                     <input type="text" id="datepicker" name="datepicker" class="form-control">
                   </div>
                   <div class="form-group">
                     <label for="accountno">Account No</label>
-                    <input type="text" id="accountno" name="accountno" class="form-control">
+                    <input type="number" id="accountno" name="accountno" class="form-control">
                   </div>
                   <div class="form-group">
-                    <label for="experience">Experience</label>
+                    <label for="experience">Experience (Years)</label>
                     <input type="text" id="experience" name="experience" class="form-control">
                   </div>
                   <div class="form-group">
-                    <label for="salary">Salary</label>
-                    <input type="text" id="salary" name="salary" class="form-control">
+                    <label for="salary">Salary (BDT) <span style="color:#FF0000">*</span></label>
+                    <input type="number" id="salary" name="salary" class="form-control">
                   </div>
                   <div class="form-group">
                     <label for="shift">Shift</label>
-                    <input type="text" id="shift" name="shift" class="form-control">
+                    <select name="shift" id="shift" class="form-select" aria-label="Default select example" style="width: 576px; height: 37px;">
+                      <option value="1">Morning</option>
+                      <option value="2">Evening</option>
+                      
+                    </select>
                   </div>
                   <div class="form-group">
-                    <label for="education">Education</label>
+                    <label for="education">Education (Hightest Degree Only)</label>
                     <input type="text" id="education" name="education" class="form-control">
                   </div>
 

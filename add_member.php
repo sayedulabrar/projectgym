@@ -24,6 +24,7 @@ if (!$conn) {
     $outcome = $_POST['outcome'];
     $bloodgrp = $_POST['bloodgrp'];
     $trainer = $_POST['trainer'];
+
     $password = $name;
 
     $sql = "select *from users";
@@ -51,9 +52,9 @@ if (!$conn) {
     $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
     $mem_id = $row['MEM_ID'] + 1;
     $date = date("Y/m/d");
-
     $bmi = ($weight) / (($height / 100) * ($height / 100));
     $sql = "insert into member(mem_id, username, mem_height, mem_weight, expected_outcome, trainer, memb_bmi, membership_expiry) values($mem_id, '$username', $height, $weight, '$outcome', '$trainer', $bmi, to_date('$date', 'yyyy/mm/dd')+30)";
+
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
     $i = 0;
@@ -80,11 +81,14 @@ if (!$conn) {
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="  plugins/fontawesome-free/css/all.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="  dist/css/adminlte.min.css">
+  
   <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <!-- Theme style -->
 </head>
 
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -213,11 +217,11 @@ if (!$conn) {
                   <!-- username and password jokhon ekjon member ke add kora hobe by default dewa hobe or name and password o oita  -->
                   <!-- pore user oita change korte parbe anytime jokhon e o cay from his profile -->
                   <div class="form-group">
-                    <label for="name"> Name</label>
-                    <input type="text" id="name" name="name" class="form-control">
+                    <label for="name"> Name <span style="color:#FF0000">*</span></label>
+                    <input type="text" id="name" name="name" class="form-control" required>
                   </div>
                   <div class="form-group">
-                    <label for="gender">Gender</label>
+                    <label for="gender">Gender </label>
                     <br>
                     <select name="gender" id="gender" class="form-select" aria-label="Default select example" style="width: 576px; height: 37px;">
                       <option selected value="Male">Male</option>
@@ -225,12 +229,12 @@ if (!$conn) {
                     </select>
                   </div>
                   <div class="form-group">
-                    <label for="dob"> Date of Birth</label>
-                    <input type="text" id="dob" name="dob" class="form-control">
+                    <label for="dob"> Date of Birth <span style="color:#FF0000">*</span></label>
+                    <input type="text" id="dob" name="dob" class="form-control" required>
                   </div>
                   <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" class="form-control">
+                    <label for="email">Email <span style="color:#FF0000">*</span></label>
+                    <input type="email" id="email" name="email" class="form-control" required>
                   </div>
 
                   <div class="form-group">
@@ -253,30 +257,50 @@ if (!$conn) {
               <div class="card card-primary">
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="accountno">Account No</label>
-                    <input type="number" id="accountno" name="accountno" class="form-control">
+                    <label for="select2">Assigned Trainer <span style="color:#FF0000">*</span></label>
+                    <select class="select2" name="trainer" id = "trainer" style="width: 100%; height: 38px;">
+                    <?php
+
+                      $sql = "select *from users where username = '$uname'";
+                      $stid = oci_parse($conn, $sql);
+                      $r = oci_execute($stid);
+                      $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                      $br_name = $row['BR_NAME'];
+                      $_SESSION['xxx'] = $br_name;
+                      $sql = "select *from employee natural join users where br_name = '$br_name' and designation = 'Trainer'";
+                      $stid = oci_parse($conn, $sql);
+                      $r = oci_execute($stid);
+                      while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS))
+                      {
+                        echo '<option value="'.$row["USERNAME"].'">'.$row["USERNAME"].'</option>';
+                      }
+                      
+                    ?>
+                  </select>
+                  <!-- <input type="number" id="select2" name="select2" class="form-control" required> -->
                   </div>
                   <div class="form-group">
-                    <label for="height">Height</label>
-                    <input type="number" id="height" name="height" class="form-control">
+                    <label for="accountno">Account No <span style="color:#FF0000">*</span></label>
+                    <input type="number" id="accountno" name="accountno" class="form-control" required>
                   </div>
                   <div class="form-group">
-                    <label for="weight">Weight</label>
-                    <input type="number" id="weight" name="weight" class="form-control">
+                    <label for="height">Height <span style="color:#FF0000">*</span></label>
+                    <input type="number" id="height" name="height" class="form-control" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="weight">Weight <span style="color:#FF0000">*</span></label>
+                    <input type="number" id="weight" name="weight" class="form-control" required>
                   </div>
                   <div class="form-group">
                     <label for="outcome">Expected Outcome</label>
                     <input type="text" id="outcome" name="outcome" class="form-control">
                   </div>
-                  <div class="form-group">
-                    <label for="trainer">Assigned Trainer</label>
-                    <input type="text" id="trainer" name="trainer" class="form-control">
-                  </div>
+                  
                   <div class="form-group">
                     <label for="bloodgrp">Blood Group</label>
                     <br>
                     <select name="bloodgrp" id="bloodgrp" class="form-select" aria-label="Default select example" style="width: 576px; height: 37px;">
-                      <option selected value="A+">A+</option>
+                      <option value="A+">A+</option>
                       <option value="A-">A-</option>
                       <option value="B+">B+</option>
                       <option value="B-">B-</option>
@@ -317,15 +341,28 @@ if (!$conn) {
   <!-- ./wrapper -->
 
   <!-- jQuery -->
-  <script src="  plugins/jquery/jquery.min.js"></script>
+  
+  <script src="plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Select2 -->
+    <script src="plugins/select2/js/select2.full.min.js"></script>
   <!-- Bootstrap 4 -->
-  <script src="  plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- AdminLTE App -->
-  <script src="  dist/js/adminlte.min.js"></script>
+  <script src="dist/js/adminlte.min.js"></script>
   <!-- AdminLTE for demo purposes -->
-  <script src="  dist/js/demo.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="dist/js/demo.js"></script>
+  
+  
+  <!-- <script src="https://code.jquery.com/jquery-3.6.0.js"></script> -->
   <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+  
+  
+  <script>
+      $(function () {
+          $('.select2').select2()
+      });
+  </script>
   <script>
     $(function() {
       $("#dob").datepicker({
@@ -334,6 +371,8 @@ if (!$conn) {
       });
     });
   </script>
+  
+
 </body>
 
 </html>
