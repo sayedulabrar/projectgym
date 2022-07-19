@@ -331,7 +331,23 @@ if (!$conn) {
 
                         <h5 class="description-header">
                           <?php
-                          $sql = 'select br_name, inc_amount, CURRENT_TIMESTAMP-inc_dateandtime "differ" from income';
+
+                          $sql=" select to_char(SYSDATE,'Month') AS mnt from dual";
+                          $stid = oci_parse($conn, $sql);
+                          $r = oci_execute($stid);
+                          $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)
+
+                          $dt=$row['mnt'];
+
+
+                          $sql="  select to_char(INC_DATEANDTIME,'Month') AS mnt from income;";
+                          $stid = oci_parse($conn, $sql);
+                          $r = oci_execute($stid);
+                          $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)
+
+                          $dt2=$row['mnt'];
+
+                          $sql = 'select sum(inc_amount) from income where ';
                           $stid = oci_parse($conn, $sql);
                           $r = oci_execute($stid);
                           $ans = 0;
