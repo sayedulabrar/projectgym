@@ -2,11 +2,10 @@
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $_SESSION['xxx'] = $_SESSION['profation'];
 $designation = $_SESSION['profation'];
-if($_GET == NULL) {
+if ($_GET == NULL) {
   $uname = $_SESSION['uname'];
-}
-else {
-  $uname = $_GET['un'] ;
+} else {
+  $uname = $_GET['un'];
 }
 
 // echo var_dump($_GET);
@@ -62,8 +61,8 @@ if (!$conn) {
           <div class="info">
             <a href="employee_profile.php" class="d-block">
               <?php
-                $_SESSION['profile'] = $showuname;
-                echo $showuname;
+              $_SESSION['profile'] = $showuname;
+              echo $showuname;
               ?>
             </a>
           </div>
@@ -112,13 +111,13 @@ if (!$conn) {
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="pages/mailbox/mailbox.html" class="nav-link">
+                  <a href="pages/mailbox/mailbox.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Inbox</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="pages/mailbox/compose.html" class="nav-link">
+                  <a href="pages/mailbox/compose.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Compose</p>
                   </a>
@@ -219,7 +218,7 @@ if (!$conn) {
 
                   <h3 class="profile-username text-center">
                     <?php
-                      echo $userJoinEmployee["USERNAME"];
+                    echo $userJoinEmployee["USERNAME"];
                     ?>
                   </h3>
 

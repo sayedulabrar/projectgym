@@ -77,7 +77,7 @@ if (!$conn) {
                         <img src="dist/img/enan_pinki.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="employee_profile.php?un_=trainer" class="d-block">
+                        <a href="employee_profile.php" class="d-block">
                             <?php
                             echo $uname;
                             ?>

@@ -6,26 +6,22 @@ $wrongPassword = false;
 $matchPassword = true;
 $nullPassword = false;
 $trainer = false;
-if($_GET == NULL) {
+if ($_GET == NULL) {
   $uname = $_SESSION['uname'];
-}
-else {
+} else {
   $uname = $_GET['un_'];
 
-  
-  if($uname == 'w' || $uname == 'm' || $uname == 'n') {
-    if($uname == 'w') {
+
+  if ($uname == 'w' || $uname == 'm' || $uname == 'n') {
+    if ($uname == 'w') {
       $wrongPassword = true;
-    }
-    else if($uname == 'm') {
+    } else if ($uname == 'm') {
       $matchPassword = false;
-    }
-    else {
+    } else {
       $nullPassword = true;
     }
     $uname =  $_SESSION['uname'];
-  }
-  else {
+  } else {
     $uname = $_GET['un_'];
   }
   // if($uname == 'trainer') {
@@ -36,7 +32,7 @@ else {
   //   $uname = $_SESSION['uname'];
   // }
 
-  
+
 
 }
 // $_SESSION['xxx'] = $uname;
@@ -52,8 +48,8 @@ if (!$conn) {
   $r = oci_execute($stid);
   $userJoinEmployee = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
   // echo $_SERVER['REQUEST_METHOD'];
-  if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if(isset($_POST['name1'])) {
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['name1'])) {
       $name = $_POST['name1'];
       $gender = $_POST['gender1'];
       $bloodgroup = $_POST['bloodgroup1'];
@@ -61,7 +57,7 @@ if (!$conn) {
       $email = $_POST['email1'];
       $address = $_POST['address1'];
       $account = $_POST['account1'];
-      
+
       $sql = "update users set name = '$name', gender = '$gender', blood_grp = '$bloodgroup', dob= to_date('$dob', 'dd-mon-yy'), email = '$email', address= '$address', account_no = $account where username = '$uname'";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
@@ -80,45 +76,38 @@ if (!$conn) {
         $i = $i + 1;
       }
     }
-    if(isset($_POST['oldpass'])) {
+    if (isset($_POST['oldpass'])) {
       $sql = "select * from users where username = '$uname'";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
       $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
       echo $row['PASSWORD'];
-      if($_POST['oldpass'] == $row['PASSWORD']) {
+      if ($_POST['oldpass'] == $row['PASSWORD']) {
         echo "yes";
-        if($_POST['newpass'] == $_POST['cpass']) {
-          if($_POST['newpass'] == NULL) {
+        if ($_POST['newpass'] == $_POST['cpass']) {
+          if ($_POST['newpass'] == NULL) {
             $nullPassword = true;
-          }
-          else {
+          } else {
             $sql = "update users set password = '$_POST[newpass]' where username = '$uname'";
             $stid = oci_parse($conn, $sql);
             $r = oci_execute($stid);
           }
-        }
-        else {
+        } else {
           $matchPassword = false;
         }
-      }
-      else {
+      } else {
         $wrongPassword = true;
       }
     }
-    if($wrongPassword == true) {
+    if ($wrongPassword == true) {
       header("Location: employee_profile.php?un_=w");
-    }
-    else if($matchPassword == false) {
+    } else if ($matchPassword == false) {
       header("Location: employee_profile.php?un_=m");
-    }
-    else if($nullPassword == true) {
+    } else if ($nullPassword == true) {
       header("Location: employee_profile.php?un_=n");
-    }
-    else {
+    } else {
       header("Location: employee_profile.php");
     }
-    
   }
 }
 ?>
@@ -144,7 +133,7 @@ if (!$conn) {
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -167,9 +156,9 @@ if (!$conn) {
                   <input type="text" class="form-control" id="gender1" name="gender1" aria-describedby="emailHelp">
                 </div>
               </div>
-              
+
               <div class="row">
-                
+
                 <div class="form-group col-lg-6 col-12">
                   <label for="bloodgroup1">Blood Group</label>
                   <input type="text" class="form-control" id="bloodgroup1" name="bloodgroup1" aria-describedby="emailHelp">
@@ -180,7 +169,7 @@ if (!$conn) {
                 </div>
               </div>
               <div class="row">
-                
+
                 <div class="form-group col-lg-6 col-12">
                   <label for="email1">Email</label>
                   <input type="email" class="form-control" id="email1" name="email1" aria-describedby="emailHelp">
@@ -263,7 +252,7 @@ if (!$conn) {
 
     <?php
     $_SESSION['xxx'] = $designation;
-    if($designation == 'Admin') {
+    if ($designation == 'Admin') {
       echo '
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
 <!-- Brand Logo -->
@@ -392,10 +381,9 @@ if (!$conn) {
     </aside>
 
     ';
-    }
-    else {
-    if($designation == "receptionist") {
-      echo '
+    } else {
+      if ($designation == 'Receptionist') {
+        echo '
       <!-- Main Sidebar Container -->
       <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
@@ -412,9 +400,9 @@ if (!$conn) {
               <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-              <a href="employee_profile.php?un_=receptionist" class="d-block">'.
-              $uname
-              .'</a>
+              <a href="employee_profile.php?un_=receptionist" class="d-block">' .
+          $uname
+          . '</a>
             </div>
           </div>
   
@@ -456,20 +444,20 @@ if (!$conn) {
                   </p>
                 </a>
                 <ul class="nav nav-treeview">';
-                      echo "<li class='nav-item'>                
+        echo "<li class='nav-item'>                
                       <a href='pages/mailbox/mailbox.php?un=" . $uname . "' class='nav-link'>
                       <i class='far fa-circle nav-icon'></i>
                       <p>Inbox</p>
                       </a>         
    </li>";
-                      echo "<li class='nav-item'>                
+        echo "<li class='nav-item'>                
                       <a href='pages/mailbox/compose.php?un=" . $uname . "' class='nav-link'>
                       <i class='far fa-circle nav-icon'></i>
                       <p>Compose</p>
                       </a>         
                       </li>";
-  
-            echo    ' </ul>
+
+        echo    ' </ul>
               </li>
               
   
@@ -485,10 +473,9 @@ if (!$conn) {
         <!-- /.sidebar -->
       </aside>
       ';
-    }
-    else {
-      if($trainer == false) {
-        echo '
+      } else {
+        if ($designation == 'Trainer') {
+          echo '
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
           <!-- Brand Logo -->
@@ -506,11 +493,11 @@ if (!$conn) {
               </div>
               <div class="info">
                 <a href="employee_profile.php" class="d-block">';
-                  
-            $_SESSION["profile"] = $showuname;
-            echo $showuname;
-                  
-               echo '</a>
+
+          $_SESSION["profile"] = $showuname;
+          echo $showuname;
+
+          echo '</a>
               </div>
             </div>
     
@@ -557,13 +544,13 @@ if (!$conn) {
                   </a>
                   <ul class="nav nav-treeview">
                     <li class="nav-item">
-                      <a href="pages/mailbox/mailbox.html" class="nav-link">
+                      <a href="pages/mailbox/mailbox.php" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Inbox</p>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href="pages/mailbox/compose.html" class="nav-link">
+                      <a href="pages/mailbox/compose.php" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Compose</p>
                       </a>
@@ -579,9 +566,8 @@ if (!$conn) {
         </aside>
     
         ';
-      }
-      else {
-        echo '
+        } else {
+          echo '
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
@@ -599,10 +585,10 @@ if (!$conn) {
                         <img src="dist/img/enan_pinki.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="employee_profile.php?un_=trainer" class="d-block">'; 
-                              echo $showuname; 
-                  
-                  echo      '</a>
+                        <a href="employee_profile.php?un_=trainer" class="d-block">';
+          echo $showuname;
+
+          echo      '</a>
                     </div>
                 </div>
 
@@ -658,24 +644,24 @@ if (!$conn) {
                             </a>
                             <ul class="nav nav-treeview">
         ';
-        echo "<li class='nav-item'>
+          echo "<li class='nav-item'>
 
                                 
                                     
-                                         <a href='pages/mailbox/mailbox.php?un=".$uname."' class='nav-link'>
+                                         <a href='pages/mailbox/mailbox.php?un=" . $uname . "' class='nav-link'>
                                         <i class='far fa-circle nav-icon'></i>
                                         <p>Inbox</p>
                                          </a>
 
                                    
                                 </li>";
-                                echo "<li class='nav-item'>                    
-                                <a href='pages/mailbox/compose.php?un=".$uname."' class='nav-link'>
+          echo "<li class='nav-item'>                    
+                                <a href='pages/mailbox/compose.php?un=" . $uname . "' class='nav-link'>
                                 <i class='far fa-circle nav-icon'></i>
                                 <p>Compose</p>
                                 </a>
                                 </li>";
-        echo '
+          echo '
         </ul>
         </li>
         
@@ -692,17 +678,17 @@ if (!$conn) {
 <!-- /.sidebar -->
 </aside>
         ';
+        }
       }
     }
-  }
     ?>
-    
+
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper dark-mode" style="margin-top: 0; ">
       <!-- Content Header (Page header) -->
-      
+
       <section class="content-header ">
-        
+
 
 
 
@@ -714,17 +700,15 @@ if (!$conn) {
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="<?php
-                  $_SESSION['xxx'] = $designation;
-                  if($designation == 'Admin') {
-                    echo "admin_db.php";
-                  }
-                  elseif($designation == 'Trainer') {
-                    echo "trainer_db.php";
-                  }
-                  else {
-                    echo "manager_db.php";
-                  }
-                ?>">Home</a></li>
+                                                      $_SESSION['xxx'] = $designation;
+                                                      if ($designation == 'Admin') {
+                                                        echo "admin_db.php";
+                                                      } elseif ($designation == 'Trainer') {
+                                                        echo "trainer_db.php";
+                                                      } else {
+                                                        echo "manager_db.php";
+                                                      }
+                                                      ?>">Home</a></li>
                 <li class="breadcrumb-item active">User Profile</li>
               </ol>
             </div>
@@ -747,7 +731,7 @@ if (!$conn) {
 
                   <h3 class="profile-username text-center">
                     <?php
-                      echo $userJoinEmployee["USERNAME"];
+                    echo $userJoinEmployee["USERNAME"];
                     ?>
                   </h3>
 
@@ -881,41 +865,39 @@ if (!$conn) {
                             ?>
                           </a>
                         </li>
-                        
+
                       </ul>
-                      
+
                     </div>
                     <div class="container">
                       <div class="row">
                         <div class="col-md-12 bg-dark text-right">
                           <p style="color: red">
                             <?php
-                              if($wrongPassword == true) {
-                                echo "Wrong Password"; 
-                              }
-                              else if($matchPassword == false) {
-                                echo "Password does not match";
-                              }
-                              else if($nullPassword == true) {
-                                echo "Password can not be null";
-                              }
+                            if ($wrongPassword == true) {
+                              echo "Wrong Password";
+                            } else if ($matchPassword == false) {
+                              echo "Password does not match";
+                            } else if ($nullPassword == true) {
+                              echo "Password can not be null";
+                            }
                             ?>
                           </p>
                           <?php
-                            $_SESSION['xxx'] = $_GET;
-                            if($_GET == NULL || $_GET['un_'] == 'w' || $_GET['un_'] == 'm' || $_GET['un_'] == 'n') {
-                              echo '
+                          $_SESSION['xxx'] = $_GET;
+                          if ($_GET == NULL || $_GET['un_'] == 'w' || $_GET['un_'] == 'm' || $_GET['un_'] == 'n') {
+                            echo '
                               <button type="button" class="update btn btn-primary"  data-toggle="modal" data-target="#exampleModal">Edit Info</button>
                               <button type="button" class="pass btn btn-primary"  data-toggle="modal" data-target="#exampleModal1">Change Password</button>
                               ';
-                            } 
+                          }
                           ?>
                         </div>
                       </div>
                     </div>
-                    
+
                   </div>
-                  
+
 
                 </div>
                 <!-- /.card-body -->
@@ -937,10 +919,10 @@ if (!$conn) {
             </div>
         </div>
       </div> -->
-      
+
 
         <div class="card-footer">
-          
+
 
         </div>
       </section>
@@ -950,21 +932,21 @@ if (!$conn) {
 
     </div>
     <div class="bg-light clearfix">
-          <div>
-            <!-- <div class="col-lg-6 col-md-12">
+      <div>
+        <!-- <div class="col-lg-6 col-md-12">
               <h2 style="margin-left: 25px;">Package Info</h2>
             </div> -->
-            <div class="col-lg-6 col-md-12" style="padding-top: 0px;padding-right:40px;">
-              <!-- Insert Modal -->
-              <!-- <button type="button" class="insert btn btn-success float-right" data-toggle="modal" data-target="#exampleModal">Add New</button> -->
-              <!-- Modal -->
-              
-              <!-- /Insert Modal -->
+        <div class="col-lg-6 col-md-12" style="padding-top: 0px;padding-right:40px;">
+          <!-- Insert Modal -->
+          <!-- <button type="button" class="insert btn btn-success float-right" data-toggle="modal" data-target="#exampleModal">Add New</button> -->
+          <!-- Modal -->
+
+          <!-- /Insert Modal -->
 
 
-            </div>
-          </div>
         </div>
+      </div>
+    </div>
 
     <!-- /.content-wrapper -->
 
@@ -990,33 +972,33 @@ if (!$conn) {
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   <script>
     updates = document.getElementsByClassName('update');
-    Array.from(updates).forEach((element)=>{
-      element.addEventListener("click", (e)=>{
+    Array.from(updates).forEach((element) => {
+      element.addEventListener("click", (e) => {
         tr = e.target.parentNode.parentNode.parentNode.parentNode;
         div1 = tr.getElementsByTagName("div")[0];
         cont1 = div1.getElementsByTagName("ul")[0];
 
         cont11 = cont1.getElementsByTagName("li")[0];
         name1.value = cont11.getElementsByTagName("a")[0].innerText;
-        
+
         cont11 = cont1.getElementsByTagName("li")[1];
         email1.value = cont11.getElementsByTagName("a")[0].innerText;
-        
+
         cont11 = cont1.getElementsByTagName("li")[2];
         gender1.value = cont11.getElementsByTagName("a")[0].innerText;
-        
+
         cont11 = cont1.getElementsByTagName("li")[3];
         address1.value = cont11.getElementsByTagName("a")[0].innerText;
-        
+
         cont11 = cont1.getElementsByTagName("li")[4];
         account1.value = cont11.getElementsByTagName("a")[0].innerText;
-        
+
         cont11 = cont1.getElementsByTagName("li")[5];
         dob1.value = cont11.getElementsByTagName("a")[0].innerText;
-        
+
         cont11 = cont1.getElementsByTagName("li")[6];
         mobile1.value = cont11.getElementsByTagName("a")[0].innerText;
-        
+
         cont11 = cont1.getElementsByTagName("li")[7];
         bloodgroup1.value = cont11.getElementsByTagName("a")[0].innerText;
 

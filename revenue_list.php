@@ -50,15 +50,15 @@ if (!$conn) {
       header("Location: revenue_list.php?un=i");
     }
   }
-  if(isset($_POST['le'])) {
+  if (isset($_POST['le'])) {
     $xx = $_POST['le'];
     $leActive = true;
   }
-  if(isset($_POST['me'])) {
+  if (isset($_POST['me'])) {
     $xx = $_POST['me'];
     $meActive = true;
   }
-  if(isset($_POST['his'])) {
+  if (isset($_POST['his'])) {
     $xx = $_POST['his'];
     $historyActive = true;
   }
@@ -206,13 +206,13 @@ if (!$conn) {
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="pages/mailbox/mailbox.html" class="nav-link">
+                            <a href="pages/mailbox/mailbox.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Inbox</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/mailbox/compose.html" class="nav-link">
+                            <a href="pages/mailbox/compose.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Compose</p>
                             </a>
@@ -413,7 +413,7 @@ if (!$conn) {
         </form>
       </section> -->
       <section class="content" style="margin-bottom:50px ;">
-      
+
         <?php
         if ($wrongUsername) {
           echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
@@ -436,45 +436,44 @@ if (!$conn) {
         <div class="container-fluid">
           <!-- <form action="Manager-results.html"> -->
           <div class="row">
-              
+
             <div class="col-md-12">
               <div class="card card-secondary">
                 <div class="card-header">
                   <h3 class="card-title">Search Using</h3>
 
                   <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                              title="Collapse">
-                    <i class="fas fa-minus"></i>
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                      <i class="fas fa-minus"></i>
                     </button>
                   </div>
                 </div>
                 <div class="card-body">
                   <div class="bg-light clearfix">
-                    
+
                     <br>
-                    <div class="container" >
+                    <div class="container">
                       <div class="row">
-                        
+
                         <div class="form-group col-lg-7 col-12">
                           <h5 style="text-align: center;">Amount</h5>
                           <br>
                           <div class="row">
                             <div class="form-group col-lg-6 col-12">
-                              <form action="revenue_list.php" method = "POST">
+                              <form action="revenue_list.php" method="POST">
                                 <div class="row">
                                   <div class="form-group col-lg-7 col-12">
                                     <input type="number" placeholder="Less or Equal" class="form-control" id="le" name="le">
                                   </div>
                                   <div class="form-group col-lg-5 col-12">
                                     <button type="submit" class="btn btn-secondary">Search</button>
-                                    
+
                                   </div>
                                 </div>
                               </form>
                             </div>
                             <div class="form-group col-lg-6 col-12">
-                              <form action="revenue_list.php" method = "POST">
+                              <form action="revenue_list.php" method="POST">
                                 <div class="row">
                                   <div class="form-group col-lg-7 col-12">
                                     <input type="number" placeholder="More or Equal" class="form-control" id="me" name="me">
@@ -486,23 +485,23 @@ if (!$conn) {
                               </form>
                             </div>
                           </div>
-                          
+
                         </div>
-                        
-                        <div class="form-group col-lg-4 col-12" >
-                          <h5 style="text-align: center;">History</h5>  
+
+                        <div class="form-group col-lg-4 col-12">
+                          <h5 style="text-align: center;">History</h5>
                           <br>
-                          <form action="revenue_list.php" method = "POST">
-                            <div class="row" >
+                          <form action="revenue_list.php" method="POST">
+                            <div class="row">
                               <div class="form-group col-lg-8 col-12">
                                 <input type="number" placeholder="Days" class="form-control" id="his" name="his">
                               </div>
                               <div class="form-group col-lg-4 col-12">
                                 <button type="submit" class="btn btn-secondary">Search</button>
-                                
+
                               </div>
                             </div>
-                          
+
                           </form>
                         </div>
                       </div>
@@ -510,15 +509,15 @@ if (!$conn) {
                   </div>
 
                 </div>
-                      <!-- /.card-body -->
+                <!-- /.card-body -->
               </div>
-                  <!-- /.card -->
+              <!-- /.card -->
             </div>
 
           </div>
         </div>
-      
-        
+
+
         <div class="bg-light clearfix">
           <div class="row" style="padding-top: 30px;">
             <div class="col-lg-6 col-md-12">
@@ -552,8 +551,8 @@ if (!$conn) {
                           <div class="form-group">
                             <label for="username">Sender Username</label>
                             <!-- <input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp"> -->
-                            <select class="select2" name="username" id = "username" style="width: 100%; height: 38px;">
-                            <?php
+                            <select class="select2" name="username" id="username" style="width: 100%; height: 38px;">
+                              <?php
 
                               $sql = "select *from users where username = '$uname'";
                               $stid = oci_parse($conn, $sql);
@@ -564,12 +563,11 @@ if (!$conn) {
                               $sql = "select *from users where br_name = '$br_name'";
                               $stid = oci_parse($conn, $sql);
                               $r = oci_execute($stid);
-                              while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS))
-                              {
-                                echo '<option value="'.$row["USERNAME"].'">'.$row["USERNAME"].'</option>';
+                              while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                                echo '<option value="' . $row["USERNAME"] . '">' . $row["USERNAME"] . '</option>';
                               }
-                              
-                            ?>
+
+                              ?>
                             </select>
                           </div>
                           <div class="row">
@@ -629,19 +627,16 @@ if (!$conn) {
             </thead>
             <tbody>
               <?php
-              if($leActive) {
+              if ($leActive) {
                 $sql = "select * from income where br_name = (select br_name from users where username = '$uname') and $xx >= INC_AMOUNT";
-              }
-              elseif($meActive) {
+              } elseif ($meActive) {
                 $sql = "select * from income where br_name = (select br_name from users where username = '$uname') and $xx <= INC_AMOUNT";
-              }
-              elseif($historyActive) {
+              } elseif ($historyActive) {
                 $sql = "select * from income where br_name = (select br_name from users where username = '$uname') and (extract(day from (CURRENT_TIMESTAMP - INC_DATEANDTIME))) <=$xx-1";
-              }
-              else {
+              } else {
                 $sql = "select * from income where br_name = (select br_name from users where username = '$uname')";
               }
-                $stid = oci_parse($conn, $sql);
+              $stid = oci_parse($conn, $sql);
               $r = oci_execute($stid);
               while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
                 $array = explode(" ", $row['INC_DATEANDTIME']);
@@ -703,7 +698,7 @@ if (!$conn) {
   <!-- overlayScrollbars -->
   <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
   <!-- AdminLTE App -->
-  
+
   <script src="plugins/select2/js/select2.full.min.js"></script>
   <script src="dist/js/adminlte.js"></script>
   <!-- PAGE PLUGINS -->
@@ -736,7 +731,7 @@ if (!$conn) {
   <script src="plugins/chart.js/Chart.min.js"></script>
 
   <!-- AdminLTE for demo purposes -->
-  
+
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   <script src="dist/js/pages/dashboard2.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
@@ -765,9 +760,9 @@ if (!$conn) {
   </script>
   <script>
     $('#username').select2({
-        dropdownParent: $('#exampleModal')
+      dropdownParent: $('#exampleModal')
     });
-</script>
+  </script>
 </body>
 
 </html>

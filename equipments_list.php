@@ -124,7 +124,7 @@ if (!$conn) {
     <!-- /.navbar -->
 
     <?php
-    if($designation == "receptionist") {
+    if ($designation == "receptionist") {
       echo '
       <!-- Main Sidebar Container -->
       <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -142,9 +142,9 @@ if (!$conn) {
               <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-              <a href="employee_profile.php?un_=receptionist" class="d-block">'.
-              $uname
-              .'</a>
+              <a href="employee_profile.php?un_=receptionist" class="d-block">' .
+        $uname
+        . '</a>
             </div>
           </div>
   
@@ -186,20 +186,20 @@ if (!$conn) {
                   </p>
                 </a>
                 <ul class="nav nav-treeview">';
-                      echo "<li class='nav-item'>                
+      echo "<li class='nav-item'>                
                       <a href='pages/mailbox/mailbox.php?un=" . $uname . "' class='nav-link'>
                       <i class='far fa-circle nav-icon'></i>
                       <p>Inbox</p>
                       </a>         
    </li>";
-                      echo "<li class='nav-item'>                
+      echo "<li class='nav-item'>                
                       <a href='pages/mailbox/compose.php?un=" . $uname . "' class='nav-link'>
                       <i class='far fa-circle nav-icon'></i>
                       <p>Compose</p>
                       </a>         
                       </li>";
-  
-            echo    ' </ul>
+
+      echo    ' </ul>
               </li>
               
   
@@ -215,10 +215,9 @@ if (!$conn) {
         <!-- /.sidebar -->
       </aside>
       ';
-    }
-    else {
-    if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
-      echo '
+    } else {
+      if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+        echo '
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
@@ -237,8 +236,8 @@ if (!$conn) {
                     </div>
                     <div class="info">
                         <a href="employee_profile.php" class="d-block">';
-      echo $uname;
-      echo '</a>
+        echo $uname;
+        echo '</a>
                     </div>
                 </div>
 
@@ -294,13 +293,13 @@ if (!$conn) {
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="pages/mailbox/mailbox.html" class="nav-link">
+                            <a href="pages/mailbox/mailbox.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Inbox</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/mailbox/compose.html" class="nav-link">
+                            <a href="pages/mailbox/compose.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Compose</p>
                             </a>
@@ -319,8 +318,8 @@ if (!$conn) {
 </aside>
 
 ';
-    } else {
-      echo '
+      } else {
+        echo '
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 <!-- Brand Logo -->
 <a href="#" class="brand-link">
@@ -337,8 +336,8 @@ if (!$conn) {
 </div>
 <div class="info">
 <a href="admin_profile.php" class="d-block">';
-      echo $showname;
-      echo '</a>  
+        echo $showname;
+        echo '</a>  
 </div>
 </div>
 
@@ -448,8 +447,8 @@ if (!$conn) {
   </aside> 
           
   ';
+      }
     }
-  }
     ?>
 
     <!-- Content Wrapper. Contains page content -->
@@ -479,7 +478,7 @@ if (!$conn) {
             </div>
           </div>
         </div>
-        
+
         <?php
         if ($_GET) {
           if ($_GET['un'] == 'i') {
@@ -520,9 +519,10 @@ if (!$conn) {
                 
                 <p>
                 ';
-                if($designation != "receptionist") {
-                echo '
-                <button type="button" class="insert btn btn-success float-right" data-toggle="modal" data-target="#exampleModal">Add New</button>';}
+                if ($designation != "receptionist") {
+                  echo '
+                <button type="button" class="insert btn btn-success float-right" data-toggle="modal" data-target="#exampleModal">Add New</button>';
+                }
                 echo '<a href="maintenance_list.php"><button type="button" class="btn btn-warning float-right"> Maintenance List </button>
                 </p></a>
 
@@ -549,7 +549,7 @@ if (!$conn) {
                               <label for="name">Equipment Name</label>
                               <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp">
                             </div>
-                            
+
 
                           </div>
 
@@ -691,32 +691,31 @@ if (!$conn) {
               <td>" . $row["EQUIPMENT_NAME"] . " </td>
               <td>" . $row["EQUIPMENT_BRAND"] . "</td>
               <td>" . $row["EQUIPMENT_MODEL"] . "</td>
-              <td>"; 
-              $eq = $row['EQUIPMENT_ID'];
-              $sql = "select * from maintenance where equipment_id = '$eq'";
-              $stid5 = oci_parse($conn, $sql);
-              $r = oci_execute($stid5);
-              $flag = 0;
-              while($row4 = oci_fetch_array($stid5, OCI_ASSOC + OCI_RETURN_NULLS)) {
-                if($row4['CUR'] == '1') {
-                  $flag =1;
+              <td>";
+                $eq = $row['EQUIPMENT_ID'];
+                $sql = "select * from maintenance where equipment_id = '$eq'";
+                $stid5 = oci_parse($conn, $sql);
+                $r = oci_execute($stid5);
+                $flag = 0;
+                while ($row4 = oci_fetch_array($stid5, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                  if ($row4['CUR'] == '1') {
+                    $flag = 1;
+                  }
                 }
-              }
-              if($flag == 1) {
-                echo "Not Available";
-              }
-              else {
-                echo "Available";
-              }
-              
-              echo "</td>";
+                if ($flag == 1) {
+                  echo "Not Available";
+                } else {
+                  echo "Available";
+                }
+
+                echo "</td>";
                 if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
                   echo "<td>";
-                  if($flag == 0) {
-                  echo "<button class='delete1 btn btn-sm btn-warning'>Maintenance</button>" ;
+                  if ($flag == 0) {
+                    echo "<button class='delete1 btn btn-sm btn-warning'>Maintenance</button>";
                   }
-                  if($designation != "receptionist") {
-                  echo "<button class='delete btn btn-sm btn-danger'>Remove</button> </td>";
+                  if ($designation != "receptionist") {
+                    echo "<button class='delete btn btn-sm btn-danger'>Remove</button> </td>";
                   }
                 }
                 echo "</tr>

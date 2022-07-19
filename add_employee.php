@@ -37,7 +37,7 @@ if (!$conn) {
       $wrongBranch = true;
     } else {
       // PER_EMP_ID_SQ
-      
+
       $name = $_POST['name'];
       $gender = $_POST['gender'];
       $email = $_POST['email'];
@@ -90,6 +90,7 @@ if (!$conn) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -103,6 +104,7 @@ if (!$conn) {
   <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
 </head>
+
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
   <!-- Site wrapper -->
   <div class="wrapper">
@@ -176,13 +178,13 @@ if (!$conn) {
                   </a>
                   <ul class="nav nav-treeview">
                     <li class="nav-item">
-                      <a href="   pages/mailbox/mailbox.html" class="nav-link">
+                      <a href="   pages/mailbox/mailbox.php" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Inbox</p>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href="   pages/mailbox/compose.html" class="nav-link">
+                      <a href="   pages/mailbox/compose.php" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Compose</p>
                       </a>
@@ -311,13 +313,13 @@ if (!$conn) {
                   </a>
                   <ul class="nav nav-treeview">
                     <li class="nav-item">
-                      <a href=" pages/mailbox/mailbox.html" class="nav-link">
+                      <a href=" pages/mailbox/mailbox.php" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Inbox</p>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href=" pages/mailbox/compose.html" class="nav-link">
+                      <a href=" pages/mailbox/compose.php" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Compose</p>
                       </a>
@@ -427,7 +429,7 @@ if (!$conn) {
                       <option value="O-">O-</option>
                       <option value="AB+">AB+</option>
                       <option value="AB-">AB-</option>
-                      
+
                     </select>
                   </div>
                   <?php
@@ -451,7 +453,7 @@ if (!$conn) {
                     <input type="text" id="datepicker" name="datepicker" class="form-control">
                   </div>
                   <div class="form-group">
-                    <label for="accountno">Account No  <span style="color:#FF0000">*</span></label>
+                    <label for="accountno">Account No <span style="color:#FF0000">*</span></label>
                     <input type="number" id="accountno" name="accountno" class="form-control" required>
                   </div>
                   <div class="form-group">
@@ -467,7 +469,7 @@ if (!$conn) {
                     <select name="shift" id="shift" class="form-select" aria-label="Default select example" style="width: 576px; height: 37px;">
                       <option value="1">Morning</option>
                       <option value="2">Evening</option>
-                      
+
                     </select>
                   </div>
                   <div class="form-group">
@@ -516,4 +518,5 @@ if (!$conn) {
     });
   </script>
 </body>
+
 </html>

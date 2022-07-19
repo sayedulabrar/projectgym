@@ -42,7 +42,7 @@ if (!$conn) {
   if (isset($_POST['equip_id'])) {
     $equip_id = $_POST['equip_id'];
     $_SESSION['xxx'] = $equip_id;
-    $sql = "update maintenance set cur = '0' where EQUIPMENT_ID = $equip_id" ;
+    $sql = "update maintenance set cur = '0' where EQUIPMENT_ID = $equip_id";
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
 
@@ -57,24 +57,24 @@ if (!$conn) {
 
     header("Location: equipments_list.php?un=u");
   }
-  if(isset($_POST['dw'])) {
+  if (isset($_POST['dw'])) {
     $dw = $_POST['dw'];
     $donewithin = true;
   }
-  if(isset($_POST['hp'])) {
+  if (isset($_POST['hp'])) {
     $hp = $_POST['hp'];
     $history = true;
     // $_SESSION['xxx'] = $_POST['hp'];
   }
-  if(isset($_POST['em'])) {
+  if (isset($_POST['em'])) {
     $em = $_POST['em'];
     $costg = true;
   }
-  if(isset($_POST['el'])) {
+  if (isset($_POST['el'])) {
     $el = $_POST['el'];
     $costl = true;
   }
-  if(isset($_POST['un'])) {
+  if (isset($_POST['un'])) {
     $un = $_POST['un'];
     $company = true;
   }
@@ -132,7 +132,7 @@ if (!$conn) {
     <!-- /.navbar -->
 
     <?php
-    if($designation == "receptionist") {
+    if ($designation == "receptionist") {
       echo '
       <!-- Main Sidebar Container -->
       <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -150,9 +150,9 @@ if (!$conn) {
               <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-              <a href="employee_profile.php?un_=receptionist" class="d-block">'.
-              $uname
-              .'</a>
+              <a href="employee_profile.php?un_=receptionist" class="d-block">' .
+        $uname
+        . '</a>
             </div>
           </div>
   
@@ -194,20 +194,20 @@ if (!$conn) {
                   </p>
                 </a>
                 <ul class="nav nav-treeview">';
-                      echo "<li class='nav-item'>                
+      echo "<li class='nav-item'>                
                       <a href='pages/mailbox/mailbox.php?un=" . $uname . "' class='nav-link'>
                       <i class='far fa-circle nav-icon'></i>
                       <p>Inbox</p>
                       </a>         
    </li>";
-                      echo "<li class='nav-item'>                
+      echo "<li class='nav-item'>                
                       <a href='pages/mailbox/compose.php?un=" . $uname . "' class='nav-link'>
                       <i class='far fa-circle nav-icon'></i>
                       <p>Compose</p>
                       </a>         
                       </li>";
-  
-            echo    ' </ul>
+
+      echo    ' </ul>
               </li>
               
   
@@ -223,10 +223,9 @@ if (!$conn) {
         <!-- /.sidebar -->
       </aside>
       ';
-    }
-    else {
-    if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
-      echo '
+    } else {
+      if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+        echo '
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
@@ -245,8 +244,8 @@ if (!$conn) {
                     </div>
                     <div class="info">
                         <a href="employee_profile.php" class="d-block">';
-      echo $uname;
-      echo '</a>
+        echo $uname;
+        echo '</a>
                     </div>
                 </div>
 
@@ -368,8 +367,8 @@ if (!$conn) {
 </aside>
 
 ';
-    } else {
-      echo '
+      } else {
+        echo '
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 <!-- Brand Logo -->
 <a href="#" class="brand-link">
@@ -386,8 +385,8 @@ if (!$conn) {
 </div>
 <div class="info">
 <a href="admin_profile.php" class="d-block">';
-      echo $showname;
-      echo '</a>  
+        echo $showname;
+        echo '</a>  
 </div>
 </div>
 
@@ -497,15 +496,15 @@ if (!$conn) {
   </aside> 
           
   ';
+      }
     }
-  }
     ?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <section class="content" style="margin-bottom:50px ;">
 
-      <?php
+        <?php
         if ($_GET) {
           if ($_GET['un'] == 'i') {
             echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
@@ -534,125 +533,124 @@ if (!$conn) {
         <div class="container-fluid">
           <!-- <form action="Manager-results.html"> -->
           <div class="row">
-              
+
             <div class="col-md-12">
               <div class="card card-secondary">
                 <div class="card-header">
                   <h3 class="card-title">Search Using</h3>
 
                   <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                              title="Collapse">
-                    <i class="fas fa-minus"></i>
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                      <i class="fas fa-minus"></i>
                     </button>
                   </div>
                 </div>
                 <div class="card-body">
                   <div class="bg-light clearfix">
-                    
+
                     <br>
-                    <div class="container" >
-              <div class="row">
-                
-                <div class="form-group col-lg-5 col-12">
-                  
-                  <div class="row">
-                    <div class="form-group col-lg-6 col-12">
-                      <h5 style="text-align: center;">Done Within</h5>
-                       <br>
-                      <form action="maintenance_list.php" method = "POST">
-                        <div class="row">
-                          <div class="form-group col-lg-7 col-12">
-                            <input type="number" placeholder="Days" class="form-control" id="dw" name="dw">
+                    <div class="container">
+                      <div class="row">
+
+                        <div class="form-group col-lg-5 col-12">
+
+                          <div class="row">
+                            <div class="form-group col-lg-6 col-12">
+                              <h5 style="text-align: center;">Done Within</h5>
+                              <br>
+                              <form action="maintenance_list.php" method="POST">
+                                <div class="row">
+                                  <div class="form-group col-lg-7 col-12">
+                                    <input type="number" placeholder="Days" class="form-control" id="dw" name="dw">
+                                  </div>
+                                  <div class="form-group col-lg-5 col-12">
+                                    <button type="submit" class="btn btn-secondary">Search</button>
+
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                            <div class="form-group col-lg-6 col-12">
+                              <h5 style="text-align: center;">History of Previous</h5>
+                              <br>
+                              <form action="maintenance_list.php" method="POST">
+                                <div class="row">
+                                  <div class="form-group col-lg-7 col-12">
+                                    <input type="number" placeholder="Days" class="form-control" id="hp" name="hp">
+                                  </div>
+                                  <div class="form-group col-lg-5 col-12">
+                                    <button type="submit" class="btn btn-secondary">Search</button>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
                           </div>
-                          <div class="form-group col-lg-5 col-12">
-                            <button type="submit" class="btn btn-secondary">Search</button>
-                            
-                          </div>
+
                         </div>
-                      </form>
-                    </div>
-                    <div class="form-group col-lg-6 col-12">
-                    <h5 style="text-align: center;">History of Previous</h5>
-                     <br>
-                      <form action="maintenance_list.php" method = "POST">
-                        <div class="row">
-                          <div class="form-group col-lg-7 col-12">
-                            <input type="number" placeholder="Days" class="form-control" id="hp" name="hp">
+                        <div class="form-group col-lg-5 col-12">
+                          <h5 style="text-align: center;">Cost</h5>
+                          <br>
+                          <div class="row">
+
+                            <div class="form-group col-lg-6 col-12">
+
+                              <form action="maintenance_list.php" method="POST">
+                                <div class="row">
+                                  <div class="form-group col-lg-7 col-12">
+                                    <input type="number" placeholder="Equal or less" class="form-control" id="el" name="el">
+                                  </div>
+                                  <div class="form-group col-lg-5 col-12">
+                                    <button type="submit" class="btn btn-secondary">Search</button>
+
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                            <div class="form-group col-lg-6 col-12">
+                              <form action="maintenance_list.php" method="POST">
+                                <div class="row">
+                                  <div class="form-group col-lg-7 col-12">
+                                    <input type="number" placeholder="Equal or More" class="form-control" id="em" name="em">
+                                  </div>
+                                  <div class="form-group col-lg-5 col-12">
+                                    <button type="submit" class="btn btn-secondary">Search</button>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
                           </div>
-                          <div class="form-group col-lg-5 col-12">
-                            <button type="submit" class="btn btn-secondary">Search</button>
-                          </div>
+
                         </div>
-                      </form>
-                    </div>
-                  </div>
-                  
-                </div>
-                <div class="form-group col-lg-5 col-12">
-                  <h5 style="text-align: center;">Cost</h5>
-                  <br>
-                  <div class="row">
-                  
-                    <div class="form-group col-lg-6 col-12">
-                      
-                      <form action="maintenance_list.php" method = "POST">
-                        <div class="row">
-                          <div class="form-group col-lg-7 col-12">
-                            <input type="number" placeholder="Equal or less" class="form-control" id="el" name="el">
-                          </div>
-                          <div class="form-group col-lg-5 col-12">
-                            <button type="submit" class="btn btn-secondary">Search</button>
-                            
-                          </div>
+                        <div class="form-group col-lg-2 col-12">
+                          <h5 style="text-align: center;">Company Name</h5>
+                          <br>
+                          <form action="maintenance_list.php" method="POST">
+                            <div class="row">
+                              <div class="form-group col-lg-8 col-12">
+                                <input type="text" placeholder="Name" class="form-control" id="un" name="un">
+                              </div>
+                              <div class="form-group col-lg-4 col-12">
+                                <button type="submit" class="btn btn-secondary">Search</button>
+
+                              </div>
+                            </div>
+                          </form>
                         </div>
-                      </form>
-                    </div>
-                    <div class="form-group col-lg-6 col-12">
-                      <form action="maintenance_list.php" method = "POST">
-                        <div class="row">
-                          <div class="form-group col-lg-7 col-12">
-                            <input type="number" placeholder="Equal or More" class="form-control" id="em" name="em">
-                          </div>
-                          <div class="form-group col-lg-5 col-12">
-                            <button type="submit" class="btn btn-secondary">Search</button>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                  
-                </div>
-                <div class="form-group col-lg-2 col-12" >
-                  <h5 style="text-align: center;">Company Name</h5>  
-                  <br>
-                  <form action="maintenance_list.php" method = "POST">
-                    <div class="row" >
-                      <div class="form-group col-lg-8 col-12">
-                        <input type="text" placeholder="Name" class="form-control" id="un" name="un">
                       </div>
-                      <div class="form-group col-lg-4 col-12">
-                        <button type="submit" class="btn btn-secondary">Search</button>
-                        
-                      </div>
                     </div>
-                  </form>
-                </div>
-              </div>
-            </div>
                   </div>
 
                 </div>
-                      <!-- /.card-body -->
+                <!-- /.card-body -->
               </div>
-                  <!-- /.card -->
+              <!-- /.card -->
             </div>
 
           </div>
         </div>
-      
 
-      
+
+
         <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -675,7 +673,7 @@ if (!$conn) {
             </div>
           </div>
         </div>
-        
+
         <div class="bg-light clearfix">
           <div class="row" style="padding-top: 30px;">
             <div class="col-lg-6 col-md-12">
@@ -683,7 +681,7 @@ if (!$conn) {
             </div>
             <div class="col-lg-6 col-md-12" style="padding-top: 15px;padding-right:40px;">
               <!-- Insert Modal -->
-              
+
               <!-- Modal -->
               <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -817,28 +815,20 @@ if (!$conn) {
             </thead>
             <tbody>
               <?php
-              if($donewithin) {
+              if ($donewithin) {
                 $sql = "select * from maintenance natural join equipment where br_name = (select br_name from users where username = '$uname') and (DELIVERY_DATE-SYSDATE) <= $dw";
-              }
-              elseif($company) {
+              } elseif ($company) {
                 $sql = "select * from maintenance natural join equipment where br_name = (select br_name from users where username = '$uname') and REPAIRER_COMPANY_NAME = '$un'";
-              }
-              elseif($costg) {
+              } elseif ($costg) {
                 $sql = "select * from maintenance natural join equipment where br_name = (select br_name from users where username = '$uname') and COST_OF_REPAIRING >= $em";
-
-              }
-              elseif($costl) {
+              } elseif ($costl) {
                 $sql = "select * from maintenance natural join equipment where br_name = (select br_name from users where username = '$uname') and COST_OF_REPAIRING <= $el";
-
-              }
-              elseif($history) {
+              } elseif ($history) {
                 $sql = "select * from maintenance natural join equipment where br_name = (select br_name from users where username = '$uname') and (SYSDATE - MAI_DATE) <= $hp";
-
-              }
-              else {
+              } else {
                 $sql = "select * from maintenance natural join equipment where br_name = (select br_name from users where username = '$uname')";
               }
-              
+
               $stid = oci_parse($conn, $sql);
               $r = oci_execute($stid);
               while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
@@ -851,20 +841,18 @@ if (!$conn) {
               <td>" . $row["MAI_DATE"] . "</td>
               <td>" . $row["DELIVERY_DATE"] . "</td>
               <td>" . $row["COST_OF_REPAIRING"] . "</td>
-              <td>"; 
-              if($row["CUR"] == '1') {
-                echo "Under Maintenance";
-              } 
-              else {
-                echo "Done";
-              }
-              echo "</td>";
-              
+              <td>";
+                if ($row["CUR"] == '1') {
+                  echo "Under Maintenance";
+                } else {
+                  echo "Done";
+                }
+                echo "</td>";
+
                 if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
-                  if($row["CUR"] == '1' ) {
-                  echo "<td> <button class='delete btn btn-sm btn-success'>Done</button>";
-                  }
-                  else {
+                  if ($row["CUR"] == '1') {
+                    echo "<td> <button class='delete btn btn-sm btn-success'>Done</button>";
+                  } else {
                     echo "<td> </td>";
                   }
                 }

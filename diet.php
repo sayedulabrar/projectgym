@@ -1,37 +1,35 @@
 <?php
-  session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
+session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 
-  if ($_GET == NULL) {
-    $uname = $_SESSION['uname'];
-    
-    //$va1=$uname;
-  } else {
-    $uname = $_GET['un'];
-    $_SESSION['extra'] = $uname;
-    //$va2=$uname;
-  }
-  //$uname = $_GET['un'];
+if ($_GET == NULL) {
+  $uname = $_SESSION['uname'];
 
-  
-  $trainer = $_SESSION['uname'];
-  
+  //$va1=$uname;
+} else {
+  $uname = $_GET['un'];
+  $_SESSION['extra'] = $uname;
+  //$va2=$uname;
+}
+//$uname = $_GET['un'];
 
-  $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
-    or die(oci_error());
 
-    if (!$conn) {
-      echo "sorry";
-    } 
+$trainer = $_SESSION['uname'];
 
-    else{
-      
-      $sql1 = "Select * from Member where username='$uname'";
-      $stid1 = oci_parse($conn, $sql1);
-      $r1 = oci_execute($stid1);
-      $mem = oci_fetch_array($stid1, OCI_ASSOC + OCI_RETURN_NULLS);
-      $diet_id=0;
-    
-   
+
+$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
+  or die(oci_error());
+
+if (!$conn) {
+  echo "sorry";
+} else {
+
+  $sql1 = "Select * from Member where username='$uname'";
+  $stid1 = oci_parse($conn, $sql1);
+  $r1 = oci_execute($stid1);
+  $mem = oci_fetch_array($stid1, OCI_ASSOC + OCI_RETURN_NULLS);
+  $diet_id = 0;
+
+
 
 
 
@@ -177,7 +175,7 @@
                   </li>";
                 ?>
                 <!-- <li class="nav-item">
-                  <a href="pages/mailbox/compose.html" class="nav-link">
+                  <a href="pages/mailbox/compose.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Compose</p>
                   </a>

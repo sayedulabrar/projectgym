@@ -1,10 +1,10 @@
 <?php
 session_start();
- // this NEEDS TO BE AT THE TOP of the page before any output etc
- $showname = $_SESSION['uname'];
+// this NEEDS TO BE AT THE TOP of the page before any output etc
+$showname = $_SESSION['uname'];
 $designation = $_SESSION['profation'];
-$_SESSION['pk_amount']=NULL;
-$_SESSION['pk_id']=NULL;
+$_SESSION['pk_amount'] = NULL;
+$_SESSION['pk_id'] = NULL;
 $costActive = false;
 $packActive = false;
 $durationActive = false;
@@ -44,11 +44,11 @@ if (!$conn) {
       header("Location: packages_list.php?un=i");
     }
     if (isset($_POST['pkg_id'])) {
-      
-      if($designation == 'Member') {
-        
+
+      if ($designation == 'Member') {
+
         $pkg_id = $_POST['pkg_id'];
-        
+
         $sql = "select * from users where USERNAME = '$uname'";
         $stid = oci_parse($conn, $sql);
         $r = oci_execute($stid);
@@ -64,15 +64,15 @@ if (!$conn) {
         $stid = oci_parse($conn, $sql);
         $r = oci_execute($stid);
         $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-         $_SESSION['pk_id']=$row['PKG_ID'];
+        $_SESSION['pk_id'] = $row['PKG_ID'];
         $amount = $row['PKG_CHARGE'];
-        $_SESSION['pk_amount']=$amount;
-         $mm=$_SESSION['pk_amount'];
+        $_SESSION['pk_amount'] = $amount;
+        $mm = $_SESSION['pk_amount'];
         // $sql = "insert into income (trx_id, username, inc_amount, br_name, inc_type, inc_dateandtime) values($trx_id, '$uname', $amount, '$br_name', 'Member Payment', SYSTIMESTAMP)";
         // $stid = oci_parse($conn, $sql);
         // $r = oci_execute($stid);
         //updating month of the user
-        $trig="CREATE or REPLACE TRIGGER TRIGGER_INCOME
+        $trig = "CREATE or REPLACE TRIGGER TRIGGER_INCOME
         AFTER UPDATE OF MEMBERSHIP_EXPIRY
         ON MEMBER
         FOR EACH ROW
@@ -91,26 +91,23 @@ if (!$conn) {
         INSERT INTO Income(TRX_ID,USERNAME,INC_AMOUNT,BR_NAME,INC_TYPE,INC_DATEANDTIME) VALUES (TRX_ID_GENERATE_SEQUENCE.nextval,var2,var1,var3,var4,SYSTIMESTAMP);
         END;
         ";
-        $stid=oci_parse($conn,$trig);
-        $r=oci_execute($stid);
-        $package_ID= $_SESSION['pk_id'];
-        
-         $sql = "select PKG_DURATION from PACKAGE where PKG_ID= $package_ID";
-         $stid = oci_parse($conn, $sql);
-         $r = oci_execute($stid);
-         $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-         $dur=$row['PKG_DURATION'];
-         $_SESSION['xxx'] = $uname;
-        //  echo $dur;
-         $sql = "update member set MEMBERSHIP_EXPIRY =ADD_MONTHS(MEMBERSHIP_EXPIRY,$dur)  where username='$uname'";
-         $stid = oci_parse($conn, $sql);
-         $r = oci_execute($stid);
-        // $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-          echo var_dump($row);
-      
+        $stid = oci_parse($conn, $trig);
+        $r = oci_execute($stid);
+        $package_ID = $_SESSION['pk_id'];
 
-      }
-      else {
+        $sql = "select PKG_DURATION from PACKAGE where PKG_ID= $package_ID";
+        $stid = oci_parse($conn, $sql);
+        $r = oci_execute($stid);
+        $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+        $dur = $row['PKG_DURATION'];
+        $_SESSION['xxx'] = $uname;
+        //  echo $dur;
+        $sql = "update member set MEMBERSHIP_EXPIRY =ADD_MONTHS(MEMBERSHIP_EXPIRY,$dur)  where username='$uname'";
+        $stid = oci_parse($conn, $sql);
+        $r = oci_execute($stid);
+        // $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+        echo var_dump($row);
+      } else {
         // $_SESSION['xxx'] = $_POST;
         $pkg_id = $_POST['pkg_id'];
         $sql = "DELETE FROM package WHERE pkg_id = '$pkg_id'";
@@ -120,7 +117,7 @@ if (!$conn) {
       }
       // $x = $pkg_id;
 
-      
+
     }
     if (isset($_POST['pkg_id2'])) {
       $pkg_id = $_POST['pkg_id2'];
@@ -132,20 +129,19 @@ if (!$conn) {
 
       header("Location: packages_list.php?un=u");
     }
-    if(isset($_POST['s_a']) && isset($_POST['f_a'])) {
+    if (isset($_POST['s_a']) && isset($_POST['f_a'])) {
       $s_a = $_POST['s_a'];
       $f_a = $_POST['f_a'];
       $costActive = true;
     }
-    if(isset($_POST['pt'])) {
+    if (isset($_POST['pt'])) {
       $pt = $_POST['pt'];
       $packActive = true;
     }
-    if(isset($_POST['du'])) {
+    if (isset($_POST['du'])) {
       $du = $_POST['du'];
       $durationActive = true;
     }
-
   }
 }
 ?>
@@ -193,7 +189,7 @@ if (!$conn) {
     </nav>
     <!-- /.navbar -->
     <?php
-    if($designation == 'Member') {
+    if ($designation == 'Member') {
       echo '
       <!-- Main Sidebar Container -->
       <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -211,7 +207,7 @@ if (!$conn) {
               <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-              <a href="member_profile.php" class="d-block">'.$uname.'
+              <a href="member_profile.php" class="d-block">' . $uname . '
               </a>
             </div>
           </div>
@@ -267,13 +263,13 @@ if (!$conn) {
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="pages/mailbox/mailbox.html" class="nav-link">
+                    <a href="pages/mailbox/mailbox.php" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Inbox</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="pages/mailbox/compose.html" class="nav-link">
+                    <a href="pages/mailbox/compose.php" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Compose</p>
                     </a>
@@ -295,10 +291,9 @@ if (!$conn) {
         <!-- /.sidebar -->
       </aside>  
       ';
-    }
-    else {
-    if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
-      echo '
+    } else {
+      if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+        echo '
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
@@ -317,8 +312,8 @@ if (!$conn) {
                     </div>
                     <div class="info">
                         <a href="employee_profile.php" class="d-block">';
-      echo $uname;
-      echo '</a>
+        echo $uname;
+        echo '</a>
                     </div>
                 </div>
 
@@ -374,13 +369,13 @@ if (!$conn) {
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="pages/mailbox/mailbox.html" class="nav-link">
+                            <a href="pages/mailbox/mailbox.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Inbox</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/mailbox/compose.html" class="nav-link">
+                            <a href="pages/mailbox/compose.php" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Compose</p>
                             </a>
@@ -399,8 +394,8 @@ if (!$conn) {
 </aside>
 
 ';
-    } else {
-      echo '
+      } else {
+        echo '
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 <!-- Brand Logo -->
 <a href="#" class="brand-link">
@@ -417,8 +412,8 @@ if (!$conn) {
 </div>
 <div class="info">
 <a href="admin_profile.php" class="d-block">';
-      echo $showname;
-      echo '</a>  
+        echo $showname;
+        echo '</a>  
 </div>
 </div>
 
@@ -528,10 +523,10 @@ if (!$conn) {
   </aside> 
           
   ';
+      }
     }
-  }
     ?>
-    
+
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <section class="content" style="margin-bottom:50px ;">
@@ -540,12 +535,9 @@ if (!$conn) {
             <div class="modal-content">
               <div class="modal-header">
                 <?php
-                if($designation=='Member'){
+                if ($designation == 'Member') {
                   echo "<h5 class='modal-title' id='exampleModalLabel1'>Are you sure you want to Purchase this package?</h5>";
-                }
-
-                else
-                {
+                } else {
                   echo "<h5 class='modal-title' id='exampleModalLabel1'>Are you sure you want to remove this package?</h5>";
                 }
 
@@ -595,32 +587,31 @@ if (!$conn) {
         <div class="container-fluid">
           <!-- <form action="Manager-results.html"> -->
           <div class="row">
-              
+
             <div class="col-md-12">
               <div class="card card-secondary">
                 <div class="card-header">
                   <h3 class="card-title">Search Using</h3>
 
                   <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                              title="Collapse">
-                    <i class="fas fa-minus"></i>
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                      <i class="fas fa-minus"></i>
                     </button>
                   </div>
                 </div>
                 <div class="card-body">
                   <div class="bg-light clearfix">
-                    
+
                     <br>
-                    <div class="container" >
+                    <div class="container">
                       <div class="row">
-                        
+
                         <div class="form-group col-lg-3 col-12">
                           <h5 style="text-align: center;">Package Type</h5>
                           <br>
                           <div class="row">
                             <div class="form-group col-lg-12 col-12">
-                              <form action="packages_list.php" method = "POST">
+                              <form action="packages_list.php" method="POST">
                                 <div class="row">
                                   <div class="form-group col-lg-7 col-12">
                                     <input type="text" placeholder="Type" class="form-control" id="pt" name="pt">
@@ -632,15 +623,15 @@ if (!$conn) {
                               </form>
                             </div>
                           </div>
-                          
+
                         </div>
-                        <div class="form-group col-lg-5 col-12" >
-                          <h5 style="text-align: center;">Charge</h5>  
+                        <div class="form-group col-lg-5 col-12">
+                          <h5 style="text-align: center;">Charge</h5>
                           <br>
-                          <form action="packages_list.php" method = "POST">
-                            <div class="row" >
-                              <div class="form-group col-lg-5 col-12" >
-                                <input type="text" placeholder="From" class="form-control" id="s_a" name="s_a" aria-describedby="emailHelp">  
+                          <form action="packages_list.php" method="POST">
+                            <div class="row">
+                              <div class="form-group col-lg-5 col-12">
+                                <input type="text" placeholder="From" class="form-control" id="s_a" name="s_a" aria-describedby="emailHelp">
                               </div>
                               <div class="form-group col-lg-4 col-12">
                                 <input type="text" placeholder="To" class="form-control" id="f_a" name="f_a">
@@ -651,20 +642,20 @@ if (!$conn) {
                             </div>
                           </form>
                         </div>
-                        <div class="form-group col-lg-4 col-12" >
-                          <h5 style="text-align: center;">Duration</h5>  
+                        <div class="form-group col-lg-4 col-12">
+                          <h5 style="text-align: center;">Duration</h5>
                           <br>
-                          <form action="packages_list.php" method = "POST">
-                            <div class="row" >
+                          <form action="packages_list.php" method="POST">
+                            <div class="row">
                               <div class="form-group col-lg-8 col-12">
                                 <input type="text" placeholder="Months" class="form-control" id="du" name="du">
                               </div>
                               <div class="form-group col-lg-4 col-12">
                                 <button type="submit" class="btn btn-secondary">Search</button>
-                                
+
                               </div>
                             </div>
-                            
+
                           </form>
                         </div>
                       </div>
@@ -672,17 +663,17 @@ if (!$conn) {
                   </div>
 
                 </div>
-                      <!-- /.card-body -->
+                <!-- /.card-body -->
               </div>
-                  <!-- /.card -->
+              <!-- /.card -->
             </div>
 
           </div>
         </div>
-      
-      
 
-        
+
+
+
 
         <div class="bg-light clearfix">
           <div class="row" style="padding-top: 30px;">
@@ -692,14 +683,14 @@ if (!$conn) {
             <div class="col-lg-6 col-md-12" style="padding-top: 15px;padding-right:40px;">
               <!-- Insert Modal -->
               <?php
-              if($designation <> 'Member') {
-              if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
-                echo '
+              if ($designation <> 'Member') {
+                if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+                  echo '
                 <button type="button" class="insert btn btn-success float-right" data-toggle="modal" data-target="#exampleModal">Add New</button>
               
                 ';
+                }
               }
-            }
               ?>
               <!-- Modal -->
               <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -824,7 +815,7 @@ if (!$conn) {
                 <th scope="col">Charge</th>
                 <th scope="col">Duration (months)</th>
                 <?php
-                
+
                 if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
                   echo '<th scope="col">Action</th>';
                 }
@@ -834,20 +825,17 @@ if (!$conn) {
             <tbody>
               <?php
               // $br_name = $packageInfo["BR_NAME"];
-              if($costActive) {
+              if ($costActive) {
                 $sql = "select *from branch natural join br_pkg natural join package where br_name = (select br_name from users where username = '$uname') and $s_a <= PKG_CHARGE and $f_a >= PKG_CHARGE";
-              }
-              elseif($durationActive) {
+              } elseif ($durationActive) {
                 // $_SESSION['xxx'] = $du;
                 $sql = "select *from branch natural join br_pkg natural join package where br_name = (select br_name from users where username = '$uname') and PKG_DURATION	 = $du";
-              }
-              elseif($packActive) {
+              } elseif ($packActive) {
                 $sql = "select *from branch natural join br_pkg natural join package where br_name = (select br_name from users where username = '$uname') and PKG_TYPE = '$pt'";
-              }
-              else {
+              } else {
                 $sql = "select *from branch natural join br_pkg natural join package where br_name = (select br_name from users where username = '$uname')";
               }
-              
+
               $stid = oci_parse($conn, $sql);
               $r = oci_execute($stid);
               while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
@@ -858,26 +846,24 @@ if (!$conn) {
               <td>" . $row["PKG_TYPE"] . "</td>
               <td>" . $row["PKG_CHARGE"] . "</td>
               <td>" . $row["PKG_DURATION"] . "</td>";
-              if($designation == 'Member') {
-                echo "<td> <button class='delete btn btn-sm btn-success'>Purchase</button>";
-                
-              }
-              else {
-                if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
-                  echo "<td> <button class='delete btn btn-sm btn-danger'>Remove</button> <button class='update btn btn-sm btn-primary' id=" . $row['BR_NAME'] . ">Edit</button></td>";
-                }
-                echo "</tr>
+                if ($designation == 'Member') {
+                  echo "<td> <button class='delete btn btn-sm btn-success'>Purchase</button>";
+                } else {
+                  if ($_GET == NULL || ($_GET != NULL && ($_GET['un'] == 'd' || $_GET['un'] == 'w' || $_GET['un'] == 'i' || $_GET['un'] == 'u'))) {
+                    echo "<td> <button class='delete btn btn-sm btn-danger'>Remove</button> <button class='update btn btn-sm btn-primary' id=" . $row['BR_NAME'] . ">Edit</button></td>";
+                  }
+                  echo "</tr>
               ";
+                }
               }
-            }
               ?>
             </tbody>
           </table>
       </section>
-      <?php   
-      
+      <?php
+
       //For checking the error
-      
+
       ?>
       <!-- /.content -->
       <div style="margin-bottom:30px ;"></div>
@@ -889,7 +875,7 @@ if (!$conn) {
     </aside>
     <!-- /.control-sidebar -->
 
-           
+
 
     <!-- Main Footer -->
     <footer class="main-footer dark-mode" style="color: #869099">

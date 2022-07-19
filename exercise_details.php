@@ -1,21 +1,20 @@
 <?php
-session_start(); 
+session_start();
 $uname = $_SESSION['uname'];
 $ex = $_GET['un'];
 $designation = null;
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
-  or die(oci_error());
+    or die(oci_error());
 if (!$conn) {
-  echo "sorry";
+    echo "sorry";
 } else {
     $sql = "select * from employee where USERNAME = '$uname'";
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
-    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);    
-    if($row == NULL) {
+    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+    if ($row == NULL) {
         $designation = 'member';
-    }
-    else {
+    } else {
         $designation = 'trainer';
     }
     $sql = "select * from exercises_list where exe_id = '$ex'";
@@ -34,17 +33,16 @@ if (!$conn) {
     <title>Exercise Details</title>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="  plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Theme style -->
     <link rel="stylesheet" href="  dist/css/adminlte.min.css">
 
-    
 
-    
+
+
 
 
 
@@ -55,8 +53,8 @@ if (!$conn) {
     <div class="wrapper">
 
         <?php
-            if($designation == 'member') {
-                echo '
+        if ($designation == 'member') {
+            echo '
                 <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
@@ -75,7 +73,7 @@ if (!$conn) {
                     </div>
                     <div class="info">
                         <a href="member_profile.php" class="d-block">';
-                        echo $uname;
+            echo $uname;
             echo '</a>
                     </div>
                 </div>
@@ -124,13 +122,13 @@ if (!$conn) {
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href=" pages/mailbox/mailbox.html" class="nav-link">
+                                    <a href=" pages/mailbox/mailbox.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Inbox</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href=" pages/mailbox/compose.html" class="nav-link">
+                                    <a href=" pages/mailbox/compose.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Compose</p>
                                     </a>
@@ -198,9 +196,8 @@ if (!$conn) {
         </aside>
 
                 ';
-            }
-            else {
-                echo '
+        } else {
+            echo '
                 <!-- Main Sidebar Container -->
                 <aside class="main-sidebar sidebar-dark-primary elevation-4">
                         <!-- Brand Logo -->
@@ -218,10 +215,10 @@ if (!$conn) {
                                 </div>
                                 <div class="info">
                                     <a href="employee_profile.php?un_=trainer" class="d-block">';
-                                        
-                                        echo $uname;
-                                        
-                                   echo '</a>
+
+            echo $uname;
+
+            echo '</a>
                                 </div>
                             </div>
             
@@ -275,7 +272,7 @@ if (!$conn) {
                                             </p>
                                         </a>
                                         <ul class="nav nav-treeview">';
-                                            echo "<li class='nav-item'>
+            echo "<li class='nav-item'>
             
                                             
                                                 
@@ -286,16 +283,16 @@ if (!$conn) {
             
                                                
                                             </li>";
-            
-                                            echo "<li class='nav-item'>                    
+
+            echo "<li class='nav-item'>                    
                                             <a href='pages/mailbox/compose.php?un=" . $uname . "' class='nav-link'>
                                             <i class='far fa-circle nav-icon'></i>
                                             <p>Compose</p>
                                             </a>
                                             </li>";
 
-                                          echo  '<!-- <li class="nav-item">
-                                                <a href="pages/mailbox/compose.html" class="nav-link">
+            echo  '<!-- <li class="nav-item">
+                                                <a href="pages/mailbox/compose.php" class="nav-link">
                                                     <i class="far fa-circle nav-icon"></i>
                                                     <p>Compose</p>
                                                 </a>
@@ -317,9 +314,9 @@ if (!$conn) {
                         <!-- /.sidebar -->
                     </aside>
                 ';
-            }
+        }
         ?>
-        
+
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper" style="margin-top: 0;">
             <!-- Content Header (Page header) -->
@@ -368,7 +365,7 @@ if (!$conn) {
 
                         <li class="list-group-item pr-3 pl-3">
                             <b>Exercise ID</b> <a class="float-right">
-                            <?php echo $row['EXE_ID']; ?></a>
+                                <?php echo $row['EXE_ID']; ?></a>
                         </li>
                         <li class="list-group-item pr-3 pl-3">
                             <b>Exercise Name</b> <a class="float-right"><?php echo $row['EXE_NAME']; ?></a>
