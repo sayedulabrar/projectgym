@@ -1,7 +1,6 @@
 <?php
 session_start();
  // this NEEDS TO BE AT THE TOP of the page before any output etc
-
  $showname = $_SESSION['uname'];
 $designation = $_SESSION['profation'];
 $_SESSION['pk_amount']=NULL;
@@ -150,6 +149,7 @@ if (!$conn) {
   }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 

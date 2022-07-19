@@ -175,7 +175,7 @@ if (!$conn) {
                                 <p>Compose</p>
                                 </a>
                                 </li>";
-                ?>x
+                ?>
 
               </ul>
             </li>
