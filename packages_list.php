@@ -1,6 +1,8 @@
 <?php
-session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
-$showname = $_SESSION['uname'];
+session_start();
+ // this NEEDS TO BE AT THE TOP of the page before any output etc
+
+ $showname = $_SESSION['uname'];
 $designation = $_SESSION['profation'];
 $_SESSION['pk_amount']=NULL;
 $_SESSION['pk_id']=NULL;
@@ -43,14 +45,17 @@ if (!$conn) {
       header("Location: packages_list.php?un=i");
     }
     if (isset($_POST['pkg_id'])) {
+      
       if($designation == 'Member') {
+        
         $pkg_id = $_POST['pkg_id'];
+        
         $sql = "select * from users where USERNAME = '$uname'";
         $stid = oci_parse($conn, $sql);
         $r = oci_execute($stid);
         $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
         $br_name = $row["BR_NAME"];
-        $_SESSION['xxx'] = $br_name;
+        // $_SESSION['xxx'] = $br_name;
         $sql = "select *from income order by trx_id desc";
         $stid = oci_parse($conn, $sql);
         $r = oci_execute($stid);
@@ -75,16 +80,18 @@ if (!$conn) {
          $r = oci_execute($stid);
          $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
          $dur=$row['PKG_DURATION'];
-         echo $dur;
+         $_SESSION['xxx'] = $uname;
+        //  echo $dur;
          $sql = "update member set MEMBERSHIP_EXPIRY =ADD_MONTHS(MEMBERSHIP_EXPIRY,$dur)  where username='$uname'";
          $stid = oci_parse($conn, $sql);
          $r = oci_execute($stid);
-          $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+        // $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
           echo var_dump($row);
       
 
       }
       else {
+        // $_SESSION['xxx'] = $_POST;
         $pkg_id = $_POST['pkg_id'];
         $sql = "DELETE FROM package WHERE pkg_id = '$pkg_id'";
         $stid = oci_parse($conn, $sql);
@@ -122,7 +129,6 @@ if (!$conn) {
   }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -655,27 +661,6 @@ if (!$conn) {
       
       
 
-        <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel1">Are you sure you want to remove this package?</h5>
-                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button> -->
-              </div>
-              <div class="modal-body">
-                <form action="packages_list.php" method="POST">
-                  <input type="hidden" name="pkg_id" id="pkg_id">
-                  <div class="modal-body" style="float: right;">
-                    <button type="button" class="btn btn-secondary" onclick="window.location.href='packages_list.php'">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Comfirm</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
         
 
         <div class="bg-light clearfix">
@@ -716,7 +701,7 @@ if (!$conn) {
                           <div class="row">
                             <div class="form-group col-lg-6 col-12">
                               <label for="amount">Charge</label>
-                              <input type="number" class="form-control" id="amount" name="amount" aria-describedby="emailHelp">
+                              <input type="text" class="form-control" id="amount" name="amount" aria-describedby="emailHelp">
                             </div>
                             <div class="form-group col-lg-6 col-12">
                               <label for="type">Package Type</label>
@@ -734,7 +719,7 @@ if (!$conn) {
                           </div>
                           <div class="form-group">
                             <label for="duration">Duration</label>
-                            <input type="number" class="form-control" id="duration" name="duration" aria-describedby="emailHelp">
+                            <input type="text" class="form-control" id="duration" name="duration" aria-describedby="emailHelp">
                           </div>
                         </div>
                         <div class="modal-footer">
@@ -775,11 +760,11 @@ if (!$conn) {
                           <div class="row">
                             <div class="form-group col-lg-6 col-12">
                               <label for="amount1">Charge</label>
-                              <input type="number" class="form-control" id="amount1" name="amount1" aria-describedby="emailHelp">
+                              <input type="text" class="form-control" id="amount1" name="amount1" aria-describedby="emailHelp">
                             </div>
                             <div class="form-group col-lg-6 col-12">
                               <label for="duration1">Duration</label>
-                              <input type="number" class="form-control" id="duration1" name="duration1" aria-describedby="emailHelp">
+                              <input type="text" class="form-control" id="duration1" name="duration1" aria-describedby="emailHelp">
                             </div>
 
                           </div>
@@ -832,7 +817,7 @@ if (!$conn) {
                 $sql = "select *from branch natural join br_pkg natural join package where br_name = (select br_name from users where username = '$uname') and $s_a <= PKG_CHARGE and $f_a >= PKG_CHARGE";
               }
               elseif($durationActive) {
-                $_SESSION['xxx'] = $du;
+                // $_SESSION['xxx'] = $du;
                 $sql = "select *from branch natural join br_pkg natural join package where br_name = (select br_name from users where username = '$uname') and PKG_DURATION	 = $du";
               }
               elseif($packActive) {
@@ -938,7 +923,7 @@ if (!$conn) {
         // console.log("delete ", );
         tr = e.target.parentNode.parentNode;
         pkg_id.value = tr.getElementsByTagName("th")[0].innerText;
-        console.log(pkg_id);
+        console.log(pkg_id.value);
         $('#exampleModal1').modal('toggle');
       })
     })
