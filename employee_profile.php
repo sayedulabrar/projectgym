@@ -137,6 +137,8 @@ if (!$conn) {
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- Theme style -->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
 </head>
 
@@ -173,7 +175,7 @@ if (!$conn) {
                   <input type="text" class="form-control" id="bloodgroup1" name="bloodgroup1" aria-describedby="emailHelp">
                 </div>
                 <div class="form-group col-lg-6 col-12">
-                  <label for="dob1">Date of Birth(eg. 11-NOV-98)</label>
+                  <label for="dob1">Date of Birth</label>
                   <input type="text" class="form-control" id="dob1" name="dob1" aria-describedby="emailHelp">
                 </div>
               </div>
@@ -246,7 +248,7 @@ if (!$conn) {
 
             <div class="modal-body" style="float: right;">
               <button type="button" class="btn btn-secondary" onclick="window.location.href='employee_profile.php'">Cancel</button>
-              <button type="submit" class="btn btn-primary">Comfirm</button>
+              <button type="submit" class="btn btn-primary">Confirm</button>
             </div> 
           </form>
         </div>
@@ -983,6 +985,8 @@ if (!$conn) {
   <script src="dist/js/adminlte.min.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="dist/js/demo.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   <script>
     updates = document.getElementsByClassName('update');
@@ -1019,6 +1023,15 @@ if (!$conn) {
         $('#exampleModal').modal('toggle');
       })
     })
+  </script>
+
+<script>
+    $(function() {
+      $("#dob1").datepicker({
+        changeMonth: true,
+        changeYear: true
+      });
+    });
   </script>
 </body>
 
