@@ -126,6 +126,16 @@ if (!$conn) {
                     </a>
                     </li>';
                   }
+                  if($designation=="manager")
+                  {
+                    echo ' <li class="nav-item">
+                    <a href="../../manager_db.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Manager</p>
+                    </a>
+                    </li>
+                  }
+
 
                 ?>
 
@@ -207,7 +217,7 @@ if (!$conn) {
 
           <?php
 
-                  if($designation=="trainer" || $designation=="receptionist")
+                  if($designation=="trainer" || $designation=="receptionist" || $designation=="manager")
                   {
                     
                   }

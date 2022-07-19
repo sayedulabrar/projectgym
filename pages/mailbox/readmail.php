@@ -112,6 +112,16 @@ if (!$conn) {
                     </li>';
                 }
 
+                if($job=="manager")
+                {
+                    echo ' <li class="nav-item">
+                    <a href="../../manager_db.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Receptionist</p>
+                    </a>
+                    </li>';
+                }
+
 ?>
 
             </ul>
@@ -190,7 +200,7 @@ if (!$conn) {
 
           <?php
 
-if($job=="trainer" || $job=="receptionist")
+if($job=="trainer" || $job=="receptionist" || $job=="manager")
 {
 
 }
