@@ -56,6 +56,7 @@ if (!$conn) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -63,15 +64,16 @@ if (!$conn) {
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  
+
   <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
-    <!-- Theme style -->
+  <!-- Theme style -->
 </head>
+
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
   <!-- Site wrapper -->
   <div class="wrapper">
@@ -129,20 +131,20 @@ if (!$conn) {
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href=" pages/mailbox/mailbox.html" class="nav-link">
+                  <a href=" pages/mailbox/mailbox.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Inbox</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href=" pages/mailbox/compose.html" class="nav-link">
+                  <a href=" pages/mailbox/compose.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Compose</p>
                   </a>
                 </li>
               </ul>
             </li>
-            
+
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
@@ -214,8 +216,8 @@ if (!$conn) {
                 <div class="card-body">
                   <div class="form-group">
                     <label for="select2">Assigned Trainer <span style="color:#FF0000">*</span></label>
-                    <select class="select2" name="trainer" id = "trainer" style="width: 100%; height: 38px;">
-                    <?php
+                    <select class="select2" name="trainer" id="trainer" style="width: 100%; height: 38px;">
+                      <?php
                       $sql = "select *from users where username = '$uname'";
                       $stid = oci_parse($conn, $sql);
                       $r = oci_execute($stid);
@@ -224,14 +226,13 @@ if (!$conn) {
                       $sql = "select *from employee natural join users where br_name = '$br_name' and designation = 'Trainer'";
                       $stid = oci_parse($conn, $sql);
                       $r = oci_execute($stid);
-                      while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS))
-                      {
-                        echo '<option value="'.$row["USERNAME"].'">'.$row["USERNAME"].'</option>';
+                      while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                        echo '<option value="' . $row["USERNAME"] . '">' . $row["USERNAME"] . '</option>';
                       }
-                      
-                    ?>
-                  </select>
-                  <!-- <input type="number" id="select2" name="select2" class="form-control" required> -->
+
+                      ?>
+                    </select>
+                    <!-- <input type="number" id="select2" name="select2" class="form-control" required> -->
                   </div>
                   <div class="form-group">
                     <label for="accountno">Account No <span style="color:#FF0000">*</span></label>
@@ -249,7 +250,7 @@ if (!$conn) {
                     <label for="outcome">Expected Outcome</label>
                     <input type="text" id="outcome" name="outcome" class="form-control">
                   </div>
-                  
+
                   <div class="form-group">
                     <label for="bloodgrp">Blood Group</label>
                     <br>
@@ -262,7 +263,7 @@ if (!$conn) {
                       <option value="O-">O-</option>
                       <option value="AB+">AB+</option>
                       <option value="AB-">AB-</option>
-                      
+
                     </select>
                   </div>
                 </div>
@@ -289,27 +290,27 @@ if (!$conn) {
   </div>
   <!-- ./wrapper -->
   <!-- jQuery -->
-  
+
   <script src="plugins/jquery/jquery.min.js"></script>
-    <!-- Bootstrap 4 -->
-    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Select2 -->
-    <script src="plugins/select2/js/select2.full.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Select2 -->
+  <script src="plugins/select2/js/select2.full.min.js"></script>
   <!-- Bootstrap 4 -->
   <!-- AdminLTE App -->
   <script src="dist/js/adminlte.min.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="dist/js/demo.js"></script>
-  
-  
+
+
   <!-- <script src="https://code.jquery.com/jquery-3.6.0.js"></script> -->
   <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-  
-  
+
+
   <script>
-      $(function () {
-          $('.select2').select2()
-      });
+    $(function() {
+      $('.select2').select2()
+    });
   </script>
   <script>
     $(function() {
@@ -319,6 +320,7 @@ if (!$conn) {
       });
     });
   </script>
-  
+
 </body>
+
 </html>

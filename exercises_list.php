@@ -25,25 +25,24 @@ if (!$conn) {
     $sql = "insert into equipment (equipment_id, equipment_name, equipment_quantity, equipment_available, equipment_brand, equipment_model, br_name) values($trx_id, '$name', $quantity, 0, '$brand', '$model','$br_name')";
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
-    
-    header("Location: equipments_list.php?un=i");
 
+    header("Location: equipments_list.php?un=i");
   }
-  if(isset($_POST['equip_id'])) {
+  if (isset($_POST['equip_id'])) {
     $equip_id = $_POST['equip_id'];
     $sql = "DELETE FROM equipment WHERE equipment_id = '$equip_id'";
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
-    
+
     header("Location: equipments_list.php?un=d");
   }
-  if(isset($_POST['equip_id2'])) {
+  if (isset($_POST['equip_id2'])) {
     $equip_id = $_POST['equip_id2'];
     $quantity = $_POST['quantity1'];
     $sql = "update equipment set equipment_quantity = $quantity where equipment_id = $equip_id";
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
-    
+
     header("Location: equipments_list.php?un=u");
   }
 }
@@ -101,30 +100,30 @@ if (!$conn) {
 
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <!-- Brand Logo -->
-            <a href="#" class="brand-link">
-                <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">Fitness Mania</span>
+      <!-- Brand Logo -->
+      <a href="#" class="brand-link">
+        <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">Fitness Mania</span>
+      </a>
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="image">
+            <img src="dist/img/enan_pinki.jpg" class="img-circle elevation-2" alt="User Image">
+          </div>
+          <div class="info">
+            <a href="employee_profile.php?un_=trainer" class="d-block">
+              <?php
+              echo $uname;
+              ?>
             </a>
+          </div>
+        </div>
 
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <!-- Sidebar user panel (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
-                        <img src="dist/img/enan_pinki.jpg" class="img-circle elevation-2" alt="User Image">
-                    </div>
-                    <div class="info">
-                        <a href="employee_profile.php?un_=trainer" class="d-block">
-                            <?php
-                            echo $uname;
-                            ?>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- SidebarSearch Form -->
-                <!-- <div class="form-inline">
+        <!-- SidebarSearch Form -->
+        <!-- <div class="form-inline">
           <div class="input-group" data-widget="sidebar-search">
             <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
             <div class="input-group-append">
@@ -135,46 +134,46 @@ if (!$conn) {
           </div>
         </div> -->
 
-                <!-- Sidebar Menu -->
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
-                                    Dashboard
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                  Dashboard
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
 
-                                <li class="nav-item">
-                                    <a href="trainer_db.php" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Trainer</p>
-                                    </a>
-                                </li>
+                <li class="nav-item">
+                  <a href="trainer_db.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Trainer</p>
+                  </a>
+                </li>
 
-                            </ul>
-                        </li>
-
-
+              </ul>
+            </li>
 
 
 
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon far fa-envelope"></i>
-                                <p>
-                                    Mailbox
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <?php
-                                echo "<li class='nav-item'>
+
+
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon far fa-envelope"></i>
+                <p>
+                  Mailbox
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <?php
+                echo "<li class='nav-item'>
 
                                 
                                     
@@ -185,39 +184,39 @@ if (!$conn) {
 
                                    
                                 </li>";
-                                ?>
+                ?>
 
 
-                                <?php
-                                echo "<li class='nav-item'>                    
+                <?php
+                echo "<li class='nav-item'>                    
                                 <a href='pages/mailbox/compose.php?un=" . $uname . "' class='nav-link'>
                                 <i class='far fa-circle nav-icon'></i>
                                 <p>Compose</p>
                                 </a>
                                 </li>";
-                                ?>
-                                <!-- <li class="nav-item">
-                                    <a href="pages/mailbox/compose.html" class="nav-link">
+                ?>
+                <!-- <li class="nav-item">
+                                    <a href="pages/mailbox/compose.php" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Compose</p>
                                     </a>
                                 </li> -->
 
-                            </ul>
-                        </li>
+              </ul>
+            </li>
 
 
 
 
-                    </ul>
-                    </li>
+          </ul>
+          </li>
 
-                    </ul>
-                </nav>
-                <!-- /.sidebar-menu -->
-            </div>
-            <!-- /.sidebar -->
-        </aside>
+          </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+      </div>
+      <!-- /.sidebar -->
+    </aside>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <section class="content" style="margin-bottom:50px ;">
@@ -238,7 +237,7 @@ if (!$conn) {
                   <div class="modal-body" style="float: right;">
                     <button type="button" class="btn btn-secondary" onclick="window.location.href='equipments_list.php'">Cancel</button>
                     <button type="submit" class="btn btn-primary">Comfirm</button>
-                  </div> 
+                  </div>
                 </form>
               </div>
 
@@ -246,33 +245,30 @@ if (!$conn) {
           </div>
         </div>
         <?php
-          if($_GET) {
-            if($_GET['un'] == 'i') {
-              echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
+        if ($_GET) {
+          if ($_GET['un'] == 'i') {
+            echo "<div class='alert alert-success alert-dismissible fade show' role='alert'>
               Successfully inserted
               <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
               <span aria-hidden='true'>&times;</span>
               </button>
             </div>";
-            }
-            elseif($_GET['un'] == 'u') {
-              echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+          } elseif ($_GET['un'] == 'u') {
+            echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
               Successfully Updated
               <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
               <span aria-hidden='true'>&times;</span>
               </button>
             </div>";
-            }
-            
-            elseif($_GET['un'] == 'd') {
-              echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+          } elseif ($_GET['un'] == 'd') {
+            echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
               Successfully Deleted
               <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
               <span aria-hidden='true'>&times;</span>
               </button>
             </div>";
-            }
           }
+        }
         ?>
 
         <div class="bg-light clearfix">
@@ -361,22 +357,22 @@ if (!$conn) {
 
                           <input type="hidden" name="equip_id2" id="equip_id2">
                           <!-- <div class="row"> -->
-                            <div class="form-group">
-                              <label for="quantity1">Quantity</label>
-                              <input type="text" class="form-control" id="quantity1" name="quantity1" aria-describedby="emailHelp">
-                            </div>
-                            <!-- <div class="form-group col-lg-6 col-12">
+                          <div class="form-group">
+                            <label for="quantity1">Quantity</label>
+                            <input type="text" class="form-control" id="quantity1" name="quantity1" aria-describedby="emailHelp">
+                          </div>
+                          <!-- <div class="form-group col-lg-6 col-12">
                               <label for="available1">Available</label>
                               <input type="text" class="form-control" id="available1" name="available1" aria-describedby="emailHelp">
                             </div> -->
-                        
+
                           <!-- </div> -->
-                          
+
 
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="window.location.href='equipments_list.php'">Close</button>
-                          <button type="submit" class="btn btn-primary" >Confirm</button>
+                          <button type="submit" class="btn btn-primary">Confirm</button>
                         </div>
                       </form>
                     </div>
@@ -404,8 +400,8 @@ if (!$conn) {
                 <th scope="col">Minimum Weight</th>
                 <th scope="col">Minimum Height</th>
                 <th scope="col">Minimum Age</th>
-                
-                
+
+
                 <!-- <th scope="col">Action</th> -->
 
               </tr>
@@ -419,7 +415,7 @@ if (!$conn) {
                 echo "
               <tr>
               <th scope='row'>" . $row['EXE_ID'] . "</th>
-              <td><a href='exercise_details.php?un=". $row['EXE_ID']."'>" . $row["EXE_NAME"] . "</a> </td>
+              <td><a href='exercise_details.php?un=" . $row['EXE_ID'] . "'>" . $row["EXE_NAME"] . "</a> </td>
               <td>" . $row["EXE_TYPE"] . "</td>
               <td>" . $row["MIN_WEIGHT"] . "</td>
               <td>" . $row["MIN_HEIGHT"] . "</td>
@@ -506,8 +502,8 @@ if (!$conn) {
       })
     })
     deletes = document.getElementsByClassName('delete');
-    Array.from(deletes).forEach((element)=>{
-      element.addEventListener("click", (e)=>{
+    Array.from(deletes).forEach((element) => {
+      element.addEventListener("click", (e) => {
         // console.log("delete ", );
         tr = e.target.parentNode.parentNode;
         equip_id.value = tr.getElementsByTagName("th")[0].innerText;
@@ -516,8 +512,8 @@ if (!$conn) {
       })
     })
     updates = document.getElementsByClassName('update');
-    Array.from(updates).forEach((element)=>{
-      element.addEventListener("click", (e)=>{
+    Array.from(updates).forEach((element) => {
+      element.addEventListener("click", (e) => {
         console.log("update ", );
         tr = e.target.parentNode.parentNode;
         // // uname.value = e.target.id;

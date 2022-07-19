@@ -141,13 +141,13 @@ if (!$conn) {
               </a>
               <ul class="nav nav-treeview">
                 <!-- <li class="nav-item">
-                  <a href="pages/mailbox/mailbox.html" class="nav-link">
+                  <a href="pages/mailbox/mailbox.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Inbox</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="pages/mailbox/compose.html" class="nav-link">
+                  <a href="pages/mailbox/compose.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Compose</p>
                   </a>
@@ -461,18 +461,18 @@ if (!$conn) {
                     $stid = oci_parse($conn, $sql);
                     $r = oci_execute($stid);
                     $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    
-                    $w=$row['MEM_WEIGHT'];
+
+                    $w = $row['MEM_WEIGHT'];
 
                     $sql = "select mem_height from member where username='$uname'";
                     $stid = oci_parse($conn, $sql);
                     $r = oci_execute($stid);
                     $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-                    $h=$row['MEM_HEIGHT'];
-                    
+                    $h = $row['MEM_HEIGHT'];
+
 
                     // $height=$height/100;
-                    
+
                     // $height=$height**2;
                     $stid = oci_parse($conn, 'begin :r := BMI(:w,:h); end;');
                     oci_bind_by_name($stid, ':w', $w);
@@ -480,9 +480,9 @@ if (!$conn) {
                     oci_bind_by_name($stid, ':r', $r, 40);
 
                     oci_execute($stid);
-                      $bmi=$r;
-                     $bmi=number_format($bmi,2);
-                
+                    $bmi = $r;
+                    $bmi = number_format($bmi, 2);
+
                     echo $bmi;
 
                     $query = "update Member set Memb_BMI='$bmi' where username='$uname'";
