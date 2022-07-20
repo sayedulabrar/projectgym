@@ -111,7 +111,7 @@ if (!$conn) {
               <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-              <a href="employee_profile.php?un_=receptionist" class="d-block">'.
+              <a href="employee_profile.php" class="d-block">'.
               $uname
               .'</a>
             </div>
@@ -401,7 +401,7 @@ if (!$conn) {
         }
         ?>
         <?php
-          if($designation != 'Admin') {
+          if($designation != 'Admin' && $designation != 'Receptionist') {
             echo '
             <div class="container-fluid">
             <!-- <form action="Manager-results.html"> -->
@@ -521,7 +521,7 @@ if (!$conn) {
               <!-- Insert Modal -->
 
               <?php
-              if ($_GET == NULL || ($_GET != NULL && $_GET['un'] == 'a')) {
+              if ($_GET == NULL || ($_GET != NULL && $_GET['un'] == 'a') || $designation == 'Receptionist') {
                 echo '<button type="button" class="insert btn btn-success float-right" data-toggle="modal"
                                 data-target="#exampleModal" onclick="window.location.href=\'add_member.php?un=' . $uname . '\'">Add
                                 New</button>';

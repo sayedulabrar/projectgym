@@ -63,7 +63,7 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto navbar-right-top">
                     <li class="nav-item">
-                        <a href=" index.php" type="button" class="btn btn-secondary">Logout</a>
+                        <a href="index.php" type="button" class="btn btn-secondary">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -90,7 +90,7 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
             <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="employee_profile.php?un_=receptionist" class="d-block">
+            <a href="employee_profile.php" class="d-block">
               <?php
                 echo $uname;
               ?>
@@ -283,29 +283,40 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
                 <div class="icon">
                   <i class="ion ion-bag"></i>
                 </div>
-                <a href="receptionist_to_package.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="packages_list.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
-
-            <div class="col-lg-3 col-6">
+            <div class="col-lg-3 col-12">
               <!-- small box -->
               <div class="small-box bg-warning">
                 <div class="inner">
+                  <h3>
+                    <?php
+                    $br_name = $rec["BR_NAME"];
+                    $sql = "select *from branch where br_name in('$br_name')";
+                    $stid = oci_parse($conn, $sql);
+                    $r = oci_execute($stid);
+                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                    echo $row['REG_FEE'];
 
-                  <h3><a href="./add_payment.html" style="color: white;">Add Payment</a></h3>
+                    ?>
 
-                  <p><a href="./add_payment.html" style="color: white;">Payment</a></p>
+                  </h3>
+
+                  <p>Registration Fee </p>
                 </div>
                 <div class="icon">
-                  <i class="ion ion-person-add"></i>
+                  <i class="ion ion-bag"></i>
                 </div>
-                <a href="pages/examples/Branchlist.html" class="small-box-footer">Payment History <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="#"> <i class="fas "></i></a>
               </div>
             </div>
 
+
+            
           </div>
 
-
+          
 
 
 
