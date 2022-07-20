@@ -630,10 +630,15 @@ if (!$conn) {
 
                           $bn1=  $f_month2 ;
                           $bn2=  $s_month2 ;
-                          $bn3=round(($bn1-$bn2)/$bn1,2)*100 ;
+                          if($bn1!=0)
+                          {
+                            $bn3=round(($bn1-$bn2)/$bn1,2)*100 ;
 
-                          echo"<p class='text-success'>".$bn3."%</p> ";
-
+                            echo"<p class='text-success'>".$bn3."%</p> ";
+                          }else
+                          {
+                            echo"<p class='text-success'>Revenue of last month doesn't exist</p> ";
+                          }
 
 
                           echo $ans . " BDT";
@@ -691,12 +696,18 @@ while (($row = oci_fetch_array($curs, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
 
 oci_free_statement($stid);
 oci_free_statement($curs);
+$bn1= $f_month2 - $f_month ;
+$bn2= $s_month2 - $s_month ;
 
-$bn1=  $f_month ;
-$bn2=  $s_month ;
-$bn3=round(($bn1-$bn2)/$bn1,2)*100 ;
+if($bn1!=0)
+                          {
+                            $bn3=round(($bn1-$bn2)/$bn1,2)*100 ;
 
-echo"<p class='text-success'>".$bn3."%</p> ";
+                            echo"<p class='text-success'>".$bn3."%</p> ";
+                          }else
+                          {
+                            echo"<p class='text-success'>Expendeture of last month doesn't exist</p> ";
+                          }
 
 echo $ans2 . " BDT";
 ?>
@@ -713,9 +724,17 @@ echo $ans2 . " BDT";
                           <?php
                           $bn1= $f_month2 - $f_month ;
                           $bn2= $s_month2 - $s_month ;
-                          $bn3=round(($bn1-$bn2)/$bn1,2)*100 ;
 
-                          echo"<p class='text-success'>".$bn3."%</p> ";
+                          if($bn1!=0)
+                          {
+                            $bn3=round(($bn1-$bn2)/$bn1,2)*100 ;
+
+                            echo"<p class='text-success'>".$bn3."%</p> ";
+                          }else
+                          {
+                            echo"<p class='text-success'>Profit of last month doesn't exist</p> ";
+                          }
+                          
 
                        echo $ans - $ans2 . " BDT";
                           ?>
