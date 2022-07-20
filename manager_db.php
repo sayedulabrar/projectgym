@@ -1,8 +1,7 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $showname = $_SESSION['uname'];
-
-  $_SESSION['profation'] = 'Trainer';
+$designation = $_SESSION['profation'];
 $_SESSION['xxx'] = $_SESSION['profation'];
 if ($_GET) {
   $uname = $_GET['un'];
@@ -13,7 +12,7 @@ $_SESSION['designation'] = 'X';
 $branchExpenditure = 0;
 $branchRevenue = 0;
 
-$conn = oci_connect('Abrar', 'saif0rrahman', 'localhost/xe')
+$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
   echo "sorry";
@@ -71,7 +70,7 @@ if (!$conn) {
     </nav>
 
     <?php
-    if ($_GET == NULL) {
+    if ($designation == 'Manager') {
       echo '
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -254,45 +253,7 @@ if (!$conn) {
 
             </ul>
             </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-book"></i>
-                <p>
-                  Pages
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                   
-                <li class="nav-item">
-                  <a href="employee_profile2.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Profile</p>
-                  </a>
-                </li>
-                
-                 
-                
-                 <li class="nav-item">
-                  <a href="pages/examples/userreg.php" class="nav-link ">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Member Add</p>
-                  </a>
-                
-                
-                <li class="nav-item">
-                  <a href="pages/examples/Search-Manager.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Search Manager</p>
-                  </a>
-                </li>
-                 
-                
-  
-                
-              </ul>
-            </li>
-           
+            
             
             
           </ul>

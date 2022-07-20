@@ -1,6 +1,7 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output et
 $showname = $_SESSION['uname'];
+$designation = $_SESSION['profation'];
 $ratingActive = false;
 $ageActive = false;
 $salaryActive = false;
@@ -324,45 +325,7 @@ if (!$conn) {
               
             </ul>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-book"></i>
-              <p>
-                Pages
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-                 
-              <li class="nav-item">
-                <a href="employee_profile2.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Profile</p>
-                </a>
-              </li>
-              
-               
-              
-               <li class="nav-item">
-                <a href="pages/examples/userreg.php" class="nav-link ">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Member Add</p>
-                </a>
-              
-              
-              <li class="nav-item">
-                <a href="pages/examples/Search-Manager.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Search Manager</p>
-                </a>
-              </li>
-               
-              
-
-              
-            </ul>
-          </li>
-         
+          
           
           
         </ul>
@@ -517,7 +480,10 @@ if (!$conn) {
         }
 
         ?>
-        <div class="container-fluid">
+        <?php
+        if($designation != 'Admin') {
+          echo '
+          <div class="container-fluid">
           <!-- <form action="Manager-results.html"> -->
           <div class="row">
               
@@ -603,6 +569,10 @@ if (!$conn) {
           </div>
         </div>
       
+          ';
+        }
+        ?>
+        
         
         
         <div class="bg-light clearfix">

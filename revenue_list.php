@@ -1,6 +1,7 @@
 <?php
 session_start(); // this NEEDS TO BE AT THE TOP of the page before any output etc
 $showname = $_SESSION['uname'];
+$designation = $_SESSION['profation'];
 $leActive = false;
 $meActive = false;
 $historyActive = false;
@@ -311,45 +312,7 @@ if (!$conn) {
               
             </ul>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-book"></i>
-              <p>
-                Pages
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-                 
-              <li class="nav-item">
-                <a href="employee_profile2.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Profile</p>
-                </a>
-              </li>
-              
-               
-              
-               <li class="nav-item">
-                <a href="pages/examples/userreg.php" class="nav-link ">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Member Add</p>
-                </a>
-              
-              
-              <li class="nav-item">
-                <a href="pages/examples/Search-Manager.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Search Manager</p>
-                </a>
-              </li>
-               
-              
-
-              
-            </ul>
-          </li>
-         
+          
           
           
         </ul>
@@ -433,90 +396,96 @@ if (!$conn) {
           }
         }
         ?>
-        <div class="container-fluid">
-          <!-- <form action="Manager-results.html"> -->
-          <div class="row">
-
-            <div class="col-md-12">
-              <div class="card card-secondary">
-                <div class="card-header">
-                  <h3 class="card-title">Search Using</h3>
-
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                      <i class="fas fa-minus"></i>
-                    </button>
+        <?php
+          if($designation != 'Admin') {
+            echo '
+            <div class="container-fluid">
+            <!-- <form action="Manager-results.html"> -->
+            <div class="row">
+  
+              <div class="col-md-12">
+                <div class="card card-secondary">
+                  <div class="card-header">
+                    <h3 class="card-title">Search Using</h3>
+  
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                      </button>
+                    </div>
                   </div>
-                </div>
-                <div class="card-body">
-                  <div class="bg-light clearfix">
-
-                    <br>
-                    <div class="container">
-                      <div class="row">
-
-                        <div class="form-group col-lg-7 col-12">
-                          <h5 style="text-align: center;">Amount</h5>
-                          <br>
-                          <div class="row">
-                            <div class="form-group col-lg-6 col-12">
-                              <form action="revenue_list.php" method="POST">
-                                <div class="row">
-                                  <div class="form-group col-lg-7 col-12">
-                                    <input type="number" placeholder="Less or Equal" class="form-control" id="le" name="le">
-                                  </div>
-                                  <div class="form-group col-lg-5 col-12">
-                                    <button type="submit" class="btn btn-secondary">Search</button>
-
-                                  </div>
-                                </div>
-                              </form>
-                            </div>
-                            <div class="form-group col-lg-6 col-12">
-                              <form action="revenue_list.php" method="POST">
-                                <div class="row">
-                                  <div class="form-group col-lg-7 col-12">
-                                    <input type="number" placeholder="More or Equal" class="form-control" id="me" name="me">
-                                  </div>
-                                  <div class="form-group col-lg-5 col-12">
-                                    <button type="submit" class="btn btn-secondary">Search</button>
-                                  </div>
-                                </div>
-                              </form>
-                            </div>
-                          </div>
-
-                        </div>
-
-                        <div class="form-group col-lg-4 col-12">
-                          <h5 style="text-align: center;">History</h5>
-                          <br>
-                          <form action="revenue_list.php" method="POST">
+                  <div class="card-body">
+                    <div class="bg-light clearfix">
+  
+                      <br>
+                      <div class="container">
+                        <div class="row">
+  
+                          <div class="form-group col-lg-7 col-12">
+                            <h5 style="text-align: center;">Amount</h5>
+                            <br>
                             <div class="row">
-                              <div class="form-group col-lg-8 col-12">
-                                <input type="number" placeholder="Days" class="form-control" id="his" name="his">
+                              <div class="form-group col-lg-6 col-12">
+                                <form action="revenue_list.php" method="POST">
+                                  <div class="row">
+                                    <div class="form-group col-lg-7 col-12">
+                                      <input type="number" placeholder="Less or Equal" class="form-control" id="le" name="le">
+                                    </div>
+                                    <div class="form-group col-lg-5 col-12">
+                                      <button type="submit" class="btn btn-secondary">Search</button>
+  
+                                    </div>
+                                  </div>
+                                </form>
                               </div>
-                              <div class="form-group col-lg-4 col-12">
-                                <button type="submit" class="btn btn-secondary">Search</button>
-
+                              <div class="form-group col-lg-6 col-12">
+                                <form action="revenue_list.php" method="POST">
+                                  <div class="row">
+                                    <div class="form-group col-lg-7 col-12">
+                                      <input type="number" placeholder="More or Equal" class="form-control" id="me" name="me">
+                                    </div>
+                                    <div class="form-group col-lg-5 col-12">
+                                      <button type="submit" class="btn btn-secondary">Search</button>
+                                    </div>
+                                  </div>
+                                </form>
                               </div>
                             </div>
-
-                          </form>
+  
+                          </div>
+  
+                          <div class="form-group col-lg-4 col-12">
+                            <h5 style="text-align: center;">History</h5>
+                            <br>
+                            <form action="revenue_list.php" method="POST">
+                              <div class="row">
+                                <div class="form-group col-lg-8 col-12">
+                                  <input type="number" placeholder="Days" class="form-control" id="his" name="his">
+                                </div>
+                                <div class="form-group col-lg-4 col-12">
+                                  <button type="submit" class="btn btn-secondary">Search</button>
+  
+                                </div>
+                              </div>
+  
+                            </form>
+                          </div>
                         </div>
                       </div>
                     </div>
+  
                   </div>
-
+                  <!-- /.card-body -->
                 </div>
-                <!-- /.card-body -->
+                <!-- /.card -->
               </div>
-              <!-- /.card -->
+  
             </div>
-
           </div>
-        </div>
-
+  
+            ';
+          }
+        ?>
 
         <div class="bg-light clearfix">
           <div class="row" style="padding-top: 30px;">

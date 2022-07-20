@@ -154,7 +154,10 @@ if (!$conn) {
                 </div>
                 <div class="form-group col-lg-6 col-12">
                   <label for="gender1">Gender</label>
-                  <input type="text" class="form-control" id="gender1" name="gender1" aria-describedby="emailHelp">
+                  <select name="gender1" id="gender1" class="form-select" aria-label="Default select example" style="width: 100%; height: 37px;">
+                    <option selected value="Male">Male</option>
+                    <option value="Female">Female</option>
+                  </select>
                 </div>
               </div>
               
@@ -162,7 +165,17 @@ if (!$conn) {
                 
                 <div class="form-group col-lg-6 col-12">
                   <label for="bloodgroup1">Blood Group</label>
-                  <input type="text" class="form-control" id="bloodgroup1" name="bloodgroup1" aria-describedby="emailHelp">
+                  <select name="bloodgroup1" id="bloodgroup1" class="form-select" aria-label="Default select example" style="width: 100%; height: 37px;">
+                      <option value="A+">A+</option>
+                      <option value="A-">A-</option>
+                      <option value="B+">B+</option>
+                      <option value="B-">B-</option>
+                      <option value="O+">O+</option>
+                      <option value="O-">O-</option>
+                      <option value="AB+">AB+</option>
+                      <option value="AB-">AB-</option>
+
+                    </select>
                 </div>
                 <div class="form-group col-lg-6 col-12">
                   <label for="dob1">DOB(eg. dd/mm/yyyy)</label>
@@ -326,45 +339,7 @@ if (!$conn) {
 
               </ul>
             </li>
-            <li class="nav-item ">
-              <a href="#" class="nav-link ">
-                <i class="nav-icon fas fa-book"></i>
-                <p>
-                  Pages
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-
-                <li class="nav-item">
-                  <a href="employee_profile2.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Profile</p>
-                  </a>
-                </li>
-
-
-
-                <li class="nav-item">
-                  <a href="pages/examples/userreg.php" class="nav-link ">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Member Add</p>
-                  </a>
-
-
-                <li class="nav-item">
-                  <a href="pages/examples/Search-Manager.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Search Manager</p>
-                  </a>
-                </li>
-
-
-
-
-              </ul>
-            </li>
-
+            
 
 
           </ul>

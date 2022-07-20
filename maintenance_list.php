@@ -132,7 +132,7 @@ if (!$conn) {
     <!-- /.navbar -->
 
     <?php
-    if ($designation == "receptionist") {
+    if ($designation == "Receptionist") {
       echo '
       <!-- Main Sidebar Container -->
       <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -278,7 +278,7 @@ if (!$conn) {
                     <ul class="nav nav-treeview">';
 
                 
-                if($designation=="member")
+                if($designation=="Member")
                 {
                   echo '<li class="nav-item">
                   <a href="member_db.php" class="nav-link">
@@ -287,7 +287,7 @@ if (!$conn) {
                   </a>
                 </li>';
                 }
-                elseif($designation=="trainer")
+                elseif($designation=="Trainer")
                 {
                   echo '<li class="nav-item">
                   <a href="trainer_db.php" class="nav-link">
@@ -296,7 +296,7 @@ if (!$conn) {
                   </a>
                 </li>';
                 }
-                elseif($designation=="manager")
+                elseif($designation=="Manager")
                 {
                   echo '<li class="nav-item">
                   <a href="manager_db.php" class="nav-link">

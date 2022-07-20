@@ -43,10 +43,11 @@ $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
 if (!$conn) {
   echo "sorry";
 } else {
-  $sql = "select *from EMPLOYEE natural join users where username = '$uname'";
+  $sql = "select USERNAME, EMP_ID, SALARY, SHIFT, EXPERIENCE, EDUCATION, NUM_OF_RATING, RATING_VALUE, DESIGNATION, PASSWORD, NAME, GENDER, EMAIL, ADDRESS, BLOOD_GRP, ACCOUNT_NO, BR_NAME, to_char(DOB, 'mm/dd/yyyy') from EMPLOYEE natural join users where username = '$uname'";
   $stid = oci_parse($conn, $sql);
   $r = oci_execute($stid);
   $userJoinEmployee = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+  $_SESSION['xxx'] = $userJoinEmployee;
   // echo $_SERVER['REQUEST_METHOD'];
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['name1'])) {
@@ -58,7 +59,7 @@ if (!$conn) {
       $address = $_POST['address1'];
       $account = $_POST['account1'];
 
-      $sql = "update users set name = '$name', gender = '$gender', blood_grp = '$bloodgroup', dob= to_date('$dob', 'dd-mon-yy'), email = '$email', address= '$address', account_no = $account where username = '$uname'";
+      $sql = "update users set name = '$name', gender = '$gender', blood_grp = '$bloodgroup', dob= to_date('$dob', 'mm/dd/yyyy'), email = '$email', address= '$address', account_no = $account where username = '$uname'";
       $stid = oci_parse($conn, $sql);
       $r = oci_execute($stid);
       $sql = "DELETE FROM USER_MOBILENO WHERE username = '$uname'";
@@ -153,15 +154,28 @@ if (!$conn) {
                 </div>
                 <div class="form-group col-lg-6 col-12">
                   <label for="gender1">Gender</label>
-                  <input type="text" class="form-control" id="gender1" name="gender1" aria-describedby="emailHelp">
+                  <select name="gender1" id="gender1" class="form-select" aria-label="Default select example" style="width: 100%; height: 37px;">
+                    <option selected value="Male">Male</option>
+                    <option value="Female">Female</option>
+                  </select>
                 </div>
               </div>
-
+        
               <div class="row">
 
                 <div class="form-group col-lg-6 col-12">
                   <label for="bloodgroup1">Blood Group</label>
-                  <input type="text" class="form-control" id="bloodgroup1" name="bloodgroup1" aria-describedby="emailHelp">
+                  <select name="bloodgroup1" id="bloodgroup1" class="form-select" aria-label="Default select example" style="width: 100%; height: 37px;">
+                      <option value="A+">A+</option>
+                      <option value="A-">A-</option>
+                      <option value="B+">B+</option>
+                      <option value="B-">B-</option>
+                      <option value="O+">O+</option>
+                      <option value="O-">O-</option>
+                      <option value="AB+">AB+</option>
+                      <option value="AB-">AB-</option>
+
+                    </select>
                 </div>
                 <div class="form-group col-lg-6 col-12">
                   <label for="dob1">Date of Birth</label>
@@ -183,7 +197,7 @@ if (!$conn) {
               <div class="row">
                 <div class="form-group col-lg-6 col-12">
                   <label for="account1">Account No</label>
-                  <input type="text" class="form-control" id="account1" name="account1" aria-describedby="emailHelp">
+                  <input type="number" class="form-control" id="account1" name="account1" aria-describedby="emailHelp">
                 </div>
                 <div class="form-group col-lg-6 col-12">
                   <label for="mobile1">Mobile No</label>
@@ -251,7 +265,7 @@ if (!$conn) {
   <div class="wrapper">
 
     <?php
-    $_SESSION['xxx'] = $designation;
+
     if ($designation == 'Admin') {
       echo '
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -700,7 +714,7 @@ if (!$conn) {
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="<?php
-                                                      $_SESSION['xxx'] = $designation;
+                                                       
                                                       if ($designation == 'Admin') {
                                                         echo "admin_db.php";
                                                       } elseif ($designation == 'Trainer') {
@@ -778,7 +792,7 @@ if (!$conn) {
                         <li class="list-group-item">
                           <b>Data of Birth</b> <a class="float-right">
                             <?php
-                            echo $userJoinEmployee["DOB"];
+                            echo $userJoinEmployee["TO_CHAR(DOB,'MM/DD/YYYY')"];
                             ?>
                           </a>
                         </li>
@@ -884,7 +898,7 @@ if (!$conn) {
                             ?>
                           </p>
                           <?php
-                          $_SESSION['xxx'] = $_GET;
+                          
                           if ($_GET == NULL || $_GET['un_'] == 'w' || $_GET['un_'] == 'm' || $_GET['un_'] == 'n') {
                             echo '
                               <button type="button" class="update btn btn-primary"  data-toggle="modal" data-target="#exampleModal">Edit Info</button>

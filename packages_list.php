@@ -474,45 +474,7 @@ if (!$conn) {
               
             </ul>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-book"></i>
-              <p>
-                Pages
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-                 
-              <li class="nav-item">
-                <a href="employee_profile2.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Profile</p>
-                </a>
-              </li>
-              
-               
-              
-               <li class="nav-item">
-                <a href="pages/examples/userreg.php" class="nav-link ">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Member Add</p>
-                </a>
-              
-              
-              <li class="nav-item">
-                <a href="pages/examples/Search-Manager.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Search Manager</p>
-                </a>
-              </li>
-               
-              
-
-              
-            </ul>
-          </li>
-         
+          
           
           
         </ul>
@@ -584,93 +546,100 @@ if (!$conn) {
           }
         }
         ?>
-        <div class="container-fluid">
-          <!-- <form action="Manager-results.html"> -->
-          <div class="row">
-
-            <div class="col-md-12">
-              <div class="card card-secondary">
-                <div class="card-header">
-                  <h3 class="card-title">Search Using</h3>
-
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                      <i class="fas fa-minus"></i>
-                    </button>
+        <?php
+          if($designation != 'Admin') {
+            echo '
+            <div class="container-fluid">
+            <!-- <form action="Manager-results.html"> -->
+            <div class="row">
+  
+              <div class="col-md-12">
+                <div class="card card-secondary">
+                  <div class="card-header">
+                    <h3 class="card-title">Search Using</h3>
+  
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                      </button>
+                    </div>
                   </div>
-                </div>
-                <div class="card-body">
-                  <div class="bg-light clearfix">
-
-                    <br>
-                    <div class="container">
-                      <div class="row">
-
-                        <div class="form-group col-lg-3 col-12">
-                          <h5 style="text-align: center;">Package Type</h5>
-                          <br>
-                          <div class="row">
-                            <div class="form-group col-lg-12 col-12">
-                              <form action="packages_list.php" method="POST">
-                                <div class="row">
-                                  <div class="form-group col-lg-7 col-12">
-                                    <input type="text" placeholder="Type" class="form-control" id="pt" name="pt">
+                  <div class="card-body">
+                    <div class="bg-light clearfix">
+  
+                      <br>
+                      <div class="container">
+                        <div class="row">
+  
+                          <div class="form-group col-lg-3 col-12">
+                            <h5 style="text-align: center;">Package Type</h5>
+                            <br>
+                            <div class="row">
+                              <div class="form-group col-lg-12 col-12">
+                                <form action="packages_list.php" method="POST">
+                                  <div class="row">
+                                    <div class="form-group col-lg-7 col-12">
+                                      <input type="text" placeholder="Type" class="form-control" id="pt" name="pt">
+                                    </div>
+                                    <div class="form-group col-lg-5 col-12">
+                                      <button type="submit" class="btn btn-secondary">Search</button>
+                                    </div>
                                   </div>
-                                  <div class="form-group col-lg-5 col-12">
-                                    <button type="submit" class="btn btn-secondary">Search</button>
-                                  </div>
-                                </div>
-                              </form>
+                                </form>
+                              </div>
                             </div>
+  
                           </div>
-
-                        </div>
-                        <div class="form-group col-lg-5 col-12">
-                          <h5 style="text-align: center;">Charge</h5>
-                          <br>
-                          <form action="packages_list.php" method="POST">
-                            <div class="row">
-                              <div class="form-group col-lg-5 col-12">
-                                <input type="text" placeholder="From" class="form-control" id="s_a" name="s_a" aria-describedby="emailHelp">
+                          <div class="form-group col-lg-5 col-12">
+                            <h5 style="text-align: center;">Charge</h5>
+                            <br>
+                            <form action="packages_list.php" method="POST">
+                              <div class="row">
+                                <div class="form-group col-lg-5 col-12">
+                                  <input type="text" placeholder="From" class="form-control" id="s_a" name="s_a" aria-describedby="emailHelp">
+                                </div>
+                                <div class="form-group col-lg-4 col-12">
+                                  <input type="text" placeholder="To" class="form-control" id="f_a" name="f_a">
+                                </div>
+                                <div class="form-group col-lg-3 col-12">
+                                  <button type="submit" class="btn btn-secondary">Search</button>
+                                </div>
                               </div>
-                              <div class="form-group col-lg-4 col-12">
-                                <input type="text" placeholder="To" class="form-control" id="f_a" name="f_a">
+                            </form>
+                          </div>
+                          <div class="form-group col-lg-4 col-12">
+                            <h5 style="text-align: center;">Duration</h5>
+                            <br>
+                            <form action="packages_list.php" method="POST">
+                              <div class="row">
+                                <div class="form-group col-lg-8 col-12">
+                                  <input type="text" placeholder="Months" class="form-control" id="du" name="du">
+                                </div>
+                                <div class="form-group col-lg-4 col-12">
+                                  <button type="submit" class="btn btn-secondary">Search</button>
+  
+                                </div>
                               </div>
-                              <div class="form-group col-lg-3 col-12">
-                                <button type="submit" class="btn btn-secondary">Search</button>
-                              </div>
-                            </div>
-                          </form>
-                        </div>
-                        <div class="form-group col-lg-4 col-12">
-                          <h5 style="text-align: center;">Duration</h5>
-                          <br>
-                          <form action="packages_list.php" method="POST">
-                            <div class="row">
-                              <div class="form-group col-lg-8 col-12">
-                                <input type="text" placeholder="Months" class="form-control" id="du" name="du">
-                              </div>
-                              <div class="form-group col-lg-4 col-12">
-                                <button type="submit" class="btn btn-secondary">Search</button>
-
-                              </div>
-                            </div>
-
-                          </form>
+  
+                            </form>
+                          </div>
                         </div>
                       </div>
                     </div>
+  
                   </div>
-
+                  <!-- /.card-body -->
                 </div>
-                <!-- /.card-body -->
+                <!-- /.card -->
               </div>
-              <!-- /.card -->
+  
             </div>
-
           </div>
-        </div>
-
+  
+            ';
+          }
+        ?>
+        
 
 
 
