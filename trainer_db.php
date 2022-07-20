@@ -189,7 +189,7 @@ if (!$conn) {
                                     <h3>
                                         <?php
                                         //$br_name = $member_number["TRAINER"];
-                                        $sql = "select * from  member where trainer = '$uname'";
+                                        $sql = "select * from  MEMBER_VIEW where ASSIGNED_TRAINER = '$uname'";
                                         $stid = oci_parse($conn, $sql);
                                         $r = oci_execute($stid);
 
@@ -217,7 +217,7 @@ if (!$conn) {
                                     <h3>
                                         <?php
 
-                                        $sql = "select * from member where trainer='$uname'";
+                                        $sql = "select * from MEMBER_VIEW where ASSIGNED_TRAINER='$uname'";
                                         $stid = oci_parse($conn, $sql);
                                         $r = oci_execute($stid);
 
@@ -225,8 +225,8 @@ if (!$conn) {
                                         $cnt = 0;
                                         while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
 
-                                            if ($row['RATING'] <> NULL) {
-                                                $s = $s + $row['RATING'];
+                                            if ($row["TRAINER_RATING"] <> NULL) {
+                                                $s = $s + $row["TRAINER_RATING"];
                                                 $cnt = $cnt + 1;
                                             }
                                         }
@@ -323,37 +323,37 @@ if (!$conn) {
                                     <tbody>
                                         <?php
 
-                                        $sql = "select * from users natural join member where trainer='$uname'";
+                                        $sql = "select * from MEMBER_VIEW where ASSIGNED_TRAINER='$uname'";
                                         $stid = oci_parse($conn, $sql);
                                         $r = oci_execute($stid);
 
                                         while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-                                            $un = $row['USERNAME'];
-                                            $dateOfBirth = $row['DOB'];
-                                            $name1 = $row['NAME'];
+                                            $un = $row["MEMBER_USERNAME"];
+                                            $dateOfBirth = $row["DATE_OF_BIRTH"];
+                                            $name1 = $row["MEMBER_NAME"];
                                             $sql1 = 'BEGIN :var :=AGE(:daofbi); END;';
                                             $stid1 = oci_parse($conn, $sql1);
                                             oci_bind_by_name($stid1, ':daofbi', $dateOfBirth);
                                             oci_bind_by_name($stid1, ':var', $age);
                                             $r1 = oci_execute($stid1);
-                                            $var = $row['DIET_ID'];
-                                            $sql1 = "Select * from Member where username='$un'";
-                                            $stid1 = oci_parse($conn, $sql1);
-                                            $r1 = oci_execute($stid1);
-                                            $mem = oci_fetch_array($stid1, OCI_ASSOC + OCI_RETURN_NULLS);
-                                            $row["MEMB_BMI"] = number_format(($row["MEM_WEIGHT"] * 2.21 * 703) / ($row["MEM_HEIGHT"] * 0.39 * $row["MEM_HEIGHT"] * 0.39), 3);
-                                            $val = $row["MEMB_BMI"];
+                                            $var = $row["ASSIGNED_DIET_ID"];
+                                            // $sql1 = "Select * from Member where username='$un'";
+                                            // $stid1 = oci_parse($conn, $sql1);
+                                            // $r1 = oci_execute($stid1);
+                                            // $mem = oci_fetch_array($stid1, OCI_ASSOC + OCI_RETURN_NULLS);
+                                            $val = number_format(($row["MEMBER_WEIGHT"] * 2.21 * 703) / ($row["MEMBER_HEIGHT"] * 0.39 * $row["MEMBER_HEIGHT"] * 0.39), 3);
+                                            // $val = $row["MEMB_BMI"];
                                             $query = "update Member set Memb_BMI='$val' where username='$un'";
                                             $p = oci_parse($conn, $query);
                                             $setting = oci_execute($p);
                                             echo "
                                                  <tr class='tr_as_mem'>
-                                                   <th scope='row'><a href='member_profile.php?un=" . $un . "'>" . $row["NAME"] . "</a></th>                                                  
-                                                   <td>" . $row["MEMB_BMI"] . "</td>
+                                                   <th scope='row'><a href='member_profile.php?un=" . $un . "'>" . $row["MEMBER_NAME"] . "</a></th>                                                  
+                                                   <td>" . $val . "</td>
                                                    <td>" . $age . "</td>
                                                   
                                                    <td>";
-                                            if ($mem['DIET_ID']) {
+                                            if ($row["ASSIGNED_DIET_ID"]) {
                                                 echo "Set";
                                             } else {
                                                 echo "Not set yet";
