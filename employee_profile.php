@@ -160,22 +160,22 @@ if (!$conn) {
                   </select>
                 </div>
               </div>
-        
+
               <div class="row">
 
                 <div class="form-group col-lg-6 col-12">
                   <label for="bloodgroup1">Blood Group</label>
                   <select name="bloodgroup1" id="bloodgroup1" class="form-select" aria-label="Default select example" style="width: 100%; height: 37px;">
-                      <option value="A+">A+</option>
-                      <option value="A-">A-</option>
-                      <option value="B+">B+</option>
-                      <option value="B-">B-</option>
-                      <option value="O+">O+</option>
-                      <option value="O-">O-</option>
-                      <option value="AB+">AB+</option>
-                      <option value="AB-">AB-</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
 
-                    </select>
+                  </select>
                 </div>
                 <div class="form-group col-lg-6 col-12">
                   <label for="dob1">Date of Birth</label>
@@ -252,7 +252,7 @@ if (!$conn) {
             <div class="modal-body" style="float: right;">
               <button type="button" class="btn btn-secondary" onclick="window.location.href='employee_profile.php'">Cancel</button>
               <button type="submit" class="btn btn-primary">Confirm</button>
-            </div> 
+            </div>
           </form>
         </div>
 
@@ -714,14 +714,19 @@ if (!$conn) {
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="<?php
-                                                       
+
                                                       if ($designation == 'Admin') {
                                                         echo "admin_db.php";
                                                       } elseif ($designation == 'Trainer') {
                                                         echo "trainer_db.php";
-                                                      } else {
+                                                      } elseif ($designation == 'Manager') {
                                                         echo "manager_db.php";
+                                                      } elseif ($designation == 'Receptionist') {
+                                                        echo "receptionist.php";
+                                                      } elseif ($designation == 'Member') {
+                                                        echo "member_db.php";
                                                       }
+
                                                       ?>">Home</a></li>
                 <li class="breadcrumb-item active">User Profile</li>
               </ol>
@@ -898,7 +903,7 @@ if (!$conn) {
                             ?>
                           </p>
                           <?php
-                          
+
                           if ($_GET == NULL || $_GET['un_'] == 'w' || $_GET['un_'] == 'm' || $_GET['un_'] == 'n') {
                             echo '
                               <button type="button" class="update btn btn-primary"  data-toggle="modal" data-target="#exampleModal">Edit Info</button>
@@ -1021,7 +1026,7 @@ if (!$conn) {
     })
   </script>
 
-<script>
+  <script>
     $(function() {
       $("#dob1").datepicker({
         changeMonth: true,

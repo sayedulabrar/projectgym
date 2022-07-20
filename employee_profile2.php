@@ -10,7 +10,7 @@ if ($_GET == NULL) {
 
 // echo var_dump($_GET);
 $showuname = $_SESSION['uname'];
-$conn = oci_connect('Abrar', 'saif0rrahman', 'localhost/xe')
+$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
   echo "sorry";
@@ -195,7 +195,7 @@ if (!$conn) {
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="manager_db.php">Home</a></li>
+
                 <li class="breadcrumb-item active">User Profile</li>
               </ol>
             </div>
