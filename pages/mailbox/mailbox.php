@@ -63,7 +63,30 @@ if (!$conn) {
 
 
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-  <div class="wrapper">
+<nav class="main-header navbar navbar-expand navbar-dark">
+      <!-- Left navbar links -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+          <a href="admin_db.html" class="nav-link">Home</a>
+        </li>
+
+      </ul>
+
+      <!-- Right navbar links -->
+      <ul class="navbar-nav ml-auto">
+        <!-- Navbar Search -->
+        <li class="nav-item float-right">
+          <button onclick="window.location.href='../../index.php'" type="button" class="btn btn-primary">Logout</button>
+        </li>
+
+
+
+      </ul>
+    </nav>
+<div class="wrapper">
 
 
     <!-- Main Sidebar Container -->
@@ -214,12 +237,7 @@ if (!$conn) {
             <div class="col-sm-6">
               <h1>Inbox</h1>
             </div>
-            <div class="col-sm-6">
-              <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Inbox</li>
-              </ol>
-            </div>
+            
           </div>
         </div><!-- /.container-fluid -->
       </section>
@@ -228,65 +246,7 @@ if (!$conn) {
 
       <!-- Main content -->
       <section class="content" style="margin-bottom:50px ;">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">General</h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="form-group">
-                  <label for="inputName">Sender Name</label>
-                  <input type="text" id="inputName" class="form-control">
-                </div>
-
-                <div class="form-group">
-                  <label for="inputName">Sender Id</label>
-                  <input type="text" id="inputName" class="form-control">
-                </div>
-
-
-                <div class="form-group">
-                  <label>Sort Order:</label>
-                  <select class="select2" style="width: 100%;">
-                    <option selected>ASC</option>
-                    <option>DESC</option>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label for="inputClientCompany">Branch Name</label>
-                  <input type="text" id="inputClientCompany" class="form-control">
-                </div>
-
-                <div class="form-group">
-                  <label for="inputClientCompany">Designation</label>
-                  <input type="text" id="inputClientCompany" class="form-control">
-                </div>
-
-
-
-
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div>
-
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <a href="#" class="btn btn-secondary">Cancel</a>
-            <input type="submit" value="Search" class="btn btn-success float-right">
-          </div>
-        </div>
-
+        
 
 
 

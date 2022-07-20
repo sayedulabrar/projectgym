@@ -151,48 +151,7 @@ if (!$conn) {
 
               </ul>
             </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-book"></i>
-                <p>
-                  Pages
-                  <i class="fas fa-angle-left right"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-
-                <li class="nav-item">
-                  <a href="admin_profile.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Profile</p>
-                  </a>
-                </li>
-
-                <li class="nav-item">
-                  <a href="add_employee.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p> Add Employee</p>
-                  </a>
-                </li>
-                <!-- <li class="nav-item">
-                <a href="   examples/Branch.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Branch</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="   examples/Search-Manager.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Search Manager</p>
-                </a>
-              </li>
-                -->
-
-
-
-              </ul>
-            </li>
-
+            
 
 
           </ul>
@@ -280,7 +239,7 @@ if (!$conn) {
                           <div class="row">
                             <div class="form-group col-lg-12 col-12">
                               <label for="rent">Branch Property Rent</label>
-                              <input type="text" class="form-control" id="rent" name="rent" aria-describedby="emailHelp">
+                              <input type="number" class="form-control" id="rent" name="rent" aria-describedby="emailHelp">
                             </div>
 
                           </div>
@@ -288,7 +247,7 @@ if (!$conn) {
                           <div class="row">
                             <div class="form-group col-lg-12 col-12">
                               <label for="reg">Registration Fee</label>
-                              <input type="text" class="form-control" id="reg" name="reg" aria-describedby="emailHelp">
+                              <input type="number" class="form-control" id="reg" name="reg" aria-describedby="emailHelp">
                             </div>
 
                           </div>

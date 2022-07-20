@@ -5,7 +5,7 @@ $job = $_SESSION['profation'];
 $_SESSION['profation'] = 'Admin';
 
 
-$conn = oci_connect('Abrar', 'saif0rrahman', 'localhost/xe')
+$conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
   or die(oci_error());
 if (!$conn) {
   echo "sorry";

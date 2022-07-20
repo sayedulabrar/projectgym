@@ -98,11 +98,13 @@ if (!$conn) {
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="  plugins/fontawesome-free/css/all.min.css">
+
   <!-- Theme style -->
-  <link rel="stylesheet" href="  dist/css/adminlte.min.css">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
 </head>
 
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -192,48 +194,7 @@ if (!$conn) {
                     
                   </ul>
                 </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-book"></i>
-                    <p>
-                      Pages
-                      <i class="fas fa-angle-left right"></i>
-                    </p>
-                  </a>
-                  <ul class="nav nav-treeview">
-                       
-                    <li class="nav-item">
-                      <a href="admin_profile.php" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Profile</p>
-                      </a>
-                    </li>
-                    
-                    <li class="nav-item">
-                      <a href="add_employee.php" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>  Add Employee</p>
-                      </a>
-                    </li>
-                    <!-- <li class="nav-item">
-                      <a href="   examples/Branch.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Branch</p>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="   examples/Search-Manager.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Search Manager</p>
-                      </a>
-                    </li>
-                      -->
-                    
-                    
-                    
-                  </ul>
-                </li>
-               
+                
                 
                
               </ul>
@@ -399,6 +360,30 @@ if (!$conn) {
                     <label for="name"> Name <span style="color:#FF0000">*</span></label>
                     <input type="text" id="name" name="name" class="form-control" required>
                   </div>
+                  <?php
+                  if ($designation == 'Manager') {
+                    echo '
+                    <div class="form-group">
+                      <label for="br_name">Branch Name</label>
+                      
+                      <select class="select2" name="br_name" id="br_name" style="width: 100%; height: 38px;">';
+
+                      $sql = "select *from branch";
+                      $stid = oci_parse($conn, $sql);
+                      $r = oci_execute($stid);
+                      $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                      
+                      while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+                        echo '<option value="' . $row["BR_NAME"] . '">' . $row["BR_NAME"] . '</option>';
+                      }
+
+
+                    echo '</select>
+                    </div>
+                    
+                  ';
+                  }
+                  ?>
                   <div class="form-group">
                     <label for="gender">Gender</label>
                     <select name="gender" id="gender" class="form-select" aria-label="Default select example" style="width: 576px; height: 37px;">
@@ -420,7 +405,7 @@ if (!$conn) {
                   </div>
                   <div class="form-group">
                     <label for="bloodgrp">Blood Group</label>
-                    <select name="bloodgrp" id="bloodgrp" class="form-select" aria-label="Default select example" style="width: 576px; height: 37px;">
+                    <select name="bloodgrp" id="bloodgrp" class="form-select" aria-label="Default select example" style="width: 100%; height: 37px;">
                       <option value="A+">A+</option>
                       <option value="A-">A-</option>
                       <option value="B+">B+</option>
@@ -432,14 +417,7 @@ if (!$conn) {
 
                     </select>
                   </div>
-                  <?php
-                  if ($designation == 'Manager') {
-                    echo '<div class="form-group">
-                    <label for="br_name">Branch Name <span style="color:#FF0000">*</span></label>
-                    <input type="text" id="br_name" name="br_name" class="form-control" required>
-                  </div>';
-                  }
-                  ?>
+                  
                 </div>
                 <!-- /.card-body -->
               </div>
@@ -482,7 +460,7 @@ if (!$conn) {
           </div>
           <div class="row">
             <div class="col-12">
-              <a href="<?php echo $link ?>" class="btn btn-secondary">Cancel</a>
+              
               <input type="submit" value="Create new Employee" class="btn btn-success float-right">
             </div>
           </div>
@@ -503,6 +481,7 @@ if (!$conn) {
   <script src="  plugins/jquery/jquery.min.js"></script>
   <!-- Bootstrap 4 -->
   <script src="  plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="plugins/select2/js/select2.full.min.js"></script>
   <!-- AdminLTE App -->
   <script src="  dist/js/adminlte.min.js"></script>
   <!-- AdminLTE for demo purposes -->
@@ -515,6 +494,11 @@ if (!$conn) {
         changeMonth: true,
         changeYear: true
       });
+    });
+  </script>
+  <script>
+    $(function() {
+      $('.select2').select2()
     });
   </script>
 </body>

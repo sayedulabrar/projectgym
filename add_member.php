@@ -272,7 +272,7 @@ if (!$conn) {
           </div>
           <div class="row">
             <div class="col-12">
-              <a href="member_list.php" class="btn btn-secondary">Cancel</a>
+              
               <input type="submit" value="Create new Memeber" class="btn btn-success float-right">
             </div>
           </div>

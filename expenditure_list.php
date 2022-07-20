@@ -5,6 +5,7 @@ $showname = $_SESSION['uname'];
 $leActive = false;
 $meActive = false;
 $historyActive = false;
+$designation = $_SESSION['profation'];
 if ($_GET != NULL && ($_GET['un'] != 'u' && $_GET['un'] != 'i' && $_GET['un'] != 'd' && $_GET['un'] != 'w')) {
   $uname = $_GET['un'];
 } else {
@@ -285,45 +286,7 @@ if (!$conn) {
               
             </ul>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-book"></i>
-              <p>
-                Pages
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-                 
-              <li class="nav-item">
-                <a href="employee_profile2.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Profile</p>
-                </a>
-              </li>
-              
-               
-              
-               <li class="nav-item">
-                <a href="pages/examples/userreg.php" class="nav-link ">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Member Add</p>
-                </a>
-              
-              
-              <li class="nav-item">
-                <a href="pages/examples/Search-Manager.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Search Manager</p>
-                </a>
-              </li>
-               
-              
-
-              
-            </ul>
-          </li>
-         
+          
           
           
         </ul>
@@ -350,7 +313,10 @@ if (!$conn) {
           </div>";
         }
         ?>
-        <div class="container-fluid">
+        <?php
+         if($designation != 'Admin') {
+          echo '
+          <div class="container-fluid">
           <!-- <form action="Manager-results.html"> -->
           <div class="row">
               
@@ -434,6 +400,11 @@ if (!$conn) {
 
           </div>
         </div>
+
+          ';
+         }
+        ?>
+
         
 
         <div class="bg-light clearfix">
