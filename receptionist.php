@@ -3,16 +3,20 @@ session_start(); // this NEEDS TO BE AT THE TOP of the page before any output et
 $uname = $_SESSION['uname'];
 $designation = $_SESSION['profation'];
 $conn = oci_connect('brownfalcon_gms', 'saif0rrahman', 'localhost/xe')
-  or die(oci_error());
+    or die(oci_error());
 
-if (!$conn) {
-  echo "Sorry";
-} else {
-  $sql = "Select * from users where username='$uname'";
-  $stid = oci_parse($conn, $sql);
-  $r = oci_execute($stid);
-  $rec = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-}
+  if (!$conn) 
+  {
+      echo "Sorry";
+  }
+  else
+  {
+    $sql = "Select * from users where username='$uname'";
+    $stid = oci_parse($conn, $sql);
+    $r = oci_execute($stid);
+    $rec = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+
+  }
 
 ?>
 
@@ -57,12 +61,12 @@ if (!$conn) {
         </li>
       </ul> -->
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto navbar-right-top">
-          <li class="nav-item">
-            <a href=" index.php" type="button" class="btn btn-secondary">Logout</a>
-          </li>
-        </ul>
-      </div>
+                <ul class="navbar-nav ml-auto navbar-right-top">
+                    <li class="nav-item">
+                        <a href="index.php" type="button" class="btn btn-secondary">Logout</a>
+                    </li>
+                </ul>
+            </div>
 
 
       <!-- Right navbar links -->
@@ -88,17 +92,17 @@ if (!$conn) {
           <div class="info">
             <a href="employee_profile.php" class="d-block">
               <?php
-              echo $uname;
+                echo $uname;
               ?>
             </a>
           </div>
         </div>
 
-
+        
 
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
+           
             <li class="nav-item menu-open">
               <a href="#" class="nav-link active">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -132,16 +136,16 @@ if (!$conn) {
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                <?php
-                echo "<li class='nav-item'>                
+              <?php
+                    echo "<li class='nav-item'>                
                     <a href='pages/mailbox/mailbox.php?un=" . $uname . "' class='nav-link'>
                     <i class='far fa-circle nav-icon'></i>
                     <p>Inbox</p>
                     </a>         
  </li>";
-                ?>
+              ?>
                 <?php
-                echo "<li class='nav-item'>                
+                    echo "<li class='nav-item'>                
                     <a href='pages/mailbox/compose.php?un=" . $uname . "' class='nav-link'>
                     <i class='far fa-circle nav-icon'></i>
                     <p>Compose</p>
@@ -151,7 +155,7 @@ if (!$conn) {
 
               </ul>
             </li>
-
+            
 
 
 
@@ -195,11 +199,12 @@ if (!$conn) {
 
                     $br = $rec['BR_NAME'];
                     $sql = "select * from users natural join member where br_name='$br'";
-                    $stid = oci_parse($conn, $sql);
+                    $stid = oci_parse($conn,$sql);
                     $r = oci_execute($stid);
-                    $var = 0;
-                    while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-                      $var = $var + 1;
+                    $var=0;
+                    while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS))
+                    {
+                      $var=$var+1;
                     }
                     echo $var;
                     ?>
@@ -211,7 +216,7 @@ if (!$conn) {
                   <i class="ion ion-bag"></i>
                 </div>
                 <?php
-                echo "<a href='member_list.php?un=" . $uname . "' class='small-box-footer'>More info <i class='fas fa-arrow-circle-right'></i></a>";
+                  echo "<a href='member_list.php?un=".$uname."' class='small-box-footer'>More info <i class='fas fa-arrow-circle-right'></i></a>";
                 ?>
                 <!-- <a href="member_list.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> -->
               </div>
@@ -250,7 +255,7 @@ if (!$conn) {
               </div>
             </div>
 
-
+            
 
             <div class="col-lg-3 col-6">
               <!-- small box -->
@@ -259,15 +264,16 @@ if (!$conn) {
                   <h3>
                     <?php
 
-                    $br = $rec['BR_NAME'];
-                    $sql = "select * from br_pkg where br_name='$br'";
-                    $stid = oci_parse($conn, $sql);
-                    $r = oci_execute($stid);
-                    $var = 0;
-                    while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-                      $var = $var + 1;
-                    }
-                    echo $var;
+                      $br = $rec['BR_NAME'];
+                      $sql="select * from br_pkg where br_name='$br'";
+                      $stid = oci_parse($conn,$sql);
+                      $r = oci_execute($stid);
+                      $var=0;
+                      while($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS))
+                      {
+                        $var=$var+1;
+                      }
+                      echo $var;
 
                     ?>
                   </h3>
@@ -280,17 +286,44 @@ if (!$conn) {
                 <a href="packages_list.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
+            <div class="col-lg-3 col-12">
+              <!-- small box -->
+              <div class="small-box bg-warning">
+                <div class="inner">
+                  <h3>
+                    <?php
+                    $br_name = $rec["BR_NAME"];
+                    $sql = "select *from branch where br_name in('$br_name')";
+                    $stid = oci_parse($conn, $sql);
+                    $r = oci_execute($stid);
+                    $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+                    echo $row['REG_FEE'];
+
+                    ?>
+
+                  </h3>
+
+                  <p>Registration Fee </p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
+                </div>
+                <a href="#"> <i class="fas "></i></a>
+              </div>
+            </div>
 
 
-
-
-
-
-
-
-
+            
           </div>
-          <!--/. container-fluid -->
+
+          
+
+
+
+
+
+        </div>
+        <!--/. container-fluid -->
       </section>
       <!-- /.content -->
       <div style="margin-bottom:30px ;"></div>

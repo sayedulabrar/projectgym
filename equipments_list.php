@@ -124,7 +124,7 @@ if (!$conn) {
     <!-- /.navbar -->
 
     <?php
-    if ($designation == "receptionist") {
+    if ($designation == "Receptionist") {
       echo '
       <!-- Main Sidebar Container -->
       <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -142,7 +142,7 @@ if (!$conn) {
               <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-              <a href="employee_profile.php?un_=receptionist" class="d-block">' .
+              <a href="employee_profile.php" class="d-block">' .
         $uname
         . '</a>
             </div>
@@ -481,7 +481,7 @@ if (!$conn) {
                 
                 <p>
                 ';
-                if ($designation != "receptionist") {
+                if ($designation != "Receptionist") {
                   echo '
                 <button type="button" class="insert btn btn-success float-right" data-toggle="modal" data-target="#exampleModal">Add New</button>';
                 }
@@ -676,7 +676,7 @@ if (!$conn) {
                   if ($flag == 0) {
                     echo "<button class='delete1 btn btn-sm btn-warning'>Maintenance</button>";
                   }
-                  if ($designation != "receptionist") {
+                  if ($designation != "Receptionist") {
                     echo "<button class='delete btn btn-sm btn-danger'>Remove</button> </td>";
                   }
                 }

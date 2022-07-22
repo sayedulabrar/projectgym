@@ -31,8 +31,6 @@ if (!$conn) {
     $r = oci_execute($stid);
     $roww = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
     $br_name = $roww['BR_NAME'];
-
-
     $sql = "insert into mem_view (N,G,U,B,S) values($exp_id, $amount, SYSTIMESTAMP, '$details', '$br_name')";
     $stid = oci_parse($conn, $sql);
     $r = oci_execute($stid);
