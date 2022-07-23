@@ -54,24 +54,68 @@ if (!$conn) {
         $r = oci_execute($stid);
         $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
         $br_name = $row["BR_NAME"];
-        // $_SESSION['xxx'] = $br_name;
-        $sql = "select *from income order by trx_id desc";
-        $stid = oci_parse($conn, $sql);
-        $r = oci_execute($stid);
-        $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-        $trx_id = $row['TRX_ID'] + 1;
-        $sql = "select * from package where pkg_id = '$pkg_id'";
+       
+        $sql = "select * from package where pkg_id = $pkg_id";
         $stid = oci_parse($conn, $sql);
         $r = oci_execute($stid);
         $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
         $_SESSION['pk_id'] = $row['PKG_ID'];
         $amount = $row['PKG_CHARGE'];
+        $pkg_name=$row['PKG_NAME'];
         $_SESSION['pk_amount'] = $amount;
         $mm = $_SESSION['pk_amount'];
-        // $sql = "insert into income (trx_id, username, inc_amount, br_name, inc_type, inc_dateandtime) values($trx_id, '$uname', $amount, '$br_name', 'Member Payment', SYSTIMESTAMP)";
+       
+        //updating month of the user
+        
+        //echo var_dump($stid)."<br>";
+        $package_ID = $_SESSION['pk_id'];
+
+        $sql = "select PKG_DURATION from PACKAGE where PKG_ID = $package_ID";
+        $stid = oci_parse($conn, $sql);
+        $r = oci_execute($stid);
+        $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+        $dur = $row['PKG_DURATION'];
+        // echo var_dump($dur)."<br>";
+        $_SESSION['xxx'] = $uname;
+        //  echo $dur;
+        $sql="select * from m_pkg";
+        $stid=oci_parse($conn,$sql);
+        $r=oci_execute($stid);
+        $hudai=0;
+        while($row=oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS))
+        {
+          if($row['USERNAME']==$uname)
+          {
+            $hudai=1;
+            break;
+          }
+         
+        }
+        if($hudai==1)
+        {
+          $sql="update m_pkg set pkg_id=$package_ID where username='$uname'";
+          $stid=oci_parse($conn,$sql);
+          $r=oci_execute($stid);
+        }
+        else
+        {
+          $sql="insert into m_pkg(username,pkg_id) values ('$uname',$package_ID)";
+            $stid=oci_parse($conn,$sql);
+            $r=oci_execute($stid);
+        }
+        
+        
+        $sql = "update member set MEMBERSHIP_EXPIRY = ADD_MONTHS(MEMBERSHIP_EXPIRY,$dur)  where username='$uname'";
+        $stid = oci_parse($conn, $sql);
+        $r = oci_execute($stid);
+
+        
+        //  $sql = "insert into income (trx_id, username, inc_amount, br_name, inc_type, inc_dateandtime) values(TRX_ID_GENERATE_SEQUENCE.nextval, '$uname', $amount, '$br_name', 'Member Payment', SYSTIMESTAMP)";
         // $stid = oci_parse($conn, $sql);
         // $r = oci_execute($stid);
-        //updating month of the user
+        //echo $r."<br>";
+        // $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
+        // echo var_dump($row);
         $trig = "CREATE or REPLACE TRIGGER TRIGGER_INCOME
         AFTER UPDATE OF MEMBERSHIP_EXPIRY
         ON MEMBER
@@ -88,25 +132,12 @@ if (!$conn) {
         var4:= 'Member Payment';
         SELECT PKG_CHARGE INTO var1 FROM PACKAGE NATURAL JOIN M_PKG WHERE USERNAME=var2;
         SELECT BR_NAME INTO var3 FROM USERS NATURAL JOIN M_PKG WHERE USERNAME=var2;
+        
         INSERT INTO Income(TRX_ID,USERNAME,INC_AMOUNT,BR_NAME,INC_TYPE,INC_DATEANDTIME) VALUES (TRX_ID_GENERATE_SEQUENCE.nextval,var2,var1,var3,var4,SYSTIMESTAMP);
         END;
         ";
         $stid = oci_parse($conn, $trig);
         $r = oci_execute($stid);
-        $package_ID = $_SESSION['pk_id'];
-
-        $sql = "select PKG_DURATION from PACKAGE where PKG_ID= $package_ID";
-        $stid = oci_parse($conn, $sql);
-        $r = oci_execute($stid);
-        $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-        $dur = $row['PKG_DURATION'];
-        $_SESSION['xxx'] = $uname;
-        //  echo $dur;
-        $sql = "update member set MEMBERSHIP_EXPIRY =ADD_MONTHS(MEMBERSHIP_EXPIRY,$dur)  where username='$uname'";
-        $stid = oci_parse($conn, $sql);
-        $r = oci_execute($stid);
-        // $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS);
-        echo var_dump($row);
       } else {
         // $_SESSION['xxx'] = $_POST;
         $pkg_id = $_POST['pkg_id'];
@@ -173,7 +204,7 @@ if (!$conn) {
     </div> -->
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand-lg navbar-dark fixed-top">
-      <!-- Left navbar links -->
+      
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
@@ -186,7 +217,7 @@ if (!$conn) {
           </li>
         </ul>
       </div>
-    </nav>
+    </nav> 
     <!-- /.navbar -->
     <?php
     if($designation == "Receptionist") {
@@ -283,17 +314,17 @@ if (!$conn) {
     }
     elseif ($designation == 'Member') {
       echo '
-      <!-- Main Sidebar Container -->
+      
       <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        <!-- Brand Logo -->
+        
         <a href="#" class="brand-link">
           <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
           <span class="brand-text font-weight-light">Fitness Mania</span>
         </a>
   
-        <!-- Sidebar -->
+        
         <div class="sidebar">
-          <!-- Sidebar user panel (optional) -->
+          
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
               <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
@@ -304,23 +335,13 @@ if (!$conn) {
             </div>
           </div>
   
-          <!-- SidebarSearch Form -->
-          <!-- <div class="form-inline">
-            <div class="input-group" data-widget="sidebar-search">
-              <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-              <div class="input-group-append">
-                <button class="btn btn-sidebar">
-                  <i class="fas fa-search fa-fw"></i>
-                </button>
-              </div>
-            </div>
-          </div> -->
+         
+            
   
-          <!-- Sidebar Menu -->
+         
           <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-              <!-- Add icons to the links using the .nav-icon class
-                 with font-awesome or any other icon font library -->
+              
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -378,9 +399,9 @@ if (!$conn) {
   
             </ul>
           </nav>
-          <!-- /.sidebar-menu -->
+         
         </div>
-        <!-- /.sidebar -->
+       
       </aside>  
       ';
     } else {
@@ -489,15 +510,12 @@ if (!$conn) {
       } else {
         echo '
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-<!-- Brand Logo -->
 <a href="#" class="brand-link">
 <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
 <span class="brand-text font-weight-light">Fitness Mania</span>
 </a>
 
-<!-- Sidebar -->
 <div class="sidebar">
-<!-- Sidebar user (optional) -->
 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
 <div class="image">
   <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
@@ -511,7 +529,6 @@ if (!$conn) {
 
 
 
-<!-- Sidebar Menu -->
 <nav class="mt-2">
 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
   <!-- Add icons to the links using the .nav-icon class
@@ -571,9 +588,7 @@ if (!$conn) {
           
         </ul>
       </nav>
-      <!-- /.sidebar-menu -->
     </div>
-    <!-- /.sidebar -->
   </aside> 
           
   ';
@@ -596,9 +611,7 @@ if (!$conn) {
                 }
 
                 ?>
-                <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button> -->
+               
               </div>
               <div class="modal-body">
                 <form action="packages_list.php" method="POST">
