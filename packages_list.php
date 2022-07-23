@@ -66,7 +66,7 @@ if (!$conn) {
         $mm = $_SESSION['pk_amount'];
        
         //updating month of the user
-        
+        // select * from user_errors where type = 'TRIGGER' and name = 'Trigger_Income'
         //echo var_dump($stid)."<br>";
         $package_ID = $_SESSION['pk_id'];
 
